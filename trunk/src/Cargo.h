@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Cargo{
+class Cargo : public Grabable, public Logueable {
 private:
 	string cargoPrincipal;
 	vector<string> *cargos;
