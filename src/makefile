@@ -1,4 +1,5 @@
-OBJS = main.o Cargo.o Distrito.o Eleccion.o
+OBJS = main.o Cargo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
+Votante.o VotoElectronicoExcepcion.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -pedantic -c $(DEBUG)
@@ -24,8 +25,8 @@ Eleccion.h: Cargo.h Distrito.h Grabable.h Logueable.h
 Grabable.o: Grabable.cpp Grabable.h
 	$(CC) $(CFLAGS) Grabable.cpp
 	
-Canidato.o: Candidato.cpp Candidato.h
-	$(CC) $(CFLAGS) Grabable.cpp
+Candidato.o: Candidato.cpp Candidato.h
+	$(CC) $(CFLAGS) Candidato.cpp
 	
 Configuracion.o: Configuracion.cpp Configuracion.h
 	$(CC) $(CFLAGS) Configuracion.cpp
