@@ -8,6 +8,9 @@
 #ifndef VOTANTE_H_
 #define VOTANTE_H_
 
+#include "Grabable.h"
+#include "Logueable.h"
+
 class Votante : public Grabable, public Logueable  {
 public:
 	Votante();

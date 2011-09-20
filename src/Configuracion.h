@@ -8,6 +8,10 @@
 #ifndef CONFIGURACION_H_
 #define CONFIGURACION_H_
 
+#include <string>
+
+using namespace std;
+
 class Configuracion {
 public:
 	Configuracion();

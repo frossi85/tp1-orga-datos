@@ -8,11 +8,15 @@
 #ifndef LOGUEABLE_H_
 #define LOGUEABLE_H_
 
+#include <string>
+
+using namespace std;
+
 class Logueable {
 private:
-	string className;
+	std::string className;
 	int id;
-	string description;
+	std::string description;
 
 public:
 	Logueable();
