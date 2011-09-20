@@ -25,6 +25,8 @@ string Configuracion::getValorPorPrefijo(string prefijo)
 			//Sino sigo
 
 	//Si llegue aca es por q la configuracion no existe, debo lanzar una excepcion
+
+	return prefijo;
 }
 
 

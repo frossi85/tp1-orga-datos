@@ -10,13 +10,40 @@ Voto Electronico: $(OBJS)
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
 
-Cargo.o: Cargo.cpp Cargo.h
+Cargo.o: Cargo.cpp Cargo.h Grabable.h Logueable.h
 	$(CC) $(CFLAGS) Cargo.cpp
 
-Distrito.o: Distrito.cpp Distrito.h
+Distrito.o: Distrito.cpp Distrito.h Grabable.h Logueable.h
 	$(CC) $(CFLAGS) Distrito.cpp
 
 Eleccion.o: Eleccion.cpp Eleccion.h
 	$(CC) $(CFLAGS) Eleccion.cpp
 
-Eleccion.h: Cargo.h Distrito.h
+Eleccion.h: Cargo.h Distrito.h Grabable.h Logueable.h
+
+Grabable.o: Grabable.cpp Grabable.h
+	$(CC) $(CFLAGS) Grabable.cpp
+	
+Canidato.o: Candidato.cpp Candidato.h
+	$(CC) $(CFLAGS) Grabable.cpp
+	
+Configuracion.o: Configuracion.cpp Configuracion.h
+	$(CC) $(CFLAGS) Configuracion.cpp
+	
+Informe.o: Informe.cpp Informe.h
+	$(CC) $(CFLAGS) Informe.cpp
+	
+Lista.o: Lista.cpp Lista.h
+	$(CC) $(CFLAGS) Lista.cpp
+	
+Logger.o: Logger.cpp Logger.h
+	$(CC) $(CFLAGS) Logger.cpp
+	
+Logueable.o: Logueable.cpp Logueable.h
+	$(CC) $(CFLAGS) Logueable.cpp
+	
+Votante.o: Votante.cpp Votante.h
+	$(CC) $(CFLAGS) Votante.cpp
+	
+VotoElectronicoExcepcion.o: VotoElectronicoExcepcion.cpp VotoElectronicoExcepcion.h
+	$(CC) $(CFLAGS) VotoElectronicoExcepcion.cpp

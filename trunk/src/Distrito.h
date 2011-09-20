@@ -2,6 +2,8 @@
 #define DISTRITO_H_
 
 #include <string>
+#include "Grabable.h"
+#include "Logueable.h"
 
 using namespace std;
 

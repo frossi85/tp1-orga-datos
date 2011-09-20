@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#include "Grabable.h"
+#include "Logueable.h"
+
 using namespace std;
 
 class Cargo : public Grabable, public Logueable {

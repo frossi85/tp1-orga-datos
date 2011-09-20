@@ -8,10 +8,15 @@
 #ifndef CANDIDATO_H_
 #define CANDIDATO_H_
 
-class Candidato : public Votante, public Grabable, public Logueable  {
-private:
-	Lista listaPropia;
-	Cargo cargoAPresentarse;
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Candidato {//: public Votante, public Grabable, public Logueable  {
+//private:
+	//Lista listaPropia;
+	//Cargo cargoAPresentarse;
 public:
 	Candidato();
 	virtual ~Candidato();
