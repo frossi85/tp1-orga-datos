@@ -15,3 +15,10 @@ Logger::Logger() {
 Logger::~Logger() {
 	// TODO Auto-generated destructor stub
 }
+
+static void Logger::Alta(Logueable obj) {
+	string tipoEntidad = obj.getClassName();
+
+
+
+}

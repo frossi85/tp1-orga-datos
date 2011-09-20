@@ -12,10 +12,13 @@ class Logueable {
 private:
 	string className;
 	int id;
+	string description;
 
 public:
 	Logueable();
 	virtual ~Logueable();
+	string getClassName();
+
 };
 
 #endif /* LOGUEABLE_H_ */
