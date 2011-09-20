@@ -15,3 +15,10 @@ Logueable::Logueable() {
 Logueable::~Logueable() {
 	// TODO Auto-generated destructor stub
 }
+
+string Logueable::getClassName()
+{
+	return this.className;
+}
+
+

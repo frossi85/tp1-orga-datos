@@ -9,7 +9,7 @@ using namespace std;
 class Cargo : public Grabable, public Logueable {
 private:
 	string cargoPrincipal;
-	vector<string> *cargos;
+	vector<string> *cargosSecundarios;
 public:
 	Cargo(string cargoPrincipal);
 };
