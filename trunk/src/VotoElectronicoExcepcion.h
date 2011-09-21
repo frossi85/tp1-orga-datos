@@ -8,10 +8,22 @@
 #ifndef VOTOELECTRONICOEXCEPCION_H_
 #define VOTOELECTRONICOEXCEPCION_H_
 
-class VotoElectronicoExcepcion {
+#include <string>
+#include <exception>
+
+using namespace std;
+
+class VotoElectronicoExcepcion : public exception{
+private:
+	string mensajePersonalizado;
 public:
-	VotoElectronicoExcepcion();
-	virtual ~VotoElectronicoExcepcion();
+	VotoElectronicoExcepcion(string mensaje) throw();
+	virtual ~VotoElectronicoExcepcion() throw();
+
+	virtual const char* what() const throw()
+	{
+	    return "VotoElectronicoExcepcion; "; + this->mensajePersonalizado.c_str();
+	}
 };
 
 #endif /* VOTOELECTRONICOEXCEPCION_H_ */

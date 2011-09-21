@@ -7,11 +7,11 @@
 
 #include "VotoElectronicoExcepcion.h"
 
-VotoElectronicoExcepcion::VotoElectronicoExcepcion() {
-	// TODO Auto-generated constructor stub
-
+VotoElectronicoExcepcion::VotoElectronicoExcepcion(string mensaje) throw() {
+	this->mensajePersonalizado = mensaje;
 }
 
-VotoElectronicoExcepcion::~VotoElectronicoExcepcion() {
+VotoElectronicoExcepcion::~VotoElectronicoExcepcion() throw() {
 	// TODO Auto-generated destructor stub
+
 }
