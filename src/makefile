@@ -1,12 +1,12 @@
 OBJS = main.o Cargo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o VotoElectronicoExcepcion.o
+Votante.o Utilidades.o VotoElectronicoExcepcion.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -pedantic -c $(DEBUG)
 LFLAGS = -Wall -pedantic $(DEBUG)
 
-Voto Electronico: $(OBJS)
-	$(CC) $(LFLAGS) $(OBJS) -o Voto_Electronico
+VotoElectronico: $(OBJS)
+	$(CC) $(LFLAGS) $(OBJS) -o VotoElectronico
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
@@ -45,6 +45,9 @@ Logueable.o: Logueable.cpp Logueable.h
 	
 Votante.o: Votante.cpp Votante.h
 	$(CC) $(CFLAGS) Votante.cpp
+	
+Utilidades.o: Utilidades.cpp Utilidades.h
+	$(CC) $(CFLAGS) Utilidades.cpp
 	
 VotoElectronicoExcepcion.o: VotoElectronicoExcepcion.cpp VotoElectronicoExcepcion.h
 	$(CC) $(CFLAGS) VotoElectronicoExcepcion.cpp

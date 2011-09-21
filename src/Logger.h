@@ -10,8 +10,17 @@
 #include "Logueable.h"
 
 #include "Logueable.h"
+#include "Utilidades.h"
+#include "VotoElectronicoExcepcion.h"
+#include <fstream>
+#include <ctime>
+#include <string>
+
+using namespace std;
 
 class Logger {
+private:
+	static void logAccion(Logueable obj, string accion);
 public:
 	Logger();
 	virtual ~Logger();
