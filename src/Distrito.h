@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Distrito : public Grabable, public Logueable {
+class Distrito{
 private:
 	string nombre;
 

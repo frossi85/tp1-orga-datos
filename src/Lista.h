@@ -8,12 +8,7 @@
 #ifndef LISTA_H_
 #define LISTA_H_
 
-#include "Grabable.h"
-#include "Logueable.h"
-
-using namespace std;
-
-class Lista : public Grabable, public Logueable  {
+class Lista{
 public:
 	Lista();
 	virtual ~Lista();

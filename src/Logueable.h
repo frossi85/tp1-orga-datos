@@ -7,6 +7,7 @@
 
 #ifndef LOGUEABLE_H_
 #define LOGUEABLE_H_
+#include <string.h>
 
 #include <string>
 

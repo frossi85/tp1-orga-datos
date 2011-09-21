@@ -8,13 +8,8 @@
 #ifndef CANDIDATO_H_
 #define CANDIDATO_H_
 
-#include <string>
-#include <vector>
-
-using namespace std;
-
-class Candidato {//: public Votante, public Grabable, public Logueable  {
-//private:
+class Candidato{
+private:
 	//Lista listaPropia;
 	//Cargo cargoAPresentarse;
 public:
