@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Eleccion : public Grabable, public Logueable {
+class Eleccion{
 private:
 	string fecha;
 	Cargo *cargo;

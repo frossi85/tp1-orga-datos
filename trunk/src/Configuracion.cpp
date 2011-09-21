@@ -16,7 +16,7 @@ Configuracion::~Configuracion() {
 	// TODO Auto-generated destructor stub
 }
 
-string Configuracion::getValorPorPrefijo(string prefijo)
+/*string Configuracion::getValorPorPrefijo(string prefijo)
 {
 	//Mientras no lo encuentre o no sea el fin de archivo
 		//Leer una linea
@@ -25,8 +25,6 @@ string Configuracion::getValorPorPrefijo(string prefijo)
 			//Sino sigo
 
 	//Si llegue aca es por q la configuracion no existe, debo lanzar una excepcion
-
-	return prefijo;
-}
+}*/
 
 

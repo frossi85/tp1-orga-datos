@@ -16,7 +16,7 @@ class Configuracion {
 public:
 	Configuracion();
 	virtual ~Configuracion();
-	string getValorPorPrefijo(string prefijo);
+	//string getValorPorPrefijo(string prefijo);
 };
 
 #endif /* CONFIGURACION_H_ */
