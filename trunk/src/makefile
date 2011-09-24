@@ -40,6 +40,8 @@ Lista.o: Lista.cpp Lista.h
 Logger.o: Logger.cpp Logger.h
 	$(CC) $(CFLAGS) Logger.cpp
 	
+Logger.h: Logueable.h Utilidades.h VotoElectronicoExcepcion.h
+	
 Logueable.o: Logueable.cpp Logueable.h
 	$(CC) $(CFLAGS) Logueable.cpp
 	
