@@ -8,7 +8,13 @@
 #ifndef GRABABLE_H_
 #define GRABABLE_H_
 
+#include <string>
+
+using namespace std;
+
 class Grabable {
+private:
+	string _stringId;// = "Falta Implementar";
 public:
 	Grabable();
 	virtual ~Grabable();
@@ -16,6 +22,8 @@ public:
 	void Crear();
 	void Modificar();
 	void Borrar();
+
+	bool operator ==(const Grabable &obj) const;
 };
 
 #endif /* GRABABLE_H_ */
