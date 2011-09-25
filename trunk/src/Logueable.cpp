@@ -9,7 +9,7 @@
 
 Logueable::Logueable() {
 	// TODO Auto-generated constructor stub
-	this->className = "";//new std::string(); //ver por q no funciona el new
+	this->className = "";
 }
 
 Logueable::~Logueable() {

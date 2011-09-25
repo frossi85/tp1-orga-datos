@@ -10,3 +10,10 @@
 Distrito::Distrito(string nombre){
 	this->nombre = nombre;
 }
+
+string Distrito::getNombre()
+{
+	return this->nombre;
+}
+
+

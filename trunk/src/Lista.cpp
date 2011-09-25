@@ -7,11 +7,31 @@
 
 #include "Lista.h"
 
-Lista::Lista() {
-	// TODO Auto-generated constructor stub
-
+Lista::Lista(string nombre, Eleccion& eleccion)
+{
+	this->_nombre = nombre;
+	this->_eleccion = &eleccion;
 }
 
-Lista::~Lista() {
-	// TODO Auto-generated destructor stub
+
+
+Eleccion& Lista::getEleccion()
+{
+	return *(this->_eleccion);
 }
+
+
+
+string Lista::getNombre()
+{
+	return this->_nombre;
+}
+
+
+
+Lista::~Lista()
+{
+}
+
+
+
