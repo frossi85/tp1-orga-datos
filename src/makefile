@@ -1,4 +1,4 @@
-OBJS = main.o Cargo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
+OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
 Votante.o Utilidades.o VotoElectronicoExcepcion.o
 CC = g++
 DEBUG = -g
@@ -47,6 +47,9 @@ Logueable.o: Logueable.cpp Logueable.h
 	
 Votante.o: Votante.cpp Votante.h
 	$(CC) $(CFLAGS) Votante.cpp
+
+Conteo.o: Conteo.cpp Conteo.h Grabable.h Logueable.h Lista.h Distrito.h Eleccion.h
+	$(CC) $(CFLAGS) Conteo.cpp
 	
 Utilidades.o: Utilidades.cpp Utilidades.h
 	$(CC) $(CFLAGS) Utilidades.cpp

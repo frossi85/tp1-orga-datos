@@ -76,7 +76,7 @@ void mostrar_ayuda(){
 string pedir_usuario(){
 	char user[20];
 	cout<<("Usuario: ");
-	scanf("%s",user);
+	scanf("%s",user); //en vez de scanf por q no usar cin?? tratemos de no mezclar codigo c con c++
 	return user;
 }
 

@@ -22,9 +22,8 @@ void Logger::logAccion(Logueable obj, string accion) {
 	//TODO : Levantar del archivo de configuracion la ubicacion del archivo en donde voy a loguear
 	string urlArchivoLog = "./log.txt";
 	string log;
-	ofstream archivoLog("./log.txt", ios::app); //Ver si debo abrirlo solo en modo escritura
+	ofstream archivoLog(urlArchivoLog.c_str(), ios::app); //Ver si debo abrirlo solo en modo escritura
 
-	//TODO : Ver de reemplazarlo por otro tipo de excepcion??
 	if(!archivoLog)
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de log" + urlArchivoLog);
 
