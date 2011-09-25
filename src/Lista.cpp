@@ -7,17 +7,16 @@
 
 #include "Lista.h"
 
-Lista::Lista(string nombre, Eleccion& eleccion)
+Lista::Lista(string nombre, Eleccion& eleccion) : _eleccion(eleccion)
 {
 	this->_nombre = nombre;
-	this->_eleccion = &eleccion;
 }
 
 
 
 Eleccion& Lista::getEleccion()
 {
-	return *(this->_eleccion);
+	return this->_eleccion;
 }
 
 

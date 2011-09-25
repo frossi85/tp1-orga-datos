@@ -19,7 +19,7 @@ using namespace std;
 class Lista : public Grabable, public Logueable {
 private:
 	string _nombre;
-	Eleccion * _eleccion;
+	Eleccion& _eleccion;
 public:
 	Lista(string nombre, Eleccion& eleccion);
 	virtual ~Lista();
@@ -30,7 +30,7 @@ public:
 
 	//Por lo q veo en el modelo una lista esta asociada con una y solo una eleccion en particular
 	//por lo cual no se necesitan setters
-	//TODO: Una lista solo se pŕesenta a una eleccion, si se quieren presentar los mismos candidatos
+	//TODO: Una lista solo se presenta a una eleccion, si se quieren presentar los mismos candidatos
 	//para una proxima eleccion deben crear otra lista
 };
 

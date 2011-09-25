@@ -15,3 +15,8 @@ Grabable::Grabable() {
 Grabable::~Grabable() {
 	// TODO Auto-generated destructor stub
 }
+
+bool Grabable::operator ==(const Grabable &obj) const
+{
+    return (this->_stringId == obj._stringId);
+}
