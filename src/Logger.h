@@ -19,6 +19,7 @@ using namespace std;
 
 class Logger {
 private:
+	static const string RUTA_ARCHIVO_VOTAR;
 	static void logAccion(Logueable obj, string accion);
 public:
 	Logger();
@@ -26,6 +27,8 @@ public:
 	static void Alta(Logueable obj);
 	static void Modificacion(Logueable obj);
 	static void Baja(Logueable obj);
+
+	//Configuracion::getValorPorPrefijo(RUTA_ARCHIVO_VOTAR);
 };
 
 #endif /* LOGGER_H_ */
