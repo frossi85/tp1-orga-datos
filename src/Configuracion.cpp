@@ -5,26 +5,59 @@
  *      Author: facundo
  */
 
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Configuracion.h"
+using namespace std;
 
 Configuracion::Configuracion() {
-	// TODO Auto-generated constructor stub
+	constantes[0]=RUTA_VOTANTES;
+	FILE *fp;
+	char cadena[100];
+	char *c,*conv;
+	int i;
+	fp = fopen("config.ini", "r");
+	do {
+		c = fgets(cadena, 100, fp);
+		if (c != NULL) {
+			for (i=0;i<20;i++){
+				if (cadena[i]=='\n'){
+					cadena[i]='\0';
+				}
+			}
+			for (i=0; i<CANT_CONF;i++) {
+				conv=&constantes[i][0];
+				if (strcmp(cadena,conv)==0) {
+					c = fgets(cadena, 100, fp);
+					valores[i]=string(cadena);
+				}
+			}
+		}
+	} while (c != NULL);
+	fclose(fp);
 
 }
 
 Configuracion::~Configuracion() {
-	// TODO Auto-generated destructor stub
 }
 
-/*string Configuracion::getValorPorPrefijo(string prefijo)
+Configuracion *Configuracion::getConfig() {
+	 static Configuracion instance;
+	 return &instance;
+}
+
+
+string Configuracion::getValorPorPrefijo(string prefijo)
 {
-	//Mientras no lo encuentre o no sea el fin de archivo
-		//Leer una linea
-		//Preguntar si el prefijo conside con el buscado
-			//Si consigue retornar el valor
-			//Sino sigo
-
-	//Si llegue aca es por q la configuracion no existe, debo lanzar una excepcion
-}*/
-
+	int i;
+	for(i=0;i<CANT_CONF; i++)
+	{
+		if (constantes[i]==RUTA_VOTANTES) {
+			return valores[i];
+		}
+	}
+	return NULL;
+}
 
