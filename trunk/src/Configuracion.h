@@ -8,15 +8,31 @@
 #ifndef CONFIGURACION_H_
 #define CONFIGURACION_H_
 
+#define RUTA_VOTANTES "<ruta_votantes>"
+#define RUTA_DISTRITOS "<ruta_distritos>"
+#define RUTA_ELECCION "<ruta_eleccion>"
+#define RUTA_LISTA "<ruta_lista>"
+#define RUTA_CONTEO "<ruta_conteo>"
+#define RUTA_CANDIDATO "<ruta_candidato>"
+#define RUTA_CARGO "<ruta_cargo>"
+#define RUTA_ADMINISTRADOR "<ruta_administrador>"
+
+#define CANT_CONF 8
+
 #include <string>
 
 using namespace std;
 
 class Configuracion {
+private:
+		string constantes[CANT_CONF];
+		string valores[CANT_CONF];
+		Configuracion();
 public:
-	Configuracion();
-	virtual ~Configuracion();
-	//string getValorPorPrefijo(string prefijo);
+		static Configuracion *getConfig();
+        ~Configuracion();
+        string getValorPorPrefijo(string prefijo);
 };
 
 #endif /* CONFIGURACION_H_ */
+
