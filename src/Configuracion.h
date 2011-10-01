@@ -3,6 +3,12 @@
  *
  *  Created on: 19/09/2011
  *      Author: facundo
+ *
+ *  caso de uso
+ *  
+ *  Configuracion *t = Configuracion::getConfig();
+  *  cout << t->getValorPorPrefijo(RUTA_VOTANTES);
+ *
  */
 
 #ifndef CONFIGURACION_H_
