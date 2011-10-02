@@ -18,6 +18,7 @@ private:
 
 public:
 	BloqueHash(unsigned int tamanioDispersion);
+	~BloqueHash();
 	int getTamanioBloques();
 	int getTamanioDispersion();
 	int getCantidadRegistros();
