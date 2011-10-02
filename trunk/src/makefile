@@ -1,5 +1,5 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o Utilidades.o VotoElectronicoExcepcion.o
+Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -pedantic -c $(DEBUG)
@@ -56,3 +56,11 @@ Utilidades.o: Utilidades.cpp Utilidades.h
 	
 VotoElectronicoExcepcion.o: VotoElectronicoExcepcion.cpp VotoElectronicoExcepcion.h
 	$(CC) $(CFLAGS) VotoElectronicoExcepcion.cpp
+
+RegistroIndice.o: RegistroIndice.cpp RegistroIndice.h
+	$(CC) $(CFLAGS) RegistroIndice.cpp
+	
+BloqueHash.o: BloqueHash.cpp BloqueHash.h
+	$(CC) $(CFLAGS) BloqueHash.cpp
+	
+BloqueHash.h: Bloque.h RegistroIndice.h
