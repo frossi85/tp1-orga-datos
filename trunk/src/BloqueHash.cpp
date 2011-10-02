@@ -19,6 +19,8 @@ int BloqueHash::getTamanioBloques(){
 	return this->tamanio;
 }
 
+//////////////////////////
+
 int BloqueHash::getCantidadRegistros(){
 	return this->registros.size();
 }
@@ -63,9 +65,24 @@ bool BloqueHash::Eliminar(RegistroIndice *registro){
 	return false;
 }
 
+////////////////////////
+
+bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
+
+	return false;
+}
+
+////////////////////
+
+Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
+
+	return NULL;
+}
+
 ///////////////////////
 
 list<RegistroIndice *> BloqueHash::VaciarBloque(){
 	//- devolver los registros del bloque
 	//- actualizar el espacio libre del bloque
 }
+
