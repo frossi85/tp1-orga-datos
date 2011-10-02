@@ -7,6 +7,13 @@ BloqueHash::BloqueHash(unsigned int tamanioDispersion){
 	this->espacioLibre = this->tamanio - sizeof(this->espacioLibre) - sizeof(this->tamanioDispersion);
 }
 
+///////////////////////
+
+BloqueHash::~BloqueHash(){
+	while(!this->registros.empty()){
+		this->registros.pop_back();
+	}
+}
 /////////////////////////
 
 int BloqueHash::getTamanioDispersion(){
@@ -37,8 +44,17 @@ RegistroIndice* BloqueHash::Buscar(RegistroIndice *registro){
 	//- recorrer la lista de registros del bloque
 	//- comparar la clave de "registro" con las claves de
 	//los registros de la lista (sobrecarga de == para registros)
-	//- si coinciden las claves, crear registro aux con clave y dato
-	//correspondiente, devolver y salir
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = this->registros.begin(); it != this->registros.end(); it++){
+		registroEnLista = *it;
+
+		//- si coinciden las claves, crear registro aux con clave y dato
+		//correspondiente, devolver y salir
+		if(registroEnLista->getClave() == registro->getClave()){
+			return registroEnLista;
+		}
+	}
 	//- devolver NULL si no se encuentra.
 	return NULL;
 }
@@ -46,12 +62,28 @@ RegistroIndice* BloqueHash::Buscar(RegistroIndice *registro){
 //////////////////////////
 
 bool BloqueHash::Insertar(RegistroIndice *registro){
+	/* Validación: si el registro ya estaba en la lista, lo sobreescribe
+	 * (lo elimina para luego insertar el nuevo)
+	 */
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = this->registros.begin(); it != this->registros.end(); it++){
+		registroEnLista = *it;
+		if(registroEnLista->getClave() == registro->getClave()){
+			this->espacioLibre += registroEnLista->getTamanioEnDisco();
+			this->registros.erase(it);
+		}
+	}
+
 	//- revisa cuál sería el tamaño del registro ya persistido y lo
 	//compara con espacioLibre para ver que si la inserción es posible
-	//- si entra, lo agrega a la lista de registros del bloque
+	if(registro->getTamanioEnDisco() <= this->espacioLibre){
+	//- si entra, lo agrega a la lista de registros del bloque, actualiza el espacio libre y devuelve true
 	//- si no, devuelve false sin modificar el bloque (desborde)
-	//NOTA: agregar validación para el caso de que el registro ya esté en
-	//el bloque
+		this->registros.push_back(registro);
+		this->espacioLibre -= registro->getTamanioEnDisco();
+		return true;
+	}
 	return false;
 }
 
@@ -68,14 +100,16 @@ bool BloqueHash::Eliminar(RegistroIndice *registro){
 ////////////////////////
 
 bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
-
+	//graba el bloque en el archivo.
+	//Si no pudo grabar, devuelve false
 	return false;
 }
 
 ////////////////////
 
 Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
-
+	//levanta el bloque a memoria.
+	//Si no pudo leer, devuelve NULL
 	return NULL;
 }
 

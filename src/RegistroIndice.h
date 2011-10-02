@@ -15,6 +15,9 @@ public:
 	string getClave();
 	unsigned int getOffset();
 	void setOffset(unsigned int offset);
+	//Devuelve el tamaño que tenfría el registro
+	//una vez persistido
+	unsigned int getTamanioEnDisco();
 };
 
 #endif /* REGISTROINDICE_H_ */
