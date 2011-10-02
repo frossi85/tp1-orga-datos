@@ -63,17 +63,11 @@ RegistroIndice* BloqueHash::Buscar(RegistroIndice *registro){
 
 bool BloqueHash::Insertar(RegistroIndice *registro){
 	/* Validación: si el registro ya estaba en la lista, lo sobreescribe
-	 * (lo elimina para luego insertar el nuevo)
+	 * (lo elimina, actualizando espacioLibre, para luego insertar el nuevo)
 	 */
-	RegistroIndice *registroEnLista = NULL;
-	list<RegistroIndice *>::iterator it;
-	for (it = this->registros.begin(); it != this->registros.end(); it++){
-		registroEnLista = *it;
-		if(registroEnLista->getClave() == registro->getClave()){
-			this->espacioLibre += registroEnLista->getTamanioEnDisco();
-			this->registros.erase(it);
-		}
-	}
+	this->Eliminar(registro);
+	/* Fin de la validación
+	 */
 
 	//- revisa cuál sería el tamaño del registro ya persistido y lo
 	//compara con espacioLibre para ver que si la inserción es posible
@@ -94,6 +88,17 @@ bool BloqueHash::Eliminar(RegistroIndice *registro){
 	//encontrar "registro".
 	//- borrarlo de la lista, actualizar espacioLibre y devolver true
 	//- si no estaba, devolver false
+
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = this->registros.begin(); it != this->registros.end(); it++){
+		registroEnLista = *it;
+		if(registroEnLista->getClave() == registro->getClave()){
+			this->espacioLibre += registroEnLista->getTamanioEnDisco();
+			this->registros.erase(it);
+			return true;
+		}
+	}
 	return false;
 }
 
