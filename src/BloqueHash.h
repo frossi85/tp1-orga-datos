@@ -2,6 +2,7 @@
 #define BLOQUEHASH_H_
 
 #include <iostream>
+#include <fstream>
 #include <list>
 #include "Bloque.h"
 #include "RegistroIndice.h"
@@ -25,6 +26,8 @@ public:
 	bool Insertar(RegistroIndice *registro);
 	bool Eliminar(RegistroIndice *registro);
 	list<RegistroIndice *> VaciarBloque();
+	bool Persistir(string rutaArchivo, unsigned int offset);
+	Bloque* Leer(string rutaArchivo, unsigned int offset);
 };
 
 #endif /* BLOQUEHASH_H_ */
