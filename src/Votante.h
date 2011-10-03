@@ -18,7 +18,7 @@
 
 using namespace std;
 
-class Votante : public Grabable, public Logueable {
+class Votante {//: public Grabable, public Logueable {
 private:
 	int _dni;
 	string _nombreYApellido;

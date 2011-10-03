@@ -7,16 +7,7 @@
 
 #include "Grabable.h"
 
-Grabable::Grabable() {
-	// TODO Auto-generated constructor stub
-
-}
-
-Grabable::~Grabable() {
-	// TODO Auto-generated destructor stub
-}
-
-bool Grabable::operator ==(const Grabable &obj) const
-{
-    return (this->_stringId == obj._stringId);
-}
+//bool Grabable::operator ==(const Grabable &obj) const
+//{
+//    return (this->_stringId == obj._stringId);
+//}

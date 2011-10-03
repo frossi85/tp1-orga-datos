@@ -1,5 +1,5 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o
+Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -pedantic -c $(DEBUG)
@@ -67,3 +67,6 @@ BloqueHash.h: Bloque.h RegistroIndice.h
 
 Menu.o: Menu.cpp Menu.h
 	$(CC) $(CFLAGS) Menu.cpp
+	
+DataAccess.o: DataAccess.cpp DataAccess.h
+	$(CC) $(CFLAGS) DataAccess.cpp
