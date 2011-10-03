@@ -2,6 +2,7 @@
 #define REGISTROINDICE_H_
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
 	//Devuelve el tamaño que tenfría el registro
 	//una vez persistido
 	unsigned int getTamanioEnDisco();
+	void Persistir(fstream *archivo);
+	RegistroIndice* Leer(fstream *archivo);
 };
 
 #endif /* REGISTROINDICE_H_ */
