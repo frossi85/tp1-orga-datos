@@ -4,6 +4,8 @@
 #include <cstdlib>
 
 #include "menu.h"
+#include "Distrito.h"
+#include "DataAccess.h"
 
 using namespace std;
 
@@ -13,6 +15,22 @@ string pedir_contrasena();
 bool confirmar_usuario(int,string, string);
 
 int main(int argc, char *argv[]){
+
+	///CODIGO DE PRUEBA FACUNDO
+	Distrito distrito("Lanus");
+	distrito.setId(45);
+
+	DataAccess dataAccess;
+
+	dataAccess.Guardar(distrito);
+
+	//distrito.Crear();
+
+	Distrito distrito2;
+
+	dataAccess.getPorId(0, distrito2);
+	//distrito2.Leer();
+
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){
 		// Numero incorrecto de parametros
