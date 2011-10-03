@@ -29,8 +29,8 @@ unsigned int RegistroIndice::getTamanioEnDisco(){
 	/* NOTA: lo que se guarda tiene esta forma:
 	 * (long_total)(long_Clave)ClaveOffset
 	 */
-	unsigned int tamanioLongitudClave = sizeof(this->getClave().size());
-	unsigned int tamanioClave = this->getClave().size() * sizeof(char);
+	unsigned int tamanioLongitudClave = sizeof(tamanioLongitudClave);
+	unsigned int tamanioClave = (this->getClave().size()) * sizeof(char);
 	unsigned int tamanioOffset = sizeof(this->getOffset());
 	unsigned int tamanioTotal = sizeof(tamanioTotal) + tamanioLongitudClave + tamanioClave + tamanioOffset;
 
@@ -60,6 +60,7 @@ RegistroIndice* RegistroIndice::Leer(fstream *archivo){
 	unsigned int longClave;
 	archivo->read((char*)&longClave, sizeof(longClave));
 	string clave;
+	clave.reserve(longClave);
 	archivo->read((char*)&clave, sizeof(char)*longClave);
 	unsigned int offset;
 	archivo->read((char*)&offset, sizeof(offset));
