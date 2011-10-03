@@ -1,7 +1,7 @@
 #include "BloqueHash.h"
 
 BloqueHash::BloqueHash(unsigned int tamanioDispersion){
-
+	//crea un bloque sin registros
 	this->tamanioDispersion = tamanioDispersion;
 	this->tamanio = TAM_BLOQUE_HASH;
 	this->espacioLibre = this->tamanio - sizeof(this->espacioLibre) - sizeof(this->tamanioDispersion);
@@ -107,7 +107,19 @@ bool BloqueHash::Eliminar(RegistroIndice *registro){
 bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 	//graba el bloque en el archivo.
 	//Si no pudo grabar, devuelve false
-	return false;
+
+	fstream archBloques(rutaArchivo.c_str(), ios::out | ios::binary);
+	archBloques.seekp(offset);
+	archBloques.write((char*)&(this->tamanioDispersion), sizeof(this->tamanioDispersion));
+	archBloques.write((char*)&(this->espacioLibre), sizeof(this->espacioLibre));
+
+	RegistroIndice *registro = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = this->registros.begin(); it != this->registros.end(); it++){
+		registro = *it;
+		//escribir registro
+	}
+	return true;
 }
 
 ////////////////////

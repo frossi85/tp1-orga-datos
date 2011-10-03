@@ -36,3 +36,33 @@ unsigned int RegistroIndice::getTamanioEnDisco(){
 
 	return tamanioTotal; //en bytes
 }
+
+////////////////
+
+void RegistroIndice::Persistir(fstream *archivo){
+
+	unsigned int tamTotal = this->getTamanioEnDisco();
+	archivo->write((char*)&tamTotal, sizeof(tamTotal));
+	unsigned int tamLongitudClave = sizeof(char)*(this->getClave().size());
+	archivo->write((char*)&tamLongitudClave, sizeof(tamLongitudClave));
+	string clave = this->getClave();
+	archivo->write((char*)&clave, sizeof(char)*(clave.size()));
+	unsigned int offset = this->getOffset();
+	archivo->write((char*)&offset, sizeof(offset));
+}
+
+/////////////////
+
+RegistroIndice* RegistroIndice::Leer(fstream *archivo){
+
+	unsigned int longTotal;
+	archivo->read((char*)&longTotal, sizeof(longTotal));
+	unsigned int longClave;
+	archivo->read((char*)&longClave, sizeof(longClave));
+	string clave;
+	archivo->read((char*)&clave, sizeof(char)*longClave);
+	unsigned int offset;
+	archivo->read((char*)&offset, sizeof(offset));
+
+	return new RegistroIndice(clave, offset);
+}
