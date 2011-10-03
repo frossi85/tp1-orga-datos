@@ -26,7 +26,7 @@ public:
 	RegistroIndice* Buscar(RegistroIndice *registro);
 	bool Insertar(RegistroIndice *registro);
 	bool Eliminar(RegistroIndice *registro);
-	list<RegistroIndice *> VaciarBloque();
+	list<RegistroIndice *>* VaciarBloque();
 	bool Persistir(string rutaArchivo, unsigned int offset);
 	Bloque* Leer(string rutaArchivo, unsigned int offset);
 };
