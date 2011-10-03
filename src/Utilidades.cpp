@@ -45,3 +45,24 @@ string Utilidades::toString(int a)
 //	ss << t;
 //	return ss.str();
 //}
+
+void stringToFile(std::string & str, std::ofstream & ofs)
+{
+	int size = str.size();
+
+	ofs.write(reinterpret_cast<char *>(&size), sizeof(size));
+	ofs.write(str.c_str(), sizeof(char) * size);
+}
+
+std::string stringFromFile(std::ifstream & ifs)
+{
+	int size = 0;
+	char buffer[500]; //MAX_STRING_BUFFER
+
+	ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
+	ifs.read(buffer, sizeof(char) * size);
+
+	string nombre(buffer);	//Por lo que probe el constructor copia le pone el "\0";
+
+	return nombre;
+}
