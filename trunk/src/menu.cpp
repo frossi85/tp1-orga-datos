@@ -5,7 +5,7 @@
  *      Author: pablo
  */
 
-#include "Menu.h"
+#include "menu.h"
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
