@@ -151,8 +151,22 @@ Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
 
 ///////////////////////
 
-list<RegistroIndice *> BloqueHash::VaciarBloque(){
-	//- devolver los registros del bloque
-	//- actualizar el espacio libre del bloque
-}
+list<RegistroIndice *>* BloqueHash::VaciarBloque(){
 
+	//- devolver los registros del bloque y vaciar
+	// la lista original
+	//- actualizar el espacio libre del bloque (siempre en memoria)
+
+	list<RegistroIndice *> *aux = new list<RegistroIndice *>;
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+
+	for (it = this->registros.begin(); it != this->registros.end(); it++){
+		registroEnLista = *it;
+		aux->push_back(registroEnLista);
+		this->espacioLibre += registroEnLista->getTamanioEnDisco();
+	}
+	this->registros.clear();
+
+	return aux;
+}
