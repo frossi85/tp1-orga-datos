@@ -117,15 +117,34 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 	list<RegistroIndice *>::iterator it;
 	for (it = this->registros.begin(); it != this->registros.end(); it++){
 		registro = *it;
-		//escribir registro
+		registro->Persistir(&archBloques);
 	}
+
+	archBloques.close();
 	return true;
 }
 
 ////////////////////
 
 Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
-	//levanta el bloque a memoria.
+
+	//levanta los datos a memoria
+	BloqueHash *BloqueAux = new BloqueHash(0);
+
+	fstream archBloques(rutaArchivo.c_str(), ios::in | ios::binary);
+	archBloques.seekg(offset);
+	archBloques.read((char*)&(BloqueAux->tamanioDispersion), sizeof(BloqueAux->tamanioDispersion));
+	archBloques.read((char*)&(BloqueAux->espacioLibre), sizeof(BloqueAux->espacioLibre));
+
+	//mientras no llegue al final del chorizo de bytes, lee los registros
+	RegistroIndice *registro = NULL;
+	while(archBloques.tellg() != BloqueAux->tamanio - BloqueAux->espacioLibre){
+		registro = registro->Leer(&archBloques);
+		BloqueAux->registros.push_back(registro);
+	}
+	archBloques.close();
+	return BloqueAux;
+
 	//Si no pudo leer, devuelve NULL
 	return NULL;
 }
