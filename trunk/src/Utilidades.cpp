@@ -46,7 +46,7 @@ string Utilidades::toString(int a)
 //	return ss.str();
 //}
 
-void stringToFile(std::string & str, std::ofstream & ofs)
+void Utilidades::stringToFile(std::string & str, std::ofstream & ofs)
 {
 	int size = str.size();
 
@@ -54,7 +54,7 @@ void stringToFile(std::string & str, std::ofstream & ofs)
 	ofs.write(str.c_str(), sizeof(char) * size);
 }
 
-std::string stringFromFile(std::ifstream & ifs)
+string Utilidades::stringFromFile(std::ifstream & ifs)
 {
 	int size = 0;
 	char buffer[500]; //MAX_STRING_BUFFER
@@ -62,6 +62,7 @@ std::string stringFromFile(std::ifstream & ifs)
 	ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
 	ifs.read(buffer, sizeof(char) * size);
 
+	buffer[size] = '\0';
 	string nombre(buffer);	//Por lo que probe el constructor copia le pone el "\0";
 
 	return nombre;
