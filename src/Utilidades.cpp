@@ -16,6 +16,8 @@ Utilidades::~Utilidades() {
 	// TODO Auto-generated destructor stub
 }
 
+
+//TODO: No se por q me da una hora mas a lo q dice mi PC
 string Utilidades::getFechaYHora()
 {
 	// current date/time based on current system

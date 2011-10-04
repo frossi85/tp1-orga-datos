@@ -35,6 +35,15 @@ private:
 		string valores[CANT_CONF];
 		Configuracion();
 public:
+		static const string URL_VOTANTES;
+		static const string URL_DISTRITOS;
+		static const string URL_ELECCION;
+		static const string URL_LISTA;
+		static const string URL_CONTEO;
+		static const string URL_CANDIDATO;
+		static const string URL_CARGO;
+		static const string URL_ADMINISTRADOR;
+
 		static Configuracion *getConfig();
         ~Configuracion();
         string getValorPorPrefijo(string prefijo);

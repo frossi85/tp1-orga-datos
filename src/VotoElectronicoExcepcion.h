@@ -22,7 +22,10 @@ public:
 
 	virtual const char* what() const throw()
 	{
-	    return "VotoElectronicoExcepcion; "; + this->mensajePersonalizado.c_str();
+		string mensaje("VotoElectronicoExcepcion: ");
+		mensaje+= this->mensajePersonalizado;
+
+		return mensaje.c_str();
 	}
 };
 

@@ -17,19 +17,18 @@ bool confirmar_usuario(int,string, string);
 int main(int argc, char *argv[]){
 
 	///CODIGO DE PRUEBA FACUNDO
+	DataAccess dataAccess;
+
 	Distrito distrito("Lanus");
 	distrito.setId(45);
 
-	DataAccess dataAccess;
-
 	dataAccess.Guardar(distrito);
-
-	//distrito.Crear();
 
 	Distrito distrito2;
 
 	dataAccess.getPorId(0, distrito2);
-	//distrito2.Leer();
+
+	dataAccess.Eliminar(distrito2);
 
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){

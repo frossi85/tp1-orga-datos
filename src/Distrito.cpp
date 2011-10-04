@@ -74,5 +74,24 @@ void Distrito::Imprimir()
 	cout<<endl;
 }
 
+string Distrito::getURLArchivoDatos()
+{
+	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
+	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distritos>"));
+
+	url = "./distrito.db";
+
+	return url;
+}
+
+string Distrito::getClassName()
+{
+	return "Distrito";
+}
+
+
+
+
+
 
 

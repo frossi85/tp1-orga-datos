@@ -13,6 +13,7 @@
 #include <string>
 #include "Grabable.h"
 #include "Logueable.h"
+#include "Logger.h"
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
@@ -28,6 +29,7 @@ public:
 
 	//Hay q hacer uno q reciba un GuardableHash y otro con un GuardableArbol
 	void Guardar(Grabable & obj);
+	void Eliminar(Grabable & obj);
 	void getPorId(long id, Grabable & obj);
 };
 
