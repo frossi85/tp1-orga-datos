@@ -16,14 +16,13 @@ class Distrito : public Grabable {
 private:
 	long id;
 	string nombre;
-	static string _dataBaseUrl;
-	Distrito(long id, string nombre);
 public:
 	Distrito();
 	Distrito(string nombre);
+	virtual ~Distrito();
 	string getNombre();
 
-	void Crear(ofstream & ofs);
+	void Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs);
 	void Imprimir();
 

@@ -2,7 +2,7 @@
  * Distrito.cpp
  *
  *  Created on: 16/09/2011
- *      Author: leo
+ *      Author: Facundo Rossi
  */
 
 #include "Distrito.h"
@@ -11,30 +11,22 @@ Distrito::Distrito(string nombre){
 	this->nombre = nombre;
 }
 
-Distrito::Distrito(long id, string nombre){
-	this->nombre = nombre;
-	this->id = id;
-}
-
 Distrito::Distrito()
 {
 	id = -1;
 	nombre = "";
 }
 
-
 string Distrito::getNombre()
 {
 	return this->nombre;
 }
 
-void Distrito::Crear(ofstream & ofs)
+Distrito::~Distrito() {
+}
+
+void Distrito::Guardar(ofstream & ofs)
 {
-	//Distrito::_dataBaseUrl = "./distrito.db";
-
-	if(!ofs.is_open())  //o if(!ofs)
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de Distritos");
-
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&id), sizeof(id));
 	Utilidades::stringToFile(nombre, ofs);
@@ -42,25 +34,13 @@ void Distrito::Crear(ofstream & ofs)
 
 void Distrito::Leer(ifstream & ifs)
 {
-	//Distrito::_dataBaseUrl = "./distrito.db";
-
-	//ifstream ifs("./distrito.db", ios::binary);
-
-	if(!ifs.is_open())  //o if(!ifs)
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de Distritos");
-
-	//Comienzo escritura de atributos
+	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&id), sizeof(id));
-	string nombreDistrito = Utilidades::stringFromFile(ifs);
+	nombre = Utilidades::stringFromFile(ifs);
 
 	ifs.close();
 
-	this->nombre = nombreDistrito;
-	//Distrito distrito(nombreDistrito);
-	//distrito.id = id;
-
 	Imprimir();
-
 }
 
 void Distrito::Imprimir()

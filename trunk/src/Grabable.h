@@ -19,13 +19,11 @@ class Grabable : public Logueable {
 private:
 	//string _stringId;// = "Falta Implementar";
 public:
-	virtual void Crear(ofstream & ofs) = 0;
+	virtual void Guardar(ofstream & ofs) = 0;
 	//virtual void Modificar() = 0;
-	//virtual void Borrar() = 0;
+	//virtual void Eliminar() = 0;
 	virtual void Leer(ifstream & ifs) = 0;
 
-	//Esta funcion tiene adentro harcodeado un string
-	//virtual void setURLBaseDatos(string url) = 0;
 
 	virtual string getURLArchivoDatos() = 0;
 
