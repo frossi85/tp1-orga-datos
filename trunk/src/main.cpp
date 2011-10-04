@@ -10,6 +10,7 @@
 
 using namespace std;
 
+void ejecutar_test();
 void mostrar_ayuda();
 string pedir_usuario();
 string pedir_contrasena();
@@ -17,31 +18,8 @@ bool confirmar_usuario(int,string, string);
 
 int main(int argc, char *argv[]){
 
-	///CODIGO DE PRUEBA FACUNDO
-	DataAccess dataAccess;
-
-	Distrito distrito("Lanus");
-	distrito.setId(45);
-
-	dataAccess.Guardar(distrito);
-
-	Distrito distrito2;
-
-	dataAccess.getPorId(0, distrito2);
-
-	dataAccess.Eliminar(distrito2);
-
-	Cargo cargo("Presidente");
-	cargo.setId(20);
-	cargo.agregarCargoSecundario("Vice Presidente");
-	cargo.agregarCargoSecundario("Gobernador");
-	cargo.agregarCargoSecundario("Intendente");
-	cargo.agregarCargoSecundario("Consejal");
-
-	dataAccess.Guardar(cargo);
-
-	Cargo cargo2;
-	dataAccess.getPorId(0, cargo2);
+	ejecutar_test(); //Adentro de esta funcion hay prueba de los metodos para crear los archivos
+	//con cada entidad y sirve de ejemplo de como hay q usarlo
 
 
 	Menu *menu = Menu::getMenu();
@@ -85,5 +63,33 @@ int main(int argc, char *argv[]){
 	cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones
 
 	return 0;
+}
+
+void ejecutar_test(){
+	///CODIGO DE PRUEBA FACUNDO
+	DataAccess dataAccess;
+
+	Distrito distrito("Lanus");
+	distrito.setId(45);
+
+	dataAccess.Guardar(distrito);
+
+	Distrito distrito2;
+
+	dataAccess.getPorId(0, distrito2);
+
+	dataAccess.Eliminar(distrito2);
+
+	Cargo cargo("Presidente");
+	cargo.setId(20);
+	cargo.agregarCargoSecundario("Vice Presidente");
+	cargo.agregarCargoSecundario("Gobernador");
+	cargo.agregarCargoSecundario("Intendente");
+	cargo.agregarCargoSecundario("Consejal");
+
+	dataAccess.Guardar(cargo);
+
+	Cargo cargo2;
+	dataAccess.getPorId(0, cargo2);
 }
 

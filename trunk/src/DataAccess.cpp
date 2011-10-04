@@ -22,10 +22,15 @@ void DataAccess::getPorId(long id, Grabable & obj)
 	ifstream ifs(rutaArchivo.c_str(), ios::binary);
 	//Posicionarme en el ifstream mediante el hash, para luego leer desde ahi
 
+
 	if(!ifs.is_open())  //o if(!ifs)
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + obj.getClassName());
 
-	//Comienzo escritura de atributos
+	//Comienzo Lectura de atributos
+	//Primero como no tengo el hash ni el arbol, hacer una busqueda secuencial desde el principio
+	//del archivo leyendo un registro y verificando si es el q busco
+	//Asi podria probar toda la aplicacion sin arbol ni hash
+
 	obj.Leer(ifs);
 
 	ifs.close();
@@ -43,6 +48,11 @@ void DataAccess::Guardar(Grabable & obj)
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + obj.getClassName());
 
 	//Comienzo escritura de atributos
+	//Mientras no tenga el hash ni el arbol, situarme al final del archivo con ofstream y
+	//grabar lo nuevo al final
+	//Para ahorrarme problemas de actualizacion por ahora solo trabajar con crear al final y leer
+	//no usar modificaciones
+
 	obj.Guardar(ofs);
 
 	Logger::Alta(obj); //Se tiene q logguear alta y modificacion, ver como lo valido
@@ -53,6 +63,8 @@ void DataAccess::Guardar(Grabable & obj)
 void DataAccess::Eliminar(Grabable & obj)
 {
 	string rutaArchivo = obj.getURLArchivoDatos();
+
+	//NO USAR ELEMINAR HASTA NO TENER EL HASH o EL ARBOL
 
 	ofstream ofs(rutaArchivo.c_str(), ios::binary);
 	//Posicionarme en el ofstream mediante el hash, para luego borrar el registro

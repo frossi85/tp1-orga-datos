@@ -22,6 +22,11 @@ vector<string> Cargo::getCargosSecundarios()
 	return this->cargosSecundarios;
 }
 
+long Cargo::getId()
+{
+	return _id;
+}
+
 void Cargo::setCargoPrincipal(string cargoPrincipal)
 {
 	//TODO: Verificar si no es vacia y sino lanzar Excepcion
@@ -38,7 +43,7 @@ void Cargo::agregarCargoSecundario(string cargo)
 void Cargo::Guardar(ofstream & ofs)
 {
 	//Comienzo escritura de atributos
-	ofs.write(reinterpret_cast<char *>(&id), sizeof(id));
+	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	Utilidades::stringToFile(cargoPrincipal, ofs);
 
 	//Grabo la cantidad de cargos secundarios q tiene
@@ -54,7 +59,7 @@ void Cargo::Guardar(ofstream & ofs)
 void Cargo::Leer(ifstream & ifs)
 {
 	//Comienzo lectura de atributos
-	ifs.read(reinterpret_cast<char *>(&id), sizeof(id));
+	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	cargoPrincipal = Utilidades::stringFromFile(ifs);
 
 	//Grabo la cantidad de cargos secundarios q tiene
@@ -75,7 +80,7 @@ void Cargo::Imprimir()
 {
 	cout<<endl;
 	cout<<"Id: ";
-	cout<< id;
+	cout<< _id;
 	cout<<endl;
 	cout<<"Cargos: ";
 	cout<<cargoPrincipal;
@@ -92,7 +97,7 @@ string Cargo::getURLArchivoDatos()
 	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
 	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_cargo>"));
 
-	url = "./cargo.db";
+	url = "./archivos/cargo.db";
 
 	return url;
 }

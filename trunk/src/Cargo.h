@@ -13,7 +13,7 @@ using namespace std;
 
 class Cargo : public Grabable {
 private:
-	long id;
+	long _id;
 	string cargoPrincipal;
 	vector<string> cargosSecundarios;
 public:
@@ -24,6 +24,7 @@ public:
 	//Getters
 	string getCargoPrincipal(); //TODO: Verificar q tiene cargo principal sino lanzar excepcion
 	vector<string> getCargosSecundarios();
+	long getId();
 
 	//Setters
 	void setCargoPrincipal(string cargoPrincipal);
@@ -38,7 +39,7 @@ public:
 
 	//Metodo de prueba
 	void setId(long id){
-		this->id=id;
+		this->_id=id;
 	}
 
 	//Metodos interfaz Logueable
