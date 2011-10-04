@@ -43,7 +43,7 @@ void DataAccess::Guardar(Grabable & obj)
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + obj.getClassName());
 
 	//Comienzo escritura de atributos
-	obj.Crear(ofs);
+	obj.Guardar(ofs);
 
 	Logger::Alta(obj); //Se tiene q logguear alta y modificacion, ver como lo valido
 
@@ -61,9 +61,7 @@ void DataAccess::Eliminar(Grabable & obj)
 	if(!ofs.is_open())  //o if(!ofs)
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + obj.getClassName());
 
-	//Comienzo escritura de atributos
-
-	//Eliminar le corresponde al registro o al bloque q reacomode registros
+	//TODO: Eliminar le corresponde al registro o al bloque q reacomoda registros??
 	//obj.Eliminar(ofs);
 
 	Logger::Eliminar(obj); //Se tiene q logguear alta y modificacion, ver como lo valido

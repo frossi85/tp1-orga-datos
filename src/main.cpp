@@ -5,6 +5,7 @@
 
 #include "menu.h"
 #include "Distrito.h"
+#include "Cargo.h"
 #include "DataAccess.h"
 
 using namespace std;
@@ -29,6 +30,19 @@ int main(int argc, char *argv[]){
 	dataAccess.getPorId(0, distrito2);
 
 	dataAccess.Eliminar(distrito2);
+
+	Cargo cargo("Presidente");
+	cargo.setId(20);
+	cargo.agregarCargoSecundario("Vice Presidente");
+	cargo.agregarCargoSecundario("Gobernador");
+	cargo.agregarCargoSecundario("Intendente");
+	cargo.agregarCargoSecundario("Consejal");
+
+	dataAccess.Guardar(cargo);
+
+	Cargo cargo2;
+	dataAccess.getPorId(0, cargo2);
+
 
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){
