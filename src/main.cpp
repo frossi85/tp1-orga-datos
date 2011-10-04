@@ -93,3 +93,25 @@ void ejecutar_test(){
 	dataAccess.getPorId(0, cargo2);
 }
 
+/* Ejemplo de uso del hash
+ *
+ *
+ * Crear hash:
+ *
+ * //recibe como parámetros las rutas del arcivo de bloques, el archivo de bloques libres y el archivo con la tabla de dispersion
+ * hash_extensible *hash = new hash_extensible("archBloques", "archBloqLibres", "tablaDispersion");
+ *
+ * Obtener distrito:
+ *
+ * //crear un registro con la clave del distrito que se quiere obtener (el offset no importa asi que lo pongo en 0)
+ * RegistroIndice registro("Avellaneda", 0);
+ *
+ * //pasar el registro al hash
+ * hash_extensible->buscar(&registro);
+ *
+ * //Ahora haciendo registro.getOffset() se puede obtener el offset de ese distrito para buscarlo
+ * //en su archivo. Si no estaba en el hash, buscar devuelve false
+ *
+ * //Los métodos guardar y borrar se usan de la misma forma
+ */
+
