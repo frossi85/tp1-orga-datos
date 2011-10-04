@@ -7,7 +7,7 @@
 #include "Bloque.h"
 #include "RegistroIndice.h"
 
-#define TAM_BLOQUE_HASH 512 //Kb
+#define TAM_BLOQUE_HASH 512 //Bytes
 
 using namespace std;
 
