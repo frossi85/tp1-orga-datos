@@ -11,10 +11,11 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Logueable.h"
 
 using namespace std;
 
-class Grabable {
+class Grabable : public Logueable {
 private:
 	//string _stringId;// = "Falta Implementar";
 public:
@@ -26,8 +27,12 @@ public:
 	//Esta funcion tiene adentro harcodeado un string
 	//virtual void setURLBaseDatos(string url) = 0;
 
+	virtual string getURLArchivoDatos() = 0;
 
+	//Es la interface Loggueable q heredo
+	virtual string getClassName() = 0;
 	//Lo de abajo seria una interface Comparable
+
 	//bool operator ==(const Grabable &obj) const;
 };
 

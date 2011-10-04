@@ -20,10 +20,9 @@ private:
 	string description;
 
 public:
-	Logueable();
-	virtual ~Logueable();
-	string getClassName();
-
+	//Logueable();
+	//virtual ~Logueable();
+	virtual string getClassName() = 0;
 };
 
 #endif /* LOGUEABLE_H_ */

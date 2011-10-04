@@ -8,10 +8,11 @@
 #include "Logueable.h"
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
+#include "Configuracion.h"
 
 using namespace std;
 
-class Distrito : public Grabable{//, public Logueable {
+class Distrito : public Grabable {
 private:
 	long id;
 	string nombre;
@@ -23,15 +24,18 @@ public:
 	string getNombre();
 
 	void Crear(ofstream & ofs);
-	void Guardar(long offsetEnArchivo);
-
 	void Leer(ifstream & ifs);
 	void Imprimir();
+
+	inline string getURLArchivoDatos();
 
 	//Metodo de prueba
 	void setId(long id){
 		this->id=id;
 	}
+
+	//Metodos interfaz Logueable
+	string getClassName();
 };
 
 

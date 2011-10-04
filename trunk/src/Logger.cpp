@@ -7,16 +7,16 @@
 
 #include "Logger.h"
 
-Logger::Logger() {
-	// TODO Auto-generated constructor stub
+//Logger::Logger() {
+//	// TODO Auto-generated constructor stub
+//
+//}
+//
+//Logger::~Logger() {
+//	// TODO Auto-generated destructor stub
+//}
 
-}
-
-Logger::~Logger() {
-	// TODO Auto-generated destructor stub
-}
-
-void Logger::logAccion(Logueable obj, string accion) {
+void Logger::logAccion(Logueable & obj, string accion) {
 	string tipoEntidad = obj.getClassName();
 
 	//TODO : Levantar del archivo de configuracion la ubicacion del archivo en donde voy a loguear
@@ -24,21 +24,24 @@ void Logger::logAccion(Logueable obj, string accion) {
 	string log;
 	ofstream archivoLog(urlArchivoLog.c_str(), ios::app); //Ver si debo abrirlo solo en modo escritura
 
-	if(!archivoLog)
+	if(!archivoLog.is_open())
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de log" + urlArchivoLog);
 
 	log =  "[" + Utilidades::getFechaYHora() + "]"+ ": " + accion + " - " + obj.getClassName();
+
+	archivoLog<<log;
+	archivoLog<<endl;
 }
 
-void Logger::Alta(Logueable obj) {
+void Logger::Alta(Logueable & obj) {
 	logAccion(obj, "Alta");
 }
 
-void Logger::Baja(Logueable obj) {
-	logAccion(obj, "Baja");
+void Logger::Eliminar(Logueable & obj) {
+	logAccion(obj, "Eliminación");
 }
 
-void Logger::Modificacion(Logueable obj) {
+void Logger::Modificacion(Logueable & obj) {
 	logAccion(obj, "Modificación");
 }
 

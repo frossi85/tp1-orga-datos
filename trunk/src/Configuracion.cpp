@@ -12,6 +12,16 @@
 #include "Configuracion.h"
 using namespace std;
 
+const string Configuracion::URL_VOTANTES = "<ruta_votantes>";
+const string Configuracion::URL_DISTRITOS = "<ruta_distritos>";
+const string Configuracion::URL_ELECCION = "<ruta_eleccion>";
+const string Configuracion::URL_LISTA = "<ruta_lista>";
+const string Configuracion::URL_CONTEO = "<ruta_conteo>";
+const string Configuracion::URL_CANDIDATO = "<ruta_candidato>";
+const string Configuracion::URL_CARGO = "<ruta_cargo>";
+const string Configuracion::URL_ADMINISTRADOR = "<ruta_administrador>";
+
+
 Configuracion::Configuracion() {
 	constantes[0]=RUTA_VOTANTES;
 	FILE *fp;
