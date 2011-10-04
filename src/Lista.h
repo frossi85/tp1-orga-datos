@@ -12,21 +12,38 @@
 #include "Grabable.h"
 #include "Logueable.h"
 #include "Eleccion.h"
+#include "DataAccess.h"
 
 
 using namespace std;
 
-class Lista : public Grabable, public Logueable {
+class Lista : public Grabable {
 private:
+	long _id;
 	string _nombre;
-	Eleccion& _eleccion;
+	Eleccion * _eleccion;
 public:
+	Lista();
 	Lista(string nombre, Eleccion& eleccion);
 	virtual ~Lista();
 
 	//Getters
-	Eleccion& getEleccion();
+	Eleccion const& getEleccion() const;
 	string getNombre();
+
+	void Guardar(ofstream & ofs);
+	void Leer(ifstream & ifs);
+	void Imprimir();
+
+	inline string getURLArchivoDatos();
+
+	//Metodo de prueba
+	void setId(long id){
+		this->_id=id;
+	}
+
+	//Metodos interfaz Logueable
+	string getClassName();
 
 	//Por lo q veo en el modelo una lista esta asociada con una y solo una eleccion en particular
 	//por lo cual no se necesitan setters

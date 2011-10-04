@@ -8,18 +8,18 @@
 #include "Distrito.h"
 
 Distrito::Distrito(string nombre){
-	this->nombre = nombre;
+	this->_nombre = nombre;
 }
 
 Distrito::Distrito()
 {
-	id = -1;
-	nombre = "";
+	_id = -1;
+	_nombre = "";
 }
 
 string Distrito::getNombre()
 {
-	return this->nombre;
+	return this->_nombre;
 }
 
 Distrito::~Distrito() {
@@ -28,15 +28,15 @@ Distrito::~Distrito() {
 void Distrito::Guardar(ofstream & ofs)
 {
 	//Comienzo escritura de atributos
-	ofs.write(reinterpret_cast<char *>(&id), sizeof(id));
-	Utilidades::stringToFile(nombre, ofs);
+	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
+	Utilidades::stringToFile(_nombre, ofs);
 }
 
 void Distrito::Leer(ifstream & ifs)
 {
 	//Comienzo lectura de atributos
-	ifs.read(reinterpret_cast<char *>(&id), sizeof(id));
-	nombre = Utilidades::stringFromFile(ifs);
+	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
+	_nombre = Utilidades::stringFromFile(ifs);
 
 	ifs.close();
 
@@ -47,10 +47,10 @@ void Distrito::Imprimir()
 {
 	cout<<endl;
 	cout<<"Id: ";
-	cout<< id;
+	cout<< _id;
 	cout<<endl;
 	cout<<"Nombre Distrito: ";
-	cout<<nombre;
+	cout<< _nombre;
 	cout<<endl;
 }
 
@@ -59,7 +59,7 @@ string Distrito::getURLArchivoDatos()
 	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
 	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distritos>"));
 
-	url = "./distrito.db";
+	url = "./archivos/distrito.db";
 
 	return url;
 }

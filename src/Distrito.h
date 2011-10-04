@@ -14,8 +14,8 @@ using namespace std;
 
 class Distrito : public Grabable {
 private:
-	long id;
-	string nombre;
+	long _id;
+	string _nombre;
 public:
 	Distrito();
 	Distrito(string nombre);
@@ -30,7 +30,7 @@ public:
 
 	//Metodo de prueba
 	void setId(long id){
-		this->id=id;
+		this->_id=id;
 	}
 
 	//Metodos interfaz Logueable
