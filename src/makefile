@@ -1,5 +1,5 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess
+Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -pedantic -c $(DEBUG)

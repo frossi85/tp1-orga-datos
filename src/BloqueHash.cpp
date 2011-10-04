@@ -110,8 +110,10 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 
 	fstream archBloques(rutaArchivo.c_str(), ios::out | ios::binary);
 	archBloques.seekp(offset);
-	archBloques.write((char*)&(this->tamanioDispersion), sizeof(this->tamanioDispersion));
-	archBloques.write((char*)&(this->espacioLibre), sizeof(this->espacioLibre));
+	unsigned int tamDispersion = this->getTamanioDispersion();
+	archBloques.write((char*)&tamDispersion, sizeof(tamDispersion));
+	unsigned int espLibre = this->espacioLibre;
+	archBloques.write((char*)&espLibre, sizeof(espLibre));
 
 	RegistroIndice *registro = NULL;
 	list<RegistroIndice *>::iterator it;
@@ -129,12 +131,18 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
 
 	//levanta los datos a memoria
-	BloqueHash *BloqueAux = new BloqueHash(0);
+
 
 	fstream archBloques(rutaArchivo.c_str(), ios::in | ios::binary);
 	archBloques.seekg(offset);
-	archBloques.read((char*)&(BloqueAux->tamanioDispersion), sizeof(BloqueAux->tamanioDispersion));
-	archBloques.read((char*)&(BloqueAux->espacioLibre), sizeof(BloqueAux->espacioLibre));
+
+	unsigned int tamDispersion;
+	archBloques.read((char*)&tamDispersion, sizeof(tamDispersion));
+	BloqueHash *BloqueAux = new BloqueHash(tamDispersion);
+
+	unsigned int espLibre;
+	archBloques.read((char*)&espLibre, sizeof(espLibre));
+	BloqueAux->espacioLibre = espLibre;
 
 	//mientras no llegue al final del chorizo de bytes, lee los registros
 	RegistroIndice *registro = NULL;

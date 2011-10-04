@@ -43,10 +43,13 @@ void RegistroIndice::Persistir(fstream *archivo){
 
 	unsigned int tamTotal = this->getTamanioEnDisco();
 	archivo->write((char*)&tamTotal, sizeof(tamTotal));
-	unsigned int tamLongitudClave = sizeof(char)*(this->getClave().size());
-	archivo->write((char*)&tamLongitudClave, sizeof(tamLongitudClave));
+
 	string clave = this->getClave();
-	archivo->write((char*)&clave, sizeof(char)*(clave.size()));
+	unsigned int longClave = clave.size();
+
+	archivo->write((char *)&longClave, sizeof(longClave));
+	archivo->write(clave.c_str(), sizeof(char) * longClave);
+
 	unsigned int offset = this->getOffset();
 	archivo->write((char*)&offset, sizeof(offset));
 }
@@ -57,11 +60,14 @@ RegistroIndice* RegistroIndice::Leer(fstream *archivo){
 
 	unsigned int longTotal;
 	archivo->read((char*)&longTotal, sizeof(longTotal));
-	unsigned int longClave;
-	archivo->read((char*)&longClave, sizeof(longClave));
-	string clave;
-	clave.reserve(longClave);
-	archivo->read((char*)&clave, sizeof(char)*longClave);
+
+    unsigned int longClave = 0;
+	archivo->read((char *)&longClave, sizeof(longClave));
+
+	char aux[longClave+1];
+	archivo->read(aux, sizeof(char) * longClave);
+	string clave(aux);
+
 	unsigned int offset;
 	archivo->read((char*)&offset, sizeof(offset));
 
