@@ -24,6 +24,13 @@ const string Configuracion::URL_ADMINISTRADOR = "<ruta_administrador>";
 
 Configuracion::Configuracion() {
 	constantes[0]=RUTA_VOTANTES;
+  constantes[1]=RUTA_DISTRITOS;
+	constantes[2]=RUTA_ELECCION;
+	constantes[3]=RUTA_LISTA;
+	constantes[4]=RUTA_CONTEO;
+	constantes[5]=RUTA_CANDIDATO;
+	constantes[6]=RUTA_CARGO;
+	constantes[7]=RUTA_ADMINISTRADOR;
 	FILE *fp;
 	char cadena[100];
 	char *c,*conv;
@@ -64,7 +71,7 @@ string Configuracion::getValorPorPrefijo(string prefijo)
 	int i;
 	for(i=0;i<CANT_CONF; i++)
 	{
-		if (constantes[i]==RUTA_VOTANTES) {
+		if (constantes[i]==prefijo) {
 			return valores[i];
 		}
 	}
