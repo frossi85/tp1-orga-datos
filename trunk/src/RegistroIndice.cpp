@@ -66,6 +66,7 @@ RegistroIndice* RegistroIndice::Leer(fstream *archivo){
 
 	char aux[longClave+1];
 	archivo->read(aux, sizeof(char) * longClave);
+	aux[longClave] = '\0';
 	string clave(aux);
 
 	unsigned int offset;
