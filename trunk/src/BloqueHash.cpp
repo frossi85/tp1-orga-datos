@@ -108,12 +108,14 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 	//graba el bloque en el archivo.
 	//Si no pudo grabar, devuelve false
 
-	fstream archBloques(rutaArchivo.c_str(), ios::out | ios::binary);
+	fstream archBloques(rutaArchivo.c_str(), ios_base::out | ios_base::in | ios_base::binary);
+	if(!archBloques.is_open()) return false;
+
 	archBloques.seekp(offset);
 	unsigned int tamDispersion = this->getTamanioDispersion();
-	archBloques.write((char*)&tamDispersion, sizeof(tamDispersion));
+	archBloques.write((char*)&tamDispersion, sizeof(unsigned int));
 	unsigned int espLibre = this->espacioLibre;
-	archBloques.write((char*)&espLibre, sizeof(espLibre));
+	archBloques.write((char*)&espLibre, sizeof(unsigned int));
 
 	RegistroIndice *registro = NULL;
 	list<RegistroIndice *>::iterator it;
@@ -131,11 +133,10 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
 
 	//levanta los datos a memoria
+	fstream archBloques(rutaArchivo.c_str(), ios_base::in | ios_base::binary);
+    if(!archBloques.is_open()) return NULL;
 
-
-	fstream archBloques(rutaArchivo.c_str(), ios::in | ios::binary);
 	archBloques.seekg(offset);
-
 	unsigned int tamDispersion;
 	archBloques.read((char*)&tamDispersion, sizeof(tamDispersion));
 	BloqueHash *BloqueAux = new BloqueHash(tamDispersion);
@@ -146,15 +147,12 @@ Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
 
 	//mientras no llegue al final del chorizo de bytes, lee los registros
 	RegistroIndice *registro = NULL;
-	while(archBloques.tellg() != BloqueAux->tamanio - BloqueAux->espacioLibre){
+	while(archBloques.tellg() != offset + BloqueAux->tamanio - BloqueAux->espacioLibre){
 		registro = registro->Leer(&archBloques);
 		BloqueAux->registros.push_back(registro);
 	}
 	archBloques.close();
 	return BloqueAux;
-
-	//Si no pudo leer, devuelve NULL
-	return NULL;
 }
 
 ///////////////////////
@@ -177,4 +175,21 @@ list<RegistroIndice *>* BloqueHash::VaciarBloque(){
 	this->registros.clear();
 
 	return aux;
+}
+
+/////////////////////
+
+void BloqueHash::Imprimir(fstream *archImpresion){
+
+    *archImpresion << "TD: " << this->getTamanioDispersion() << " ";
+    *archImpresion << "EL: " << this->espacioLibre << endl;
+    *archImpresion << "Registros: ";
+
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = this->registros.begin(); it != this->registros.end(); it++){
+		registroEnLista = *it;
+		registroEnLista->Imprimir(archImpresion);
+		*archImpresion << " ";
+	}
 }

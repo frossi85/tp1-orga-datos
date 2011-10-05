@@ -44,7 +44,7 @@ void RegistroIndice::Persistir(fstream *archivo){
 	unsigned int tamTotal = this->getTamanioEnDisco();
 	archivo->write((char*)&tamTotal, sizeof(tamTotal));
 
-	string clave = this->getClave();
+    std::string clave = this->getClave();
 	unsigned int longClave = clave.size();
 
 	archivo->write((char *)&longClave, sizeof(longClave));
@@ -72,4 +72,11 @@ RegistroIndice* RegistroIndice::Leer(fstream *archivo){
 	archivo->read((char*)&offset, sizeof(offset));
 
 	return new RegistroIndice(clave, offset);
+}
+
+//////////////////
+
+void RegistroIndice::Imprimir(fstream *archImpresion){
+
+    *archImpresion << "(" << this->getClave() << " | " << this->getOffset() << ")";
 }
