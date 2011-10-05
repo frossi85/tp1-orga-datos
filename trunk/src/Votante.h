@@ -20,6 +20,7 @@ using namespace std;
 
 class Votante {//: public Grabable, public Logueable {
 private:
+	long _id;
 	int _dni;
 	string _nombreYApellido;
 	string _clave; //TODO: preguntar que es la clave en el Votante
