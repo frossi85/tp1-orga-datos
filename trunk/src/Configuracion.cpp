@@ -12,8 +12,8 @@
 #include "Configuracion.h"
 using namespace std;
 
-const string Configuracion::URL_VOTANTES = "<ruta_votantes>";
-const string Configuracion::URL_DISTRITOS = "<ruta_distritos>";
+const string Configuracion::URL_VOTANTES = "<ruta_votante>";
+const string Configuracion::URL_DISTRITOS = "<ruta_distrito>";
 const string Configuracion::URL_ELECCION = "<ruta_eleccion>";
 const string Configuracion::URL_LISTA = "<ruta_lista>";
 const string Configuracion::URL_CONTEO = "<ruta_conteo>";
@@ -35,7 +35,7 @@ Configuracion::Configuracion() {
 	char cadena[100];
 	char *c,*conv;
 	int i;
-	fp = fopen("config.ini", "r");
+	fp = fopen("./config.ini", "r");
 	do {
 		c = fgets(cadena, 100, fp);
 		if (c != NULL) {

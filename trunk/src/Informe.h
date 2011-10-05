@@ -8,6 +8,13 @@
 #ifndef INFORME_H_
 #define INFORME_H_
 
+#include <string>
+#include <vector>
+#include "Eleccion.h"
+#include "Distrito.h"
+
+using namespace std;
+
 class Informe {
 public:
 	Informe(Eleccion& eleccion);

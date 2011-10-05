@@ -156,12 +156,8 @@ void Votante::Leer(ifstream & ifs)
 
 inline string Votante::getURLArchivoDatos()
 {
-	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
-	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_votante>"));
-
-	url = "./archivos/votante.db";
-
-	return url;
+	cout<<(*Configuracion::getConfig()).getValorPorPrefijo("<ruta_votante>");
+	return (*Configuracion::getConfig()).getValorPorPrefijo("<ruta_votante>");
 }
 
 

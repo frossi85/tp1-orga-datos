@@ -96,12 +96,7 @@ void Cargo::Imprimir()
 
 string Cargo::getURLArchivoDatos()
 {
-	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
-	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_cargo>"));
-
-	url = "./archivos/cargo.db";
-
-	return url;
+	return (*Configuracion::getConfig()).getValorPorPrefijo("<ruta_cargo>");
 }
 
 string Cargo::getClassName()

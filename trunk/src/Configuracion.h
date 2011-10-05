@@ -14,8 +14,8 @@
 #ifndef CONFIGURACION_H_
 #define CONFIGURACION_H_
 
-#define RUTA_VOTANTES "<ruta_votantes>"
-#define RUTA_DISTRITOS "<ruta_distritos>"
+#define RUTA_VOTANTES "<ruta_votante>"
+#define RUTA_DISTRITOS "<ruta_distrito>"
 #define RUTA_ELECCION "<ruta_eleccion>"
 #define RUTA_LISTA "<ruta_lista>"
 #define RUTA_CONTEO "<ruta_conteo>"
