@@ -16,16 +16,22 @@
 
 using namespace std;
 
-class Candidato : public Votante {
+class Candidato : Grabable {//: public Votante {
 private:
+	long _id;
 	Lista * _listaPropia;
 	Cargo * _cargoAPresentarse;
-
+	Votante * _votante;
 public:
 	Candidato(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito, Lista& lista, Cargo& cargo);
+	//TODO: IMPORTANTE: Cuando creo el votante dentro del candidato y lo guardo primero tengo q ver no exista el votante, por q si existe
+	//en vez de guardarlo deberia guarrdar la referencia al existente
+	//Igual podria duplicar Votantes, para simplificar ya q lo importante es el arbol y el hash
+
 	virtual ~Candidato();
 
 	//Getters
+	long getId();
 	Lista& getLista();
 	Cargo& getCargo();
 
@@ -34,6 +40,21 @@ public:
 	//Setters
 	void setLista(Lista& lista);
 	void setCargo(Cargo& cargo);
+
+	//Interface de Guardable
+	void Guardar(ofstream & ofs);
+	void Leer(ifstream & ifs);
+	void Imprimir();
+
+	inline string getURLArchivoDatos();
+
+	//Metodo de prueba
+	void setId(long id){
+		this->_id=id;
+	}
+
+	//Metodos interfaz Logueable
+	string getClassName();
 };
 
 #endif /* CANDIDATO_H_ */

@@ -17,6 +17,11 @@ Distrito::Distrito()
 	_nombre = "";
 }
 
+long Distrito::getId()
+{
+	return _id;
+}
+
 string Distrito::getNombre()
 {
 	return this->_nombre;
@@ -57,7 +62,7 @@ void Distrito::Imprimir()
 string Distrito::getURLArchivoDatos()
 {
 	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
-	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distritos>"));
+	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distrito>"));
 
 	url = "./archivos/distrito.db";
 

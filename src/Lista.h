@@ -28,6 +28,7 @@ public:
 	virtual ~Lista();
 
 	//Getters
+	long getId();
 	Eleccion const& getEleccion() const;
 	string getNombre();
 
