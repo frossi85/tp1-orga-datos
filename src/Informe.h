@@ -10,7 +10,10 @@
 
 class Informe {
 public:
-	Informe();
+	Informe(Eleccion& eleccion);
+	Informe(Distrito& distrito);
+
+
 	virtual ~Informe();
 };
 
