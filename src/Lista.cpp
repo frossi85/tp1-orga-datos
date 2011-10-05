@@ -93,12 +93,8 @@ void Lista::Leer(ifstream & ifs)
 
 inline string Lista::getURLArchivoDatos()
 {
-	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
-	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_lista>"));
-
-	url = "./archivos/lista.db";
-
-	return url;
+	cout<<(*Configuracion::getConfig()).getValorPorPrefijo("<ruta_lista>");
+	return (*Configuracion::getConfig()).getValorPorPrefijo("<ruta_lista>");
 }
 
 

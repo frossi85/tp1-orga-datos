@@ -61,12 +61,7 @@ void Distrito::Imprimir()
 
 string Distrito::getURLArchivoDatos()
 {
-	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
-	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distrito>"));
-
-	url = "./archivos/distrito.db";
-
-	return url;
+	return ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distrito>"));
 }
 
 string Distrito::getClassName()
