@@ -21,6 +21,7 @@ public:
 	unsigned int getTamanioEnDisco();
 	void Persistir(fstream *archivo);
 	RegistroIndice* Leer(fstream *archivo);
+	void Imprimir(fstream *archImpresion);
 };
 
 #endif /* REGISTROINDICE_H_ */

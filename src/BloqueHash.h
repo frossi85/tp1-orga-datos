@@ -29,6 +29,7 @@ public:
 	list<RegistroIndice *>* VaciarBloque();
 	bool Persistir(string rutaArchivo, unsigned int offset);
 	Bloque* Leer(string rutaArchivo, unsigned int offset);
+	void Imprimir(fstream *archImpresion);
 };
 
 #endif /* BLOQUEHASH_H_ */
