@@ -20,6 +20,7 @@ public:
 	Distrito();
 	Distrito(string nombre);
 	virtual ~Distrito();
+	long getId();
 	string getNombre();
 
 	void Guardar(ofstream & ofs);

@@ -17,7 +17,7 @@
 
 using namespace std;
 
-class Conteo : public Grabable, public Logueable {
+class Conteo : public Grabable {
 private:
 	Lista& _lista;
 	Distrito& _distrito;

@@ -18,7 +18,7 @@
 
 using namespace std;
 
-class Votante {//: public Grabable, public Logueable {
+class Votante : public Grabable {
 private:
 	long _id;
 	int _dni;
@@ -36,6 +36,7 @@ public:
 	virtual ~Votante();
 
 	//Getters
+	long getId(); //TODO: Fijarme si lo fuerzo a implementar poniendolo en Guardable como virtual
 	int getDNI();
 	string getNombreYApellido();
 	string getClave(); //TODO: Ver si en vez de esto hacemos una funciona q verifique si la clave es correcta
@@ -51,6 +52,21 @@ public:
 	//se incrementa el contador en el Conteo asociado a una eleccion
 	//en esa Lista en el Distrito q vota
 	void votarEnEleccionALista(Eleccion& eleccion, Lista& lista);
+
+	//Interface de Guardable
+	void Guardar(ofstream & ofs);
+	void Leer(ifstream & ifs);
+	void Imprimir();
+
+	inline string getURLArchivoDatos();
+
+	//Metodo de prueba
+	void setId(long id){
+		this->_id=id;
+	}
+
+	//Metodos interfaz Logueable
+	string getClassName();
 };
 
 #endif /* VOTANTE_H_ */

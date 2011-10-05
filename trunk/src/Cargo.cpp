@@ -2,10 +2,12 @@
 
 Cargo::Cargo(){
 	this->cargoPrincipal = "";
+	this->_id = -1;
 }
 
 Cargo::Cargo(string cargoPrincipal){
 	this->cargoPrincipal = cargoPrincipal;
+	this->_id = 0;
 }
 
 Cargo::~Cargo() { //TODO: En los destructores no hay q destruir strings averiguar si los vector si??

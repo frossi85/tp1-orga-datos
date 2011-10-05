@@ -11,7 +11,7 @@ Lista::Lista()
 {
 	this->_eleccion = NULL;
 	this->_nombre = "";
-	this->_id = 0;
+	this->_id = -1;
 }
 
 
@@ -22,7 +22,10 @@ Lista::Lista(string nombre, Eleccion & eleccion)
 	this->_id = 0;
 }
 
-
+long Lista::getId()
+{
+	return _id;
+}
 
 Eleccion const& Lista::getEleccion() const
 {
