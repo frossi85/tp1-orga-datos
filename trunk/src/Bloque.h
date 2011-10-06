@@ -9,7 +9,6 @@ protected:
 	unsigned int espacioLibre;
 
 public:
-	virtual int getTamanioBloques()=0;
 	virtual int getCantidadRegistros()=0;
 	virtual bool Persistir(string rutaArchivo, unsigned int offset)=0;
 	virtual Bloque* Leer(string rutaArchivo, unsigned int offset)=0;

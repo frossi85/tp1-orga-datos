@@ -23,7 +23,7 @@ int BloqueHash::getTamanioDispersion(){
 /////////////////////////
 
 int BloqueHash::getTamanioBloques(){
-	return this->tamanio;
+	return TAM_BLOQUE_HASH;
 }
 
 //////////////////////////

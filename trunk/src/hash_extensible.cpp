@@ -23,8 +23,8 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 
 	//escribe el primer bloque en el hash
 	unsigned int tam = obtener_tamanio_tabla();
-	Bloque *primer_bloque = new Bloque(tam);
-	primer_bloque->persistir(this->nombre_arch_bloques.c_str(), 0);
+	BloqueHash *primer_bloque = new BloqueHash(tam);
+	primer_bloque->Persistir(this->nombre_arch_bloques.c_str(), 0);
 	delete primer_bloque;
 
 	//inicializa el archivo de bloques libres con cantidad = 0
@@ -37,14 +37,14 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 
 ////////////////////////////
 
-unsigned int hash_extensible::funcion_hashing(Registro *unRegistro){
+unsigned int hash_extensible::funcion_hashing(RegistroIndice *registro){
 
 	unsigned int suma = 0, i = 0;
-	char caracter = unRegistro->getValor()[0];
+	char caracter = registro->getClave()[0];
 	while (caracter != '\0'){
 		suma += caracter + '0';
 		i++;
-		caracter = unRegistro->getValor()[i];
+		caracter = registro->getClave()[i];
 	}
 	return suma%obtener_tamanio_tabla() + 1;
 	/* suma uno para no tener en cuenta la primera posición de la tabla,
@@ -53,7 +53,7 @@ unsigned int hash_extensible::funcion_hashing(Registro *unRegistro){
 
 ///////////////////////////
 
-long hash_extensible::obtener_offset_bloque(unsigned int posicion_en_tabla_dispersion){
+unsigned int hash_extensible::obtener_offset_bloque(unsigned int posicion_en_tabla_dispersion){
 
 	tabla_dispersion->open(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
 	tabla_dispersion->seekg(posicion_en_tabla_dispersion*sizeof(unsigned int));
@@ -61,15 +61,15 @@ long hash_extensible::obtener_offset_bloque(unsigned int posicion_en_tabla_dispe
 	tabla_dispersion->read((char *)&nro_de_bloque, sizeof(unsigned int));
 	tabla_dispersion->close();
 
-	int tamanio_bloque = Bloque::getTamanioBloques();
+	int tamanio_bloque = BloqueHash::getTamanioBloques();
 	return nro_de_bloque*tamanio_bloque;
 }
 
 ////////////////////////////
 
-void hash_extensible::persistir_vector(vector<unsigned int> *vec, fstream *archivo, const char* nombre_archivo){
+void hash_extensible::persistir_vector(vector<unsigned int> *vec, fstream *archivo, string nombre_archivo){
 
-	archivo->open(nombre_archivo, ios::binary | ios::out);
+	archivo->open(nombre_archivo.c_str(), ios::binary | ios::out);
 
 	archivo->seekp(0);
 	for(unsigned int i = 0; i <= (*vec)[0]; i++)
@@ -168,20 +168,19 @@ unsigned int hash_extensible::obtener_tamanio_tabla(){
 
 //////////////////////
 
-void hash_extensible::buscar(Registro *unRegistro){
+RegistroIndice* hash_extensible::buscar(RegistroIndice *registro){
 	//obtiene la posicion del bloque donde está el registro
-	long offset_bloque = obtener_offset_bloque(funcion_hashing(unRegistro));
+	unsigned int offset_bloque = obtener_offset_bloque(funcion_hashing(registro));
 
 	//lee el bloque a memoria para buscar el registro.
 	//Si no está lanza excepción, si está lo devuelve por parámetro
-	Bloque *bloque_aux = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	BloqueHash *bloque_aux = new BloqueHash(0);
+	bloque_aux = (BloqueHash*)bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
-	try{
-		unRegistro = bloque_aux->buscar(unRegistro);
-	}catch(RegistroNoEstaEnBloque){
-		delete bloque_aux;
-		throw RegistroNoEstaEnHash();
-	}
+	RegistroIndice *reg_aux;
+	reg_aux = bloque_aux->Buscar(registro);
+	delete bloque_aux;
+	return reg_aux;
 }
 
 ////////////////////////
@@ -208,43 +207,50 @@ void hash_extensible::duplicar_tabla(unsigned int posicion_en_tabla){
 
 	//en el archivo de bloques inserta uno nuevo, y al nuevo bloque y al
 	//desbordado les asigna tamanio dispersion = tamanio tabla
-	Bloque *nuevo_bloque = new Bloque(obtener_tamanio_tabla());
-	nuevo_bloque->persistir(this->nombre_arch_bloques.c_str(), num_nuevo_bloque*Bloque::getTamanioBloques());
+	BloqueHash *nuevo_bloque = new BloqueHash(obtener_tamanio_tabla());
+	nuevo_bloque->Persistir(this->nombre_arch_bloques.c_str(), num_nuevo_bloque*BloqueHash::getTamanioBloques());
 	delete nuevo_bloque;
 
-	long offset_bloque = nro_bloque_desbordado*Bloque::getTamanioBloques();
-	Bloque *bloque_desbordado = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	unsigned int offset_bloque = nro_bloque_desbordado * BloqueHash::getTamanioBloques();
+	BloqueHash *bloque_desbordado = new BloqueHash(0);
+	bloque_desbordado = (BloqueHash*) bloque_desbordado->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 	bloque_desbordado->setTamanioDispersion(obtener_tamanio_tabla());
 	// Borra todos los registros del bloque y los guarda en memoria
-	vector<Registro> registros_a_redispersar = bloque_desbordado->vaciarBloque();
+	list<RegistroIndice *> *registros_a_redispersar = bloque_desbordado->VaciarBloque();
 
 	//vuelve a guardar el bloque, ahora sin registros y con su nuevo tamaño de dispersión:
-	bloque_desbordado->persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
+	bloque_desbordado->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
 	delete bloque_desbordado;
+
 	//redispersa los registros del bloque desbordado
-	for(unsigned int i = 0; i < registros_a_redispersar.size(); i++)
-		guardar(&registros_a_redispersar[i]);
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = registros_a_redispersar->begin(); it != registros_a_redispersar->end(); it++){
+		registroEnLista = *it;
+		guardar(registroEnLista);
+	}
 }
 
 /////////////////////////
 
 void hash_extensible::incrementar_tabla(unsigned int posicion_en_tabla){
 	//lee y duplica el tamaño de dispersión del bloque desbordado
-	long offset_bloque = obtener_offset_bloque(posicion_en_tabla);
-	Bloque *bloque_desbordado = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
+	BloqueHash *bloque_desbordado = new BloqueHash(0);
+	bloque_desbordado->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 	unsigned int nuevo_tamanio_dispersion = bloque_desbordado->getTamanioDispersion()*2;
 	bloque_desbordado->setTamanioDispersion(nuevo_tamanio_dispersion);
 
 	//Borra todos los registros del bloque y los guarda en memoria
-	vector<Registro> registros_a_redispersar = bloque_desbordado->vaciarBloque();
+	list<RegistroIndice *> *registros_a_redispersar = bloque_desbordado->VaciarBloque();
 	//vuelve a guardar el bloque, ahora sin registros y con su nuevo tamaño de dispersión:
-	bloque_desbordado->persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
+	bloque_desbordado->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
 	delete bloque_desbordado;
 
 	//inserta un nuevo bloque con el nuevo tamaño de dispersión
-	Bloque *nuevo_bloque = new Bloque(nuevo_tamanio_dispersion);
+	BloqueHash *nuevo_bloque = new BloqueHash(nuevo_tamanio_dispersion);
 	unsigned int num_nuevo_bloque = extraer_nro_nuevo_bloque();
-	nuevo_bloque->persistir(this->nombre_arch_bloques.c_str(), num_nuevo_bloque*Bloque::getTamanioBloques());
+	nuevo_bloque->Persistir(this->nombre_arch_bloques.c_str(), num_nuevo_bloque*BloqueHash::getTamanioBloques());
 	delete nuevo_bloque;
 
 	//y asigna su referencia a todas las posiciones de la tabla
@@ -263,16 +269,21 @@ void hash_extensible::incrementar_tabla(unsigned int posicion_en_tabla){
 	persistir_vector(tabla_disp, tabla_dispersion, this->nombre_arch_tabla.c_str());
 
 	//redispersa los registros del bloque desbordado
-	for(unsigned int i = 0; i < registros_a_redispersar.size(); i++)
-		guardar(&registros_a_redispersar[i]);
+	RegistroIndice *registroEnLista = NULL;
+	list<RegistroIndice *>::iterator it;
+	for (it = registros_a_redispersar->begin(); it != registros_a_redispersar->end(); it++){
+		registroEnLista = *it;
+		guardar(registroEnLista);
+	}
 }
 
 ////////////////////////
 
 void hash_extensible::expandir_hash(unsigned int posicion_en_tabla){
 
-	long offset_bloque = obtener_offset_bloque(posicion_en_tabla);
-	Bloque *bloque_aux = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
+	BloqueHash *bloque_aux = new BloqueHash(0);
+	bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 	unsigned int tamanio_dispersion = bloque_aux->getTamanioDispersion();
 	delete bloque_aux;
 	unsigned int tamanio_tabla = obtener_tamanio_tabla();
@@ -283,53 +294,49 @@ void hash_extensible::expandir_hash(unsigned int posicion_en_tabla){
 
 ///////////////////////////
 
-void hash_extensible::guardar(Registro *unRegistro){
+void hash_extensible::guardar(RegistroIndice *registro){
 
-	long offset_bloque = obtener_offset_bloque(funcion_hashing(unRegistro));
-	Bloque *bloque_aux = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	unsigned int offset_bloque = obtener_offset_bloque(funcion_hashing(registro));
+	BloqueHash *bloque_aux = new BloqueHash(0);
+	bloque_aux = (BloqueHash*) bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
-	/* busca el registro en el bloque. Si no está lo inserta y sale */
-	Registro *registro_anterior;
-	try{
-		registro_anterior = bloque_aux->buscar(unRegistro);
-	}catch(RegistroNoEstaEnBloque){
-		if(bloque_aux->insertar(unRegistro)){
-			bloque_aux->persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
-			delete bloque_aux;
-			return;
-		}
-		/* si el bloque estaba lleno y no se pudo insertar el registro,
-		 * agrega otro bloque, modifica la tabla, redispersa, guarda y termina */
+	/* trata de insertar el registro y salir */
+	if(bloque_aux->Insertar(registro)){
+		bloque_aux->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
 		delete bloque_aux;
-		expandir_hash(funcion_hashing(unRegistro));
-		guardar(unRegistro);
 		return;
 	}
-	 /* Si ya estaba fusiona las listas de referencias y luego inserta */
-	 /* HACER: en la sobrecarga del operador + validar
-	  * longitud (si la lista creció demasiado, guarda en archivo de listas) */
-	 Registro *nuevo_registro = (*registro_anterior) + (*unRegistro);
 
-	 /* NOTA: bloque::insertar(registro) debe estár implementado de forma tal que si
-	  * el registro ya estaba en el bloque, el viejo es reemplazado por el nuevo */
-	  bloque_aux->insertar(nuevo_registro);
-	  bloque_aux->persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
-	  delete bloque_aux;
+	delete bloque_aux;
+
+	/* si el bloque estaba lleno y no se pudo insertar el registro,
+	 * agrega otro bloque, modifica la tabla, redispersa, guarda y termina */
+	expandir_hash(funcion_hashing(registro));
+	guardar(registro);
+
+	/* NOTA: bloque::insertar(registro) debe estár implementado de forma tal que si
+	 * el registro ya estaba en el bloque, el viejo es reemplazado por el nuevo */
 }
 
 //////////////////////////
 
-void hash_extensible::borrar(Registro *unRegistro){
+bool hash_extensible::borrar(RegistroIndice *registro){
 
-	long offset_bloque = obtener_offset_bloque(funcion_hashing(unRegistro));
-	Bloque *bloque_aux = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	unsigned int offset_bloque = obtener_offset_bloque(funcion_hashing(registro));
+	BloqueHash *bloque_aux = new BloqueHash(0);
+	bloque_aux = (BloqueHash*)bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	if(bloque_aux != NULL){
+		if(bloque_aux->Eliminar(registro)){
+			bloque_aux->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
 
-	bloque_aux->borrar(unRegistro);
-	bloque_aux->persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
+			/* revisa si el bloque quedó vacío para tratar de liberarlo*/
+			if(bloque_aux->getCantidadRegistros() == 0)
+				reducir_hash(funcion_hashing(registro));
 
-	/* revisa si el bloque quedó vacío para tratar de liberarlo*/
-	if(bloque_aux->getCantidadRegistros() == 0)
-		reducir_hash(funcion_hashing(unRegistro));
+			return true;
+		}
+	}
+	return false;
 }
 
 //////////////////////////
@@ -344,7 +351,8 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 	 * posicion_en_tabla para ver si los números de bloque consignados en esas
 	 * posiciones coinciden y determinar si el bloque puede o no ser liberado*/
 	long offset_bloque = obtener_offset_bloque(posicion_en_tabla);
-	Bloque *bloque_vacio = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
+	BloqueHash *bloque_vacio = new BloqueHash(0);
+	bloque_vacio->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
 	unsigned int distancia_final = bloque_vacio->getTamanioDispersion()/2;
 	unsigned int posicion_adelante = posicion_en_tabla;
@@ -388,11 +396,12 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 		persistir_vector(lista_bloques_libres, arch_bloques_libres, this->nombre_arch_bloques_libres.c_str());
 
 		//al bloque reemplazante le divide por 2 el tamaño de dispersion
-		long offset_reemplazante = obtener_offset_bloque(posicion_en_tabla);
-		Bloque *bloque_reemplazante = new Bloque(this->nombre_arch_bloques.c_str(), offset_reemplazante);
+		unsigned int offset_reemplazante = obtener_offset_bloque(posicion_en_tabla);
+		BloqueHash *bloque_reemplazante = new BloqueHash(0);
+		bloque_reemplazante->Leer(this->nombre_arch_bloques.c_str(), offset_reemplazante);
 		unsigned int nuevo_tam_dispersion = bloque_reemplazante->getTamanioDispersion()/2;
 		bloque_reemplazante->setTamanioDispersion(nuevo_tam_dispersion);
-		bloque_reemplazante->persistir(this->nombre_arch_bloques.c_str(), offset_reemplazante);
+		bloque_reemplazante->Persistir(this->nombre_arch_bloques.c_str(), offset_reemplazante);
 
 		//si las dos mitades son iguales trunca la tabla
 		bool distintas = false;
@@ -424,7 +433,7 @@ void hash_extensible::imprimir(const string nombre_archivo){
 
 	fstream archivo_texto;
 	archivo_texto.open(nombre_archivo.c_str(), ios::out | ios::trunc);
-	archivo_texto << "td: tamaño de dispersion." << endl << endl << endl;
+	archivo_texto << "TD: tamaño de dispersion. EL: espacio libre" << endl << endl << endl;
 	archivo_texto << "Tabla:" << endl;
 	for(unsigned int i = 1; i <= tamanio_tabla; i++)
 		archivo_texto << "  " << (*tabla)[i];
@@ -434,20 +443,20 @@ void hash_extensible::imprimir(const string nombre_archivo){
 		archivo_texto << "  " << (*lista_bloqlib)[i];
 	archivo_texto << endl << endl;
 
-	archivo_texto << "Claves de los registros en bloques:" << endl;
+	archivo_texto << "Bloques:" << endl;
 	int max = -1;
 	for(unsigned int i = 1; i <= (*tabla)[0]; i++)
 		if((int)(*tabla)[i] > max) max = (*tabla)[i];
 
 	/*arch_bloques->seekg(0, ios::end);
 	long fin = arch_bloques->tellg();*/
-	long offset_bloque = 0;
-	Bloque *aux;
+	unsigned int offset_bloque = 0;
+	BloqueHash *aux = new BloqueHash(0);
 	unsigned int num_bloque;
 	bool liberado = false;
-	while(offset_bloque <= max*Bloque::getTamanioBloques()){
-		aux = new Bloque(this->nombre_arch_bloques.c_str(), offset_bloque);
-		num_bloque = offset_bloque/Bloque::getTamanioBloques();
+	while(offset_bloque <= max*BloqueHash::getTamanioBloques()){
+		aux = (BloqueHash*) aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+		num_bloque = offset_bloque/BloqueHash::getTamanioBloques();
 		//antes de imprimir revisa que el bloque no esté liberado
 		unsigned int i = 1;
 		while((i <= tamanio_lista_libres) && (!liberado)){
@@ -455,20 +464,17 @@ void hash_extensible::imprimir(const string nombre_archivo){
 			i++;
 		}
 		if(liberado){
-			offset_bloque += Bloque::getTamanioBloques();
+			offset_bloque += BloqueHash::getTamanioBloques();
 			liberado = false;
 			delete aux;
 			continue;
 		}
 		//imprime el contenido del bloque
 		archivo_texto << num_bloque << ": ";
-		archivo_texto << "td " << aux->getTamanioDispersion() << "  ";
-		archivo_texto.close();
-		aux->imprimir(nombre_archivo);
-		archivo_texto.open(nombre_archivo.c_str(), ios::out | ios::app);
+		aux->Imprimir(&archivo_texto);
 		archivo_texto << endl;
 
-		offset_bloque += Bloque::getTamanioBloques();
+		offset_bloque += BloqueHash::getTamanioBloques();
 		delete aux;
 	}
 	archivo_texto.close();
