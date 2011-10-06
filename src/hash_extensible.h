@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "../Almacenamiento/Arbol/Registro.h"
-#include "../Almacenamiento/Bloque.h"
+#include <vector>
+#include <list>
+#include "RegistroIndice.h"
+#include "BloqueHash.h"
 
 using namespace std;
 
@@ -19,7 +21,7 @@ class hash_extensible {
 		
 	//recibe una posicion (no un offset) en la tabla de dispersión y devuelve 
 	//el offset del bloque correspondiente en el archivo de hashing	
-	long obtener_offset_bloque(unsigned int posicion_en_tabla);
+	unsigned int obtener_offset_bloque(unsigned int posicion_en_tabla);
 	
 	//Pre: se produjo un desborde en un bloque con td = tt (posicion_en_tabla es la posición 
 	//del archivo "tabla dispersión" en el que está el nro. del bloque que se desbordó)
@@ -46,9 +48,9 @@ class hash_extensible {
 	//archivo de bloques libres
 	unsigned int extraer_nro_nuevo_bloque();
 	
-	unsigned int funcion_hashing(Registro *unRegistro);
+	unsigned int funcion_hashing(RegistroIndice *registro);
 	
-	void persistir_vector(vector<unsigned int> *vec, fstream *archivo, const char* nombre_archivo);
+	void persistir_vector(vector<unsigned int> *vec, fstream *archivo, string nombre_archivo);
 	
 	unsigned int obtener_tamanio_tabla();
 	
@@ -57,17 +59,17 @@ public:
 	hash_extensible(string nombre_arch_bloques, string nombre_arch_bloques_libres, string nombre_arch_tabla);
 
 	//Pre: el hash fue creado
-	//Post: se almacenó el registro de índice, si no existía previamente (clave es el identificador y dato es la referencia o el arreglo de referencias)
-	void guardar(Registro *unRegistro);
+	//Post: se almacenó el registro de índice, si no existía previamente (si ya existía lo sobreescribe)
+	void guardar(RegistroIndice *registro);
 
 	//Pre: el hash fue creado
-	//Post: se eliminó el registro de índice, y su información se devuelve por parámetro
-	void borrar(Registro *unRegistro);
+	//Post: se eliminó el registro de índice, y su información fue devuelta por parámetro
+	bool borrar(RegistroIndice *registro);
 
 	//Pre: el hash fue creado
 	//Post: la información del registro de índice se devuelve por parámetro (no modifica los datos)
 	//Si el elemento no está, lanza una excepción
-	void buscar(Registro *unRegistro);
+	RegistroIndice* buscar(RegistroIndice *registro);
 	
 	//Crea un archivo de texto plano en el que se muestra la estructura del hash 
 	void imprimir(const string nombre_archivo);

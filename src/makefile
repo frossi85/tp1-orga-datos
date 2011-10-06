@@ -1,9 +1,9 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o
+Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o
 CC = g++
 DEBUG = -g
-CFLAGS = -Wall -pedantic -c $(DEBUG)
-LFLAGS = -Wall -pedantic $(DEBUG)
+CFLAGS = -Wall -c $(DEBUG)
+LFLAGS = -Wall $(DEBUG)
 
 VotoElectronico: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o VotoElectronico
@@ -65,8 +65,13 @@ BloqueHash.o: BloqueHash.cpp BloqueHash.h
 	
 BloqueHash.h: Bloque.h RegistroIndice.h
 
-Menu.o: Menu.cpp Menu.h
-	$(CC) $(CFLAGS) Menu.cpp
+menu.o: menu.cpp menu.h
+	$(CC) $(CFLAGS) menu.cpp
 	
 DataAccess.o: DataAccess.cpp DataAccess.h
 	$(CC) $(CFLAGS) DataAccess.cpp
+	
+hash_extensible.o: hash_extensible.cpp hash_extensible.h
+	$(CC) $(CFLAGS) hash_extensible.cpp
+
+hash_extensible.h: BloqueHash.h RegistroIndice.h
