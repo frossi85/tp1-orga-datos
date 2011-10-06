@@ -27,12 +27,12 @@ void RegistroIndice::setOffset(unsigned int offset){
 
 unsigned int RegistroIndice::getTamanioEnDisco(){
 	/* NOTA: lo que se guarda tiene esta forma:
-	 * (long_total)(long_Clave)ClaveOffset
+	 * (long_Clave)ClaveOffset
 	 */
 	unsigned int tamanioLongitudClave = sizeof(tamanioLongitudClave);
 	unsigned int tamanioClave = (this->getClave().size()) * sizeof(char);
 	unsigned int tamanioOffset = sizeof(this->getOffset());
-	unsigned int tamanioTotal = sizeof(tamanioTotal) + tamanioLongitudClave + tamanioClave + tamanioOffset;
+	unsigned int tamanioTotal = tamanioLongitudClave + tamanioClave + tamanioOffset;
 
 	return tamanioTotal; //en bytes
 }
@@ -41,8 +41,8 @@ unsigned int RegistroIndice::getTamanioEnDisco(){
 
 void RegistroIndice::Persistir(fstream *archivo){
 
-	unsigned int tamTotal = this->getTamanioEnDisco();
-	archivo->write((char*)&tamTotal, sizeof(tamTotal));
+	//unsigned int tamTotal = this->getTamanioEnDisco();
+	//archivo->write((char*)&tamTotal, sizeof(tamTotal));
 
     std::string clave = this->getClave();
 	unsigned int longClave = clave.size();
@@ -52,14 +52,16 @@ void RegistroIndice::Persistir(fstream *archivo){
 
 	unsigned int offset = this->getOffset();
 	archivo->write((char*)&offset, sizeof(offset));
+
+	archivo->flush();
 }
 
 /////////////////
 
 RegistroIndice* RegistroIndice::Leer(fstream *archivo){
 
-	unsigned int longTotal;
-	archivo->read((char*)&longTotal, sizeof(longTotal));
+	//unsigned int longTotal;
+	//archivo->read((char*)&longTotal, sizeof(longTotal));
 
     unsigned int longClave = 0;
 	archivo->read((char *)&longClave, sizeof(longClave));
@@ -79,5 +81,5 @@ RegistroIndice* RegistroIndice::Leer(fstream *archivo){
 
 void RegistroIndice::Imprimir(fstream *archImpresion){
 
-    *archImpresion << "(" << this->getClave() << " | " << this->getOffset() << ")";
+    *archImpresion << "(" << this->getClave() << "|" << this->getOffset() << ")";
 }
