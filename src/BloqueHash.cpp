@@ -108,7 +108,11 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 	//Si no pudo grabar, devuelve false
 
 	fstream archBloques(rutaArchivo.c_str(), ios_base::out | ios_base::in | ios_base::binary);
-	if(!archBloques.is_open()) return false;
+	if(!archBloques.is_open()){
+        archBloques.open(rutaArchivo.c_str(), ios_base::out);
+        archBloques.close();
+        archBloques.open(rutaArchivo.c_str(), ios_base::out | ios_base::in | ios_base::binary);
+	}else if(!archBloques.is_open()) return false;
 
 	archBloques.seekp(offset);
 	unsigned int tamDispersion = this->getTamanioDispersion();
@@ -122,7 +126,7 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 		registro = *it;
 		registro->Persistir(&archBloques);
 	}
-
+    archBloques.flush();
 	archBloques.close();
 	return true;
 }
@@ -191,4 +195,6 @@ void BloqueHash::Imprimir(fstream *archImpresion){
 		registroEnLista->Imprimir(archImpresion);
 		*archImpresion << " ";
 	}
+
+	archImpresion->flush();
 }
