@@ -39,14 +39,18 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 
 unsigned int hash_extensible::funcion_hashing(RegistroIndice *registro){
 
-	unsigned int suma = 0, i = 0;
-	char caracter = registro->getClave()[0];
-	while (caracter != '\0'){
-		suma += caracter + '0';
-		i++;
-		caracter = registro->getClave()[i];
-	}
-	return suma%obtener_tamanio_tabla() + 1;
+	string clave = registro->getClave();
+	unsigned int tam_tabla = obtener_tamanio_tabla();
+
+	int valor = 0;
+    for( int i = 0; i < clave.length() ; i++ )
+        valor = 37 * valor + clave.at( i );
+
+    valor %= tam_tabla;
+    if( valor < 0 )
+        valor += tam_tabla;
+
+    return valor + 1;
 	/* suma uno para no tener en cuenta la primera posición de la tabla,
 	 * donde se guarda la longitud de la misma */
 }
@@ -388,9 +392,9 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 			else posicion++;
 			distancia++;
 		}while(posicion != posicion_en_tabla);
-		
+
 		persistir_vector(tabla, tabla_dispersion, this->nombre_arch_tabla.c_str());
-		 
+
 		//libera el bloque vacío (agrega al archivo de bloques libres)
 		vector<unsigned int> *lista_bloques_libres = cargar_archivo_bloques_libres();
 		((*lista_bloques_libres)[0])++;
@@ -455,10 +459,11 @@ void hash_extensible::imprimir(const string nombre_archivo){
 	/*arch_bloques->seekg(0, ios::end);
 	long fin = arch_bloques->tellg();*/
 	unsigned int offset_bloque = 0;
-	BloqueHash *aux = new BloqueHash(0);
+	BloqueHash *aux = NULL;
 	unsigned int num_bloque;
 	bool liberado = false;
 	while(offset_bloque <= max*BloqueHash::getTamanioBloques()){
+	    aux = new BloqueHash(0);
 		aux = (BloqueHash*) aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 		num_bloque = offset_bloque/BloqueHash::getTamanioBloques();
 		//antes de imprimir revisa que el bloque no esté liberado
