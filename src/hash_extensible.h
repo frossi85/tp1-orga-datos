@@ -83,11 +83,4 @@ public:
 	vector<unsigned int>* cargar_archivo_bloques_libres();
 };
 
-//EXCEPCIONES
-
-class RegistroNoEstaEnHash: public exception{
-public:
-	RegistroNoEstaEnHash();
-};
-
 #endif /* HASH_EXTENSIBLE_H_ */

@@ -10,9 +10,8 @@ BloqueHash::BloqueHash(unsigned int tamanioDispersion){
 ///////////////////////
 
 BloqueHash::~BloqueHash(){
-	while(!this->registros.empty()){
+	while(!this->registros.empty())
 		this->registros.pop_back();
-	}
 }
 /////////////////////////
 

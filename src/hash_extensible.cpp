@@ -237,7 +237,7 @@ void hash_extensible::incrementar_tabla(unsigned int posicion_en_tabla){
 	//lee y duplica el tamaño de dispersión del bloque desbordado
 	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
 	BloqueHash *bloque_desbordado = new BloqueHash(0);
-	bloque_desbordado->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	bloque_desbordado = (BloqueHash*)bloque_desbordado->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 	unsigned int nuevo_tamanio_dispersion = bloque_desbordado->getTamanioDispersion()*2;
 	bloque_desbordado->setTamanioDispersion(nuevo_tamanio_dispersion);
 
@@ -283,7 +283,7 @@ void hash_extensible::expandir_hash(unsigned int posicion_en_tabla){
 
 	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
 	BloqueHash *bloque_aux = new BloqueHash(0);
-	bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	bloque_aux = (BloqueHash*)bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 	unsigned int tamanio_dispersion = bloque_aux->getTamanioDispersion();
 	delete bloque_aux;
 	unsigned int tamanio_tabla = obtener_tamanio_tabla();
@@ -333,8 +333,10 @@ bool hash_extensible::borrar(RegistroIndice *registro){
 			if(bloque_aux->getCantidadRegistros() == 0)
 				reducir_hash(funcion_hashing(registro));
 
+			delete bloque_aux;
 			return true;
 		}
+		delete bloque_aux;
 	}
 	return false;
 }
@@ -352,9 +354,10 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 	 * posiciones coinciden y determinar si el bloque puede o no ser liberado*/
 	long offset_bloque = obtener_offset_bloque(posicion_en_tabla);
 	BloqueHash *bloque_vacio = new BloqueHash(0);
-	bloque_vacio->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	bloque_vacio = (BloqueHash*)bloque_vacio->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
 	unsigned int distancia_final = bloque_vacio->getTamanioDispersion()/2;
+	delete bloque_vacio;
 	unsigned int posicion_adelante = posicion_en_tabla;
 	unsigned int posicion_atras = posicion_en_tabla;
 	unsigned int distancia_actual = 0;
@@ -398,10 +401,11 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 		//al bloque reemplazante le divide por 2 el tamaño de dispersion
 		unsigned int offset_reemplazante = obtener_offset_bloque(posicion_en_tabla);
 		BloqueHash *bloque_reemplazante = new BloqueHash(0);
-		bloque_reemplazante->Leer(this->nombre_arch_bloques.c_str(), offset_reemplazante);
+		bloque_reemplazante = (BloqueHash*)bloque_reemplazante->Leer(this->nombre_arch_bloques.c_str(), offset_reemplazante);
 		unsigned int nuevo_tam_dispersion = bloque_reemplazante->getTamanioDispersion()/2;
 		bloque_reemplazante->setTamanioDispersion(nuevo_tam_dispersion);
 		bloque_reemplazante->Persistir(this->nombre_arch_bloques.c_str(), offset_reemplazante);
+		delete bloque_reemplazante;
 
 		//si las dos mitades son iguales trunca la tabla
 		bool distintas = false;
@@ -481,7 +485,3 @@ void hash_extensible::imprimir(const string nombre_archivo){
 	delete tabla;
 	delete lista_bloqlib;
 }
-
-////////////////////////
-
-RegistroNoEstaEnHash::RegistroNoEstaEnHash(){}
