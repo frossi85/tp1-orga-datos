@@ -8,18 +8,18 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 	this->nombre_arch_bloques_libres = nombre_arch_bloques_libres;
 	this->nombre_arch_tabla = nombre_arch_tabla;
 
-	this->arch_bloques = new fstream();
+	/*this->arch_bloques = new fstream();
 	this->arch_bloques_libres = new fstream();
-	this->tabla_dispersion = new fstream();
+	this->tabla_dispersion = new fstream();*/
 
 	//escribe el tamaño y la primera dirección de la tabla de dispersión
+	fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::out);
 	unsigned int tamanio_tabla = 1;
-	tabla_dispersion->open(this->nombre_arch_tabla.c_str(), ios::binary | ios::out);
-	tabla_dispersion->seekp(0);
-	tabla_dispersion->write((char *)&tamanio_tabla, sizeof(unsigned int));
+	archTabla.seekp(0);
+	archTabla.write((char *)&tamanio_tabla, sizeof(unsigned int));
 	unsigned int direccion = 0;
-	tabla_dispersion->write((char *)&direccion, sizeof(unsigned int));
-	tabla_dispersion->close();
+	archTabla.write((char *)&direccion, sizeof(unsigned int));
+	archTabla.close();
 
 	//escribe el primer bloque en el hash
 	unsigned int tam = obtener_tamanio_tabla();
@@ -28,11 +28,11 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 	delete primer_bloque;
 
 	//inicializa el archivo de bloques libres con cantidad = 0
-	arch_bloques_libres->open(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::out);
+	fstream archLibres(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::out);
 	unsigned int cantidad = 0;
-	arch_bloques_libres->seekp(0);
-	arch_bloques_libres->write((char *)&cantidad, sizeof(unsigned int));
-	arch_bloques_libres->close();
+	archLibres.seekp(0);
+	archLibres.write((char *)&cantidad, sizeof(unsigned int));
+	archLibres.close();
 }
 
 ////////////////////////////
@@ -59,11 +59,11 @@ unsigned int hash_extensible::funcion_hashing(RegistroIndice *registro){
 
 unsigned int hash_extensible::obtener_offset_bloque(unsigned int posicion_en_tabla_dispersion){
 
-	tabla_dispersion->open(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
-	tabla_dispersion->seekg(posicion_en_tabla_dispersion*sizeof(unsigned int));
+	fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
+	archTabla.seekg(posicion_en_tabla_dispersion*sizeof(unsigned int));
 	unsigned int nro_de_bloque;
-	tabla_dispersion->read((char *)&nro_de_bloque, sizeof(unsigned int));
-	tabla_dispersion->close();
+	archTabla.read((char *)&nro_de_bloque, sizeof(unsigned int));
+	archTabla.close();
 
 	int tamanio_bloque = BloqueHash::getTamanioBloques();
 	return nro_de_bloque*tamanio_bloque;
@@ -71,15 +71,16 @@ unsigned int hash_extensible::obtener_offset_bloque(unsigned int posicion_en_tab
 
 ////////////////////////////
 
-void hash_extensible::persistir_vector(vector<unsigned int> *vec, fstream *archivo, string nombre_archivo){
+void hash_extensible::persistir_vector(vector<unsigned int> *vec, string nombre_archivo){
 
-	archivo->open(nombre_archivo.c_str(), ios::binary | ios::out);
+    fstream archVector;
+	archVector.open(nombre_archivo.c_str(), ios::binary | ios::out);
 
-	archivo->seekp(0);
+	archVector.seekp(0);
 	for(unsigned int i = 0; i <= (*vec)[0]; i++)
-		archivo->write((char *)&(*vec)[i], sizeof(unsigned int));
+		archVector.write((char *)&(*vec)[i], sizeof(unsigned int));
 
-	archivo->close();
+	archVector.close();
 }
 
 ////////////////////////////
@@ -102,7 +103,7 @@ unsigned int hash_extensible::extraer_nro_nuevo_bloque(){
 		}
 		(*lista_bloques)[posicion_num_bloque] = lista_bloques->back();
 		lista_bloques->pop_back();
-		persistir_vector(lista_bloques, arch_bloques_libres, this->nombre_arch_bloques_libres.c_str());
+		persistir_vector(lista_bloques, this->nombre_arch_bloques_libres.c_str());
 		delete lista_bloques;
 		return num_bloque;
 	}
@@ -120,20 +121,20 @@ unsigned int hash_extensible::extraer_nro_nuevo_bloque(){
 
 vector<unsigned int>* hash_extensible::cargar_archivo_bloques_libres(){
 
-	arch_bloques_libres->open(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::in);
-	arch_bloques_libres->seekg(0);
+	fstream archLibres(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::in);
+	archLibres.seekg(0);
 	vector<unsigned int> *vector_aux = new vector<unsigned int>;
 	unsigned int aux;
-	arch_bloques_libres->read((char *)&aux, sizeof(unsigned int));
+	archLibres.read((char *)&aux, sizeof(unsigned int));
 	vector_aux->reserve(sizeof(unsigned int)*(aux + 1));
 	(*vector_aux)[0] = aux;
 
 	for(unsigned int i = 1; i <= (*vector_aux)[0]; i++){
-		arch_bloques_libres->read((char *)&aux, sizeof(unsigned int));
+		archLibres.read((char *)&aux, sizeof(unsigned int));
 		(*vector_aux)[i] = aux;
 	}
 
-	arch_bloques_libres->close();
+	archLibres.close();
 	return vector_aux;
 }
 
@@ -141,20 +142,20 @@ vector<unsigned int>* hash_extensible::cargar_archivo_bloques_libres(){
 
 vector<unsigned int>* hash_extensible::cargar_tabla_dispersion(){
 
-	tabla_dispersion->open(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
-	tabla_dispersion->seekg(0);
+	fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
+	archTabla.seekg(0);
 	vector<unsigned int> *vector_aux = new vector<unsigned int>;
 	unsigned int aux;
-	tabla_dispersion->read((char *)&aux, sizeof(unsigned int));
+	archTabla.read((char *)&aux, sizeof(unsigned int));
 	vector_aux->reserve(sizeof(unsigned int)*(aux + 1));
 	(*vector_aux)[0] = aux;
 
 	for(unsigned int i = 1; i <= (*vector_aux)[0]; i++){
-		tabla_dispersion->read((char *)&aux, sizeof(unsigned int));
+		archTabla.read((char *)&aux, sizeof(unsigned int));
 		(*vector_aux)[i] = aux;
 	}
 
-	tabla_dispersion->close();
+	archTabla.close();
 	return vector_aux;
 }
 
@@ -162,11 +163,11 @@ vector<unsigned int>* hash_extensible::cargar_tabla_dispersion(){
 
 unsigned int hash_extensible::obtener_tamanio_tabla(){
 
-	tabla_dispersion->open(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
-	tabla_dispersion->seekg(0);
+	fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
+	archTabla.seekg(0);
 	unsigned int aux;
-	tabla_dispersion->read((char *)&aux, sizeof(unsigned int));
-	tabla_dispersion->close();
+	archTabla.read((char *)&aux, sizeof(unsigned int));
+	archTabla.close();
 	return aux;
 }
 
@@ -207,7 +208,7 @@ void hash_extensible::duplicar_tabla(unsigned int posicion_en_tabla){
 
 	//duplica el tamaño de la tabla y guarda la tabla duplicada en disco
 	(*tabla_en_memoria)[0] *= 2;
-	persistir_vector(tabla_en_memoria, tabla_dispersion, this->nombre_arch_tabla.c_str());
+	persistir_vector(tabla_en_memoria, this->nombre_arch_tabla.c_str());
 
 	//en el archivo de bloques inserta uno nuevo, y al nuevo bloque y al
 	//desbordado les asigna tamanio dispersion = tamanio tabla
@@ -270,7 +271,7 @@ void hash_extensible::incrementar_tabla(unsigned int posicion_en_tabla){
 		else posicion++;
 		distancia++;
 	}while(posicion != posicion_en_tabla);
-	persistir_vector(tabla_disp, tabla_dispersion, this->nombre_arch_tabla.c_str());
+	persistir_vector(tabla_disp, this->nombre_arch_tabla.c_str());
 
 	//redispersa los registros del bloque desbordado
 	RegistroIndice *registroEnLista = NULL;
@@ -356,12 +357,38 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 	/* calcula la distancia que hay que moverse a derecha e izquierda de
 	 * posicion_en_tabla para ver si los números de bloque consignados en esas
 	 * posiciones coinciden y determinar si el bloque puede o no ser liberado*/
-	long offset_bloque = obtener_offset_bloque(posicion_en_tabla);
+	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
 	BloqueHash *bloque_vacio = new BloqueHash(0);
 	bloque_vacio = (BloqueHash*)bloque_vacio->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
 	unsigned int distancia_final = bloque_vacio->getTamanioDispersion()/2;
 	delete bloque_vacio;
+	/* caso particular: se vació completamente el hash:
+	 * si el bloque que se intenta liberar es el único que hay (tiene td = 1),
+	 * no se lo libera, y el resto de los archivos vuelven a cómo eran
+	 * inmediatamente después de llamar al constructor
+	 */
+	if(distancia_final == 0){
+        //deja la tabla con una sola referencia al bloque que quedó
+        vector<unsigned int> *tabla_disp = cargar_tabla_dispersion();
+        unsigned int tamanio_tabla = 1;
+        (*tabla_disp)[0] = tamanio_tabla;
+
+        persistir_vector(tabla_disp, this->nombre_arch_tabla);
+        delete tabla_disp;
+
+        //deja el archivo de bloques libres con cantidad = 0
+        unsigned int cantidad = 0;
+        fstream archLibres(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::out);
+        archLibres.seekp(0);
+        archLibres.write((char *)&cantidad, sizeof(unsigned int));
+        archLibres.close();
+
+        //antes de salir libera memoria que se pidió al principio del método
+        delete tabla;
+        return;
+	}
+
 	unsigned int posicion_adelante = posicion_en_tabla;
 	unsigned int posicion_atras = posicion_en_tabla;
 	unsigned int distancia_actual = 0;
@@ -393,14 +420,14 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 			distancia++;
 		}while(posicion != posicion_en_tabla);
 
-		persistir_vector(tabla, tabla_dispersion, this->nombre_arch_tabla.c_str());
+		persistir_vector(tabla, this->nombre_arch_tabla.c_str());
 
 		//libera el bloque vacío (agrega al archivo de bloques libres)
 		vector<unsigned int> *lista_bloques_libres = cargar_archivo_bloques_libres();
 		((*lista_bloques_libres)[0])++;
 		lista_bloques_libres->reserve((*lista_bloques_libres)[0] + 1);
 		(*lista_bloques_libres)[(*lista_bloques_libres)[0]] = nro_bloque_vacio;
-		persistir_vector(lista_bloques_libres, arch_bloques_libres, this->nombre_arch_bloques_libres.c_str());
+		persistir_vector(lista_bloques_libres, this->nombre_arch_bloques_libres.c_str());
 
 		//al bloque reemplazante le divide por 2 el tamaño de dispersion
 		unsigned int offset_reemplazante = obtener_offset_bloque(posicion_en_tabla);
@@ -424,7 +451,7 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 			for(unsigned int i = 1; i <= tamanio_tabla/2; i++)
 				(*aux)[i] = (*tabla)[i];
 
-			persistir_vector(aux, tabla_dispersion, this->nombre_arch_tabla.c_str());
+			persistir_vector(aux, this->nombre_arch_tabla.c_str());
 		}
 	}
 }
@@ -433,7 +460,6 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 
 void hash_extensible::imprimir(const string nombre_archivo){
 
-	if(!arch_bloques->is_open()) arch_bloques->open(nombre_arch_bloques.c_str(), ios::binary | ios::in);
 	vector<unsigned int> *tabla = cargar_tabla_dispersion();
 	vector<unsigned int> *lista_bloqlib = cargar_archivo_bloques_libres();
 	unsigned int tamanio_tabla = (*tabla)[0];
