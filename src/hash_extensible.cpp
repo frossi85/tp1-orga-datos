@@ -8,11 +8,7 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 	this->nombre_arch_bloques_libres = nombre_arch_bloques_libres;
 	this->nombre_arch_tabla = nombre_arch_tabla;
 
-	/*this->arch_bloques = new fstream();
-	this->arch_bloques_libres = new fstream();
-	this->tabla_dispersion = new fstream();*/
-
-	//escribe el tamaño y la primera dirección de la tabla de dispersión
+    //escribe el tamaño y la primera dirección de la tabla de dispersión
 	fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::out);
 	unsigned int tamanio_tabla = 1;
 	archTabla.seekp(0);
@@ -101,8 +97,8 @@ unsigned int hash_extensible::extraer_nro_nuevo_bloque(){
 				posicion_num_bloque = i;
 			}
 		}
-		(*lista_bloques)[posicion_num_bloque] = lista_bloques->back();
-		lista_bloques->pop_back();
+		(*lista_bloques)[posicion_num_bloque] = (*lista_bloques)[(*lista_bloques)[0]];
+		(*lista_bloques)[0]--;
 		persistir_vector(lista_bloques, this->nombre_arch_bloques_libres.c_str());
 		delete lista_bloques;
 		return num_bloque;
@@ -114,6 +110,7 @@ unsigned int hash_extensible::extraer_nro_nuevo_bloque(){
 	for(unsigned int i = 1; i <= (*tabla_disp)[0]; i++)
 		if((int)(*tabla_disp)[i] > max) max = (*tabla_disp)[i];
 
+    delete tabla_disp;
 	return max + 1;
 }
 
@@ -373,16 +370,21 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
         vector<unsigned int> *tabla_disp = cargar_tabla_dispersion();
         unsigned int tamanio_tabla = 1;
         (*tabla_disp)[0] = tamanio_tabla;
-
         persistir_vector(tabla_disp, this->nombre_arch_tabla);
+
+        //en el archivo de bloques libres pone todos los nros. de bloque
+        //menores al nro. de bloque que quedó en uso
+        unsigned int num_bloque_en_uso = (*tabla_disp)[1];
         delete tabla_disp;
 
-        //deja el archivo de bloques libres con cantidad = 0
-        unsigned int cantidad = 0;
-        fstream archLibres(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::out);
-        archLibres.seekp(0);
-        archLibres.write((char *)&cantidad, sizeof(unsigned int));
-        archLibres.close();
+        vector<unsigned int> *bloques_libres = new vector<unsigned int>;
+        bloques_libres->reserve(num_bloque_en_uso + 1);
+        (*bloques_libres)[0] = num_bloque_en_uso;
+        for(unsigned int i = 1; i < num_bloque_en_uso +1; i++){
+            (*bloques_libres)[i] = i - 1;
+        }
+        persistir_vector(bloques_libres, this->nombre_arch_bloques_libres);
+        delete bloques_libres;
 
         //antes de salir libera memoria que se pidió al principio del método
         delete tabla;
@@ -482,8 +484,6 @@ void hash_extensible::imprimir(const string nombre_archivo){
 	for(unsigned int i = 1; i <= (*tabla)[0]; i++)
 		if((int)(*tabla)[i] > max) max = (*tabla)[i];
 
-	/*arch_bloques->seekg(0, ios::end);
-	long fin = arch_bloques->tellg();*/
 	unsigned int offset_bloque = 0;
 	BloqueHash *aux = NULL;
 	unsigned int num_bloque;
