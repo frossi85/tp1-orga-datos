@@ -31,6 +31,16 @@ long Eleccion::getId()
 	return _id;
 }
 
+vector<Distrito *> Eleccion::getDistritos(){
+	return this->_distritos;
+
+}
+
+string Eleccion::getDescripcion(){
+
+	return (this->_cargo->getCargoPrincipal() + "  " + this->_fecha);
+
+}
 
 void Eleccion::Imprimir()
 {

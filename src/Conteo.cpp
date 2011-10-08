@@ -20,4 +20,9 @@ void Conteo::incrementar()
 	this->cantidad++;
 }
 
+long Conteo::getVotos(){
+
+	return cantidad;
+}
+
 
