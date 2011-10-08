@@ -6,12 +6,45 @@
  */
 
 #include "DataAccess.h"
+#include <string>
+#include <iostream>
 
 DataAccess::DataAccess() : configuracion(*Configuracion::getConfig()){
 }
 
 DataAccess::~DataAccess() {
 	// TODO Auto-generated destructor stub
+}
+
+long DataAccess::getIdPorNombre(char objeto, string clave)
+{
+	switch (objeto) {
+	case 'd':
+		//distrito -> por nombre
+		return 1;
+		break;
+	case 'v':
+		//votane por dni
+		return 2;
+		break;
+	case 'e':
+		//eleccion por fecha
+		return 3;
+		break;
+	case 'l':
+		//lista por nombre
+		return 4;
+		break;
+	case 'c':
+		//cargo por nombre
+		return 4;
+		break;
+	case 'a':
+		//candidato por dni
+		return 4;
+		break;
+	}
+	// SI no lo halla devuelve cero
 }
 
 //Recibe el id del grabable q quiero leer, obj es una instacia vacia a sobreescribir con los
@@ -21,7 +54,7 @@ void DataAccess::getPorId(long id, Grabable & obj)
 	string rutaArchivo = obj.getURLArchivoDatos();
 	ifstream ifs(rutaArchivo.c_str(), ios::binary);
 	//Posicionarme en el ifstream mediante el hash, para luego leer desde ahi
-
+	cout << "cartel " << rutaArchivo << endl;
 
 	if(!ifs.is_open())  //o if(!ifs)
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + obj.getClassName());
