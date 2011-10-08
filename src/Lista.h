@@ -12,7 +12,6 @@
 #include "Grabable.h"
 #include "Logueable.h"
 #include "Eleccion.h"
-#include "DataAccess.h"
 
 
 using namespace std;

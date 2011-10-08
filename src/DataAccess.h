@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Grabable.h"
 #include "Logueable.h"
 #include "Logger.h"
@@ -18,6 +19,8 @@
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
 #include "Distrito.h"
+#include "Conteo.h"
+
 
 class DataAccess {
 	//En el contructor levantar todas las configuraciones
@@ -31,6 +34,10 @@ public:
 	void Guardar(Grabable & obj);
 	void Eliminar(Grabable & obj);
 	void getPorId(long id, Grabable & obj);
+
+	long getIdPorNombre(char objeto, string clave);
+	vector<Conteo*> getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito&);
+	vector<Conteo*> getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccion &eleccion);
 };
 
 #endif /* DATAACCESS_H_ */

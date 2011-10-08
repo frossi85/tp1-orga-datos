@@ -6,6 +6,7 @@
  */
 
 #include "Lista.h"
+#include "DataAccess.h"
 
 Lista::Lista()
 {

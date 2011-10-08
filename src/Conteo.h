@@ -5,22 +5,24 @@
  *      Author: facundo
  */
 
+
 #ifndef CONTEO_H_
 #define CONTEO_H_
 
 #include <string>
 #include "Grabable.h"
-#include "Logueable.h"
 #include "Lista.h"
+#include "Logueable.h"
 #include "Distrito.h"
 #include "Eleccion.h"
+
 
 using namespace std;
 
 class Conteo : public Grabable {
 private:
-	Lista& _lista;
 	Distrito& _distrito;
+	Lista& _lista;
 	Eleccion& _eleccion;
 	long int cantidad;
 
@@ -32,6 +34,20 @@ public:
 
 	void incrementar();
 	long getVotos();
+	Lista* getLista();
+	Distrito* getDistrito();
+
+
+	//Falte Implementar
+	void Guardar(ofstream & ofs);
+
+	//Falta Implementar
+	void Leer(ifstream & ifs);
+
+	//Falta Implementar
+	string getURLArchivoDatos();
+
+	string getClassName();
 
 };
 
