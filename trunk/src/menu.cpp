@@ -69,11 +69,19 @@ bool Menu::acceder_admin() {
 }
 
 bool Menu::acceder_usuario() {
-	char userOk[20]="31655361";
-	char passOk[20]="31655361";
+	char userOk[20]="1111";
+	char passOk[20]="1111";
 
 	if ( (strncmp(user,userOk,20)==0) && (strncmp(pass,passOk,20)==0) ) {
 		cout<< "Accedio al sistema." << endl;
+
+		//Se LLama al menu del Votante
+
+		Menu_votante *menu_vot;
+		menu_vot=new Menu_votante();
+		delete menu_vot;
+
+
 		return true;
 	} else {
 		if ( (strncmp(user,salir,5)==0) || (strncmp(pass,salir,5)==0) ) {

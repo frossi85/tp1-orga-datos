@@ -9,6 +9,7 @@
 #define MENU_H_
 
 #include <string.h>
+#include "Menu_votante.h"
 
 using namespace std;
 
