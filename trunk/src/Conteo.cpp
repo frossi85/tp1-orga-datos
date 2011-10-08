@@ -25,4 +25,33 @@ long Conteo::getVotos(){
 	return cantidad;
 }
 
+Lista* Conteo::getLista(){
+
+	return &this->_lista;
+
+}
+
+Distrito* Conteo::getDistrito(){
+
+	return &this->_distrito;
+}
+
+void Conteo::Guardar(ofstream & ofs){
+
+}
+
+void Conteo::Leer(ifstream & ifs){
+
+}
+
+string Conteo::getURLArchivoDatos(){
+
+}
+
+string Conteo::getClassName(){
+
+	return "Conteo";
+
+}
+
 

@@ -20,6 +20,8 @@ using namespace std;
 class Informe {
 public:
 	Informe(Eleccion& eleccion);
+	long mostrar_Conteos_por_Distrito(vector<Conteo *> conteos);
+
 	Informe(Distrito& distrito);
 	Informe(Lista& lista);
 
