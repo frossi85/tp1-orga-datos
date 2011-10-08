@@ -443,7 +443,7 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 		//si las dos mitades son iguales trunca la tabla
 		bool distintas = false;
 		for(unsigned int i = 1; i <= tamanio_tabla/2; i++){
-			if((*tabla)[i + tamanio_tabla] != (*tabla)[i])
+			if((*tabla)[i + tamanio_tabla/2] != (*tabla)[i])
 				distintas = true;
 		}
 		if (!distintas){
