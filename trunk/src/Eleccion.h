@@ -25,7 +25,9 @@ public:
 	virtual ~Eleccion();
 
 	long getId();
+	string getDescripcion();
 	void agregarDistrito(Distrito distrito);
+	vector<Distrito *> getDistritos();
 
 	//Interface de Guardable
 	void Guardar(ofstream & ofs);

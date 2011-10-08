@@ -22,7 +22,7 @@ private:
 	Lista& _lista;
 	Distrito& _distrito;
 	Eleccion& _eleccion;
-	int cantidad;
+	long int cantidad;
 
 public:
 	//Las referencias deben ser inicializadas si o si en el constructor mediante listas de
@@ -31,6 +31,8 @@ public:
 	virtual ~Conteo();
 
 	void incrementar();
+	long getVotos();
+
 };
 
 #endif /* CONTEO_H_ */

@@ -12,6 +12,8 @@
 #include <vector>
 #include "Eleccion.h"
 #include "Distrito.h"
+#include "Lista.h"
+#include "Conteo.h"
 
 using namespace std;
 
@@ -19,6 +21,7 @@ class Informe {
 public:
 	Informe(Eleccion& eleccion);
 	Informe(Distrito& distrito);
+	Informe(Lista& lista);
 
 
 	virtual ~Informe();
