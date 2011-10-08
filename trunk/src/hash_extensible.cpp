@@ -8,27 +8,46 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 	this->nombre_arch_bloques_libres = nombre_arch_bloques_libres;
 	this->nombre_arch_tabla = nombre_arch_tabla;
 
-    //escribe el tamaño y la primera dirección de la tabla de dispersión
-	fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::out);
-	unsigned int tamanio_tabla = 1;
-	archTabla.seekp(0);
-	archTabla.write((char *)&tamanio_tabla, sizeof(unsigned int));
-	unsigned int direccion = 0;
-	archTabla.write((char *)&direccion, sizeof(unsigned int));
-	archTabla.close();
+    /* trata de abrir los archivos para ver si ya existen. Si es así no hace nada, sino,
+     * los crea y los inicializa
+     */
+    bool no_existen = false;
 
-	//escribe el primer bloque en el hash
-	unsigned int tam = obtener_tamanio_tabla();
-	BloqueHash *primer_bloque = new BloqueHash(tam);
-	primer_bloque->Persistir(this->nombre_arch_bloques.c_str(), 0);
-	delete primer_bloque;
+    fstream archTabla(this->nombre_arch_tabla.c_str(), ios::binary | ios::in);
+    if(!archTabla.is_open()) no_existen = true;
+    else archTabla.close();
 
-	//inicializa el archivo de bloques libres con cantidad = 0
-	fstream archLibres(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::out);
-	unsigned int cantidad = 0;
-	archLibres.seekp(0);
-	archLibres.write((char *)&cantidad, sizeof(unsigned int));
-	archLibres.close();
+    fstream archBloques(this->nombre_arch_bloques.c_str(), ios::binary | ios::in);
+    if(!archBloques.is_open()) no_existen = true;
+    else archBloques.close();
+
+    fstream archLibres(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::in);
+    if(!archLibres.is_open()) no_existen = true;
+    else archLibres.close();
+
+    if(no_existen){
+        //escribe el tamaño y la primera dirección de la tabla de dispersión
+        archTabla.open(this->nombre_arch_tabla.c_str(), ios::binary | ios::out);
+        unsigned int tamanio_tabla = 1;
+        archTabla.seekp(0);
+        archTabla.write((char *)&tamanio_tabla, sizeof(unsigned int));
+        unsigned int direccion = 0;
+        archTabla.write((char *)&direccion, sizeof(unsigned int));
+        archTabla.close();
+
+        //escribe el primer bloque en el hash
+        unsigned int tam = obtener_tamanio_tabla();
+        BloqueHash *primer_bloque = new BloqueHash(tam);
+        primer_bloque->Persistir(this->nombre_arch_bloques.c_str(), 0);
+        delete primer_bloque;
+
+        //inicializa el archivo de bloques libres con cantidad = 0
+        archLibres.open(this->nombre_arch_bloques_libres.c_str(), ios::binary | ios::out);
+        unsigned int cantidad = 0;
+        archLibres.seekp(0);
+        archLibres.write((char *)&cantidad, sizeof(unsigned int));
+        archLibres.close();
+    }
 }
 
 ////////////////////////////
@@ -206,6 +225,7 @@ void hash_extensible::duplicar_tabla(unsigned int posicion_en_tabla){
 	//duplica el tamaño de la tabla y guarda la tabla duplicada en disco
 	(*tabla_en_memoria)[0] *= 2;
 	persistir_vector(tabla_en_memoria, this->nombre_arch_tabla.c_str());
+	delete tabla_en_memoria;
 
 	//en el archivo de bloques inserta uno nuevo, y al nuevo bloque y al
 	//desbordado les asigna tamanio dispersion = tamanio tabla
@@ -214,8 +234,9 @@ void hash_extensible::duplicar_tabla(unsigned int posicion_en_tabla){
 	delete nuevo_bloque;
 
 	unsigned int offset_bloque = nro_bloque_desbordado * BloqueHash::getTamanioBloques();
-	BloqueHash *bloque_desbordado = new BloqueHash(0);
-	bloque_desbordado = (BloqueHash*) bloque_desbordado->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	BloqueHash bloque_aux(0);
+	BloqueHash *bloque_desbordado;
+	bloque_desbordado = (BloqueHash*) bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 	bloque_desbordado->setTamanioDispersion(obtener_tamanio_tabla());
 	// Borra todos los registros del bloque y los guarda en memoria
 	list<RegistroIndice *> *registros_a_redispersar = bloque_desbordado->VaciarBloque();
@@ -231,6 +252,7 @@ void hash_extensible::duplicar_tabla(unsigned int posicion_en_tabla){
 		registroEnLista = *it;
 		guardar(registroEnLista);
 	}
+	delete registros_a_redispersar;
 }
 
 /////////////////////////
@@ -284,10 +306,11 @@ void hash_extensible::incrementar_tabla(unsigned int posicion_en_tabla){
 void hash_extensible::expandir_hash(unsigned int posicion_en_tabla){
 
 	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
-	BloqueHash *bloque_aux = new BloqueHash(0);
-	bloque_aux = (BloqueHash*)bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
-	unsigned int tamanio_dispersion = bloque_aux->getTamanioDispersion();
-	delete bloque_aux;
+	BloqueHash bloque_aux(0);
+	BloqueHash *unBloque;
+	unBloque = (BloqueHash*)bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	unsigned int tamanio_dispersion = unBloque->getTamanioDispersion();
+	delete unBloque;
 	unsigned int tamanio_tabla = obtener_tamanio_tabla();
 
 	if (tamanio_dispersion == tamanio_tabla) duplicar_tabla(posicion_en_tabla);
@@ -299,17 +322,17 @@ void hash_extensible::expandir_hash(unsigned int posicion_en_tabla){
 void hash_extensible::guardar(RegistroIndice *registro){
 
 	unsigned int offset_bloque = obtener_offset_bloque(funcion_hashing(registro));
-	BloqueHash *bloque_aux = new BloqueHash(0);
-	bloque_aux = (BloqueHash*) bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	BloqueHash bloque_aux(0);
+	BloqueHash *unBloque;
+	unBloque = (BloqueHash*) bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
 	/* trata de insertar el registro y salir */
-	if(bloque_aux->Insertar(registro)){
-		bloque_aux->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
-		delete bloque_aux;
+	if(unBloque->Insertar(registro)){
+		unBloque->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
+		delete unBloque;
 		return;
 	}
-
-	delete bloque_aux;
+	delete unBloque;
 
 	/* si el bloque estaba lleno y no se pudo insertar el registro,
 	 * agrega otro bloque, modifica la tabla, redispersa, guarda y termina */
@@ -325,20 +348,22 @@ void hash_extensible::guardar(RegistroIndice *registro){
 bool hash_extensible::borrar(RegistroIndice *registro){
 
 	unsigned int offset_bloque = obtener_offset_bloque(funcion_hashing(registro));
-	BloqueHash *bloque_aux = new BloqueHash(0);
-	bloque_aux = (BloqueHash*)bloque_aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
-	if(bloque_aux != NULL){
-		if(bloque_aux->Eliminar(registro)){
-			bloque_aux->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
+	BloqueHash bloque_aux(0);
+	BloqueHash *unBloque;
+	unBloque = (BloqueHash*)bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+
+	if(unBloque != NULL){
+		if(unBloque->Eliminar(registro)){
+			unBloque->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
 
 			/* revisa si el bloque quedó vacío para tratar de liberarlo*/
-			if(bloque_aux->getCantidadRegistros() == 0)
+			if(unBloque->getCantidadRegistros() == 0)
 				reducir_hash(funcion_hashing(registro));
 
-			delete bloque_aux;
+			delete unBloque;
 			return true;
 		}
-		delete bloque_aux;
+		delete unBloque;
 	}
 	return false;
 }
@@ -355,8 +380,9 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 	 * posicion_en_tabla para ver si los números de bloque consignados en esas
 	 * posiciones coinciden y determinar si el bloque puede o no ser liberado*/
 	unsigned int offset_bloque = obtener_offset_bloque(posicion_en_tabla);
-	BloqueHash *bloque_vacio = new BloqueHash(0);
-	bloque_vacio = (BloqueHash*)bloque_vacio->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+	BloqueHash bloque_aux(0);
+	BloqueHash *bloque_vacio;;
+	bloque_vacio = (BloqueHash*)bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 
 	unsigned int distancia_final = bloque_vacio->getTamanioDispersion()/2;
 	delete bloque_vacio;
@@ -430,11 +456,13 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 		lista_bloques_libres->reserve((*lista_bloques_libres)[0] + 1);
 		(*lista_bloques_libres)[(*lista_bloques_libres)[0]] = nro_bloque_vacio;
 		persistir_vector(lista_bloques_libres, this->nombre_arch_bloques_libres.c_str());
+		delete lista_bloques_libres;
 
 		//al bloque reemplazante le divide por 2 el tamaño de dispersion
 		unsigned int offset_reemplazante = obtener_offset_bloque(posicion_en_tabla);
-		BloqueHash *bloque_reemplazante = new BloqueHash(0);
-		bloque_reemplazante = (BloqueHash*)bloque_reemplazante->Leer(this->nombre_arch_bloques.c_str(), offset_reemplazante);
+		BloqueHash bloque_aux(0);
+		BloqueHash *bloque_reemplazante;
+		bloque_reemplazante = (BloqueHash*)bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_reemplazante);
 		unsigned int nuevo_tam_dispersion = bloque_reemplazante->getTamanioDispersion()/2;
 		bloque_reemplazante->setTamanioDispersion(nuevo_tam_dispersion);
 		bloque_reemplazante->Persistir(this->nombre_arch_bloques.c_str(), offset_reemplazante);
@@ -454,8 +482,10 @@ void hash_extensible::reducir_hash(unsigned int posicion_en_tabla){
 				(*aux)[i] = (*tabla)[i];
 
 			persistir_vector(aux, this->nombre_arch_tabla.c_str());
+			delete aux;
 		}
 	}
+	delete tabla;
 }
 
 ////////////////////////////
@@ -485,12 +515,12 @@ void hash_extensible::imprimir(const string nombre_archivo){
 		if((int)(*tabla)[i] > max) max = (*tabla)[i];
 
 	unsigned int offset_bloque = 0;
-	BloqueHash *aux = NULL;
+	BloqueHash bloque_aux(0);
+	BloqueHash *unBloque;
 	unsigned int num_bloque;
 	bool liberado = false;
 	while(offset_bloque <= max*BloqueHash::getTamanioBloques()){
-	    aux = new BloqueHash(0);
-		aux = (BloqueHash*) aux->Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+		unBloque = (BloqueHash*) bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
 		num_bloque = offset_bloque/BloqueHash::getTamanioBloques();
 		//antes de imprimir revisa que el bloque no esté liberado
 		unsigned int i = 1;
@@ -501,16 +531,16 @@ void hash_extensible::imprimir(const string nombre_archivo){
 		if(liberado){
 			offset_bloque += BloqueHash::getTamanioBloques();
 			liberado = false;
-			delete aux;
+			delete unBloque;
 			continue;
 		}
 		//imprime el contenido del bloque
 		archivo_texto << num_bloque << ": ";
-		aux->Imprimir(&archivo_texto);
+		unBloque->Imprimir(&archivo_texto);
 		archivo_texto << endl;
 
 		offset_bloque += BloqueHash::getTamanioBloques();
-		delete aux;
+		delete unBloque;
 	}
 	archivo_texto.close();
 	delete tabla;

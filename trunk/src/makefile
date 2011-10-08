@@ -8,7 +8,7 @@ LFLAGS = -Wall $(DEBUG)
 VotoElectronico: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o VotoElectronico
 
-main.o: main.cpp
+main.o: main.cpp menu.h Distrito.h Cargo.h DataAcces.h
 	$(CC) $(CFLAGS) main.cpp
 
 Cargo.o: Cargo.cpp Cargo.h Grabable.h Logueable.h
@@ -70,6 +70,8 @@ menu.o: menu.cpp menu.h
 	
 DataAccess.o: DataAccess.cpp DataAccess.h
 	$(CC) $(CFLAGS) DataAccess.cpp
+	
+DataAcces.h: Grabable.h Logueable.h Logger.h Utilidades.h VotoElectronicoExcepcion.h Configuracion.h Distrito.h
 	
 hash_extensible.o: hash_extensible.cpp hash_extensible.h
 	$(CC) $(CFLAGS) hash_extensible.cpp
