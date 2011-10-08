@@ -34,6 +34,11 @@ Informe::Informe(Eleccion& eleccion) {
 		//que pertenezca a estos.
 		//..
 		//..
+		//Facundo: No al final no se buscan por clave autonumerica, cuando te encuetre algo asi
+		//hace en el DataAccess un metodo que sea algo como:
+		//Conteo getConteoPorEleccionYDistrito(Eleccion, Distrito);
+		//Por ahora hordodea el conteo que te devuelve para probar la impresion y despues, se implemtenta
+		//la busqueda con el hash o el arbol, por ahora no te preocupes
 
 
 		cout<<distritos[i]->getNombre()<<" Votos: "<<conteo->getVotos()<<endl;
