@@ -8,6 +8,8 @@
 #ifndef REGISTROARBOL_H_
 #define REGISTROARBOL_H_
 
+using namespace std;
+
 class RegistroArbol{
 public:
 	RegistroArbol(string clave, unsigned int offset);

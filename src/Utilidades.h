@@ -12,6 +12,9 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <time.h>
+#include <stdlib.h>
+
 
 #define MAX_STRING_BUFFER = 500;
 
@@ -23,6 +26,8 @@ public:
 	virtual ~Utilidades();
 	static string getFechaYHora();
 	static string toString(int a);
+
+	static unsigned int getDNIaleatorio(int semilla);
 
 	//La idea es que guarde en un archivo modo binario
 	//primero la longitud de la cadena como int y luego

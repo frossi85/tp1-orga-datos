@@ -7,7 +7,7 @@
 using namespace std;
 
 class RegistroIndice{
-private:
+protected:
 	string clave;
 	unsigned int offset;
 
@@ -18,7 +18,7 @@ public:
 	void setOffset(unsigned int offset);
 	//Devuelve el tamaño que tenfría el registro
 	//una vez persistido
-	unsigned int getTamanioEnDisco();
+	virtual unsigned int getTamanioEnDisco();
 	void Persistir(fstream *archivo);
 	RegistroIndice* Leer(fstream *archivo);
 	void Imprimir(fstream *archImpresion);
