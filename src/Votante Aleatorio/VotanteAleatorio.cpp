@@ -49,47 +49,47 @@ string VotanteAleatorio::getStringAleatorio() {
 	unsigned int opcion = (rand() % 11) + 1;
 	switch (opcion){
 	case 1: {
-		filename = "Nombres/NombresAB.txt";
+		filename = "src/Nombres/NombresAB.txt";
 		break;
 	}
 	case 2: {
-		filename = "Nombres/NombresCD.txt";
+		filename = "src/Nombres/NombresCD.txt";
 		break;
 	}
 	case 3: {
-		filename = "Nombres/NombresEF.txt";
+		filename = "src/Nombres/NombresEF.txt";
 		break;
 	}
 	case 4: {
-		filename = "Nombres/NombresGH.txt";
+		filename = "src/Nombres/NombresGH.txt";
 		break;
 	}
 	case 5: {
-		filename = "Nombres/NombresIJ.txt";
+		filename = "src/Nombres/NombresIJ.txt";
 		break;
 	}
 	case 6: {
-		filename = "Nombres/NombresKL.txt";
+		filename = "src/Nombres/NombresKL.txt";
 		break;
 	}
 	case 7: {
-		filename = "Nombres/NombresMN.txt";
+		filename = "src/Nombres/NombresMN.txt";
 		break;
 	}
 	case 8: {
-		filename = "Nombres/NombresOP.txt";
+		filename = "src/Nombres/NombresOP.txt";
 		break;
 	}
 	case 9: {
-		filename = "Nombres/NombresQRS.txt";
+		filename = "src/Nombres/NombresQRS.txt";
 		break;
 	}
 	case 10: {
-		filename = "Nombres/NombresTUV.txt";
+		filename = "src/Nombres/NombresTUV.txt";
 		break;
 	}
 	case 11: {
-		filename = "Nombres/NombresWXYZ.txt";
+		filename = "src/Nombres/NombresWXYZ.txt";
 		break;
 	}
 	default: {
