@@ -44,9 +44,7 @@ void Menu::pedir_contrasena() {
 	cout<<("Contraseña: ");
 	system("stty -echo");
 	cin >> pass;
-	//scanf("%s",pass);
 	system("stty echo");
-	//cout << "\nEscribiste (esto es para probar, desp se borra del codigo): " << pass <<endl;       // ESTO DESP SE BORRA, ES PARA PROBAR
 }
 
 bool Menu::acceder_admin() {

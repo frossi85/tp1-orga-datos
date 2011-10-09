@@ -39,6 +39,22 @@ string Utilidades::toString(int a)
 	return ss.str();
 }
 
+/* Retorna un DNI entre 1.000.000 y 39.999.999*/
+unsigned int Utilidades::getDNIaleatorio(int semilla) {
+	srand(semilla);
+	unsigned int unidad = rand() % 10;
+	unsigned int decena = (rand() % 10) * 10;
+	unsigned int centena = (rand() % 10) * 100;
+	unsigned int u_de_mil = (rand() % 10) * 1000;
+	unsigned int d_de_mil = (rand() % 10) * 10000;
+	unsigned int c_de_mil = (rand() % 10) * 100000;
+	unsigned int d_de_millon = (rand() % 4) * 10000000;
+	unsigned int u_de_millon;
+	if (d_de_millon == 0) u_de_millon = 1000000;
+		else u_de_millon =  (rand() % 10) * 1000000;
+	return (unidad+decena+centena+u_de_mil+d_de_mil+c_de_mil+u_de_millon+d_de_millon);
+}
+
 //VER COMO HACER UNA FUCION TEMPLATE SIN Q LA CLASE LO SEA
 //template <class T>
 //inline std::string to_string (const T& t)
