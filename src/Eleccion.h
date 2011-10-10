@@ -22,6 +22,8 @@ public:
 	Eleccion();
 
 	Eleccion(string fecha, Cargo & cargo, Distrito & primerDistrito);
+
+	Eleccion(const Eleccion &eleccion);			// Constructor copia. agregado por martin.
 	virtual ~Eleccion();
 
 	long getId();

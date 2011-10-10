@@ -20,6 +20,7 @@ public:
 	Cargo();
 	Cargo(string cargoPrincipal);
 	virtual ~Cargo();
+	Cargo(const Cargo &cargo);
 
 	//Getters
 	string getCargoPrincipal(); //TODO: Verificar q tiene cargo principal sino lanzar excepcion
