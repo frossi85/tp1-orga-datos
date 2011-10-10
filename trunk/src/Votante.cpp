@@ -7,13 +7,13 @@
 
 #include "Votante.h"
 
-Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito distrito)
+Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito)
 {
 	this->_dni = dni;
 	this->_nombreYApellido = nombreYApellido;
 	this->_clave = clave;
 	this->_domicilio = domicilio;
-	this->_distrito = new Distrito(distrito);
+	this->_distrito = &distrito;
 }
 // Te cambie lo de distrito, el pasaje por parametro. Hice el contructor copia, creo q asi deberia funcionar. Crea un distrito desde el this->_distrito
 // a partir de un distrito pasado como parametro. MARTIN
@@ -46,7 +46,6 @@ void Votante::votarEnEleccionALista(Eleccion& eleccion, Lista& lista)
 
 
 Votante::~Votante() {
-	delete this->_distrito;
 	int cantidad = this->_elecciones.size();
 	for(int i=0;i<cantidad;i++) delete this->_elecciones[i];
 }
@@ -74,6 +73,7 @@ Distrito& Votante::getDistrito()
 
 /* Devuelve una copia del vector de punteros a Eleccion, y copias de los datos apuntados por cada Eleccion*.
  * Si no fueran copias, se podria modificar desde el que lo llame y arruina todo
+ * ESTAS SERIAN EN REALIDAD LAS ELECCIONES EN LAS QUE YA VOTO
  */
 vector<Eleccion *> Votante::getElecciones() {
 	// PREGUNTAR COMO SE MANEJAN LAS ELECCIONES DE UN VOTANTE. LAS TIENE EN MEMORIA EN _elecciones? LAS CARGO DE ARCHIVO?
