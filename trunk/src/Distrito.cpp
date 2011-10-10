@@ -17,6 +17,11 @@ Distrito::Distrito()
 	_nombre = "";
 }
 
+Distrito::Distrito(const Distrito &distrito) {
+	this->_nombre = distrito._nombre;
+	this->_id = distrito._id;
+}
+
 long Distrito::getId()
 {
 	return _id;
@@ -68,10 +73,3 @@ string Distrito::getClassName()
 {
 	return "Distrito";
 }
-
-
-
-
-
-
-

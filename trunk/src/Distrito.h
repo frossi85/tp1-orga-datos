@@ -19,6 +19,7 @@ private:
 public:
 	Distrito();
 	Distrito(string nombre);
+	Distrito(const Distrito &distrito); 		// Agregado por martin
 	virtual ~Distrito();
 	long getId();
 	string getNombre();

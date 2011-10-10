@@ -10,29 +10,69 @@ using namespace std;
 
 VotanteAleatorio::VotanteAleatorio(unsigned int cantidad) {
 	this->cantidad = cantidad;
+	this->accesos = 0;
+	this->votos = 0;
 	vectorVotantes = new Votante*[cantidad];
 	srand(time(NULL));
 	unsigned int DNI = rand();		// genero un DNI cualquiera para usar de semilla
 	string nombre, apellido, clave, domicilio;
-	//Distrito distrito();
+	Distrito *distrito;
 
 	/* Cargo los votantes aleatoreamente */
 	for(int i=0; i<cantidad; i++){
-		DNI = Utilidades::getDNIaleatorio(DNI);	// Utilizo el DNI anterior como semilla
+		DNI = Utilidades::getDNIaleatorio(DNI);		// Utilizo el DNI anterior como semilla
 		nombre = getStringAleatorio();
 		apellido = getStringAleatorio();
 		clave = getStringAleatorio();
 		domicilio = getStringAleatorio();
 		apellido[apellido.find_first_of('\0')] = ' ';
 		apellido = apellido + nombre;
-		// distrito = getDistritoAleatorio()   //Cargar Distrito aleatorio
-		vectorVotantes[i] = new Votante(DNI,apellido,clave,domicilio/*,distrito*/);
+		distrito = new Distrito(getDistritoAleatorio());   		//Cargar Distrito aleatorio
+		vectorVotantes[i] = new Votante(DNI,apellido,clave,domicilio,*distrito);
+		delete distrito;
 	}
 }
 
 VotanteAleatorio::~VotanteAleatorio() {
 	for(int i=0; i<cantidad; i++)	delete vectorVotantes[i];
 		delete[] vectorVotantes;
+}
+
+
+int VotanteAleatorio::hacerlosAccederAlSistema() {
+	unsigned int randomNumber;
+	int contadorFallidos = 0;
+	for(int i=0;i<cantidad;i++) {
+		randomNumber = (rand() % 20);	// Numero entre 0 y 19
+		if (randomNumber == 19) {		// Probabilidad 1/20 de que falle el acceso
+			simularAcceso(this->vectorVotantes[i]->getDNI(),this->vectorVotantes[i]->getClave(),false);
+			contadorFallidos++;
+		}
+			else simularAcceso(this->vectorVotantes[i]->getDNI(),this->vectorVotantes[i]->getClave(),true);
+	}
+	return contadorFallidos;
+}
+
+
+int VotanteAleatorio::hacerlosVotar() {
+	unsigned int randomNumber;
+	int contadorModificacionVoto = 0;
+	int cantidadElecciones = 0;
+	vector<Eleccion*> elecciones;
+	for(int i=0;i<cantidad;i++) {
+		elecciones = this->vectorVotantes[i]->getElecciones();
+		cantidadElecciones = elecciones.size();
+		for(int j = 0;j<cantidadElecciones;j++) {
+			randomNumber = (rand() % 20);						// Numero entre 0 y 19
+			if (randomNumber == 19) {
+				simularVotacion(i,elecciones[j],false);			// Modificacion de voto
+				contadorModificacionVoto++;
+			}
+				else simularVotacion(i,elecciones[j],true);
+			delete elecciones[j];						// ESTA BIEN ESTE DELETE?
+		}
+	}
+	return contadorModificacionVoto;
 }
 
 /* Busca aleatoreamente un nombre en una base de datos de nombres y lo retorna.
@@ -122,10 +162,27 @@ string VotanteAleatorio::getStringAleatorio() {
 	return cadena_retorno;
 }
 
+
 void VotanteAleatorio::Imprimir(){
 	for(int i=0;i<cantidad;i++) {
 		cout << "\nVotante "<<i<<":\n";
 		vectorVotantes[i]->Imprimir();
 	}
 
+}
+
+
+Distrito VotanteAleatorio::getDistritoAleatorio() {
+	Distrito distrito(this->getStringAleatorio());
+	return distrito;			//HARDCODEO
+}
+
+/* Si esCorrecto es true, se simula que se accede correctamente. Si es false, se simula que pone mal la contraseña una vez y luego bien */
+void VotanteAleatorio::simularAcceso(unsigned int DNI,string clave,bool esCorrecto) {
+	this->accesos++;
+}
+
+/* Si esCorrecto es true, se simula que vota sin modificacion. Si es false, se simula que modifica el voto 1 vez */
+void VotanteAleatorio::simularVotacion(int indice,Eleccion* eleccion,bool esCorrecto) {
+	this->votos++;
 }

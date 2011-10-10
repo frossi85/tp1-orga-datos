@@ -32,8 +32,10 @@ private:
 
 
 public:
-	Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito);
+	Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito distrito);	// modificado por Martin
 	virtual ~Votante();
+
+	Votante(const Votante &votante);
 
 	//Getters
 	long getId(); //TODO: Fijarme si lo fuerzo a implementar poniendolo en Guardable como virtual
@@ -42,6 +44,7 @@ public:
 	string getClave(); //TODO: Ver si en vez de esto hacemos una funciona q verifique si la clave es correcta
 	string getDomicilio();
 	Distrito& getDistrito();
+	vector<Eleccion *> getElecciones();		// Agregado por martin. Devuelve copias de las elecciones del votante. (Liberar memoria desde donde se llame).
 
 	//Setters
 	void cambiarClave(string claveAnterior, string claveNueva);

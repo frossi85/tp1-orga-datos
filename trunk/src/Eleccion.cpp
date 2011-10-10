@@ -17,7 +17,18 @@ Eleccion::Eleccion(string fecha, Cargo & cargo, Distrito & primerDistrito)
 }
 
 Eleccion::~Eleccion() {
-	// TODO Auto-generated destructor stub
+	delete _cargo;
+	int cantidad = this->_distritos.size();
+	for(int i=0;i<cantidad;i++)	delete this->_distritos[i];
+}
+
+Eleccion::Eleccion(const Eleccion &eleccion) {
+	this->_id = eleccion._id;
+	this->_fecha = eleccion._fecha;
+	this->_cargo = new Cargo(*eleccion._cargo);
+	int cantidad = eleccion._distritos.size();
+	this->_distritos = vector<Distrito*>(cantidad,NULL);
+	for(int i=0;i<cantidad;i++)	this->_distritos[i] = new Distrito(*eleccion._distritos[i]);
 }
 
 void Eleccion::agregarDistrito(Distrito distrito)

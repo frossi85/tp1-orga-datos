@@ -13,6 +13,18 @@ Cargo::Cargo(string cargoPrincipal){
 Cargo::~Cargo() { //TODO: En los destructores no hay q destruir strings averiguar si los vector si??
 }
 
+Cargo::Cargo(const Cargo &cargo){
+	this->_id = cargo._id;
+	this->cargoPrincipal = cargo.cargoPrincipal;
+	int cantidad = cargo.cargosSecundarios.size();
+	this->cargosSecundarios = vector<string>();
+	string a_insertar;
+	for(int i=0;i<cantidad;i++)	{
+		a_insertar = cargo.cargosSecundarios[i];
+		this->cargosSecundarios.push_back(a_insertar);
+	}
+}
+
 string Cargo::getCargoPrincipal()
 {
 	return this->cargoPrincipal;
