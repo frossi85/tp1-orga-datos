@@ -114,3 +114,6 @@
 [4:52:11 - 5-10-2011]: Alta - Distrito
 [4:52:11 - 5-10-2011]: Eliminación - Distrito
 [4:52:11 - 5-10-2011]: Alta - Cargo
+[17:46:36 - 10-10-2011]: Alta - Distrito
+[17:46:36 - 10-10-2011]: Eliminación - Distrito
+[17:46:36 - 10-10-2011]: Alta - Cargo

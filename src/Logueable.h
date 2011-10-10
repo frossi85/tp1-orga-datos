@@ -16,7 +16,6 @@ using namespace std;
 class Logueable {
 private:
 	string className;
-	int id;
 	string description;
 
 public:

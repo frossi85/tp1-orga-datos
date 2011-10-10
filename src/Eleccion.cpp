@@ -17,9 +17,9 @@ Eleccion::Eleccion(string fecha, Cargo & cargo, Distrito & primerDistrito)
 }
 
 Eleccion::~Eleccion() {
-	delete _cargo;
-	int cantidad = this->_distritos.size();
-	for(int i=0;i<cantidad;i++)	delete this->_distritos[i];
+	// Supuestamente no tengo que borrar xq son referencias.
+	//int cantidad = this->_distritos.size();
+	//for(int i=0;i<cantidad;i++)	delete this->_distritos[i];
 }
 
 Eleccion::Eleccion(const Eleccion &eleccion) {
@@ -31,7 +31,7 @@ Eleccion::Eleccion(const Eleccion &eleccion) {
 	for(int i=0;i<cantidad;i++)	this->_distritos[i] = new Distrito(*eleccion._distritos[i]);
 }
 
-void Eleccion::agregarDistrito(Distrito distrito)
+void Eleccion::agregarDistrito(Distrito &distrito)
 {
 	this->_distritos.push_back(&distrito);
 }

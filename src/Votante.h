@@ -32,7 +32,7 @@ private:
 
 
 public:
-	Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito distrito);	// modificado por Martin
+	Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito);
 	virtual ~Votante();
 
 	Votante(const Votante &votante);
