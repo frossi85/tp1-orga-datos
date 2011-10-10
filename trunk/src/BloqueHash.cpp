@@ -1,7 +1,6 @@
 #include "BloqueHash.h"
 
 BloqueHash::BloqueHash(unsigned int tamanioDispersion){
-	//crea un bloque sin registros
 	this->tamanioDispersion = tamanioDispersion;
 	this->tamanio = TAM_BLOQUE_HASH;
 	this->espacioLibre = this->tamanio - sizeof(this->espacioLibre) - sizeof(this->tamanioDispersion);
@@ -42,7 +41,7 @@ void BloqueHash::setTamanioDispersion(int tamanioDispersion){
 RegistroIndice* BloqueHash::Buscar(RegistroIndice *registro){
 	//- recorrer la lista de registros del bloque
 	//- comparar la clave de "registro" con las claves de
-	//los registros de la lista (sobrecarga de == para registros)
+	//los registros de la lista
 	RegistroIndice *registroEnLista = NULL;
 	list<RegistroIndice *>::iterator it;
 	for (it = this->registros.begin(); it != this->registros.end(); it++){
@@ -93,6 +92,7 @@ bool BloqueHash::Eliminar(RegistroIndice *registro){
 	for (it = this->registros.begin(); it != this->registros.end(); it++){
 		registroEnLista = *it;
 		if(registroEnLista->getClave() == registro->getClave()){
+			registro->setOffset(registroEnLista->getOffset());
 			this->espacioLibre += registroEnLista->getTamanioEnDisco();
 			this->registros.erase(it);
 			return true;

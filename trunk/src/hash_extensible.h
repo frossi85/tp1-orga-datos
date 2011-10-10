@@ -11,13 +11,20 @@ using namespace std;
 #ifndef HASH_EXTENSIBLE_H_
 #define HASH_EXTENSIBLE_H_
 
+/// Hash con dispersión extensible modular.
+/**
+ * Este hash extensible está preparado para contener objetos de la clase RegistroIndice.
+ * Los datos son almacenados en disco. Para funcionar requiere de tres archivos:
+ *
+ * - Bloques: es donde se guardan los bloques con los registros.
+ * - Tabla de Dispersion: la tabla utilizada para direccionar al archivo de bloques.
+ * - Bloques Libres: guarda los números de bloques que fueron liberados, para usarlos
+ *   cuando haya que agregar un bloque nuevo.
+ */
 class hash_extensible {
 	string nombre_arch_bloques;
 	string nombre_arch_bloques_libres;
 	string nombre_arch_tabla;
-	/*fstream *arch_bloques;
-	fstream *arch_bloques_libres;
-	fstream *tabla_dispersion;*/
 
 	//recibe una posicion (no un offset) en la tabla de dispersión y devuelve
 	//el offset del bloque correspondiente en el archivo de hashing
@@ -44,7 +51,7 @@ class hash_extensible {
 	void reducir_hash(unsigned int posicion_en_tabla);
 
 	//Pre: se necesita crear un nuevo bloque
-	//Post: se obtiene el número del nuevo bloque (pero no lo inserta) y lo elimina del
+	//Post: devuelve el número del nuevo bloque y lo elimina del
 	//archivo de bloques libres
 	unsigned int extraer_nro_nuevo_bloque();
 
@@ -55,31 +62,29 @@ class hash_extensible {
 	unsigned int obtener_tamanio_tabla();
 
 public:
-	//Post: crea e inicializa los archivos de bloques, de bloques libres y de tabla de dispersión.
+	/// Crea e inicializa los archivos de bloques, de bloques libres y de tabla de dispersión.
 	hash_extensible(string nombre_arch_bloques, string nombre_arch_bloques_libres, string nombre_arch_tabla);
 
-	//Pre: el hash fue creado
-	//Post: se almacenó el registro de índice, si no existía previamente (si ya existía lo sobreescribe)
+	/// Pre: el hash fue creado. Post: se almacena el registro de índice.
 	void guardar(RegistroIndice *registro);
 
-	//Pre: el hash fue creado
-	//Post: se eliminó el registro de índice, y su información fue devuelta por parámetro
+	/// Pre: el hash fue creado. Post: se elimina el registro de índice, y su información es devuelta por parámetro.
+	/**Si no encuentra el registro, devuelve false */
 	bool borrar(RegistroIndice *registro);
 
-	//Pre: el hash fue creado
-	//Post: la información del registro de índice se devuelve por parámetro (no modifica los datos)
-	//Si el elemento no está, lanza una excepción
+	/// Pre: el hash fue creado. Post: devuelve la información del registro de índice (sin modificarlo).
+	/**Si no encuentra el registro devuelve NULL */
 	RegistroIndice* buscar(RegistroIndice *registro);
 
-	//Crea un archivo de texto plano en el que se muestra la estructura del hash
+	/// Crea un archivo de texto plano en el que se muestra la estructura del hash
 	void imprimir(const string nombre_archivo);
 
-	//carga en memoria la tabla de dispersión como un vector de unsigned int
-	//(en la primera posición se almacena la cantidad de posiciones de la tabla)
+	/// Carga en memoria la tabla de dispersión.
+	/**En la primera posición del vector se almacena la cantidad de posiciones de la tabla. */
 	vector<unsigned int>* cargar_tabla_dispersion();
 
-	//carga en memoria el archivo de bloques libres como un vector de unsigned int
-	//(en la primera posición se almacena la cantidad de bloques libres)
+	/// Carga en memoria el archivo de bloques libres.
+	/**En la primera posición se almacena la cantidad de bloques libres. */
 	vector<unsigned int>* cargar_archivo_bloques_libres();
 };
 

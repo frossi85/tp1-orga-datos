@@ -34,7 +34,7 @@ unsigned int RegistroIndice::getTamanioEnDisco(){
         unsigned int tamanioOffset = sizeof(this->getOffset());
         unsigned int tamanioTotal = tamanioLongitudClave + tamanioClave + tamanioOffset;
 
-        return tamanioTotal; //en bytes
+        return tamanioTotal;
 }
 
 ////////////////

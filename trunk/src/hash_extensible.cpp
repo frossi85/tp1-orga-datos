@@ -8,8 +8,8 @@ hash_extensible::hash_extensible(string nombre_arch_bloques, string nombre_arch_
 	this->nombre_arch_bloques_libres = nombre_arch_bloques_libres;
 	this->nombre_arch_tabla = nombre_arch_tabla;
 
-    /* trata de abrir los archivos para ver si ya existen. Si es así no hace nada, sino,
-     * los crea y los inicializa
+    /**Trata de abrir los archivos para comprobar si existen. Si es así no hace nada, si no,
+     * los crea y los inicializa.
      */
     bool no_existen = false;
 
@@ -66,8 +66,8 @@ unsigned int hash_extensible::funcion_hashing(RegistroIndice *registro){
         valor += tam_tabla;
 
     return valor + 1;
-	/* suma uno para no tener en cuenta la primera posición de la tabla,
-	 * donde se guarda la longitud de la misma */
+	// suma uno para no tener en cuenta la primera posición de la tabla,
+	// donde se guarda la longitud de la misma
 }
 
 ///////////////////////////
@@ -339,8 +339,9 @@ void hash_extensible::guardar(RegistroIndice *registro){
 	expandir_hash(funcion_hashing(registro));
 	guardar(registro);
 
-	/* NOTA: bloque::insertar(registro) debe estár implementado de forma tal que si
-	 * el registro ya estaba en el bloque, el viejo es reemplazado por el nuevo */
+	/* NOTA: para conservar la unicidad, bloque::insertar(registro) debe estár
+	 * implementado de forma tal que si el registro ya estaba en el bloque,
+	 * el viejo es reemplazado por el nuevo */
 }
 
 //////////////////////////
@@ -356,7 +357,7 @@ bool hash_extensible::borrar(RegistroIndice *registro){
 		if(unBloque->Eliminar(registro)){
 			unBloque->Persistir(this->nombre_arch_bloques.c_str(), offset_bloque);
 
-			/* revisa si el bloque quedó vacío para tratar de liberarlo*/
+			/** Si el borrado fue exitoso, luego revisa si el bloque quedó vacío para tratar de liberarlo */
 			if(unBloque->getCantidadRegistros() == 0)
 				reducir_hash(funcion_hashing(registro));
 
