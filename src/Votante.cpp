@@ -27,7 +27,7 @@ Votante::Votante(const Votante &votante) {
 	this->_nombreYApellido = votante._nombreYApellido;
 	this->_distrito = new Distrito(*votante._distrito);
 	int cantidad = votante._elecciones.size();
-	this->_elecciones = vector<Eleccion*>(cantidad,NULL);
+	//this->_elecciones = vector<Eleccion*>(cantidad,NULL);
 	for(int i=0;i<cantidad;i++) this->_elecciones[i] = new Eleccion(*votante._elecciones[i]);
 }
 
@@ -78,7 +78,8 @@ Distrito& Votante::getDistrito()
 vector<Eleccion *> Votante::getElecciones() {
 	// PREGUNTAR COMO SE MANEJAN LAS ELECCIONES DE UN VOTANTE. LAS TIENE EN MEMORIA EN _elecciones? LAS CARGO DE ARCHIVO?
 	int cantidad = this->_elecciones.size();
-	vector<Eleccion *> retorno(cantidad,NULL);
+	//vector<Eleccion *> retorno(cantidad,NULL);
+	vector<Eleccion *> retorno;
 	for(int i=0;i<cantidad;i++){
 		retorno[i] = new Eleccion(*this->_elecciones[i]);
 	}

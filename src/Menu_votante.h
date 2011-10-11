@@ -43,7 +43,7 @@ private:
 	void guardar_cambios();
 
 public:
-	Menu_votante();
+	Menu_votante(Votante *votante);
 
 	virtual ~Menu_votante();
 };

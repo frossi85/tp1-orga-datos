@@ -7,10 +7,10 @@
 
 #include "Menu_votante.h"
 
-Menu_votante::Menu_votante() {
+Menu_votante::Menu_votante(Votante *votante) {
 
+	this->votante=votante;
 
-	//votante=this->getVotante();
 	opciones();
 
 }

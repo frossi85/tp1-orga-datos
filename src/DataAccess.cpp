@@ -166,3 +166,19 @@ vector<Conteo*> DataAccess::getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccio
 
 }
 
+
+
+Votante* DataAccess::getVotante(const char dni[]){
+
+	Votante *votante_resultante;
+
+	//...
+	//...
+
+	Distrito distrito_prueba("Lanus");
+	Votante *votante_prueba=new Votante(1111,"Juan Perez","1111","Corrientes 443",distrito_prueba);
+	votante_resultante=votante_prueba;
+
+	return votante_resultante;
+}
+
