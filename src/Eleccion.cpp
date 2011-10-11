@@ -27,8 +27,9 @@ Eleccion::Eleccion(const Eleccion &eleccion) {
 	this->_fecha = eleccion._fecha;
 	this->_cargo = new Cargo(*eleccion._cargo);
 	int cantidad = eleccion._distritos.size();
-	this->_distritos = vector<Distrito*>(cantidad,NULL);
-	for(int i=0;i<cantidad;i++)	this->_distritos[i] = new Distrito(*eleccion._distritos[i]);
+	//this->_distritos = vector<Distrito*>(cantidad,NULL);
+	for(int i=0;i<cantidad;i++)
+		this->_distritos.push_back(new Distrito(*(eleccion._distritos[i])));
 }
 
 void Eleccion::agregarDistrito(Distrito &distrito)
