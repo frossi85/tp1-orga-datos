@@ -25,7 +25,7 @@ Eleccion.h: Cargo.h Distrito.h Grabable.h Logueable.h
 Grabable.o: Grabable.cpp Grabable.h
 	$(CC) $(CFLAGS) Grabable.cpp
 	
-Candidato.o: Candidato.cpp Candidato.h
+Candidato.o: Candidato.cpp Candidato.h Votante.h
 	$(CC) $(CFLAGS) Candidato.cpp
 
 Candidato.h: Grabable.h Logueable.h Votante.h Cargo.h
