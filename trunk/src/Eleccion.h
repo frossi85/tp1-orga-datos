@@ -28,7 +28,7 @@ public:
 
 	long getId();
 	string getDescripcion();
-	void agregarDistrito(Distrito distrito);
+	void agregarDistrito(Distrito & distrito);
 	vector<Distrito *> getDistritos();
 
 	//Interface de Guardable
