@@ -94,7 +94,7 @@ void ejecutar_test(){
  *
  * Crear hash:
  *
- * //recibe como parámetros las rutas del arcivo de bloques, el archivo de bloques libres y el archivo con la tabla de dispersion
+ * //recibe como parámetros las rutas del archivo de bloques, el archivo de bloques libres y el archivo con la tabla de dispersion
  * hash_extensible *hash = new hash_extensible("archBloques", "archBloqLibres", "tablaDispersion");
  *
  * Obtener distrito:
@@ -102,11 +102,15 @@ void ejecutar_test(){
  * //crear un registro con la clave del distrito que se quiere obtener (el offset no importa asi que lo pongo en 0)
  * RegistroIndice registro("Avellaneda", 0);
  *
- * //pasar el registro al hash
- * hash_extensible->buscar(&registro);
+ * //pasar el registro al hash y crear otro registro para que tome el valor de retorno
+ * RegistroIndice *otroRegistro = NULL;
+ * otroRegistro = hash_extensible->buscar(&registro);
  *
- * //Ahora haciendo registro.getOffset() se puede obtener el offset de ese distrito para buscarlo
- * //en su archivo. Si no estaba en el hash, buscar devuelve false
+ * //OJO: después de hacer eso no hagan "delete otroRegistro" porque se pudre todo, y tira segmentation fault.
+ * //No se por qué pasa, si lo puedo arreglar aviso, igual no jode mucho.
+ *
+ * //Ahora haciendo otroRegistro->getOffset() se puede obtener el offset de ese distrito para buscarlo
+ * //en su archivo. Si no estaba en el hash, buscar devuelve NULL.
  *
  * //Los métodos guardar y borrar se usan de la misma forma
  */
