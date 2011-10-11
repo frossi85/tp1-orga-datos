@@ -20,6 +20,7 @@
 #include "Configuracion.h"
 #include "Distrito.h"
 #include "Conteo.h"
+#include "Votante.h"
 
 
 class DataAccess {
@@ -36,8 +37,17 @@ public:
 	void getPorId(long id, Grabable & obj);
 
 	long getIdPorNombre(char objeto, string clave);
+
+	//Falta Implemetar
 	vector<Conteo*> getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito&);
+
+	//Falta Implementar
 	vector<Conteo*> getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccion &eleccion);
+
+	//Devuelve el puntero a un votante
+	//Devuelve NULL si no encontro al votante con ese dni
+	//Falta Implementar
+	Votante* getVotante(const char dni[]);
 };
 
 #endif /* DATAACCESS_H_ */
