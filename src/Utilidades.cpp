@@ -32,6 +32,19 @@ string Utilidades::getFechaYHora()
 	   return time + " - " + day + "-" + month + "-" + year;
 }
 
+string Utilidades::indexarFecha(string fecha) {
+	string fechaIndexada;
+	if (fecha.length() == 10) {
+		fechaIndexada.append(fecha,6,4).append(fecha,3,2).append(fecha,0,2);
+		return fechaIndexada;
+	}
+	if (fecha.length() == 8) {
+		fechaIndexada.append(fecha,4,4).append(fecha,2,2).append(fecha,0,2);
+		return fechaIndexada;
+	}
+	return "aaaammdd";
+}
+
 string Utilidades::toString(int a)
 {
 	stringstream ss;

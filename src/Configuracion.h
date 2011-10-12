@@ -22,6 +22,7 @@
 #define RUTA_CANDIDATO "<ruta_candidato>"
 #define RUTA_CARGO "<ruta_cargo>"
 #define RUTA_ADMINISTRADOR "<ruta_administrador>"
+#define RUTA_IDs "<ruta_IDs>"
 #define RUTA_HASH_ELECCION_REGS "<ruta_hash_eleccion_regs>"
 #define RUTA_HASH_ELECCION_BLOQ_LIB "<ruta_hash_eleccion_bloq_lib>"
 #define RUTA_HASH_ELECCION_TABLA "<ruta_hash_eleccion_tabla>"
@@ -41,7 +42,7 @@
 #define RUTA_HASH_VOTANTE_BLOQ_LIB "<ruta_hash_votante_bloq_lib>"
 #define RUTA_HASH_VOTANTE_TABLA "<ruta_hash_votante_tabla>"
 
-#define CANT_CONF 26
+#define CANT_CONF 27
 
 #include <string>
 
@@ -61,6 +62,7 @@ public:
 		static const string URL_CANDIDATO;
 		static const string URL_CARGO;
 		static const string URL_ADMINISTRADOR;
+		static const string URL_IDs;
 
 		static Configuracion *getConfig();
         ~Configuracion();
