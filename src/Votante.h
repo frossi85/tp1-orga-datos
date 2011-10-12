@@ -49,6 +49,7 @@ public:
 	//Setters
 	void cambiarClave(string claveAnterior, string claveNueva);
 	void setDistrito(Distrito& distrito);
+	void setDomicilio(string nuevo_domicilio);
 
 	//Vota para una determinada eleccion a una lista, se registra
 	//q voto en la elecccion, por eso el vector eleccion pero solo

@@ -197,15 +197,15 @@ void Menu_votante::mostrar_menu_datos(){
 				 		break;
 			case 'c':
 			case 'C': 	//Se cambia la clave
-						cout<<"Se cambio la Clave"<<endl;
-						guardar_cambios();
+//						cout<<"Se cambio la Clave"<<endl;
+						this->cambiar_clave();
 						mostrar_menu_datos();
 						break;
 
 			case 'd':
 			case 'D':	//Se cambia el domicilio
-						cout<<"Se cambio el domicilio"<<endl;
-						guardar_cambios();
+						//cout<<"Se cambio el domicilio"<<endl;
+						this->cambiar_domicilio();
 						mostrar_menu_datos();
 						break;
 			default: break;
@@ -215,11 +215,64 @@ void Menu_votante::mostrar_menu_datos(){
 
 }
 
+void Menu_votante::cambiar_clave(){
+
+	char nueva_clave[20],nueva_clave_conf[20];
+	bool ingreso_correcto=false;
+
+	while (!ingreso_correcto){
+
+		cout<<"Ingresar Nueva Clave: ";
+		system("stty -echo");
+		cin >> nueva_clave;
+		system("stty echo");
+
+		cout<<"Reingresar Nueva Clave: ";
+		system("stty -echo");
+		cin >> nueva_clave_conf;
+		system("stty echo");
+
+		ingreso_correcto=strcmp(nueva_clave,nueva_clave_conf)==0;
+
+		if (ingreso_correcto){
+
+			cout<<"Clave Nueva ingresada Correctamente."<<endl;
+
+		}
+		else{
+
+			cout<<"Ingreso de clave nueva incorrecto."<<endl;
+			cout<<"Vuelva a ingresarla. "<<endl;
+
+		}
+
+	}
+	string clave_cambiada(nueva_clave);
+	this->votante->cambiarClave(votante->getClave(),clave_cambiada);
+	this->guardar_cambios();
+
+}
+
+void Menu_votante::cambiar_domicilio(){
+
+	char nuevo_domicilio[30];
+	cout<<"Domicilio Anterior: "<<this->votante->getDomicilio()<<endl;
+	cout<<"Ingrese Nuevo Domicilio: ";
+
+	scanf("%s",nuevo_domicilio);
+	string nuevo_domicilio_str(nuevo_domicilio);
+	this->votante->setDomicilio(nuevo_domicilio_str);
+	this->guardar_cambios();
+
+}
+
 void Menu_votante::guardar_cambios(){
+
 
 
 }
 
 Menu_votante::~Menu_votante() {
-	// TODO Auto-generated destructor stub
+
+	delete this->votante;
 }
