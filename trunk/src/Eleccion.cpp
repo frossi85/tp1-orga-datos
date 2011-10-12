@@ -75,7 +75,7 @@ void Eleccion::Imprimir()
 	}
 }
 
-void Eleccion::Guardar(ofstream & ofs)
+unsigned long int Eleccion::Guardar(ofstream & ofs)
 {
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
@@ -90,7 +90,7 @@ void Eleccion::Guardar(ofstream & ofs)
 	//O el offset dentro del archivo EleccionDistrito
 }
 
-void Eleccion::Leer(ifstream & ifs)
+void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 {
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));

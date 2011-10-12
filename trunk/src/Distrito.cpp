@@ -35,22 +35,25 @@ string Distrito::getNombre()
 Distrito::~Distrito() {
 }
 
-void Distrito::Guardar(ofstream & ofs)
+unsigned long int Distrito::Guardar(ofstream & ofs)
 {
-	//Comienzo escritura de atributos
+	unsigned long int offset = ofs.tellp();
+
+	// Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	Utilidades::stringToFile(_nombre, ofs);
+
+	return offset;
 }
 
-void Distrito::Leer(ifstream & ifs)
+void Distrito::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Me posiciono en el archivo
+	ifs.seekg(offset,ios::beg);
+
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	_nombre = Utilidades::stringFromFile(ifs);
-
-	ifs.close();
-
-	Imprimir();
 }
 
 void Distrito::Imprimir()

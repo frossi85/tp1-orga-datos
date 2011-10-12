@@ -57,8 +57,8 @@ public:
 	void votarEnEleccionALista(Eleccion& eleccion, Lista& lista);
 
 	//Interface de Guardable
-	void Guardar(ofstream & ofs);
-	void Leer(ifstream & ifs);
+	unsigned long int Guardar(ofstream & ofs);
+	void Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
 
 	inline string getURLArchivoDatos();

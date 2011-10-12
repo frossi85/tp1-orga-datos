@@ -54,7 +54,7 @@ void Cargo::agregarCargoSecundario(string cargo)
 }
 
 //Implementacion de interfaz Guardable
-void Cargo::Guardar(ofstream & ofs)
+unsigned long int Cargo::Guardar(ofstream & ofs)
 {
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
@@ -70,7 +70,7 @@ void Cargo::Guardar(ofstream & ofs)
 	}
 }
 
-void Cargo::Leer(ifstream & ifs)
+void Cargo::Leer(ifstream & ifs, unsigned long int offset)
 {
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));

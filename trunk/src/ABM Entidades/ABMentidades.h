@@ -18,6 +18,7 @@
 #include "../Candidato.h"
 #include "../RegistroIndice.h"
 #include "../hash_extensible.h"
+#include "../ManejoIDs.h"
 using namespace std;
 
 
@@ -25,12 +26,12 @@ class ABMentidades {
 public:
 	ABMentidades();
 	virtual ~ABMentidades();
-	bool guardarEleccion(Eleccion &eleccion);
-	bool guardarDistrito(Distrito &distrito);
-	bool guardarCargo(Cargo &cargo);
-	bool guardarVotante(Votante &votante);
-	bool guardarLista(Lista &lista);
-	bool guardarCandidato(Candidato &candidato);
+	bool altaEleccion(Eleccion &eleccion);
+	bool altaDistrito(Distrito &distrito);
+	bool altaCargo(Cargo &cargo);
+	bool altaVotante(Votante &votante);
+	bool altaLista(Lista &lista);
+	bool altaCandidato(Candidato &candidato);
 
 private:
 	DataAccess dataAccess;

@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
         //con cada entidad y sirve de ejemplo de como hay q usarlo
 
 
-        Menu *menu = Menu::getMenu();
+ /*       Menu *menu = Menu::getMenu();
         if (argc != 2){
                 // Numero incorrecto de parametros
                 cout << "Uso: voto_electronico -h\n";
@@ -58,35 +58,66 @@ int main(int argc, char *argv[]){
 
         cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones
 
-        return 0;
+        return 0;*/
 }
 
 void ejecutar_test(){
-        ///CODIGO DE PRUEBA FACUNDO
+        ///CODIGO DE PRUEBA MARTIN
         DataAccess dataAccess;
 
-        Distrito distrito("Lanus");
-        distrito.setId(45);
+        Distrito distrito1("Lanus");
+        distrito1.setId(45);
 
-        dataAccess.Guardar(distrito);
+        Distrito distrito2("Cordoba");
+        distrito2.setId(50);
 
-        Distrito distrito2;
+        Distrito distrito3("Santa Fe");
+        distrito3.setId(55);
 
-        dataAccess.getPorId(0, distrito2);
+        Distrito distrito4("Pehuajo");
+        distrito4.setId(60);
 
-        dataAccess.Eliminar(distrito2);
+        Distrito distrito5("Olivos");
+        distrito5.setId(65);
 
-        Cargo cargo("Presidente");
-        cargo.setId(20);
-        cargo.agregarCargoSecundario("Vice Presidente");
-        cargo.agregarCargoSecundario("Gobernador");
-        cargo.agregarCargoSecundario("Intendente");
-        cargo.agregarCargoSecundario("Consejal");
+        Distrito distrito6("Springfield");
+        distrito6.setId(70);
 
-        dataAccess.Guardar(cargo);
+        distrito1.Imprimir();
+        distrito2.Imprimir();
+        distrito3.Imprimir();
+        distrito4.Imprimir();
+        distrito5.Imprimir();
+        distrito6.Imprimir();
 
-        Cargo cargo2;
-        dataAccess.getPorId(0, cargo2);
+        unsigned long int offset1, offset2, offset3, offset4, offset5, offset6;
+
+        offset1 = dataAccess.Guardar(distrito1);
+        cout << "Offset de Lanus: " << offset1 << endl;
+        offset2 = dataAccess.Guardar(distrito2);
+        cout << "Offset de Cordoba: " << offset2 << endl;
+        offset3 = dataAccess.Guardar(distrito3);
+        cout << "Offset de Santa Fe: " << offset3 << endl;
+        offset4 = dataAccess.Guardar(distrito4);
+        cout << "Offset de Pehuajo: " << offset4 << endl;
+        offset5 = dataAccess.Guardar(distrito5);
+        cout << "Offset de Olivos: " << offset5 << endl;
+        offset6 = dataAccess.Guardar(distrito6);
+        cout << "Offset de Springfield: " << offset6 << endl;
+
+        dataAccess.Leer(distrito1,93);
+        dataAccess.Leer(distrito2,75);
+        dataAccess.Leer(distrito3,56);
+        dataAccess.Leer(distrito4,36);
+        dataAccess.Leer(distrito5,17);
+        dataAccess.Leer(distrito6,0);
+
+        distrito1.Imprimir();
+        distrito2.Imprimir();
+        distrito3.Imprimir();
+        distrito4.Imprimir();
+        distrito5.Imprimir();
+        distrito6.Imprimir();
 }
 
 /* Ejemplo de uso del hash

@@ -31,10 +31,10 @@ public:
 	DataAccess();
 	virtual ~DataAccess();
 
-	//Hay q hacer uno q reciba un GuardableHash y otro con un GuardableArbol
-	void Guardar(Grabable & obj);
+	//Hay q hacer uno q reciba un GuardableHash y otro con un GuardableArbol --> No te preocupes, q esta clase sea solo para guardar en los arch de datos (MARTIN)
+	unsigned long int Guardar(Grabable & obj);				// Retorna el offset de donde lo guardo.
 	void Eliminar(Grabable & obj);
-	void getPorId(long id, Grabable & obj);
+	void Leer(Grabable & obj, unsigned long int offset);
 
 	long getIdPorNombre(char objeto, string clave);
 

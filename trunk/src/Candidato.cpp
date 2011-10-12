@@ -82,7 +82,7 @@ void Candidato::Imprimir()
 	cout<<endl;
 }
 
-void Candidato::Guardar(ofstream & ofs)
+unsigned long int Candidato::Guardar(ofstream & ofs)
 {
 	//TODO: capaz por cada puntero a una instancia de otra clase deberia tener el id(offset)
 	//y en leer cargar eso en vez de la instancia en si, y hacer metodos como getLista()
@@ -103,7 +103,7 @@ void Candidato::Guardar(ofstream & ofs)
 	ofs.write(reinterpret_cast<char *>(&idLista), sizeof(idLista));
 }
 
-void Candidato::Leer(ifstream & ifs)
+void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 {
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
