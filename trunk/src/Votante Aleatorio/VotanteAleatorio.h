@@ -7,6 +7,20 @@
 
 #ifndef VOTANTEALEATORIO_H_
 #define VOTANTEALEATORIO_H_
+
+/* Verificar Rutas */
+#define URL_NOMBRES_AB "./Nombres/NombresAB.txt"
+#define URL_NOMBRES_CD "./Nombres/NombresCD.txt"
+#define URL_NOMBRES_EF "./Nombres/NombresEF.txt"
+#define URL_NOMBRES_GH "./Nombres/NombresGH.txt"
+#define URL_NOMBRES_IJ "./Nombres/NombresIJ.txt"
+#define URL_NOMBRES_KL "./Nombres/NombresKL.txt"
+#define URL_NOMBRES_MN "./Nombres/NombresMN.txt"
+#define URL_NOMBRES_OP "./Nombres/NombresOP.txt"
+#define URL_NOMBRES_QRS "./Nombres/NombresQRS.txt"
+#define URL_NOMBRES_TUV "./Nombres/NombresTUV.txt"
+#define URL_NOMBRES_WXYZ "./Nombres/NombresWXYZ.txt"
+
 #include "../Votante.h"
 #include "../Utilidades.h"
 #include "../Distrito.h"
