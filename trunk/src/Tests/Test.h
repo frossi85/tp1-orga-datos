@@ -32,6 +32,8 @@ public:
 	 * se produjo el error
 	 */
 	void informarError(string metodo);
+
+	virtual void liberarMemoria()=0;
 	virtual ~Test();
 };
 

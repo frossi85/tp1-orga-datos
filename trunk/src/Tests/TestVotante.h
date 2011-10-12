@@ -10,10 +10,12 @@
 
 #include "Test.h"
 #include "../Votante.h"
+#include "../Distrito.h"
 
 class TestVotante: public Test {
 
 	Votante *votante;
+	Distrito *distrito;
 	bool testConstructor();
 	bool testCambioClave();
 	bool testSetters();
@@ -21,6 +23,7 @@ public:
 	TestVotante();
 	virtual void comenzar();
 	virtual void inicializar();
+	virtual void liberarMemoria();
 	virtual ~TestVotante();
 };
 

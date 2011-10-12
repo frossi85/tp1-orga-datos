@@ -19,6 +19,7 @@ public:
 	TestDataAccess();
 	virtual void comenzar();
 	virtual void inicializar();
+	virtual void liberarMemoria();
 	virtual ~TestDataAccess();
 };
 

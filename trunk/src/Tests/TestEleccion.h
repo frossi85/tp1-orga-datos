@@ -10,17 +10,23 @@
 
 #include "Test.h"
 #include "../Eleccion.h"
+#include "../Cargo.h"
+#include "../Distrito.h"
 
 class TestEleccion: public Test {
 
 	Eleccion *eleccion;
+	Cargo *cargo;
+	Distrito *distrito;
 	bool testConstructor();
+	bool testAgregarDistrito();
 	bool testLectura_y_Escritura();
 
 public:
 	TestEleccion();
 	virtual void comenzar();
 	virtual void inicializar();
+	virtual void liberarMemoria();
 	virtual ~TestEleccion();
 };
 
