@@ -42,6 +42,9 @@ private:
 	 */
 	void guardar_cambios();
 
+	void cambiar_clave();
+	void cambiar_domicilio();
+
 public:
 	Menu_votante(Votante *votante);
 

@@ -109,6 +109,10 @@ void Votante::setDistrito(Distrito& distrito)
 	this->_distrito = &distrito;
 }
 
+void Votante::setDomicilio(string nuevo_domicilio){
+	this->_domicilio=nuevo_domicilio;
+
+}
 
 void Votante::Imprimir()
 {
