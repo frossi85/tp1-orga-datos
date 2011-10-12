@@ -1,7 +1,7 @@
 #include "PruebasRegistroIndice.h"
 #include "PruebasHash.h"
 
-int main(){
+/*int main(){
 
 	//Pruebas de RegistroIndice:
 	if(!PruebasRegistroIndice::Guardar()){
@@ -30,3 +30,5 @@ int main(){
 		cout << "HASH: borrar y volver a guardar OK" << endl;
 	}
 }
+*/			// NO PONGAN LAS PRUEBAS CON UN MAIN POR FAVOR. CORRAN LAS PRUEBAS EN UNA COPIA DEL PROYECTO Y CUANDO ANDEN PONGAN LAS CLASES QUE USARON EN EL REPOSITORIO.
+			// DE ULTIMA PONGAN EN EL MAIN DEL REPOSITORIO TODO ENTRE COMENTARIOS Y LO PRUEBAN, Y CUANDO ANDE SACAN LOS /* */ Y LISTO.
