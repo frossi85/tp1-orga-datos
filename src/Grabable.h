@@ -19,10 +19,10 @@ class Grabable : public Logueable {
 private:
 	//string _stringId;// = "Falta Implementar";
 public:
-	virtual void Guardar(ofstream & ofs) = 0;
+	virtual unsigned long int Guardar(ofstream & ofs) = 0;	// Devuelve el offset de donde lo grabo
 	//virtual void Modificar() = 0;
 	//virtual void Eliminar() = 0;
-	virtual void Leer(ifstream & ifs) = 0;
+	virtual void Leer(ifstream & ifs, unsigned long int offset) = 0;
 
 
 	virtual string getURLArchivoDatos() = 0;

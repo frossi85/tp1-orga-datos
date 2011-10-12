@@ -31,8 +31,8 @@ public:
 	Eleccion const& getEleccion() const;
 	string getNombre();
 
-	void Guardar(ofstream & ofs);
-	void Leer(ifstream & ifs);
+	unsigned long int Guardar(ofstream & ofs);
+	void Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
 
 	inline string getURLArchivoDatos();

@@ -54,7 +54,7 @@ void Lista::Imprimir()
 	cout<<endl;
 }
 
-void Lista::Guardar(ofstream & ofs)
+unsigned long int Lista::Guardar(ofstream & ofs)
 {
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
@@ -73,7 +73,7 @@ void Lista::Guardar(ofstream & ofs)
 	//dataAccess.Guardar(*(_eleccion));
 }
 
-void Lista::Leer(ifstream & ifs)
+void Lista::Leer(ifstream & ifs, unsigned long int offset)
 {
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));

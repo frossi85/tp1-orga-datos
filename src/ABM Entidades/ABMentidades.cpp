@@ -7,13 +7,11 @@
 
 #include "ABMentidades.h"
 
-ABMentidades::ABMentidades() {
-//	this->dataAccess();
-}
+ABMentidades::ABMentidades() {}
 
 ABMentidades::~ABMentidades() {}
 
-bool ABMentidades::guardarEleccion(Eleccion &eleccion) {
+bool ABMentidades::altaEleccion(Eleccion &eleccion) {
 	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_eleccion_regs>"));
 	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_eleccion_bloq_lib>"));
 	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_eleccion_tabla>"));
@@ -25,16 +23,18 @@ bool ABMentidades::guardarEleccion(Eleccion &eleccion) {
 	return false;
 }
 
-bool ABMentidades::guardarDistrito(Distrito &distrito) {
+bool ABMentidades::altaDistrito(Distrito &distrito) {
 	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_regs>"));
 	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_bloq_lib>"));
 	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_tabla>"));
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregar(distrito.getNombre(),0);
 	RegistroIndice *returnReg = hash->buscar(&aAgregar);
-	if (returnReg == NULL) return false;
-	//distrito.setId()
-	//this->dataAccess.Guardar()
+	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
+	distrito.setId(ManejoIDs::obtenerIDnuevo("Distrito"));
+	this->dataAccess.Guardar(distrito);
+
+
 
 
 	delete this->hash;
@@ -42,7 +42,7 @@ bool ABMentidades::guardarDistrito(Distrito &distrito) {
 }
 
 
-bool ABMentidades::guardarCargo(Cargo &cargo) {
+bool ABMentidades::altaCargo(Cargo &cargo) {
 	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_cargo_regs>"));
 	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_cargo_bloq_lib>"));
 	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_cargo_tabla>"));
@@ -55,7 +55,7 @@ bool ABMentidades::guardarCargo(Cargo &cargo) {
 }
 
 
-bool ABMentidades::guardarVotante(Votante &votante) {
+bool ABMentidades::altaVotante(Votante &votante) {
 	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_votante_regs>"));
 	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_votante_bloq_lib>"));
 	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_votante_tabla>"));
@@ -68,7 +68,7 @@ bool ABMentidades::guardarVotante(Votante &votante) {
 }
 
 
-bool ABMentidades::guardarLista(Lista &lista) {
+bool ABMentidades::altaLista(Lista &lista) {
 	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_lista_regs>"));
 	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_lista_bloq_lib>"));
 	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_lista_tabla>"));
@@ -79,7 +79,7 @@ bool ABMentidades::guardarLista(Lista &lista) {
 }
 
 
-bool ABMentidades::guardarCandidato(Candidato &candidato) {
+bool ABMentidades::altaCandidato(Candidato &candidato) {
 	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_candidato_regs>"));
 	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_candidato_bloq_lib>"));
 	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_candidato_tabla>"));

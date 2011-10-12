@@ -134,7 +134,7 @@ void Votante::Imprimir()
 	}
 }
 
-void Votante::Guardar(ofstream & ofs)
+unsigned long int Votante::Guardar(ofstream & ofs)
 {
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
@@ -152,7 +152,7 @@ void Votante::Guardar(ofstream & ofs)
 	//O el offset dentro del archivo VotanteEleccion
 }
 
-void Votante::Leer(ifstream & ifs)
+void Votante::Leer(ifstream & ifs, unsigned long int offset)
 {
 	//Comienzo escritura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));

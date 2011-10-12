@@ -36,11 +36,11 @@ Distrito* Conteo::getDistrito(){
 	return &this->_distrito;
 }
 
-void Conteo::Guardar(ofstream & ofs){
+unsigned long int Conteo::Guardar(ofstream & ofs){
 
 }
 
-void Conteo::Leer(ifstream & ifs){
+void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 
 }
 

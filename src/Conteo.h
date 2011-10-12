@@ -39,10 +39,10 @@ public:
 
 
 	//Falte Implementar
-	void Guardar(ofstream & ofs);
+	unsigned long int Guardar(ofstream & ofs);
 
 	//Falta Implementar
-	void Leer(ifstream & ifs);
+	void Leer(ifstream & ifs, unsigned long int offset);
 
 	//Falta Implementar
 	string getURLArchivoDatos();
