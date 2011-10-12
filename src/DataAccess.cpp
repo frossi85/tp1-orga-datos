@@ -16,35 +16,13 @@ DataAccess::~DataAccess() {
 	// TODO Auto-generated destructor stub
 }
 
-long DataAccess::getIdPorNombre(char objeto, string clave)
-{
-	switch (objeto) {
-	case 'd':
-		//distrito -> por nombre
-		return 1;
-		break;
-	case 'v':
-		//votane por dni
-		return 2;
-		break;
-	case 'e':
-		//eleccion por fecha
-		return 3;
-		break;
-	case 'l':
-		//lista por nombre
-		return 4;
-		break;
-	case 'c':
-		//cargo por nombre
-		return 4;
-		break;
-	case 'a':
-		//candidato por dni
-		return 4;
-		break;
+Distrito *DataAccess::getDistrito(string nombre) {
+	if (d!=NULL) {
+		return d;
+	} else {
+		d = new Distrito("distr");
+		return d;
 	}
-	// SI no lo halla devuelve cero
 }
 
 //Recibe el id del grabable q quiero leer, obj es una instacia vacia a sobreescribir con los
