@@ -12,6 +12,7 @@ using namespace std;
 class Test {
 protected:
 	string clase_en_testeo;
+	bool error_encontrado;
 public:
 	Test();
 	/*
@@ -32,8 +33,11 @@ public:
 	 * se produjo el error
 	 */
 	void informarError(string metodo);
+	void tituloTest();
+	void finalizarTest();
 
 	virtual void liberarMemoria()=0;
+
 	virtual ~Test();
 };
 

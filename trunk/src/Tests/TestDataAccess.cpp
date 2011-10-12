@@ -8,15 +8,19 @@
 #include "TestDataAccess.h"
 
 TestDataAccess::TestDataAccess() {
-	// TODO Auto-generated constructor stub
+
+	this->clase_en_testeo="DataAccess";
 
 }
 
 void TestDataAccess::comenzar(){
 	this->inicializar();
+	this->tituloTest();
+	this->error_encontrado=false;
 
 
 
+	this->finalizarTest();
 
 }
 

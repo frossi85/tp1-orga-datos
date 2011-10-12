@@ -18,20 +18,28 @@ TestEleccion::TestEleccion() {
 
 void TestEleccion::comenzar(){
 
+	this->tituloTest();
+	this->error_encontrado=false;
+
 	if (this->testConstructor()){
 		this->informarError("Constructor");
+		this->error_encontrado=true;
 	}
 
 	if(this->testLectura_y_Escritura()){
 		this->informarError("de Lectura y Escritura");
+		this->error_encontrado=true;
 
 	}
 
 	if(this->testAgregarDistrito()){
 
 		this->informarError("AgregarDistritos");
+		this->error_encontrado=true;
 	}
 
+
+	this->finalizarTest();
 }
 
 void TestEleccion::inicializar(){
