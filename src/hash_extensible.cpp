@@ -58,7 +58,7 @@ unsigned int hash_extensible::funcion_hashing(RegistroIndice *registro){
 	unsigned int tam_tabla = obtener_tamanio_tabla();
 
 	int valor = 0;
-    for( int i = 0; i < clave.length() ; i++ )
+    for(unsigned int i = 0; i < clave.length() ; i++ )
         valor = 37 * valor + clave.at( i );
 
     valor %= tam_tabla;
