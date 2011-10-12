@@ -7,6 +7,7 @@
 #include "Distrito.h"
 #include "Cargo.h"
 #include "DataAccess.h"
+#include "Tests/Tester.h"
 
 using namespace std;
 
@@ -14,8 +15,12 @@ void ejecutar_test();
 
 int main(int argc, char *argv[]){
 
+        Tester *tester=new Tester();
+        tester->comenzarTests();
+        delete tester;
+
         ejecutar_test(); //Adentro de esta funcion hay prueba de los metodos para crear los archivos
-        //con cada entidad y sirve de ejemplo de como hay q usarlo
+                //con cada entidad y sirve de ejemplo de como hay q usarlo
 
 
  /*       Menu *menu = Menu::getMenu();
@@ -57,8 +62,8 @@ int main(int argc, char *argv[]){
         }
 
         cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones
-
-        return 0;*/
+	*/
+        return 0;
 }
 
 void ejecutar_test(){
