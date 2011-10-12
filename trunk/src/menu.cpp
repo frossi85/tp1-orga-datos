@@ -68,8 +68,8 @@ bool Menu::acceder_admin() {
 }
 
 bool Menu::acceder_usuario() {
-	char userOk[20]="1111";
-	char passOk[20]="1111";
+	//char userOk[20]="1111";
+	//char passOk[20]="1111";
 
 	DataAccess data_access;
 	Votante *votante=data_access.getVotante(user);
