@@ -24,22 +24,28 @@ void TestVotante::inicializar(){
 
 void TestVotante::comenzar(){
 
-	cout<<"Comenzo Test de Votante"<<endl;
+	this->tituloTest();
+	this->error_encontrado=false;
 
 	if (this->testConstructor()){
 
 		this->informarError("Constructor");
+		this->error_encontrado=true;
 	}
 
 	if (this->testSetters()){
 
 		this->informarError("Setters");
+		this->error_encontrado=true;
 	}
 
 	if (this->testCambioClave()){
 
 		this->informarError("Cambio de Clave");
+		this->error_encontrado=true;
 	}
+
+	this->finalizarTest();
 }
 
 bool TestVotante::testConstructor(){

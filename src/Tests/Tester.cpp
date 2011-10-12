@@ -11,6 +11,7 @@
 #include "TestEleccion.h"
 #include "TestDataAccess.h"
 #include "TestDistrito.h"
+#include "TestLista.h"
 #include <iostream>
 
 using namespace std;
@@ -21,7 +22,7 @@ Tester::Tester() {
 
 void Tester::comenzarTests(){
 
-	int cantidad_tests=4;
+	int cantidad_tests=5;
 
 	cout<<"Se inician los test de las Clases"<<endl;
 
@@ -31,6 +32,7 @@ void Tester::comenzarTests(){
 	test[1]=new TestEleccion();
 	test[2]=new TestDataAccess();
 	test[3]=new TestDistrito();
+	test[4]=new TestLista();
 
 	for (int i=0;i<cantidad_tests;i++){
 		test[i]->comenzar();

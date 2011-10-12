@@ -15,10 +15,15 @@ TestDistrito::TestDistrito() {
 
 void TestDistrito::comenzar(){
 
+	this->tituloTest();
+	this->error_encontrado=false;
+
 	if (this->testConstructor()){
 		this->informarError("Constructor");
+		this->error_encontrado=true;
 	}
 
+	this->finalizarTest();
 }
 
 bool TestDistrito::testConstructor(){
