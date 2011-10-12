@@ -13,6 +13,8 @@ TestDataAccess::TestDataAccess() {
 }
 
 void TestDataAccess::comenzar(){
+	this->inicializar();
+
 
 
 
@@ -20,9 +22,17 @@ void TestDataAccess::comenzar(){
 
 void TestDataAccess::inicializar(){
 
+	this->dataAccess=new DataAccess();
+
+}
+
+
+void TestDataAccess::liberarMemoria(){
+
+	delete this->dataAccess;
 
 }
 
 TestDataAccess::~TestDataAccess() {
-	// TODO Auto-generated destructor stub
+	this->liberarMemoria();
 }

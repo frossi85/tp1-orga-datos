@@ -18,6 +18,7 @@ public:
 	TestDistrito();
 	virtual void comenzar();
 	virtual void inicializar();
+	virtual void liberarMemoria();
 	virtual ~TestDistrito();
 };
 

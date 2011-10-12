@@ -22,17 +22,24 @@ void TestDistrito::comenzar(){
 }
 
 bool TestDistrito::testConstructor(){
+
 	bool error_encontrado=false;
+	this->inicializar();
 
+	error_encontrado=!( "Avellaneda"==this->distrito->getNombre() );
 
-
+	this->liberarMemoria();
 	return error_encontrado;
 
 }
 
 void TestDistrito::inicializar(){
+	this->distrito=new Distrito("Avellaneda");
 
+}
 
+void TestDistrito::liberarMemoria(){
+	delete this->distrito;
 }
 
 TestDistrito::~TestDistrito() {

@@ -21,22 +21,23 @@ Tester::Tester() {
 
 void Tester::comenzarTests(){
 
+	int cantidad_tests=4;
+
 	cout<<"Se inician los test de las Clases"<<endl;
 
-	Test *test;
+	Test **test=new Test*[cantidad_tests];
 
-	test=new TestVotante();
-	test->comenzar(); delete test;
+	test[0]=new TestVotante();
+	test[1]=new TestEleccion();
+	test[2]=new TestDataAccess();
+	test[3]=new TestDistrito();
 
-	test=new TestEleccion();
-	test->comenzar(); delete test;
+	for (int i=0;i<cantidad_tests;i++){
+		test[i]->comenzar();
+		delete test[i];
+	}
 
-	test=new TestDataAccess();
-	test->comenzar(); delete test;
-
-	test=new TestDistrito();
-	test->comenzar(); delete test;
-
+	delete[] test;
 
 }
 
