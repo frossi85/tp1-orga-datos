@@ -19,7 +19,7 @@ VotanteAleatorio::VotanteAleatorio(unsigned int cantidad) {
 	Distrito *distrito;
 
 	/* Cargo los votantes aleatoreamente */
-	for(int i=0; i<cantidad; i++){
+	for(unsigned int i=0; i<cantidad; i++){
 		DNI = Utilidades::getDNIaleatorio(DNI);		// Utilizo el DNI anterior como semilla
 		nombre = getStringAleatorio();
 		apellido = getStringAleatorio();
@@ -34,7 +34,7 @@ VotanteAleatorio::VotanteAleatorio(unsigned int cantidad) {
 }
 
 VotanteAleatorio::~VotanteAleatorio() {
-	for(int i=0; i<cantidad; i++)	delete vectorVotantes[i];
+	for(unsigned int i=0; i<cantidad; i++)	delete vectorVotantes[i];
 		delete[] vectorVotantes;
 }
 
@@ -42,7 +42,7 @@ VotanteAleatorio::~VotanteAleatorio() {
 int VotanteAleatorio::hacerlosAccederAlSistema() {
 	unsigned int randomNumber;
 	int contadorFallidos = 0;
-	for(int i=0;i<cantidad;i++) {
+	for(unsigned int i=0;i<cantidad;i++) {
 		randomNumber = (rand() % 20);	// Numero entre 0 y 19
 		if (randomNumber == 19) {		// Probabilidad 1/20 de que falle el acceso
 			simularAcceso(this->vectorVotantes[i]->getDNI(),this->vectorVotantes[i]->getClave(),false);
@@ -59,7 +59,7 @@ int VotanteAleatorio::hacerlosVotar() {
 	int contadorModificacionVoto = 0;
 	int cantidadElecciones = 0;
 	vector<Eleccion*> elecciones;
-	for(int i=0;i<cantidad;i++) {
+	for(unsigned int i=0;i<cantidad;i++) {
 		elecciones = this->vectorVotantes[i]->getElecciones();
 		cantidadElecciones = elecciones.size();
 		for(int j = 0;j<cantidadElecciones;j++) {
@@ -89,47 +89,47 @@ string VotanteAleatorio::getStringAleatorio() {
 	unsigned int opcion = (rand() % 11) + 1;
 	switch (opcion){
 	case 1: {
-		filename = "src/Nombres/NombresAB.txt";
+		filename = URL_NOMBRES_AB;
 		break;
 	}
 	case 2: {
-		filename = "src/Nombres/NombresCD.txt";
+		filename = URL_NOMBRES_CD;
 		break;
 	}
 	case 3: {
-		filename = "src/Nombres/NombresEF.txt";
+		filename = URL_NOMBRES_EF;
 		break;
 	}
 	case 4: {
-		filename = "src/Nombres/NombresGH.txt";
+		filename = URL_NOMBRES_GH;
 		break;
 	}
 	case 5: {
-		filename = "src/Nombres/NombresIJ.txt";
+		filename = URL_NOMBRES_IJ;
 		break;
 	}
 	case 6: {
-		filename = "src/Nombres/NombresKL.txt";
+		filename = URL_NOMBRES_KL;
 		break;
 	}
 	case 7: {
-		filename = "src/Nombres/NombresMN.txt";
+		filename = URL_NOMBRES_MN;
 		break;
 	}
 	case 8: {
-		filename = "src/Nombres/NombresOP.txt";
+		filename = URL_NOMBRES_OP;
 		break;
 	}
 	case 9: {
-		filename = "src/Nombres/NombresQRS.txt";
+		filename = URL_NOMBRES_QRS;
 		break;
 	}
 	case 10: {
-		filename = "src/Nombres/NombresTUV.txt";
+		filename = URL_NOMBRES_TUV;
 		break;
 	}
 	case 11: {
-		filename = "src/Nombres/NombresWXYZ.txt";
+		filename = URL_NOMBRES_WXYZ;
 		break;
 	}
 	default: {
@@ -149,7 +149,7 @@ string VotanteAleatorio::getStringAleatorio() {
 	fgets(aux,4,archivo);						//
 	unsigned int cantidadNombres = atoi(aux);	// **********************************************
 	opcion = (rand() % cantidadNombres)+1;					// Elijo una posicion de nombre aleatoria
-	for(int i=0;i<opcion;i++) fgets(nombre,20,archivo);		// Recorro el archivo hasta la cadena que debo levantar
+	for(unsigned int i=0;i<opcion;i++) fgets(nombre,20,archivo);		// Recorro el archivo hasta la cadena que debo levantar
 	cadena_retorno = nombre;								// Obtengo la cadena a retornar
 	cadena_retorno[cadena_retorno.find_first_of('\n')] = '\0';
 
@@ -164,7 +164,7 @@ string VotanteAleatorio::getStringAleatorio() {
 
 
 void VotanteAleatorio::Imprimir(){
-	for(int i=0;i<cantidad;i++) {
+	for(unsigned int i=0;i<cantidad;i++) {
 		cout << "\nVotante "<<i<<":\n";
 		vectorVotantes[i]->Imprimir();
 	}
