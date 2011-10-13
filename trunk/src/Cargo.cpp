@@ -88,6 +88,7 @@ void Cargo::Imprimir()
 	cout<<"Cargo Principal: " << cargoPrincipal <<endl;
 	for(string::size_type i=0; i<cargosSecundarios.size(); i++)
 		cout<< "Cargo Secundario: " << cargosSecundarios[i] <<endl;
+	cout << endl;
 }
 
 

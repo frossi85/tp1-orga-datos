@@ -62,7 +62,7 @@ void Distrito::Leer(ifstream & ifs, unsigned long int offset)
 void Distrito::Imprimir()
 {
 	cout<<"Id Distrito: " << _id << endl;
-	cout<<"Nombre Distrito: " << _nombre << endl;
+	cout<<"Nombre Distrito: " << _nombre << endl << endl;
 }
 
 
