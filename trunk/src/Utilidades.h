@@ -40,6 +40,12 @@ public:
 	//y luego lea la cadena misma teniendo en cuenta el largo
 	//guardado en el int leido primero
 	static string stringFromFile(std::ifstream & ifs);
+
+	static void stringToFile(std::string & str, std::fstream & ofs);
+
+	static string stringFromFile(std::fstream & ifs);
+
+	static void sleep(unsigned int mseconds);
 };
 
 #endif /* UTILIDADES_H_ */
