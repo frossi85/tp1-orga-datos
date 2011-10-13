@@ -15,6 +15,8 @@
 #include "Logueable.h"
 #include "Distrito.h"
 #include "Eleccion.h"
+#include "Configuracion.h"
+#include "hash_extensible.h"
 
 
 using namespace std;
