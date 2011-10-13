@@ -45,7 +45,7 @@ string Utilidades::indexarFecha(string fecha) {
 	return "aaaammdd";
 }
 
-string Utilidades::toString(int a)
+string Utilidades::toString(long int a)
 {
 	stringstream ss;
 	ss << a;
