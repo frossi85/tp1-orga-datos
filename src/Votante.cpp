@@ -6,6 +6,7 @@
  */
 
 #include "Votante.h"
+#include "ManejoIDs.h"
 
 Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito)
 {
@@ -14,6 +15,7 @@ Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio
 	this->_clave = clave;
 	this->_domicilio = domicilio;
 	this->_distrito = &distrito;
+	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
 }
 // Te cambie lo de distrito, el pasaje por parametro. Hice el contructor copia, creo q asi deberia funcionar. Crea un distrito desde el this->_distrito
 // a partir de un distrito pasado como parametro. MARTIN

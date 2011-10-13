@@ -6,13 +6,15 @@
  */
 
 #include "Candidato.h"
+#include "ManejoIDs.h"
 
 Candidato::Candidato(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito, Lista& lista, Cargo& cargo)
 //: Votante::Votante(dni, nombreYApellido, clave, domicilio, distrito)
 {
 	//TODO: Verificar con el ID de la clase, no _id, antes de guardar, para comprobar si fue creado
 	//correctamente o sea validacion
-	this->_id = -1;
+	//this->_id = -1;
+	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
 	//TODO: En la asignacion de abajo va &lista o solo lista??
 	this->_listaPropia = &lista;
 	this->_cargoAPresentarse = &cargo;
@@ -43,6 +45,17 @@ Lista& Candidato::getLista()
 	return *(this->_listaPropia);
 }
 
+
+int Candidato::getDNI(){
+
+	return this->_votante->getDNI();
+}
+
+string Candidato::getNombreYApellido(){
+
+	return this->_votante->getNombreYApellido();
+
+}
 
 
 void Candidato::setLista(Lista& lista)
