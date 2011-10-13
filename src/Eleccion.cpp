@@ -66,7 +66,8 @@ void Eleccion::Imprimir()
 {
 	cout<<"Id Eleccion: " <<_id << endl;
 	cout<<"Fecha Eleccion: " <<_fecha <<endl;
-	cout<<"Cargo de la Eleccion: " << (*(_cargo)).Imprimir() << end;
+	cout<<"Cargo de la Eleccion: " << endl;
+	this->_cargo->Imprimir();
 }
 
 
@@ -99,7 +100,7 @@ unsigned long int Eleccion::Guardar(ofstream & ofs)
 	long idDistrito = 0;
 	for(string::size_type i = 0; i < cantidadDistritos; i++){
 		idDistrito = this->_distritos[i]->getId();
-		ofs.write(reinterpret_cast<char *>(&idDistrito), sizeof(idDitrito));
+		ofs.write(reinterpret_cast<char *>(&idDistrito), sizeof(idDistrito));
 	}
 
 	return offset;

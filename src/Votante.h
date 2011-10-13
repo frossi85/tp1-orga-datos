@@ -43,7 +43,7 @@ public:
 	string getNombreYApellido();
 	string getClave();
 	string getDomicilio();
-	Distrito& getDistrito();
+	Distrito getDistrito();
 	vector<Eleccion *> getElecciones();	// Agregado por martin. Devuelve copias de las elecciones del votante. (Liberar memoria desde donde se llame).
 
 	//Setters
