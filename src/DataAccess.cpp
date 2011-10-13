@@ -74,6 +74,7 @@ void DataAccess::Eliminar(Grabable & obj)
 	ofs.close();
 }
 
+// DE ACA PARA ABAJO NO TENDRIAN QUE ESTAR ESTOS METODOS EN ESTA CLASE
 vector<Conteo*> DataAccess::getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito &distrito){
 
 	vector<Conteo *> resultado;
@@ -141,4 +142,3 @@ Votante* DataAccess::getVotante(const char dni[]){
 
 	return votante_resultante;
 }
-
