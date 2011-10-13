@@ -6,6 +6,7 @@
  */
 
 #include "TestCargo.h"
+#include "../DataAccess.h"
 #include <vector>
 
 TestCargo::TestCargo() {
@@ -88,7 +89,13 @@ bool TestCargo::testAgregarCargoSecundarios(){
 bool TestCargo::testLectura_y_Escritura(){
 	bool error_encontrado=false;
 
+	this->inicializar();
 
+	DataAccess dt_acc;
+
+	dt_acc.Guardar(*this->cargo);
+
+	this->liberarMemoria();
 	return error_encontrado;
 }
 void TestCargo::liberarMemoria(){
