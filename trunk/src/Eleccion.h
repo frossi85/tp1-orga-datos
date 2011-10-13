@@ -31,6 +31,7 @@ public:
 
 	long getId();
 	Cargo& getCargo();
+	string getFecha();
 	string getDescripcion();
 	void agregarDistrito(Distrito distrito);
 	vector<Distrito *> getDistritos();

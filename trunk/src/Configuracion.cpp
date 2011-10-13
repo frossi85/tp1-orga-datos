@@ -60,9 +60,15 @@ Configuracion::Configuracion() {
 	constantes[33]=RUTA_HASH_IDCARGO_REGS;
 	constantes[34]=RUTA_HASH_IDCARGO_BLOQ_LIB;
 	constantes[35]=RUTA_HASH_IDCARGO_TABLA;
-	constantes[36]=RUTA_HASH_IDLISTA_REGS;
-	constantes[37]=RUTA_HASH_IDLISTA_BLOQ_LIB;
-	constantes[38]=RUTA_HASH_IDLISTA_TABLA;
+	constantes[36]=RUTA_HASH_IDVOTANTE_REGS;
+	constantes[37]=RUTA_HASH_IDVOTANTE_BLOQ_LIB;
+	constantes[38]=RUTA_HASH_IDVOTANTE_TABLA;
+	constantes[39]=RUTA_HASH_IDCANDIDATO_REGS;
+	constantes[40]=RUTA_HASH_IDCANDIDATO_BLOQ_LIB;
+	constantes[41]=RUTA_HASH_IDCANDIDATO_TABLA;
+	constantes[42]=RUTA_HASH_IDLISTA_REGS;
+	constantes[43]=RUTA_HASH_IDLISTA_BLOQ_LIB;
+	constantes[44]=RUTA_HASH_IDLISTA_TABLA;
 
 	FILE *fp;
 	char cadena[100];

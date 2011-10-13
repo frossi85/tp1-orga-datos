@@ -18,6 +18,7 @@
 #include "../Candidato.h"
 #include "../RegistroIndice.h"
 #include "../ManejoIDs.h"
+#include "../Utilidades.h"
 using namespace std;
 
 

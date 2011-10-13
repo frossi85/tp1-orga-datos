@@ -45,6 +45,9 @@ void Eleccion::agregarDistrito(Distrito distrito)
 long Eleccion::getId() {return _id;}
 
 
+string Eleccion::getFecha() {return this->_fecha;}
+
+
 Cargo& Eleccion::getCargo() {return *(this->_cargo);}
 
 
@@ -65,7 +68,7 @@ void Eleccion::Imprimir()
 {
 	cout<<"Id Eleccion: " <<_id << endl;
 	cout<<"Fecha Eleccion: " <<_fecha <<endl;
-	cout<<"Cargo de la Eleccion: " << endl;
+	cout<<"Cargos de la Eleccion: " << endl;
 	this->_cargo->Imprimir();
 }
 
@@ -76,6 +79,7 @@ void Eleccion::ImprimirDistritos()
 	cout << "Distritos de la eleccion: " << endl;
 	for(vector<Distrito *>::size_type i = 0; i < cantidadDistritos; i++)
 		_distritos[i]->Imprimir();
+	cout << endl;
 }
 
 
