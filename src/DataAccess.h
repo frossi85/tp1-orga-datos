@@ -20,7 +20,7 @@
 #include "Configuracion.h"
 //DE ACA PARA ABAJO NO TENDRIAN QUE ESTAR ESTOS INCLUDES
 #include "Distrito.h"
-#include "Conteo.h"
+#include "Conteo.h" //<--- este no lo borren que anda bien
 #include "Votante.h"
 #include "Eleccion.h"
 #include "Lista.h"

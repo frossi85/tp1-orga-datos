@@ -23,7 +23,7 @@ Distrito.o: Distrito.cpp Distrito.h
 
 Distrito.h: Grabable.h Logueable.h ManejoIDs.h Utilidades.h VotoElectronicoExcepcion.h Configuracion.h
 
-Eleccion.o: Eleccion.cpp Eleccion.h ManejoIDs.h
+Eleccion.o: Eleccion.cpp Eleccion.h ManejoIDs.h 
 	$(CC) $(CFLAGS) Eleccion.cpp
 
 Eleccion.h: Cargo.h Distrito.h RegistroIndice.h hash_extensible.h Configuracion.h
