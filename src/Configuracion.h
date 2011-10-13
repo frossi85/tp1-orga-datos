@@ -50,8 +50,11 @@
 #define RUTA_HASH_IDCARGO_REGS "<ruta_hash_idcargo_regs>"
 #define RUTA_HASH_IDCARGO_BLOQ_LIB "<ruta_hash_idcargo_bloq_lib>"
 #define RUTA_HASH_IDCARGO_TABLA "<ruta_hash_idcargo_tabla>"
+#define RUTA_HASH_IDLISTA_REGS "<ruta_hash_idlista_regs>"
+#define RUTA_HASH_IDLISTA_BLOQ_LIB "<ruta_hash_idlista_bloq_lib>"
+#define RUTA_HASH_IDLISTA_TABLA "<ruta_hash_idlista_tabla>"
 
-#define CANT_CONF 36
+#define CANT_CONF 39
 
 #include <string>
 

@@ -60,6 +60,9 @@ Configuracion::Configuracion() {
 	constantes[33]=RUTA_HASH_IDCARGO_REGS;
 	constantes[34]=RUTA_HASH_IDCARGO_BLOQ_LIB;
 	constantes[35]=RUTA_HASH_IDCARGO_TABLA;
+	constantes[36]=RUTA_HASH_IDLISTA_REGS;
+	constantes[37]=RUTA_HASH_IDLISTA_BLOQ_LIB;
+	constantes[38]=RUTA_HASH_IDLISTA_TABLA;
 
 	FILE *fp;
 	char cadena[100];
