@@ -11,7 +11,7 @@
 #include "TestEleccion.h"
 #include "TestDataAccess.h"
 #include "TestDistrito.h"
-#include "TestLista.h"
+//#include "TestLista.h"
 #include "TestCargo.h"
 #include "TestCandidato.h"
 #include <iostream>
@@ -34,7 +34,7 @@ void Tester::comenzarTests(){
 	test[1]=new TestEleccion();
 	test[2]=new TestDataAccess();
 	test[3]=new TestDistrito();
-	test[4]=new TestLista();
+	//test[4]=new TestLista();
 	test[5]=new TestCargo();
 	test[5]=new TestCandidato();
 

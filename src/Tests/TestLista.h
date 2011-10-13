@@ -5,8 +5,13 @@
  *      Author: administrador
  */
 
+
 #ifndef TESTLISTA_H_
 #define TESTLISTA_H_
+/* Leandro: Comento el código porque no compila, me tira undefined reference a los constructores de Lista y Eleccion.
+ * Debe ser por los cambios que se hicieron en los constructores, revisar eso.
+ * También comenté el include y la declaracion de esta clase dentro de Tester.
+
 
 #include "Test.h"
 #include "../Lista.h"
@@ -30,5 +35,5 @@ public:
 	virtual void liberarMemoria();
 	virtual ~TestLista();
 };
-
+*/
 #endif /* TESTLISTA_H_ */

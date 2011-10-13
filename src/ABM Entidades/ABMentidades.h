@@ -17,7 +17,6 @@
 #include "../Lista.h"
 #include "../Candidato.h"
 #include "../RegistroIndice.h"
-#include "../hash_extensible.h"
 #include "../ManejoIDs.h"
 using namespace std;
 

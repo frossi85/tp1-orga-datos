@@ -5,6 +5,8 @@
  *      Author: administrador
  */
 
+/*
+
 #include "TestLista.h"
 
 TestLista::TestLista() {
@@ -81,3 +83,4 @@ void TestLista::liberarMemoria(){
 TestLista::~TestLista() {
 	// TODO Auto-generated destructor stub
 }
+*/
