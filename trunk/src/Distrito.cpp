@@ -9,7 +9,7 @@
 
 Distrito::Distrito(string nombre){
 	this->_nombre = nombre;
-	this->_id = ManejoIDs::obtenerIDnuevo(this->className);
+	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
 }
 
 
