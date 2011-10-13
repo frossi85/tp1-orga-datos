@@ -18,6 +18,7 @@
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
+//DE ACA PARA ABAJO NO TENDRIAN QUE ESTAR ESTOS INCLUDES
 #include "Distrito.h"
 #include "Conteo.h"
 #include "Votante.h"
@@ -26,19 +27,20 @@
 
 
 class DataAccess {
-	//En el contructor levantar todas las configuraciones
+
 private:
 	Configuracion & configuracion;
 public:
 	DataAccess();
 	virtual ~DataAccess();
 
-	//Hay q hacer uno q reciba un GuardableHash y otro con un GuardableArbol --> No te preocupes, q esta clase sea solo para guardar en los arch de datos (MARTIN)
 	unsigned long int Guardar(Grabable & obj);				// Retorna el offset de donde lo guardo.
 	void Eliminar(Grabable & obj);
 	void Leer(Grabable & obj, unsigned long int offset);
 
-	long getIdPorNombre(char objeto, string clave);
+	//*************************************************************************************************************************
+	// LA IDEA DEL DATA ACCESS ES QUE RECIBA Y DEVUELVA OBJETOS DE LA CLASE PADRE GUARDABLE. ESTOS METODOS TENDRIAN QUE ESTAR
+	// EN OTRO LADO. ESTA CLASE ES PARA LEER GUARDAR Y ELIMINAR. SI LE METEMOS ESTOS INCLUDES SE HACEN REFERENCIAS CIRCULARES.
 
 	//Falta Implemetar
 	vector<Conteo*> getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito&);
@@ -50,6 +52,7 @@ public:
 	//Devuelve NULL si no encontro al votante con ese dni
 	//Falta Implementar
 	Votante* getVotante(const char dni[]);
+
 };
 
 #endif /* DATAACCESS_H_ */
