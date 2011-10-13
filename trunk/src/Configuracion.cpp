@@ -51,6 +51,15 @@ Configuracion::Configuracion() {
 	constantes[24]=RUTA_HASH_VOTANTE_REGS;
 	constantes[25]=RUTA_HASH_VOTANTE_BLOQ_LIB;
 	constantes[26]=RUTA_HASH_VOTANTE_TABLA;
+	constantes[27]=RUTA_HASH_IDELECCION_REGS;
+	constantes[28]=RUTA_HASH_IDELECCION_BLOQ_LIB;
+	constantes[29]=RUTA_HASH_IDELECCION_TABLA;
+	constantes[30]=RUTA_HASH_IDDISTRITO_REGS;
+	constantes[31]=RUTA_HASH_IDDISTRITO_BLOQ_LIB;
+	constantes[32]=RUTA_HASH_IDDISTRITO_TABLA;
+	constantes[33]=RUTA_HASH_IDCARGO_REGS;
+	constantes[34]=RUTA_HASH_IDCARGO_BLOQ_LIB;
+	constantes[35]=RUTA_HASH_IDCARGO_TABLA;
 
 	FILE *fp;
 	char cadena[100];

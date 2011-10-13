@@ -41,8 +41,17 @@
 #define RUTA_HASH_VOTANTE_REGS "<ruta_hash_votante_regs>"
 #define RUTA_HASH_VOTANTE_BLOQ_LIB "<ruta_hash_votante_bloq_lib>"
 #define RUTA_HASH_VOTANTE_TABLA "<ruta_hash_votante_tabla>"
+#define RUTA_HASH_IDELECCION_REGS "<ruta_hash_ideleccion_regs>"
+#define RUTA_HASH_IDELECCION_BLOQ_LIB "<ruta_hash_ideleccion_bloq_lib>"
+#define RUTA_HASH_IDELECCION_TABLA "<ruta_hash_ideleccion_tabla>"
+#define RUTA_HASH_IDDISTRITO_REGS "<ruta_hash_iddistrito_regs>"
+#define RUTA_HASH_IDDISTRITO_BLOQ_LIB "<ruta_hash_iddistrito_bloq_lib>"
+#define RUTA_HASH_IDDISTRITO_TABLA "<ruta_hash_iddistrito_tabla>"
+#define RUTA_HASH_IDCARGO_REGS "<ruta_hash_idcargo_regs>"
+#define RUTA_HASH_IDCARGO_BLOQ_LIB "<ruta_hash_idcargo_bloq_lib>"
+#define RUTA_HASH_IDCARGO_TABLA "<ruta_hash_idcargo_tabla>"
 
-#define CANT_CONF 27
+#define CANT_CONF 36
 
 #include <string>
 
