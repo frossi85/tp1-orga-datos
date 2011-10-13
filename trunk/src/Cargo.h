@@ -23,12 +23,12 @@ public:
 	Cargo(const Cargo &cargo);
 
 	//Getters
-	string getCargoPrincipal(); //TODO: Verificar q tiene cargo principal sino lanzar excepcion
+	string getCargoPrincipal();
 	vector<string> getCargosSecundarios();
 	long getId();
 
 	//Setters
-	void setCargoPrincipal(string cargoPrincipal);
+	void setId(long id) {this->_id=id;}
 	void agregarCargoSecundario(string cargo);
 
 	//Metodos de la interfaz Guardable
@@ -37,11 +37,6 @@ public:
 	void Imprimir();
 
 	inline string getURLArchivoDatos();
-
-	//Metodo de prueba
-	void setId(long id){
-		this->_id=id;
-	}
 
 	//Metodos interfaz Logueable
 	string getClassName();

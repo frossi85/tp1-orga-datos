@@ -21,6 +21,8 @@
 #include "Distrito.h"
 #include "Conteo.h"
 #include "Votante.h"
+#include "Eleccion.h"
+#include "Lista.h"
 
 
 class DataAccess {

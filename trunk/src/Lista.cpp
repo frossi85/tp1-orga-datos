@@ -6,8 +6,9 @@
  */
 
 #include "Lista.h"
-#include "DataAccess.h"
+#include "ManejoIDs.h"
 
+/* Constructor que no se deberia usar. No guardar algo contruido asi. Desp se saca si no es necesario.*/
 Lista::Lista()
 {
 	this->_eleccion = NULL;
@@ -16,46 +17,47 @@ Lista::Lista()
 }
 
 
-Lista::Lista(string nombre, Eleccion & eleccion)
+Lista::Lista(string nombre, Eleccion eleccion)
 {
-	this->_eleccion = &eleccion;
+	this->_eleccion = new Eleccion(eleccion);
 	this->_nombre = nombre;
-	this->_id = 0;
+	this->_id = ManejoIDs::obtenerIDnuevo(this->className);
 }
 
-long Lista::getId()
-{
-	return _id;
-}
-
-Eleccion const& Lista::getEleccion() const
-{
-	return *(this->_eleccion);
+Lista::Lista(const Lista &lista) {
+	this->_id = lista._id;
+	this->_nombre = lista._nombre;
+	this->_eleccion = new Eleccion(*(lista._eleccion));
 }
 
 
-
-string Lista::getNombre()
-{
-	return this->_nombre;
+Lista::~Lista() {
+	if (this->_eleccion != NULL) delete this->_eleccion;
 }
 
-Lista::~Lista()
-{//Q pasa con el puntero a eleccion, debo liberar esa memoria?? o llamar al destructor de eleccion??
-}
+
+long Lista::getId() {return _id;}
+
+
+Eleccion& Lista::getEleccion() {return *(this->_eleccion);}
+
+
+string Lista::getNombre() {return this->_nombre;}
+
 
 void Lista::Imprimir()
 {
-	cout<<_id;
-	cout<<endl;
-	cout<<_nombre;
-	cout<<endl;
-	(*(_eleccion)).Imprimir(); //ver q imprimo de la eleccion
+	cout<<"Id Lista: " <<_id << endl;
+	cout<< "Nombre Lista: " << _nombre << endl;
+	cout << "Eleccion a la que se presenta: "<<endl;
+	(*(_eleccion)).Imprimir();
 	cout<<endl;
 }
 
+
 unsigned long int Lista::Guardar(ofstream & ofs)
 {
+	unsigned long int offset = ofs.tellp();
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	Utilidades::stringToFile(_nombre, ofs);
@@ -71,7 +73,9 @@ unsigned long int Lista::Guardar(ofstream & ofs)
 	//(*(_eleccion)).fueModificada();
 	//DataAccess dataAccess;
 	//dataAccess.Guardar(*(_eleccion));
+	return offset;
 }
+
 
 void Lista::Leer(ifstream & ifs, unsigned long int offset)
 {
@@ -84,33 +88,16 @@ void Lista::Leer(ifstream & ifs, unsigned long int offset)
 	long idEleccion = 0;
 	ifs.read(reinterpret_cast<char *>(&idEleccion), sizeof(idEleccion));
 
-	DataAccess dataAccess;
-	Eleccion eleccion; //si no funciona probar con un puntero a eleccion
+//	DataAccess dataAccess;
+//	Eleccion eleccion; //si no funciona probar con un puntero a eleccion
 	//dataAccess.getPorId(idEleccion, eleccion);
 	//_eleccion = eleccion;
 }
 
 
-
-inline string Lista::getURLArchivoDatos()
-{
-	cout<<(*Configuracion::getConfig()).getValorPorPrefijo("<ruta_lista>");
-	return (*Configuracion::getConfig()).getValorPorPrefijo("<ruta_lista>");
+inline string Lista::getURLArchivoDatos() {
+	return (*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_LISTA);
 }
 
 
-
-string Lista::getClassName()
-{
-	return "Lista";
-}
-
-
-
-
-
-
-
-
-
-
+string Lista::getClassName() {return "Lista";}

@@ -9,31 +9,32 @@
 
 Distrito::Distrito(string nombre){
 	this->_nombre = nombre;
+	this->_id = ManejoIDs::obtenerIDnuevo(this->className);
 }
 
+
+/* Constructor que no se deberia usar. No guardar algo contruido asi. Desp se saca si no es necesario.*/
 Distrito::Distrito()
 {
 	_id = -1;
 	_nombre = "";
 }
 
+
 Distrito::Distrito(const Distrito &distrito) {
 	this->_nombre = distrito._nombre;
 	this->_id = distrito._id;
 }
 
-long Distrito::getId()
-{
-	return _id;
-}
 
-string Distrito::getNombre()
-{
-	return this->_nombre;
-}
+long Distrito::getId() {return _id;}
 
-Distrito::~Distrito() {
-}
+
+string Distrito::getNombre() {return this->_nombre;}
+
+
+Distrito::~Distrito() {}
+
 
 unsigned long int Distrito::Guardar(ofstream & ofs)
 {
@@ -46,6 +47,7 @@ unsigned long int Distrito::Guardar(ofstream & ofs)
 	return offset;
 }
 
+
 void Distrito::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Me posiciono en el archivo
@@ -56,21 +58,19 @@ void Distrito::Leer(ifstream & ifs, unsigned long int offset)
 	_nombre = Utilidades::stringFromFile(ifs);
 }
 
+
 void Distrito::Imprimir()
 {
-	cout<<endl;
-	cout<<"Id: ";
-	cout<< _id;
-	cout<<endl;
-	cout<<"Nombre Distrito: ";
-	cout<< _nombre;
-	cout<<endl;
+	cout<<"Id Distrito: " << _id << endl;
+	cout<<"Nombre Distrito: " << _nombre << endl;
 }
+
 
 string Distrito::getURLArchivoDatos()
 {
-	return ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_distrito>"));
+	return ((*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_DISTRITOS));
 }
+
 
 string Distrito::getClassName()
 {

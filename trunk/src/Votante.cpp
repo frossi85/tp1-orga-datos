@@ -8,17 +8,25 @@
 #include "Votante.h"
 #include "ManejoIDs.h"
 
-Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito)
+/* Constructor que no se deberia usar. No guardar algo contruido asi. Desp se saca si no es necesario.*/
+Votante::Votante() {
+	this->_dni = -1;
+	this->_nombreYApellido = "";
+	this->_clave = "";
+	this->_domicilio = "";
+	this->_distrito = NULL;
+	this->_id = -1;
+}
+
+Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio, Distrito distrito)
 {
 	this->_dni = dni;
 	this->_nombreYApellido = nombreYApellido;
 	this->_clave = clave;
 	this->_domicilio = domicilio;
-	this->_distrito = &distrito;
-	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_distrito = new Distrito(distrito);
+	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
 }
-// Te cambie lo de distrito, el pasaje por parametro. Hice el contructor copia, creo q asi deberia funcionar. Crea un distrito desde el this->_distrito
-// a partir de un distrito pasado como parametro. MARTIN
 
 
 Votante::Votante(const Votante &votante) {
@@ -27,17 +35,37 @@ Votante::Votante(const Votante &votante) {
 	this->_domicilio = votante._domicilio;
 	this->_id = votante._id;
 	this->_nombreYApellido = votante._nombreYApellido;
-	this->_distrito = new Distrito(*votante._distrito);
+	this->_distrito = new Distrito(*(votante._distrito));
 	int cantidad = votante._elecciones.size();
-	//this->_elecciones = vector<Eleccion*>(cantidad,NULL);
-	for(int i=0;i<cantidad;i++) this->_elecciones[i] = new Eleccion(*votante._elecciones[i]);
+	for(int i=0;i<cantidad;i++) this->_elecciones.push_back(new Eleccion(*(votante._elecciones[i])));
 }
 
-string Votante::getClave()
-{
-	return this->_clave;
+
+Votante::~Votante() {
+	if (this->_distrito != NULL)	delete this->_distrito;
+	int cantidad = this->_elecciones.size();
+	for(int i=0;i<cantidad;i++) {
+		if (this->_elecciones[i] != NULL)	delete this->_elecciones[i];
+	}
 }
 
+
+string Votante::getClave() {return this->_clave;}
+
+
+long Votante::getId() {return _id;}
+
+
+int Votante::getDNI() {return this->_dni;}
+
+
+string Votante::getNombreYApellido() {return this->_nombreYApellido;}
+
+
+string Votante::getDomicilio() {return this->_domicilio;}
+
+
+Distrito Votante::getDistrito() {return *(this->_distrito);}
 
 
 void Votante::votarEnEleccionALista(Eleccion& eleccion, Lista& lista)
@@ -46,75 +74,46 @@ void Votante::votarEnEleccionALista(Eleccion& eleccion, Lista& lista)
 }
 
 
-
-Votante::~Votante() {
-	int cantidad = this->_elecciones.size();
-	for(int i=0;i<cantidad;i++) delete this->_elecciones[i];
+void Votante::agregarEleccion(Eleccion eleccion) {
+	this->_elecciones.push_back(new Eleccion(eleccion));
 }
 
-
-
-string Votante::getNombreYApellido()
-{
-	return this->_nombreYApellido;
-}
-
-
-
-string Votante::getDomicilio()
-{
-	return this->_domicilio;
-}
-
-
-
-Distrito& Votante::getDistrito()
-{
-	return *(this->_distrito);
-}
 
 /* Devuelve una copia del vector de punteros a Eleccion, y copias de los datos apuntados por cada Eleccion*.
  * Si no fueran copias, se podria modificar desde el que lo llame y arruina todo
  * ESTAS SERIAN EN REALIDAD LAS ELECCIONES EN LAS QUE YA VOTO
  */
 vector<Eleccion *> Votante::getElecciones() {
-	// PREGUNTAR COMO SE MANEJAN LAS ELECCIONES DE UN VOTANTE. LAS TIENE EN MEMORIA EN _elecciones? LAS CARGO DE ARCHIVO?
 	int cantidad = this->_elecciones.size();
-	//vector<Eleccion *> retorno(cantidad,NULL);
 	vector<Eleccion *> retorno;
 	for(int i=0;i<cantidad;i++){
-		retorno[i] = new Eleccion(*this->_elecciones[i]);
+		retorno.push_back(new Eleccion(*(this->_elecciones[i])));
 	}
 	return retorno;
 }
 
 
-void Votante::cambiarClave(string claveAnterior, string claveNueva)
+bool Votante::cambiarClave(string claveAnterior, string claveNueva)
 {
-	//TODO:VErificar si claveAnterior es igual a this->clave, si lo es
-	//cambiarla por claveNueva. Sino arrojar una excepcion
-	this->_clave = claveNueva;
+	if (claveAnterior == this->_clave) {
+		this->_clave = claveNueva;
+		return true;
+	}
+	return false;
 }
 
-long Votante::getId()
+
+void Votante::setDistrito(Distrito distrito)
 {
-	return _id;
+	delete this->_distrito;
+	this->_distrito = new Distrito(distrito);
 }
 
-int Votante::getDNI()
-{
-	return this->_dni;
-}
-
-void Votante::setDistrito(Distrito& distrito)
-{
-	this->_distrito = &distrito;
-}
 
 void Votante::setDomicilio(string nuevo_domicilio){
 	this->_domicilio=nuevo_domicilio;
-
 }
+
 
 void Votante::Imprimir()
 {
@@ -122,17 +121,14 @@ void Votante::Imprimir()
 	cout<<"Apellido y Nombre: "<<_nombreYApellido<<endl;
 	cout<<"Clave: "<<_clave<<endl;
 	cout<<"Domicilio: "<<_domicilio<<endl;
-
-	//TODO: Creo q hay q imprimir lo basico del Votante, ya q podria hacer algo como
-	//votante1.getDistrito.Imprimir(); cuando necesite imprimir info del distrito
-	cout<<"Distrito: ";
+	cout<<"Distrito: "<<endl;
 	(*(_distrito)).Imprimir();
-	cout<<endl;
 
 	//TODO: Si no funciona size_type usar un long
 	vector<Eleccion *>::size_type cantidadElecciones = _elecciones.size();
 
 	//TODO: vale la misma aclaracion que para distrito
+	cout << "Elecciones en las que ya voto: "<<endl;
 	for(vector<Eleccion *>::size_type i = 0; i < cantidadElecciones; i++)
 	{
 		(*(_elecciones[i])).Imprimir();
@@ -140,8 +136,10 @@ void Votante::Imprimir()
 	}
 }
 
+
 unsigned long int Votante::Guardar(ofstream & ofs)
 {
+	unsigned long int offset = ofs.tellp();
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	ofs.write(reinterpret_cast<char *>(&_dni), sizeof(_dni));
@@ -156,7 +154,9 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 
 	//Aca se tendrian q guardar todos los ids(u offsets) de elecciones
 	//O el offset dentro del archivo VotanteEleccion
+	return offset;
 }
+
 
 void Votante::Leer(ifstream & ifs, unsigned long int offset)
 {
@@ -184,12 +184,8 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 
 inline string Votante::getURLArchivoDatos()
 {
-	cout<<(*Configuracion::getConfig()).getValorPorPrefijo("<ruta_votante>");
-	return (*Configuracion::getConfig()).getValorPorPrefijo("<ruta_votante>");
+	return (*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_VOTANTES);
 }
 
 
-string Votante::getClassName()
-{
-	return "Votante";
-}
+string Votante::getClassName() {return "Votante";}

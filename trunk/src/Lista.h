@@ -20,16 +20,20 @@ class Lista : public Grabable {
 private:
 	long _id;
 	string _nombre;
-	Eleccion * _eleccion;
+	Eleccion *_eleccion;
+
 public:
 	Lista();
-	Lista(string nombre, Eleccion& eleccion);
+	Lista(string nombre, Eleccion eleccion);
+	Lista(const Lista &lista);
 	virtual ~Lista();
 
 	//Getters
 	long getId();
-	Eleccion const& getEleccion() const;
+	Eleccion& getEleccion();
 	string getNombre();
+
+	void setId(long id) {this->_id=id;}
 
 	unsigned long int Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs, unsigned long int offset);
@@ -37,18 +41,8 @@ public:
 
 	inline string getURLArchivoDatos();
 
-	//Metodo de prueba
-	void setId(long id){
-		this->_id=id;
-	}
-
 	//Metodos interfaz Logueable
 	string getClassName();
-
-	//Por lo q veo en el modelo una lista esta asociada con una y solo una eleccion en particular
-	//por lo cual no se necesitan setters
-	//TODO: Una lista solo se presenta a una eleccion, si se quieren presentar los mismos candidatos
-	//para una proxima eleccion deben crear otra lista
 };
 
 #endif /* LISTA_H_ */
