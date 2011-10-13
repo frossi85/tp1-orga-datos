@@ -41,7 +41,7 @@ void TestCandidato::inicializar(){
 	Eleccion eleccion;
 	this->lista=new Lista("Lista 001",eleccion);
 	Distrito distrito("Quilmes");
-	this->candidato=new Candidato(35000000,"Monica Lopez","1234","Callao 242",distrito,*this->lista,*this->cargo);
+	//this->candidato=new Candidato(35000000,"Monica Lopez","1234","Callao 242",distrito,*this->lista,*this->cargo);
 }
 
 bool TestCandidato::testConstructor(){
