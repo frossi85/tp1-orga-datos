@@ -76,6 +76,9 @@ void Cargo::Leer(ifstream & ifs, unsigned long int offset)
 	string::size_type cantidadCargosSecundarios = 0;
 	ifs.read(reinterpret_cast<char *>(&cantidadCargosSecundarios), sizeof(cantidadCargosSecundarios));
 
+	// Elimino los cargos secundarios si tenia:
+	if (this->cargosSecundarios.size() != 0)
+		this->cargosSecundarios.erase(this->cargosSecundarios.begin(),this->cargosSecundarios.end());
 	//Comienzo a leer los cargos secundarios
 	for(string::size_type i = 0; i < cantidadCargosSecundarios; i++)
 		cargosSecundarios.push_back(Utilidades::stringFromFile(ifs));
@@ -87,7 +90,7 @@ void Cargo::Imprimir()
 	cout<<"Id Cargo: " << _id <<endl;
 	cout<<"Cargo Principal: " << cargoPrincipal <<endl;
 	for(string::size_type i=0; i<cargosSecundarios.size(); i++)
-		cout<< "Cargo Secundario: " << cargosSecundarios[i] <<endl;
+		cout<< "Cargo Secundario " << i+1 << ": " << cargosSecundarios[i] <<endl;
 	cout << endl;
 }
 
