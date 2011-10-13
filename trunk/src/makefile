@@ -1,5 +1,7 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o Menu_votante.o
+Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o Menu_votante.o \
+Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestLista.o \
+TestVotante.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -86,3 +88,40 @@ hash_extensible.o: hash_extensible.cpp hash_extensible.h
 	$(CC) $(CFLAGS) hash_extensible.cpp
 
 hash_extensible.h: BloqueHash.h RegistroIndice.h
+
+Tester.o: Tests/Tester.cpp Tests/Tester.h Tests/Test.h Tests/TestCargo.h Tests/TestDataAccess.h Tests/TestDistrito.h \
+Tests/TestEleccion.h Tests/TestLista.h Tests/TestVotante.h
+	$(CC) $(CFLAGS) Tests/Tester.cpp
+	
+Test.o: Tests/Test.cpp Tests/Test.h
+	$(CC) $(CFLAGS) Tests/Test.cpp
+
+TestCargo.o: Tests/TestCargo.cpp Tests/TestCargo.h
+	$(CC) $(CFLAGS) Tests/TestCargo.cpp
+	
+TestCargo.h: Tests/Test.h Cargo.h
+
+TestDataAccess.o: Tests/TestDataAccess.cpp Tests/TestDataAccess.h
+	$(CC) $(CFLAGS) Tests/TestDataAccess.cpp
+	
+TestDataAccess.h: Tests/Test.h DataAccess.h
+
+TestDistrito.o: Tests/TestDistrito.cpp Tests/TestDistrito.h
+	$(CC) $(CFLAGS) Tests/TestDistrito.cpp
+	
+TestDistrito.h: Tests/Test.h Distrito.h
+
+TestEleccion.o: Tests/TestEleccion.cpp Tests/TestEleccion.h
+	$(CC) $(CFLAGS) Tests/TestEleccion.cpp
+	
+TestEleccion.h: Tests/Test.h Eleccion.h
+
+TestLista.o: Tests/TestLista.cpp Tests/TestLista.h
+	$(CC) $(CFLAGS) Tests/TestLista.cpp
+	
+TestLista.h: Tests/Test.h Lista.h
+
+TestVotante.o: Tests/TestVotante.cpp Tests/TestVotante.h
+	$(CC) $(CFLAGS) Tests/TestVotante.cpp
+	
+TestVotante.h: Tests/Test.h Votante.h
