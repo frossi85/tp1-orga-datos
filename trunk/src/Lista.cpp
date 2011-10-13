@@ -82,13 +82,40 @@ void Lista::Leer(ifstream & ifs, unsigned long int offset)
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	_nombre = Utilidades::stringFromFile(ifs);
 
-	//Habria q verificar q no se guarde una Lista q se halla creado con Lista()
-	//Se escribe la referencia a la Eleccion guardando su id
+	// Leo el id de la eleccion
 	long idEleccion = 0;
 	ifs.read(reinterpret_cast<char *>(&idEleccion), sizeof(idEleccion));
 
-//	DataAccess dataAccess;
-//	Eleccion eleccion; //si no funciona probar con un puntero a eleccion
+	// Busco en el hash id_eleccion/offset el offset de ese idEleccion
+	string idElec = Utilidades::toString(idEleccion);
+	string arch_registros_elec((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_REGS));
+	string arch_bloq_libres_elec((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_BLOQ_LIB));
+	string arch_tabla_elec((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_TABLA));
+	hash_extensible *hashIDElecciones = new hash_extensible(arch_registros_elec,arch_bloq_libres_elec,arch_tabla_elec);
+	RegistroIndice EleccionBuscar(idElec,0);
+	RegistroIndice *returnEleccion = hashIDElecciones->buscar(&EleccionBuscar);
+	if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de eleccion en el hash");
+	offset = returnEleccion->getOffset();
+
+	// Leo la eleccion del archivo de elecciones
+
+	Eleccion eleccion; //si no funciona probar con un puntero a eleccion
+
+	string rutaArchivo = eleccion.getURLArchivoDatos();
+	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
+	if(!ifsDatos.is_open())
+		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + eleccion.getClassName());
+
+	eleccion.Leer(ifsDatos, offset);
+	ifsDatos.close();
+	_eleccion = new Eleccion(eleccion);
+	delete hashIDElecciones;
+
+	/*Esto lo reemplacé por lo de arriba porque no puedo usar DataAcces
+	 *(por referencia cirular)
+	 */
+	//DataAccess dataAccess;
+	//dataAccess.Leer(eleccion,offset);
 	//dataAccess.getPorId(idEleccion, eleccion);
 	//_eleccion = eleccion;
 }

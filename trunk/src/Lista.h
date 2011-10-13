@@ -14,7 +14,6 @@
 #include "Eleccion.h"
 #include "ManejoIDs.h"
 
-
 using namespace std;
 
 class Lista : public Grabable {
