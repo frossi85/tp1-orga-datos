@@ -19,6 +19,7 @@ class TestVotante: public Test {
 	bool testConstructor();
 	bool testCambioClave();
 	bool testSetters();
+	bool testLectura_y_Escritura();
 public:
 	TestVotante();
 	virtual void comenzar();
