@@ -1,19 +1,22 @@
 #include "Cargo.h"
 #include "ManejoIDs.h"
 
+
+/* Constructor que no se deberia usar. No guardar algo contruido asi. Desp se saca si no es necesario.*/
 Cargo::Cargo(){
 	this->cargoPrincipal = "";
 	this->_id = -1;
 }
 
+
 Cargo::Cargo(string cargoPrincipal){
 	this->cargoPrincipal = cargoPrincipal;
-	//this->_id = 0;
-	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
 }
 
-Cargo::~Cargo() { //TODO: En los destructores no hay q destruir strings averiguar si los vector si??
-}
+
+Cargo::~Cargo() {}
+
 
 Cargo::Cargo(const Cargo &cargo){
 	this->_id = cargo._id;
@@ -27,37 +30,24 @@ Cargo::Cargo(const Cargo &cargo){
 	}
 }
 
-string Cargo::getCargoPrincipal()
-{
-	return this->cargoPrincipal;
-}
 
-vector<string> Cargo::getCargosSecundarios()
-{
-	//TODO: q hago aca si no existen cargos secundarios??
-	return this->cargosSecundarios;
-}
+string Cargo::getCargoPrincipal() {return this->cargoPrincipal;}
 
-long Cargo::getId()
-{
-	return _id;
-}
 
-void Cargo::setCargoPrincipal(string cargoPrincipal)
-{
-	//TODO: Verificar si no es vacia y sino lanzar Excepcion
-	this->cargoPrincipal = cargoPrincipal;
-}
+vector<string> Cargo::getCargosSecundarios() {return this->cargosSecundarios;}
 
-void Cargo::agregarCargoSecundario(string cargo)
-{
-	//TODO: Hay q verificar cargos duplicados??
-	this->cargosSecundarios.push_back(cargo);
-}
+
+long Cargo::getId() {return _id;}
+
+
+void Cargo::agregarCargoSecundario(string cargo) {this->cargosSecundarios.push_back(cargo);}
+
 
 //Implementacion de interfaz Guardable
 unsigned long int Cargo::Guardar(ofstream & ofs)
 {
+	unsigned long int offset = ofs.tellp();
+
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	Utilidades::stringToFile(cargoPrincipal, ofs);
@@ -65,57 +55,44 @@ unsigned long int Cargo::Guardar(ofstream & ofs)
 	//Grabo la cantidad de cargos secundarios q tiene
 	string::size_type cantidadCargosSecundarios = cargosSecundarios.size();
 	ofs.write(reinterpret_cast<char *>(&cantidadCargosSecundarios), sizeof(cantidadCargosSecundarios));
+
 	//Comienzo a grabar los cargos secundarios
 	for(string::size_type i = 0; i < cantidadCargosSecundarios; i++)
-	{
 		Utilidades::stringToFile(cargosSecundarios[i], ofs);
-	}
+
+	return offset;
 }
+
 
 void Cargo::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Me posiciono en el archivo
+	ifs.seekg(offset,ios::beg);
+
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	cargoPrincipal = Utilidades::stringFromFile(ifs);
 
-	//Grabo la cantidad de cargos secundarios q tiene
+	//Leo la cantidad de cargos secundarios q tiene
 	string::size_type cantidadCargosSecundarios = 0;
 	ifs.read(reinterpret_cast<char *>(&cantidadCargosSecundarios), sizeof(cantidadCargosSecundarios));
-	//Comienzo a grabar los cargos secundarios
+
+	//Comienzo a leer los cargos secundarios
 	for(string::size_type i = 0; i < cantidadCargosSecundarios; i++)
-	{
 		cargosSecundarios.push_back(Utilidades::stringFromFile(ifs));
-	}
-
-	ifs.close();
-
-	Imprimir();
 }
+
 
 void Cargo::Imprimir()
 {
-	cout<<endl;
-	cout<<"Id: ";
-	cout<< _id;
-	cout<<endl;
-	cout<<"Cargos: ";
-	cout<<cargoPrincipal;
-	cout<<endl;
+	cout<<"Id Cargo: " << _id <<endl;
+	cout<<"Cargo: " << cargoPrincipal <<endl;
 	for(string::size_type i=0; i<cargosSecundarios.size(); i++)
-	{
-		cout<<cargosSecundarios[i];
-		cout<<endl;
-	}
-}
-
-string Cargo::getURLArchivoDatos()
-{
-	return (*Configuracion::getConfig()).getValorPorPrefijo("<ruta_cargo>");
-}
-
-string Cargo::getClassName()
-{
-	return "Cargo";
+		cout<< "Cargo secundario: " << cargosSecundarios[i] <<endl;
 }
 
 
+string Cargo::getURLArchivoDatos() {return (*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_CARGO);}
+
+
+string Cargo::getClassName() {return "Cargo";}

@@ -6,8 +6,6 @@
  */
 
 #include "DataAccess.h"
-#include <string>
-#include <iostream>
 
 DataAccess::DataAccess() : configuracion(*Configuracion::getConfig()){
 }

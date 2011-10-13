@@ -8,98 +8,79 @@
 #include "Candidato.h"
 #include "ManejoIDs.h"
 
-Candidato::Candidato(int dni, string nombreYApellido, string clave, string domicilio, Distrito& distrito, Lista& lista, Cargo& cargo)
-//: Votante::Votante(dni, nombreYApellido, clave, domicilio, distrito)
-{
-	//TODO: Verificar con el ID de la clase, no _id, antes de guardar, para comprobar si fue creado
-	//correctamente o sea validacion
-	//this->_id = -1;
-	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
-	//TODO: En la asignacion de abajo va &lista o solo lista??
-	this->_listaPropia = &lista;
-	this->_cargoAPresentarse = &cargo;
-
-	//TODO verificar q se guarde la referencia y no se pierda cuando salgo del metodo
-	//Usar un get Votante asi puedo ver si la referencia se conserva, sino ver como se hace
-	//si con new o q, malloc??
-	this->_votante = new Votante(dni, nombreYApellido, clave, domicilio, distrito);
-	//El compilador dice: warning: taking address of temporary por lo q tengo q usar algo como malloc
-	//Con el new no lanza el warning solo con &Votante, pero el new entrega un puntero o el objeto
-	//TODO: Leer informacion de q hace el new en C++, creo q es el reemplazo del malloc y realoc de C
-}
-
-long Candidato::getId()
-{
-	return _id;
-}
-
-Cargo& Candidato::getCargo()
-{
-	return *(this->_cargoAPresentarse);
+/* Constructor que no se deberia usar. No guardar algo contruido asi. Desp se saca si no es necesario.*/
+Candidato::Candidato() {
+	this->_id = -1;
+	this->_listaPropia =  NULL;
+	this->_votante = NULL;
 }
 
 
-
-Lista& Candidato::getLista()
-{
-	return *(this->_listaPropia);
+Candidato::Candidato(Votante votante, Lista lista) {
+	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_listaPropia =  new Lista(lista);
+	this->_votante = new Votante(votante);
 }
 
 
-int Candidato::getDNI(){
-
-	return this->_votante->getDNI();
+Candidato::Candidato(const Candidato &candidato) {
+	this->_id = candidato._id;
+	this->_listaPropia = new Lista(*(candidato._listaPropia));
+	this->_votante = new Votante(*(candidato._votante));
 }
-
-string Candidato::getNombreYApellido(){
-
-	return this->_votante->getNombreYApellido();
-
-}
-
-
-void Candidato::setLista(Lista& lista)
-{
-	this->_listaPropia = &lista;
-}
-
-
-
-void Candidato::setCargo(Cargo& cargo)
-{
-	this->_cargoAPresentarse = &cargo;
-}
-
 
 
 Candidato::~Candidato() {
-	delete _votante;
+	if (this->_listaPropia != NULL)	delete this->_listaPropia;
+	if (this->_votante != NULL)	delete this->_votante;
 }
+
+
+long Candidato::getId() {return _id;}
+
+
+int Candidato::getDNI(){return this->_votante->getDNI();}
+
+
+string Candidato::getNombreYApellido(){return this->_votante->getNombreYApellido();}
+
+
+Cargo& Candidato::getCargo() {return (this->_listaPropia->getEleccion().getCargo());}
+
+
+Lista& Candidato::getLista() {return *(this->_listaPropia);}
+
+
+void Candidato::setLista(Lista lista) {
+	if (this->_listaPropia != NULL) delete this->_listaPropia;
+	this->_listaPropia = new Lista(lista);
+}
+
+
+void Candidato::setCargo(Cargo cargo) {
+	this->_listaPropia->getEleccion().setCargo(cargo);
+}
+
 
 void Candidato::Imprimir()
 {
-	cout<<_id;
-	cout<<endl;
+	cout<<"Id Candidato: " <<_id <<endl;
+	cout << "Informacion del candidato: " << endl;
 	(*(this->_votante)).Imprimir();
 
-	//TODO: Creo q hay q imprimir lo basico del Candidato, ya q podria hacer algo como
-	//votante1.getCargo.Imprimir(); cuando necesite imprimir info del cargo
-	cout<<"Cargo del candidato ";
-	(*(_cargoAPresentarse)).Imprimir();
-	cout<<endl;
-
-	//TODO: Creo q hay q imprimir lo basico del Candidato, ya q podria hacer algo como
-	//votante1.getLista.Imprimir(); cuando necesite imprimir info del lista
-	cout<<"Lista del candidato ";
+	cout<<"Lista del candidato: "<<endl;
 	(*(_listaPropia)).Imprimir();
 	cout<<endl;
 }
+
 
 unsigned long int Candidato::Guardar(ofstream & ofs)
 {
 	//TODO: capaz por cada puntero a una instancia de otra clase deberia tener el id(offset)
 	//y en leer cargar eso en vez de la instancia en si, y hacer metodos como getLista()
 	//y q si el puntero esta en NULL ahi cargarlo desde la BD y mantenerlo en memoria
+
+	unsigned long int offset = ofs.tellp();
 
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
@@ -109,15 +90,19 @@ unsigned long int Candidato::Guardar(ofstream & ofs)
 	long idVotante = (*(_votante)).getId();
 	ofs.write(reinterpret_cast<char *>(&idVotante), sizeof(idVotante));
 
-	long idCargo = (*(_cargoAPresentarse)).getId();
-	ofs.write(reinterpret_cast<char *>(&idCargo), sizeof(idCargo));
 
 	long idLista = (*(_listaPropia)).getId();
 	ofs.write(reinterpret_cast<char *>(&idLista), sizeof(idLista));
+
+	return offset;
 }
+
 
 void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Me posiciono en el archivo
+	ifs.seekg(offset,ios::beg);
+
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 
@@ -147,22 +132,10 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 }
 
 
-inline string Candidato::getURLArchivoDatos()
-{
-	//Arroja una excepcion si lo uso y encima no devuelve el valor correcto
-	string url((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_candidato>"));
-
-	url = "./archivos/candidato.db";
-
+inline string Candidato::getURLArchivoDatos() {
+	string url((*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_CANDIDATO));
 	return url;
 }
 
 
-string Candidato::getClassName()
-{
-	return "Candidato";
-}
-
-
-
-
+string Candidato::getClassName() {return "Candidato";}

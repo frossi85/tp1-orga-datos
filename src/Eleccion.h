@@ -5,6 +5,11 @@
 #include <vector>
 #include "Cargo.h"
 #include "Distrito.h"
+#include "RegistroIndice.h"
+#include "hash_extensible.h"
+#include "Configuracion.h"
+//#include "DataAccess.h"
+
 
 using namespace std;
 
@@ -13,35 +18,31 @@ private:
 	long _id;
 	string _fecha;
 	Cargo * _cargo;
-	//TODO: Esta bien lo de abajo, para usar referencias en vectores
 	vector<Distrito *> _distritos;
 
 public:
-	//Al poner el un distrito en el constructor nos aseguramos q este asociado a por lo menos
-	//uno como pide el enunciado
 	Eleccion();
 
-	Eleccion(string fecha, Cargo & cargo, Distrito & primerDistrito);
+	Eleccion(string fecha, Cargo cargo, Distrito primerDistrito);
 
-	Eleccion(const Eleccion &eleccion);			// Constructor copia. agregado por martin.
+	Eleccion(const Eleccion &eleccion);
 	virtual ~Eleccion();
 
 	long getId();
+	Cargo& getCargo();
 	string getDescripcion();
-	void agregarDistrito(Distrito & distrito);
+	void agregarDistrito(Distrito distrito);
 	vector<Distrito *> getDistritos();
+	void setId(long id) {this->_id=id;}
+	void setCargo(Cargo cargo);
 
 	//Interface de Guardable
 	unsigned long int Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
+	void ImprimirDistritos();
 
 	inline string getURLArchivoDatos();
-
-	//Metodo de prueba
-	void setId(long id){
-		this->_id=id;
-	}
 
 	//Metodos interfaz Logueable
 	string getClassName();

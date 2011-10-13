@@ -9,6 +9,7 @@
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
+#include "ManejoIDs.h"
 
 using namespace std;
 
@@ -19,21 +20,17 @@ private:
 public:
 	Distrito();
 	Distrito(string nombre);
-	Distrito(const Distrito &distrito); 		// Agregado por martin
+	Distrito(const Distrito &distrito);
 	virtual ~Distrito();
 	long getId();
 	string getNombre();
+	void setId(long id) {this->_id=id;}
 
 	unsigned long int Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
 
 	inline string getURLArchivoDatos();
-
-	//Metodo de prueba
-	void setId(long id){
-		this->_id=id;
-	}
 
 	//Metodos interfaz Logueable
 	string getClassName();
