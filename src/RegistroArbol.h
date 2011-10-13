@@ -10,8 +10,8 @@
 
 #include <string>
 #include <fstream>
-#include "/home/facundo/workspace2/TP1Voto Electronico/Utilidades.h"
-#include "/home/facundo/workspace2/TP1Voto Electronico/VotoElectronicoExcepcion.h"
+#include "Utilidades.h"
+#include "VotoElectronicoExcepcion.h"
 
 using namespace std;
 

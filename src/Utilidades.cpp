@@ -98,3 +98,27 @@ string Utilidades::stringFromFile(std::ifstream & ifs)
 
 	return nombre;
 }
+
+
+string Utilidades::stringFromFile(std::fstream & ifs)
+{
+	char buffer[500]; //MAX_STRING_BUFFER
+	char leido;
+	int i;
+
+	for(i=0; (leido=ifs.get()) != '|'; i++)
+	{
+		buffer[i] = leido;
+	}
+
+	buffer[i] = '\0';
+	string nombre(buffer);
+
+	return nombre;
+}
+
+void Utilidades::sleep(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}

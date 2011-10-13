@@ -1,6 +1,6 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o Menu_votante.o \
-Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestLista.o RegistroArbol.o\
+Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestLista.o RegistroArbol.o Nodo.o ArbolBMas.o\
 TestVotante.o
 CC = g++
 DEBUG = -g
@@ -128,3 +128,9 @@ TestVotante.h: Tests/Test.h Votante.h
 
 RegistroArbol.o: RegistroArbol.h RegistroArbol.cpp
 	$(CC) $(CFLAGS) RegistroArbol.cpp
+	
+Nodo.o: Nodo.h Nodo.cpp RegistroArbol.h
+	$(CC) $(CFLAGS) Nodo.cpp
+	
+ArbolBMas.o: ArbolBMas.h ArbolBMas.cpp RegistroArbol.h Nodo.h
+	$(CC) $(CFLAGS) ArbolBMas.cpp
