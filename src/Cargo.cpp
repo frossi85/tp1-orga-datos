@@ -85,9 +85,9 @@ void Cargo::Leer(ifstream & ifs, unsigned long int offset)
 void Cargo::Imprimir()
 {
 	cout<<"Id Cargo: " << _id <<endl;
-	cout<<"Cargo: " << cargoPrincipal <<endl;
+	cout<<"Cargo Principal: " << cargoPrincipal <<endl;
 	for(string::size_type i=0; i<cargosSecundarios.size(); i++)
-		cout<< "Cargo secundario: " << cargosSecundarios[i] <<endl;
+		cout<< "Cargo Secundario: " << cargosSecundarios[i] <<endl;
 }
 
 
