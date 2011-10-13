@@ -34,6 +34,8 @@ public:
 	long getId();
 	Lista& getLista();
 	Cargo& getCargo();
+	int getDNI();
+	string getNombreYApellido();
 
 	//TODO: los setters deberian ser por la entidad entera o pasarles el id y despues ir a buscarlos
 	//a la BD y asignarselos a el atributo privado q lo contiene

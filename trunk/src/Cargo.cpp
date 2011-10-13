@@ -1,4 +1,5 @@
 #include "Cargo.h"
+#include "ManejoIDs.h"
 
 Cargo::Cargo(){
 	this->cargoPrincipal = "";
@@ -7,7 +8,8 @@ Cargo::Cargo(){
 
 Cargo::Cargo(string cargoPrincipal){
 	this->cargoPrincipal = cargoPrincipal;
-	this->_id = 0;
+	//this->_id = 0;
+	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
 }
 
 Cargo::~Cargo() { //TODO: En los destructores no hay q destruir strings averiguar si los vector si??

@@ -1,4 +1,5 @@
 #include "Eleccion.h"
+#include "ManejoIDs.h"
 
 Eleccion::Eleccion()
 {
@@ -9,11 +10,14 @@ Eleccion::Eleccion()
 
 Eleccion::Eleccion(string fecha, Cargo & cargo, Distrito & primerDistrito)
 {
-	this->_id = 0;
+	//this->_id = 0;
+	this->_id=ManejoIDs::obtenerIDnuevo(this->getClassName());
+
 	this->_fecha = fecha;
 	this->_cargo = &cargo;
 	//TODO: Verificar q esto se asigne bien
 	this->_distritos.push_back(&primerDistrito);
+
 }
 
 Eleccion::~Eleccion() {
