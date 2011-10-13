@@ -25,7 +25,7 @@ public:
 	Utilidades();
 	virtual ~Utilidades();
 	static string getFechaYHora();
-	static string toString(int a);
+	static string toString(long int a);
 	static string indexarFecha(string fecha);
 
 	static unsigned int getDNIaleatorio(int semilla);
