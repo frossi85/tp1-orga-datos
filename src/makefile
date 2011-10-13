@@ -65,7 +65,7 @@ Votante.h: Grabable.h Logueable.h Distrito.h Eleccion.h Lista.h
 Conteo.o: Conteo.cpp Conteo.h
 	$(CC) $(CFLAGS) Conteo.cpp
 
-Conteo.h: Grabable.h Lista.h Logueable.h Distrito.h Eleccion.h Configuracion.h hash_extensible.h
+Conteo.h: Grabable.h Lista.h Logueable.h Distrito.h Eleccion.h Configuracion.h hash_extensible.h DataAccess.h
 	
 Utilidades.o: Utilidades.cpp Utilidades.h
 	$(CC) $(CFLAGS) Utilidades.cpp

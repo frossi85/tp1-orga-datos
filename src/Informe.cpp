@@ -64,7 +64,7 @@ long Informe::mostrar_Conteos_por_Distrito(vector<Conteo *> conteos){
 
 	for (i=0;i<cantidad_Conteos;i++){
 
-		lista=conteos[i]->getLista();
+		*lista=conteos[i]->getLista();
 
 		cout<<lista->getNombre()<<"  Votos: "<<conteos[i]->getVotos()<<endl;
 
@@ -109,7 +109,8 @@ Informe::Informe(Lista& lista){
 		//que pertenezca a estos.
 		//..
 		//..
-		Distrito* distrito=conteos[i]->getDistrito();
+		Distrito* distrito;
+		*distrito = conteos[i]->getDistrito();
 
 		cout<<distrito->getNombre()<<" Votos: "<<conteos[i]->getVotos()<<endl;
 

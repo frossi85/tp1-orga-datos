@@ -17,27 +17,31 @@
 #include "Eleccion.h"
 #include "Configuracion.h"
 #include "hash_extensible.h"
+#include "ManejoIDs.h"
+#include "DataAccess.h"
 
 
 using namespace std;
 
 class Conteo : public Grabable {
 private:
-	Distrito& _distrito;
-	Lista& _lista;
-	Eleccion& _eleccion;
-	long int cantidad;
+	long _id;
+	Distrito *_distrito;
+	Lista *_lista;
+	Eleccion *_eleccion;
+	long int _cantidad;
 
 public:
 	//Las referencias deben ser inicializadas si o si en el constructor mediante listas de
 	//inicializacion como en el ejemplo de abajo
 	Conteo(Eleccion& eleccion, Lista& lista, Distrito& distrito);
+	Conteo(const Conteo &eleccion);
 	virtual ~Conteo();
-
+	long getId();
 	void incrementar();
 	long getVotos();
-	Lista* getLista();
-	Distrito* getDistrito();
+	Lista& getLista();
+	Distrito& getDistrito();
 
 
 	//Falte Implementar

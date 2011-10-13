@@ -25,6 +25,7 @@
 #include "Eleccion.h"
 #include "Lista.h"
 
+class Conteo;
 
 class DataAccess {
 
