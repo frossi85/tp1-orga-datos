@@ -17,7 +17,7 @@
 
 using namespace std;
 
-class Candidato : Grabable {
+class Candidato : public Grabable {
 private:
 	long _id;
 	Lista * _listaPropia;
