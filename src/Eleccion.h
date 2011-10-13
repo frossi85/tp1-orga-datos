@@ -8,6 +8,7 @@
 #include "RegistroIndice.h"
 #include "hash_extensible.h"
 #include "Configuracion.h"
+#include "ManejoIDs.h"
 //#include "DataAccess.h"
 
 
