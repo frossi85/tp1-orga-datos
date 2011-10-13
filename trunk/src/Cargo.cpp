@@ -1,5 +1,4 @@
 #include "Cargo.h"
-#include "ManejoIDs.h"
 
 
 /* Constructor que no se deberia usar. No guardar algo contruido asi. Desp se saca si no es necesario.*/
