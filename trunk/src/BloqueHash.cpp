@@ -125,7 +125,7 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 	for (it = this->registros.begin(); it != this->registros.end(); it++){
 		registro = *it;
 		registro->Persistir(&archBloques);
-		delete registro;
+		//delete registro;
 	}
     archBloques.flush();
 	archBloques.close();
