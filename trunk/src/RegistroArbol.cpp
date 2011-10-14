@@ -98,3 +98,4 @@ void RegistroArbol::Imprimir(){
 
     cout << "(" << getTamanioEnDisco() << "|" << clave << "|" << offset << "|" << link_<< ")";
 }
+

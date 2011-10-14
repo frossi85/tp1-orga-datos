@@ -24,7 +24,7 @@ int Nodo::agregarRegistro( const string &key, const long &data )
 {
 	bool fueAgregado = false;
 	RegistroArbol * registro = new RegistroArbol(key, data);
-	
+
 	//TODO: Buscar en los archios originales para q es less_ y usarlo en
 	//esta clase, creo q son los hijos
 
@@ -36,7 +36,7 @@ int Nodo::agregarRegistro( const string &key, const long &data )
 			// Inserto en entre medio de uno menor y uno mayor q la clave
 			//pasaron como parametro
 			//Ver si aca tengo q corroborar q no sea duplicado
-			elems_.insert( elems_.begin( ) + i, registro);		
+			elems_.insert( elems_.begin( ) + i, registro);
 			elems_[ i ]->link_ = 0;
 			fueAgregado = true;
 			break;
@@ -80,15 +80,15 @@ void Nodo::Guardar(fstream &ofs)
 	//Situar el stream en la posicion absoluta addr_
 	ofs.seekp(addr_);
 	unsigned int capacidadEnBytesAux = capacidadEnBytes;
-	
+
 	//ofs.write(reinterpret_cast<char *>(&capacidadEnBytesAux), sizeof(capacidadEnBytesAux));
 	//ofs.write(reinterpret_cast<char *>(&tamanioEnBytesOcupados), sizeof(tamanioEnBytesOcupados));
 	//ofs.write(reinterpret_cast<char *>(&addr_), sizeof(addr_));
 	//ofs.write(reinterpret_cast<char *>(&less_), sizeof(less_));
 	//ofs.write(reinterpret_cast<char *>(&size_), sizeof(size_));
 	//ofs.write(reinterpret_cast<char *>(&padre_), sizeof(padre_));
-	
-	
+
+
 	ofs<<capacidadEnBytesAux<<"|";
 	ofs<<size_<<"|";
 	ofs<<addr_<<"|";
@@ -103,7 +103,7 @@ void Nodo::Guardar(fstream &ofs)
 	ofs<<"||";
 	long posicionStream = ofs.tellp();
 	long cantidadALimpiar = capacidadEnBytes - (posicionStream - addr_);
-	
+
 	for(long i = 0; i<cantidadALimpiar; i++)
 	{
 		ofs<<" ";
@@ -116,7 +116,7 @@ Nodo * Nodo::Leer(fstream &ifs)
 {
 	unsigned int capacidadEnBytesAux = 0;
 	Nodo * nodo = new Nodo();
-	
+
 	//ifs.read(reinterpret_cast<char *>(&(capacidadEnBytesAux)), sizeof((capacidadEnBytesAux)));
 	//ifs.read(reinterpret_cast<char *>(&(nodo->tamanioEnBytesOcupados)), sizeof((nodo->tamanioEnBytesOcupados)));
 	//ifs.read(reinterpret_cast<char *>(&(nodo->addr_)), sizeof((nodo->addr_)));
@@ -125,24 +125,24 @@ Nodo * Nodo::Leer(fstream &ifs)
 	//ifs.read(reinterpret_cast<char *>(&(nodo->padre_)), sizeof((nodo->padre_)));
 
 	char delimitador;
-	
+
 	ifs>>(capacidadEnBytesAux)>>delimitador;
 	ifs>>(nodo->size_)>>delimitador;
 	ifs>>(nodo->addr_)>>delimitador;
 	ifs>>(nodo->less_)>>delimitador;
 	ifs>>(nodo->padre_)>>delimitador;
-	
-	//TODO: cuando capacidadEnBytesAux deje de ser constante tendria q 
+
+	//TODO: cuando capacidadEnBytesAux deje de ser constante tendria q
 	//settearlo aca o en el ifs.read()
 
 	for(int i = 0; i < nodo->size_; i++)
 	{
-		
+
 		nodo->elems_.push_back(RegistroArbol::Leer(ifs));
 	}
-	
+
 	ifs>>delimitador>>delimitador;
-	
+
 	return nodo;
 }
 
@@ -155,9 +155,9 @@ void Nodo::removerEnPosicion(int indice){
 }
 //void  removeAt( int index, ElemType &removed )
 void Nodo::removerEnPosicion(int indice, RegistroArbol & removido ){
-	//Antes de remover dvuelve por parametro una referencia al elemento 
+	//Antes de remover dvuelve por parametro una referencia al elemento
 	//q quiero borrar en esa posicion
-	removido = 	*elems_[indice];
+	removido = *elems_[indice];
 	removerEnPosicion(indice);
 }
 
@@ -167,7 +167,7 @@ void Nodo::clear()
 	flags_ = 0;
 
 	RegistroArbol * registro;
-	
+
 	while(!elems_.empty())
 	{
 		registro = elems_.back();
