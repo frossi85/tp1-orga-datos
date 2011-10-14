@@ -18,8 +18,10 @@ Lista::Lista()
 
 Lista::Lista(string nombre, Eleccion eleccion)
 {
+
 	this->_eleccion = new Eleccion(eleccion);
 	this->_nombre = nombre;
+
 	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
 }
 
