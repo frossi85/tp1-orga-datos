@@ -10,7 +10,7 @@ Cargo::Cargo(){
 
 Cargo::Cargo(string cargoPrincipal){
 	this->cargoPrincipal = cargoPrincipal;
-	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_id = 0;
 }
 
 

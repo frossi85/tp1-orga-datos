@@ -16,7 +16,7 @@ Candidato::Candidato() {
 
 
 Candidato::Candidato(Votante votante, Lista lista) {
-	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_id = 0;
 	this->_listaPropia =  new Lista(lista);
 	this->_votante = new Votante(votante);
 }

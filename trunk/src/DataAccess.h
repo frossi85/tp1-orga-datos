@@ -18,9 +18,7 @@
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
-//DE ACA PARA ABAJO NO TENDRIAN QUE ESTAR ESTOS INCLUDES
-
-#include "Conteo.h" //<--- este no lo borren que anda bien
+#include "Conteo.h"
 
 
 class Conteo;
