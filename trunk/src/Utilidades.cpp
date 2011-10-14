@@ -45,6 +45,17 @@ string Utilidades::indexarFecha(string fecha) {
 	return "aaaammdd";
 }
 
+
+/* Reemplaza los espacios de una clave por & */
+void formatearClave(string &clave) {
+	size_t posicion;
+	do {
+		posicion = clave.find(" ");
+		if (posicion != -1) clave[posicion] = '&';
+	} while (posicion != -1);
+}
+
+
 string Utilidades::toString(long int a)
 {
 	stringstream ss;
