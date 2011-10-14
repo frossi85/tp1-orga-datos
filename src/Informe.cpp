@@ -81,9 +81,48 @@ long Informe::mostrar_Conteos_por_Distrito(vector<Conteo *> conteos){
 }
 
 Informe::Informe(Distrito& distrito) {
-	// TODO Auto-generated constructor stub
+
+
+	vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Distrito(distrito);
+
+	cout<<"Informe para Distito: "<<distrito.getNombre()<<endl;
+
+	int cantidad_elecciones=elecciones.size();
+	long total_votos=0;
+	long total_votos_eleccion=0;
+
+	for(int i=0;i<cantidad_elecciones;i++){
+
+		cout<<"Informacion de Eleccion: "<<elecciones[i]->getDescripcion()<<endl;
+
+		total_votos_eleccion=this->mostrar_Listas_por_Eleccion(*elecciones[i],distrito);
+
+		total_votos+=total_votos_eleccion;
+	}
+
+	cout<<"Total de votos en Distrito: "<<total_votos<<endl;
+}
+
+long Informe::mostrar_Listas_por_Eleccion(Eleccion& eleccion,Distrito& distrito){
+	long total_votos=0;
+
+	vector<Lista *> listas=DataGetter::getListas_por_Eleccion(eleccion);
+	int cantidad_listas=listas.size();
+
+	cout<<"Lista...........Cantidad de Votos"<<endl;
+	for (int i=0;i<cantidad_listas;i++){
+		Conteo* conteo=DataGetter::getConteo(eleccion,*listas[i],distrito);
+
+		cout<<listas[i]->getNombre()<<"..........."<<conteo->getVotos()<<endl;
+		total_votos+=conteo->getVotos();
+	}
+
+	cout<<"Total Votos en Eleccion: "<<total_votos<<endl;
+
+	return total_votos;
 
 }
+
 
 Informe::Informe(Lista& lista){
 
