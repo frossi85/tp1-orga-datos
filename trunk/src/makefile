@@ -1,7 +1,7 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o Menu_votante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
-TestCandidato.o TestLista.o
+TestCandidato.o TestLista.o DataGetter.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -94,9 +94,13 @@ Menu_votante.h: Votante.h Eleccion.h Lista.h
 DataAccess.o: DataAccess.cpp DataAccess.h
 	$(CC) $(CFLAGS) DataAccess.cpp
 	
-DataAcces.h: Grabable.h Logueable.h Logger.h Utilidades.h VotoElectronicoExcepcion.h Configuracion.h Distrito.h Conteo.h \
-Votante.h Eleccion.h Lista.h
-	
+DataAcces.h: Grabable.h Logueable.h Logger.h Utilidades.h VotoElectronicoExcepcion.h Configuracion.h Conteo.h
+
+DataGetter.o: DataGetter.cpp DataGetter.h
+	$(CC) $(CFLAGS) DataGetter.cpp
+
+DataGetter.h: Distrito.h Conteo.h Votante.h Eleccion.h Lista.h
+
 hash_extensible.o: hash_extensible.cpp hash_extensible.h
 	$(CC) $(CFLAGS) hash_extensible.cpp
 
