@@ -22,7 +22,7 @@ Lista::Lista(string nombre, Eleccion eleccion)
 	this->_eleccion = new Eleccion(eleccion);
 	this->_nombre = nombre;
 
-	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_id = 0;
 }
 
 Lista::Lista(const Lista &lista) {

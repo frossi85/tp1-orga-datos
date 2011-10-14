@@ -24,7 +24,7 @@ Votante::Votante(int dni, string nombreYApellido, string clave, string domicilio
 	this->_clave = clave;
 	this->_domicilio = domicilio;
 	this->_distrito = new Distrito(distrito);
-	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_id = 0;
 }
 
 

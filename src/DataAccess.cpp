@@ -14,14 +14,6 @@ DataAccess::~DataAccess() {
 	// TODO Auto-generated destructor stub
 }
 
-/*Distrito *DataAccess::getDistrito(string nombre) {
-	if (d!=NULL) {
-		return d;
-	} else {													QUE ES ESTO? DE DONDE SALE "d"??
-		d = new Distrito("distr");
-		return d;
-	}
-}*/
 
 //Recibe el id del grabable q quiero leer, obj es una instacia vacia a sobreescribir con los
 //datos leidos de la BD dentro del metodo
@@ -73,5 +65,3 @@ void DataAccess::Eliminar(Grabable & obj)
 
 	ofs.close();
 }
-
-// DE ACA PARA ABAJO NO TENDRIAN QUE ESTAR ESTOS METODOS EN ESTA CLASE

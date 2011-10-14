@@ -9,7 +9,6 @@
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
-#include "ManejoIDs.h"
 
 using namespace std;
 

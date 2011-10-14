@@ -8,7 +8,6 @@
 #include "Logueable.h"
 #include "Utilidades.h"
 #include "Configuracion.h"
-#include "ManejoIDs.h"
 
 using namespace std;
 

@@ -13,7 +13,6 @@
 #include "Distrito.h"
 #include "Eleccion.h"
 #include "Lista.h"
-#include "ManejoIDs.h"
 #include <string>
 #include <vector>
 

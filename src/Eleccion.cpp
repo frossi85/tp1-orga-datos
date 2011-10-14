@@ -11,7 +11,7 @@ Eleccion::Eleccion()
 
 Eleccion::Eleccion(string fecha, Cargo cargo, Distrito primerDistrito)
 {
-	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
+	this->_id = 0;
 	this->_fecha = fecha;
 	this->_cargo = new Cargo(cargo);
 	this->_distritos.push_back(new Distrito(primerDistrito));
