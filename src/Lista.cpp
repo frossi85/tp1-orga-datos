@@ -59,11 +59,11 @@ void Lista::Imprimir()
 unsigned long int Lista::Guardar(ofstream & ofs)
 {
 	unsigned long int offset = ofs.tellp();
+
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	Utilidades::stringToFile(_nombre, ofs);
 
-	//Habria q verificar q no se guarde una Lista q se halla creado con Lista()
 	//Se escribe la referencia a la Eleccion guardando su id
 	long idEleccion = (*(_eleccion)).getId();
 	ofs.write(reinterpret_cast<char *>(&idEleccion), sizeof(idEleccion));

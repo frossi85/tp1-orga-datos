@@ -18,10 +18,10 @@
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
-#include "Conteo.h"
+//#include "Conteo.h"
 
 
-class Conteo;
+//class Conteo;
 
 class DataAccess {
 
