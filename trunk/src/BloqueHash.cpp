@@ -131,7 +131,6 @@ bool BloqueHash::Persistir(string rutaArchivo, unsigned int offset){
 	archBloques.close();
 	return true;
 }
-
 ////////////////////
 
 Bloque* BloqueHash::Leer(string rutaArchivo, unsigned int offset){
