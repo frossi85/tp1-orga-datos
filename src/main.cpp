@@ -20,7 +20,11 @@ void testNodoArbol();
 void testArbolBMas();
 void testArbolBMas1();
 void testArbolBMas2();
+void testArbolBMasGetTodos();
 void testArbolBMasClavesDuplicadas();
+void testArbolBMasCambiarOffsetRegistro();
+void testArbolBMasBusquedaAproximada();
+void testArbolBMasEliminar();
 
 int main(int argc, char *argv[]){
 
@@ -292,7 +296,11 @@ void testArbolBMas()
 {
     //testArbolBMas1();
     //testArbolBMasClavesDuplicadas();
-    testArbolBMas2();
+    //testArbolBMas2();
+    //testArbolBMasCambiarOffsetRegistro();
+    //testArbolBMasGetTodos();
+    //testArbolBMasBusquedaAproximada();
+    testArbolBMasEliminar();
 }
 
 void testArbolBMasClavesDuplicadas()
@@ -418,6 +426,289 @@ void testArbolBMas2()
     getchar();
 }
 
+void testArbolBMasEliminar()
+{
+    ArbolBMas * arbol = new ArbolBMas();
+    //string urlArbol = "./test_arbol.db";
+    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_eliminar.txt";
+
+    long random_integer;
+    int lowest=1, highest=10000000;
+    int cantidadRegistros = 1000;
+    int range=(highest-lowest)+1;
+    string clave;
+    vector<long> registros;
+    long dato;
+    bool busquedaFunciona = true;
+
+    srand(time(NULL));
+
+    fstream f;
+    f.open(url.c_str(), ios::out|ios::trunc);
+    f.close();
+
+    arbol->open(url);
+
+    for(int i = 0; i < cantidadRegistros; i++){
+        //random_integer = lowest + rand() % (highest +1 - lowest);
+        random_integer = i;
+
+        clave = "reg" + Utilidades::toString(random_integer);
+
+        registros.push_back(random_integer);
+        arbol->agregar(clave, random_integer);
+
+        //Utilidades::sleep(10000);
+    }
+
+    for(int i = 0; i < 700; i++)
+    {
+        clave = "reg" + Utilidades::toString(registros[i]);
+        arbol->remove(clave);
+    }
+
+
+    list<RegistroArbol *> registros2;
+    arbol->getTodosLosRegistros(registros2);
+
+    for(int i = 700; i < cantidadRegistros; i++)
+    {
+        clave = "reg" + Utilidades::toString(registros[i]);
+
+        //Pongo a dato en -1 por q si no se modifica se q hubo un error
+        dato = -1;
+
+        arbol->buscar(clave, dato);
+
+        if(dato != registros[i])
+        {
+            busquedaFunciona = false;
+            break;
+        }
+    }
+
+
+    for(int i = 0; i < 700; i++)
+    {
+        clave = "reg" + Utilidades::toString(registros[i]);
+
+        //Pongo a dato en -1 por q si no se modifica se q hubo un error
+        dato = -1;
+
+        if(arbol->buscar(clave, dato))
+        {
+            busquedaFunciona = false;
+            break;
+        }
+    }
+
+    if(busquedaFunciona)
+            cout<<"remover() OK"<<endl;
+    else
+            cout<<"remover() Error"<<endl;
+
+    cout<<"Toque una tecla para terminar Test"<<endl;
+    getchar();
+}
+
+void testArbolBMasCambiarOffsetRegistro()
+{
+    ArbolBMas * arbol = new ArbolBMas();
+    //string urlArbol = "./test_arbol.db";
+    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_cambiar_offset.txt";
+
+    long random_integer;
+    int lowest=1, highest=10000000;
+    int cantidadRegistros = 1000;
+    int range=(highest-lowest)+1;
+    string clave;
+    vector<long> registros;
+    long dato;
+    bool modficarOffsetFunciona = true;
+
+    srand(time(NULL));
+
+    fstream f;
+    f.open(url.c_str(), ios::out|ios::trunc);
+    f.close();
+
+    arbol->open(url);
+
+    for(int i = 0; i < cantidadRegistros; i++){
+            random_integer = lowest + rand() % (highest +1 - lowest);
+
+            clave = "reg" + Utilidades::toString(random_integer);
+
+            registros.push_back(random_integer);
+            arbol->agregar(clave, random_integer);
+
+            Utilidades::sleep(10000);
+    }
+
+   int indiceRegistroAModifica = (2*cantidadRegistros) / 3;
+
+
+    string claveModificacion1 = "reg" + Utilidades::toString(registros[((2*cantidadRegistros) / 3)]);
+    string claveModificacion2 = "reg" + Utilidades::toString(registros[((cantidadRegistros) / 3)]);
+    long offsetModificacion1 = 55;
+    long offsetModificacion2 = 8555555;
+
+    arbol->cambiarOffset(claveModificacion1, offsetModificacion1);
+    arbol->cambiarOffset(claveModificacion2, offsetModificacion2);
+
+    dato = -1;
+    arbol->buscar(claveModificacion1, dato);
+    if(dato != offsetModificacion1)
+        modficarOffsetFunciona =  false;
+
+    dato = -1;
+    arbol->buscar(claveModificacion2, dato);
+    if(dato != offsetModificacion2)
+        modficarOffsetFunciona =  false;
+
+    if(modficarOffsetFunciona)
+            cout<<"cambiarOffset() OK"<<endl;
+    else
+            cout<<"cambiarOffset() Error"<<endl;
+
+    cout<<"Toque una tecla para terminar Test"<<endl;
+    getchar();
+}
+
+void testArbolBMasGetTodos()
+{
+    ArbolBMas * arbol = new ArbolBMas();
+    //string urlArbol = "./test_arbol.db";
+    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_getTodos.txt";
+    bool seEncontroTodo = true;
+    list<RegistroArbol *> registros;
+
+    //RegeneroArchivo de Prueba
+    fstream f;
+    f.open(url.c_str(), ios::out|ios::trunc);
+    f.close();
+
+    string clave1 = "reg1";
+    string clave2 = "reg2";
+    string clave3 = "reg";
+    string clave4 = "reg4";
+    string clave5 = "reg5";
+    string clave6 = "reg6";
+    string clave7 = "reg7";
+    string clave8 = "reg8";
+    string clave9 = "reg9";
+    string clave10 = "reg99";
+
+    arbol->open(url);
+
+    arbol->agregar(clave1, 1);
+    arbol->agregar(clave2, 2);
+    arbol->agregar(clave3, 3);
+    arbol->agregar(clave4, 4);
+    arbol->agregar(clave5, 5);
+    arbol->agregar(clave6, 6);
+    arbol->agregar(clave7, 7);
+    arbol->agregar(clave8, 8);
+    arbol->agregar(clave9, 9);
+    arbol->agregar(clave10, 10);
+
+    arbol->getTodosLosRegistros(registros);
+
+    list<RegistroArbol *>::iterator pos;
+    pos = registros.begin();
+    while( pos != registros.end())
+    {
+        cout << (*pos)->clave << endl;
+        pos++;
+    }
+
+//    if(seEncontroTodo)
+//        cout<<"getTodos() OK"<<endl;
+//    else
+//        cout<<"getTodos() ERROR"<<endl;
+
+    cout<<"Toque una tecla para terminar Test"<<endl;
+    getchar();
+}
+
+void testArbolBMasBusquedaAproximada()
+{
+    ArbolBMas * arbol = new ArbolBMas();
+    //string urlArbol = "./test_arbol.db";
+    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_busquedaAprox.txt";
+    bool seEncontroTodo = true;
+    list<RegistroArbol *> registros;
+
+    //RegeneroArchivo de Prueba
+    fstream f;
+    f.open(url.c_str(), ios::out|ios::trunc);
+    f.close();
+
+    string clave1 = "reg1";
+    string clave2 = "reg2";
+    string clave3 = "reg3";
+    string clave4 = "reg4";
+    string clave5 = "reg5";
+    string clave6 = "reg6";
+    string clave7 = "reg7";
+    string clave8 = "reg8";
+    string clave9 = "reg9";
+    string clave10 = "reg99";
+
+    arbol->open(url);
+
+    arbol->agregar(clave1, 1);
+    arbol->agregar(clave2, 2);
+    arbol->agregar(clave3, 3);
+    arbol->agregar(clave4, 4);
+    arbol->agregar(clave6, 6);
+    arbol->agregar(clave7, 7);
+    arbol->agregar(clave8, 8);
+    arbol->agregar(clave9, 9);
+    arbol->agregar(clave10, 10);
+
+    arbol->search(registros,clave2,true);
+
+    list<RegistroArbol *>::iterator pos;
+    pos = registros.begin();
+    cout<<"Impresion busqueda precisa: "<<endl;
+    while( pos != registros.end())
+    {
+        cout << (*pos)->clave << endl;
+        pos++;
+    }
+
+    registros.clear();
+    arbol->search(registros,clave5, clave9);//clave9);
+    //lo de abajo compila pero toma la cadena reg9 como si fuera un booleano y se llama a la a qno debe
+    //arbol->search(registros,clave5, "reg9");
+
+    pos = registros.begin();
+    cout<<"Impresion busqueda no precisa: "<<endl;
+    while( pos != registros.end())
+    {
+        cout << (*pos)->clave << endl;
+        pos++;
+    }
+
+    registros.clear();
+    arbol->search(registros,clave5,true);
+
+    if(registros.size() == 0)
+        cout<<"Busqueda precisa de un nodo no existente OK"<<endl;
+    else
+        cout<<"Busqueda precisa de un nodo no existente ERROR"<<endl;
+
+//    if(seEncontroTodo)
+//        cout<<"getTodos() OK"<<endl;
+//    else
+//        cout<<"getTodos() ERROR"<<endl;
+
+    cout<<"Toque una tecla para terminar Test"<<endl;
+    getchar();
+}
+
+
 void testArbolBMas1()
 {
     //Cosas probadas y q funcionan bien:
@@ -501,3 +792,25 @@ void testArbolBMas1()
     cout<<"Toque una tecla para terminar TestArbol1"<<endl;
     getchar();
 }
+
+/* Ejemplo de uso del hash
+ *
+ *
+ * Crear hash:
+ *
+ * //recibe como parámetros las rutas del arcivo de bloques, el archivo de bloques libres y el archivo con la tabla de dispersion
+ * hash_extensible *hash = new hash_extensible("archBloques", "archBloqLibres", "tablaDispersion");
+ *
+ * Obtener distrito:
+ *
+ * //crear un registro con la clave del distrito que se quiere obtener (el offset no importa asi que lo pongo en 0)
+ * RegistroIndice registro("Avellaneda", 0);
+ *
+ * //pasar el registro al hash
+ * hash_extensible->buscar(&registro);
+ *
+ * //Ahora haciendo registro.getOffset() se puede obtener el offset de ese distrito para buscarlo
+ * //en su archivo. Si no estaba en el hash, buscar devuelve false
+ *
+ * //Los métodos guardar y borrar se usan de la misma forma
+ */

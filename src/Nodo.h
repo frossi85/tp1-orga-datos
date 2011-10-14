@@ -48,6 +48,7 @@ public:
 	};
 
 
+        //Max Keys se usa, NO borrarlo
 	const static unsigned int maxKeys = 3;
 
 	// Data

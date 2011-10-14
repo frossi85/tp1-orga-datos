@@ -1,7 +1,7 @@
 /*
  * ArbolBMas.h
  *
- *  Created on: 08/10/2011
+ *  Created on: 02/10/2011
  *      Author: facundo
  */
 
@@ -11,6 +11,7 @@
 #include "RegistroArbol.h"
 #include "Nodo.h"
 #include <string>
+#include <list>
 
 using namespace std;
 
@@ -60,16 +61,22 @@ public:
 
 	///
 	/// Find all specified data
-//	bool search( TContainer &retList, const string &startclave,
-//		bool preciseSearch, TChecker &condition );
-//
+        /// preciseShearh si es true y startcalve no estaba en el arbol, devuelve false y lista vacia, si estaba devuelve una lista con
+        /// el registro q tiene startclave y sus mayores
+        /// preciseShearh si es false y startcalve no estaba en el arbol, devuelve true y lista con los inmediatos mayores a startclave
+        /// si startclave estaba en se devuelve a el y a sus inmediatos mayores
+        bool search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch, const string &condition );
+        bool search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch);
+        bool search( list<RegistroArbol *> &retList, const string &startclave, const string &condition );
+
 //	///
 //	/// Get all specified in container data
-//	bool getAll( TContainer &retList );
+	bool getTodosLosRegistros(list<RegistroArbol *> &retList );
 
 	///
 	/// Change data which belongs to the clave is specified
-	//void changeData( const string &clave, const long &newData );
+	void cambiarOffset( const string &clave, const long &nuevoOffset );
+        //void cambiarClave( const string &clave, const string &nuevaClave );
 
 	///
 	/// Close BTree and release all occupied resources
@@ -87,18 +94,18 @@ private:
         //Para manejo de nodos libres
         bool hayEspacioLibre();
 
-	//bool rebalance( Nodo *nodo, int parentIndex );
-	//bool combine( Nodo *leftnodo, Nodo *rightnodo );
-	//bool pullOut( Nodo *nodo, int itemIndex );
+	bool rebalance( Nodo *nodo, int parentIndex );
+	bool combine( Nodo *leftnodo, Nodo *rightnodo );
+	bool pullOut( Nodo *nodo, int itemIndex );
 
-	//Nodo* rightMost( Nodo *subtree, string &largestclave, long &largestData );
-	//Nodo* leftMost( Nodo *subtree, string &smallestclave, long &smallestData );
+	Nodo* DerechoMost( Nodo *subtree, string &largestclave, long &largestData );
+	Nodo* leftMost( Nodo *subtree, string &smallestclave, long &smallestData );
 
-	// Internal search methods
-//	bool allclaves( Nodo *nodo, TContainer &retList, int elemIndex,
-//		const string &startclave, TChecker &condition );
-//	bool allclaves( Nodo *nodo, TContainer &retList, TChecker &condition );
-//	bool allclaves( Nodo *nodo, TContainer &retList );
+	// Internal search methods, buscan registros a partir de un nodo el buscado + todos sus mayores
+        bool search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch, bool habilitarCondicion, const string &condition );
+        bool allKeys( Nodo *nodo, list<RegistroArbol *> &retList, int elemIndex, const string &startclave, bool habilitarCondicion, const string &condition );
+	bool allKeys( Nodo *nodo, list<RegistroArbol *> &retList, bool habilitarCondicion, const string &condition ); //era TChecker &condition
+	bool allKeys( Nodo *nodo, list<RegistroArbol *> &retList );
 
 	////////////////////////////////////////////////////////////////////
 	//Seccion stream controler

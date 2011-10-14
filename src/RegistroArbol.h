@@ -21,7 +21,7 @@ public:
 
 	RegistroArbol();
 	RegistroArbol(string clave, long offset);
-        RegistroArbol(RegistroArbol & registro);
+    RegistroArbol(RegistroArbol & registro);
 	virtual ~RegistroArbol();
 	string getClave();
 	long getOffset();
