@@ -153,24 +153,67 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 
 	//Aca se tendrian q guardar todos los ids(u offsets) de elecciones
 	//O el offset dentro del archivo VotanteEleccion
+	/* Leandro: por ahora voy a hacer lo primero, ya que todavía
+	 * no hay un archivo VotanteEleccion, así no la complico.
+	 * Si hace falta después lo cambiamos.
+	 */
+	//Grabo la cantidad de elecciones que tiene
+	string::size_type cantidadElecciones = this->_elecciones.size();
+	ofs.write(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
+
+	//Grabo los IDs de las elecciones
+	long idEleccion = 0;
+	for(string::size_type i = 0; i < cantidadElecciones; i++){
+		idEleccion = this->_elecciones[i]->getId();
+		ofs.write(reinterpret_cast<char *>(&idEleccion), sizeof(idEleccion));
+	}
+
+
 	return offset;
 }
 
 
 void Votante::Leer(ifstream & ifs, unsigned long int offset)
 {
-	//Comienzo escritura de atributos
+	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	ifs.read(reinterpret_cast<char *>(&_dni), sizeof(_dni));
 	_nombreYApellido = Utilidades::stringFromFile(ifs);
 	_clave = Utilidades::stringFromFile(ifs);
 	_domicilio = Utilidades::stringFromFile(ifs);
 
-	//Habria q verificar q no se guarde un Votante q se halla creado con Votante()
-	//Se escribe la referencia al Cargo guardando su id
+	//Se lee el id del Distrito
 	long idDistrito = 0;
 	ifs.read(reinterpret_cast<char *>(&idDistrito), sizeof(idDistrito));
 
+	// Busco en el hash id_distrito/offset el offset de ese idDistrito
+	string idDist = Utilidades::toString(idDistrito);
+	string arch_registros_dist((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_REGS));
+	string arch_bloq_libres_dist((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_BLOQ_LIB));
+	string arch_tabla_dist((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_TABLA));
+	hash_extensible *hashIDDistritos = new hash_extensible(arch_registros_dist,arch_bloq_libres_dist,arch_tabla_dist);
+	RegistroIndice DistritoBuscar(idDist,0);
+	RegistroIndice *returnDistrito = hashIDDistritos->buscar(&DistritoBuscar);
+	if (returnDistrito == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de distrito en el hash");
+	offset = returnDistrito->getOffset();
+
+	// Leo el distrito del archivo de distritos
+	Distrito distrito; //si no funciona probar con un puntero a distrito
+
+	string rutaArchivo = distrito.getURLArchivoDatos();
+	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
+	if(!ifsDatos.is_open())
+		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + distrito.getClassName());
+
+	distrito.Leer(ifsDatos, offset);
+	ifsDatos.close();
+	_distrito = new Distrito(distrito);
+	delete hashIDDistritos;
+
+
+	/*Esto lo reemplacé por lo de arriba porque no puedo usar DataAcces
+	 *(por referencia cirular)
+	 */
 	//DataAccess dataAccess;
 	//Distrito distrito;
 	//dataAccess.Leer(idDistrito, Distrito);
@@ -178,6 +221,48 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 
 	//Aca se tendrian q leer todos los ids(u offsets) de elecciones
 	//O el offset dentro del archivo VotanteEleccion y cargar los distritos al array
+	/* Leandro: lo mismo que puse en el guardar: por ahora voy a hacer lo primero, ya que todavía
+	 * no hay un archivo VotanteEleccion, así no la complico.
+	 * Si hace falta después lo cambiamos.
+	 */
+	// leo la cantidad de elecciones
+	string::size_type cantidadElecciones = 0;
+	ifs.read(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
+
+	// Levanto todos los ids de las elecciones
+	long idVector[cantidadElecciones];
+	ifs.read(reinterpret_cast<char *>(idVector),cantidadElecciones * sizeof(this->_id));
+
+	// Busco en el hash id_eleccion/offset el offset los id Elecciones
+	Eleccion eleccion;
+	string arch_registros_elec = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_REGS));
+	string arch_bloq_libres_elec = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_BLOQ_LIB));
+	string arch_tabla_elec = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_TABLA));
+	hash_extensible *hashIDElecciones = new hash_extensible(arch_registros_elec,arch_bloq_libres_elec,arch_tabla_elec);
+
+	//cosas que se usan adentro del for
+	string idEleccion;
+	RegistroIndice *returnEleccion;
+	rutaArchivo = eleccion.getURLArchivoDatos();
+	ifsDatos.open(rutaArchivo.c_str(), ios::in | ios::binary);
+	if(!ifsDatos.is_open())
+		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + eleccion.getClassName());
+
+	for(string::size_type i = 0; i < cantidadElecciones; i++){
+		idEleccion = Utilidades::toString(idVector[i]);
+		RegistroIndice EleccionBuscar(idEleccion,0);
+		returnEleccion = hashIDElecciones->buscar(&EleccionBuscar);
+		if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de la eleccion en el hash");
+		offset = returnEleccion->getOffset();
+
+		// Leo la eleccion del archivo de elecciones
+		Eleccion eleccion; //si no funciona probar con un puntero a eleccion
+		eleccion.Leer(ifsDatos, offset);
+		this->_elecciones.push_back(new Eleccion(eleccion));	// Anda? No usar push_back(&distrito) xq eso esta muy mal.
+	}
+	ifsDatos.close();
+
+	delete hashIDElecciones;
 }
 
 
