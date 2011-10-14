@@ -87,11 +87,9 @@ unsigned long int Candidato::Guardar(ofstream & ofs)
 	long idLista = (*(_listaPropia)).getId();
 	ofs.write(reinterpret_cast<char *>(&idLista), sizeof(idLista));
 
-	//Habria q verificar q no se guarde un Candidato q se halla creado con Candidato()
 	//Se escribe la referencia al Votante guardando su id
 	long idVotante = (*(_votante)).getId();
 	ofs.write(reinterpret_cast<char *>(&idVotante), sizeof(idVotante));
-
 
 	return offset;
 }
@@ -105,8 +103,7 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 
-	//Habria q verificar q no se guarde un Candidato q se halla creado con Candidato()
-	//Se escribe la referencia a la lista guardando su id
+	// Leo el id de la lista asociada
 	long idLista = 0;
 	ifs.read(reinterpret_cast<char *>(&idLista), sizeof(idLista));
 

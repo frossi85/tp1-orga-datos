@@ -241,10 +241,11 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	//cosas que se usan adentro del for
 	string idEleccion;
 	RegistroIndice *returnEleccion;
+	RegistroIndice EleccionBuscar(idEleccion,0);
 
 	for(string::size_type i = 0; i < cantidadElecciones; i++){
 		idEleccion = Utilidades::toString(idVector[i]);
-		RegistroIndice EleccionBuscar(idEleccion,0);
+		EleccionBuscar.setClave(idEleccion);
 		returnEleccion = hashIDElecciones->buscar(&EleccionBuscar);
 		if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de la eleccion en el hash");
 		offset = returnEleccion->getOffset();
