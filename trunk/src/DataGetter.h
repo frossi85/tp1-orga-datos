@@ -21,15 +21,21 @@ public:
 	//Falta Implemetar
 	static vector<Conteo*> getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito& distrito);
 
-		//Falta Implementar
+	//Falta Implementar
 	static vector<Conteo*> getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccion &eleccion);
+
+
+	static vector<Eleccion *> getElecciones_por_Distrito(Distrito& distrito);
+
+	static vector<Lista* > getListas_por_Eleccion(Eleccion& eleccion);
+
+	static Conteo* getConteo(Eleccion& eleccion,Lista& lista, Distrito& distrito);
 
 	//Devuelve el puntero a un votante
 	//Devuelve NULL si no encontro al votante con ese dni
 	//Falta Implementar
 	static Votante* getVotante(const char dni[]);
 
-	static vector<Lista* > getListas_por_Eleccion(Eleccion& eleccion);
 
 	static vector<Eleccion *> getElecciones_por_Votante(Votante &votante);
 	virtual ~DataGetter();

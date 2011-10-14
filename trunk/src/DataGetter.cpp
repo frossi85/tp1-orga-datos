@@ -67,6 +67,29 @@ vector<Conteo*> DataGetter::getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccio
 
 
 
+vector<Eleccion *> DataGetter::getElecciones_por_Distrito(Distrito& distrito){
+	vector<Eleccion *> elecciones;
+
+
+
+	return elecciones;
+
+
+}
+
+
+
+Conteo* DataGetter::getConteo(Eleccion& eleccion,Lista& lista, Distrito& distrito){
+
+	Conteo *conteo_resultante;
+
+
+
+	return conteo_resultante;
+
+}
+
+
 Votante* DataGetter::getVotante(const char dni[]){
 
 	Votante *votante_resultante;

@@ -23,6 +23,8 @@ public:
 	long mostrar_Conteos_por_Distrito(vector<Conteo *> conteos);
 
 	Informe(Distrito& distrito);
+	long mostrar_Listas_por_Eleccion(Eleccion& eleccion,Distrito& distrito);
+
 	Informe(Lista& lista);
 
 
