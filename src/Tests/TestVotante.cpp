@@ -136,14 +136,13 @@ bool TestVotante::testLectura_y_Escritura(){
 
 	dt_acc.Guardar(vot1);
 	dt_acc.Guardar(vot2);
-	dt_acc.Guardar(*this->votante);
+	unsigned long int offset=dt_acc.Guardar(*this->votante);
 	dt_acc.Guardar(vot3);
 	dt_acc.Guardar(vot4);
 	dt_acc.Guardar(vot5);
 
 	Votante vot(this->votante->getDNI(),"","","",*this->distrito);
 
-	int offset=0;
 	dt_acc.Leer(vot,offset);
 
 	error_id=!( vot.getId()==this->votante->getId());
