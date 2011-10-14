@@ -6,8 +6,8 @@
  */
 
 #include "TestCandidato.h"
-#include "../Eleccion.h"
 #include "../Distrito.h"
+#include "../DataAccess.h"
 
 TestCandidato::TestCandidato() {
 
@@ -46,9 +46,6 @@ void TestCandidato::inicializar(){
 
 	this->lista=new Lista("Lista 001",*this->eleccion);
 
-
-
-
 	//this->candidato=new Candidato(35000000,"Monica Lopez","1234","Callao 242",distrito,*this->lista,*this->cargo);
 
 	this->votante=new Votante(35000000,"Monica Lopez","1234","Callao 424",distrito);
@@ -79,10 +76,16 @@ bool TestCandidato::testConstructor(){
 bool TestCandidato::testLectura_y_Escritura(){
 
 	bool error=false;
+	bool error_nombre,error_id,error_id_eleccion;
+
+	this->inicializar();
+
+
+	DataAccess dtacc;
 
 
 
-
+	this->liberarMemoria();
 
 	return error;
 }

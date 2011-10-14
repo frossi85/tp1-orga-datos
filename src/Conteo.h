@@ -43,11 +43,8 @@ public:
 	Lista& getLista();
 	Distrito& getDistrito();
 
-
-	//Falte Implementar
 	unsigned long int Guardar(ofstream & ofs);
 
-	//Falta Implementar
 	void Leer(ifstream & ifs, unsigned long int offset);
 
 	//Falta Implementar

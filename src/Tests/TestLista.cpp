@@ -8,6 +8,7 @@
 
 
 #include "TestLista.h"
+#include "../DataAccess.h"
 
 TestLista::TestLista() {
 
@@ -63,16 +64,33 @@ bool TestLista::testConstructor(){
 }
 
 bool TestLista::testLectura_y_Escritura(){
-	bool error_encontrado=false;
-
+	bool error=false;
+	bool error_nombre,error_id,error_id_eleccion;
 	this->inicializar();
-
-
+//
+//	DataAccess dtacc;
+//
+//	cout<<"Llego.."<<endl;
+//	unsigned long int offset=dtacc.Guardar(*this->lista);
+//
+//
+//	Lista lista("aaa",*this->eleccion);
+//
+//	dtacc.Leer(lista,offset);
+//
+//
+//	error_nombre=!(this->lista->getNombre()==lista.getNombre());
+//
+//	error_id=!( this->lista->getId()==lista.getId() );
+//
+//	error_id_eleccion=!( this->lista->getEleccion().getId()==lista.getEleccion().getId() );
+//
+//	error= error_nombre || error_id || error_id_eleccion;
 
 
 	this->liberarMemoria();
 
-	return error_encontrado;
+	return error;
 
 }
 
