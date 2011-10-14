@@ -12,6 +12,7 @@
 #include "Logueable.h"
 #include "Votante.h"
 #include "Cargo.h"
+#include "DataAccess.h"
 #include <string>
 
 using namespace std;

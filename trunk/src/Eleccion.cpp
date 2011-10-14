@@ -151,13 +151,14 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 
 	// Busco en el hash id_distrito/offset el offset los id Distritos
 	Distrito distrito;
+	RegistroIndice DistritoBuscar(id,0);
 	arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_iddistrito_regs>"));
 	arch_bloq_libres = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_iddistrito_bloq_lib>"));
 	arch_tabla = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_iddistrito_tabla>"));
 	hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	for(string::size_type i = 0; i < cantidadDistritos; i++){
 		id = Utilidades::toString(idVector[i]);
-		RegistroIndice DistritoBuscar(id,0);
+		DistritoBuscar.setClave(id);
 		returnReg = hash->buscar(&DistritoBuscar);
 		if (returnReg == NULL) throw VotoElectronicoExcepcion("No se encuentra el id del distrito en el hash");
 		offset = returnReg->getOffset();
