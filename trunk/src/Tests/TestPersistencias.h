@@ -9,6 +9,7 @@
 #define TESTPERSISTENCIAS_H_
 
 #include <iostream>
+#include <vector>
 #include "Test.h"
 
 #include "../Distrito.h"
@@ -18,6 +19,8 @@
 #include "../hash_extensible.h"
 #include "../RegistroIndice.h"
 #include "../Configuracion.h"
+#include "../ABM Entidades/ABMentidades.h"
+#include "UtilidadesTests.h"
 
 /*
  * Ya Agregue Este Test para que se ejecute con Tester
@@ -37,7 +40,6 @@ public:
 	void liberarMemoria(){ }
 private:
 	DataAccess dataAccess;
-
 };
 
 #endif /* TESTPERSISTENCIAS_H_ */

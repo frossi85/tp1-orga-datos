@@ -32,51 +32,50 @@ TestPersistencias::~TestPersistencias() {}
 
 /* Se crean 6 Distritos, se guardan en archivo y se recuperan en forma opuesta*/
 void TestPersistencias::TestDistrito() {
+
 	cout << endl << "********************************************************" << endl;
 	cout << "              Comienzo Test Distritos" << endl;
 	cout << "********************************************************" << endl << endl;
-	Distrito distrito1("Lanus");
-    Distrito distrito2("Cordoba");
-    Distrito distrito3("Santa Fe");
-    Distrito distrito4("Pehuajo");
-    Distrito distrito5("Olivos");
-    Distrito distrito6("Springfield");
 
-    distrito1.Imprimir();
-    distrito2.Imprimir();
-    distrito3.Imprimir();
-    distrito4.Imprimir();
-    distrito5.Imprimir();
-    distrito6.Imprimir();
+	vector<Distrito> vecDistritos;
 
-    unsigned long int offset1, offset2, offset3, offset4, offset5, offset6;
+	UtilidadesTests::cargarDistritos(vecDistritos);
 
-    offset1 = dataAccess.Guardar(distrito1);
-    cout << "Offset de Lanus: " << offset1 << endl;
-    offset2 = dataAccess.Guardar(distrito2);
-    cout << "Offset de Cordoba: " << offset2 << endl;
-    offset3 = dataAccess.Guardar(distrito3);
-    cout << "Offset de Santa Fe: " << offset3 << endl;
-    offset4 = dataAccess.Guardar(distrito4);
-    cout << "Offset de Pehuajo: " << offset4 << endl;
-    offset5 = dataAccess.Guardar(distrito5);
-    cout << "Offset de Olivos: " << offset5 << endl;
-    offset6 = dataAccess.Guardar(distrito6);
-    cout << "Offset de Springfield: " << offset6 << endl << endl;
+    vecDistritos[0].Imprimir();
+    vecDistritos[1].Imprimir();
+    vecDistritos[2].Imprimir();
+    vecDistritos[3].Imprimir();
+    vecDistritos[4].Imprimir();
+    vecDistritos[5].Imprimir();
 
-    dataAccess.Leer(distrito1,offset6);
-    dataAccess.Leer(distrito2,offset5);
-    dataAccess.Leer(distrito3,offset4);
-    dataAccess.Leer(distrito4,offset3);
-    dataAccess.Leer(distrito5,offset2);
-    dataAccess.Leer(distrito6,offset1);
+    unsigned long int offset0, offset1, offset2, offset3, offset4, offset5;
 
-    distrito1.Imprimir();
-    distrito2.Imprimir();
-    distrito3.Imprimir();
-    distrito4.Imprimir();
-    distrito5.Imprimir();
-    distrito6.Imprimir();
+    offset0 = dataAccess.Guardar(vecDistritos[0]);
+    cout << "Offset de Lanus: " << offset0 << endl;
+    offset1 = dataAccess.Guardar(vecDistritos[1]);
+    cout << "Offset de Cordoba: " << offset1 << endl;
+    offset2 = dataAccess.Guardar(vecDistritos[2]);
+    cout << "Offset de Santa Fe: " << offset2 << endl;
+    offset3 = dataAccess.Guardar(vecDistritos[3]);
+    cout << "Offset de Pehuajo: " << offset3 << endl;
+    offset4 = dataAccess.Guardar(vecDistritos[4]);
+    cout << "Offset de Olivos: " << offset4 << endl;
+    offset5 = dataAccess.Guardar(vecDistritos[5]);
+    cout << "Offset de Springfield: " << offset5 << endl << endl;
+
+    dataAccess.Leer(vecDistritos[0],offset5);
+    dataAccess.Leer(vecDistritos[1],offset4);
+    dataAccess.Leer(vecDistritos[2],offset3);
+    dataAccess.Leer(vecDistritos[3],offset2);
+    dataAccess.Leer(vecDistritos[4],offset1);
+    dataAccess.Leer(vecDistritos[5],offset0);
+
+    vecDistritos[0].Imprimir();
+    vecDistritos[1].Imprimir();
+    vecDistritos[2].Imprimir();
+    vecDistritos[3].Imprimir();
+    vecDistritos[4].Imprimir();
+    vecDistritos[5].Imprimir();
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                  Fin Test Distritos" << endl;
@@ -91,70 +90,46 @@ void TestPersistencias::TestCargo() {
 	cout << endl << "********************************************************" << endl;
 	cout << "                Comienzo Test Cargos" << endl;
 	cout << "********************************************************" << endl << endl;
-	Cargo cargo1 ("Intendente Lanus");
-	Cargo cargo2("Gobernador Cordoba");
-	Cargo cargo3("Diputado Santa Fe");
-	Cargo cargo4("Senador Pehuajo");
-	Cargo cargo5("Ministro de Olivos");
-	Cargo cargo6("Presidente de Springfield");
 
-	cargo1.agregarCargoSecundario("Secretario Lanus");
-	cargo2.agregarCargoSecundario("Vicegobernador Cordoba");
-	cargo2.agregarCargoSecundario("Secretario Cordoba");
-	cargo3.agregarCargoSecundario("Diputado segundo");
-	cargo3.agregarCargoSecundario("Diputado tercero");
-	cargo3.agregarCargoSecundario("Diputado cuarto");
-	cargo4.agregarCargoSecundario("Senador segundo");
-	cargo4.agregarCargoSecundario("Senador tercero");
-	cargo4.agregarCargoSecundario("Senador cuarto");
-	cargo4.agregarCargoSecundario("Senador quinto");
-	cargo5.agregarCargoSecundario("Ministro segundo");
-	cargo5.agregarCargoSecundario("Ministro tercero");
-	cargo5.agregarCargoSecundario("Ministro cuarto");
-	cargo5.agregarCargoSecundario("Ministro quinto");
-	cargo5.agregarCargoSecundario("Ministro sexto");
-	cargo6.agregarCargoSecundario("Vicepresidente Springfield");
-	cargo6.agregarCargoSecundario("Ministro Springfield");
-	cargo6.agregarCargoSecundario("Senador Springfield");
-	cargo6.agregarCargoSecundario("Diputado Springfield");
-	cargo6.agregarCargoSecundario("Gobernador Springfield");
-	cargo6.agregarCargoSecundario("Intendente Springfield");
+	vector<Cargo> vecCargos;
 
-	cargo1.Imprimir();
-	cargo2.Imprimir();
-	cargo3.Imprimir();
-	cargo4.Imprimir();
-	cargo5.Imprimir();
-	cargo6.Imprimir();
+	UtilidadesTests::cargarCargos(vecCargos);
 
-    unsigned long int offset1, offset2, offset3, offset4, offset5, offset6;
+	vecCargos[0].Imprimir();
+	vecCargos[1].Imprimir();
+	vecCargos[2].Imprimir();
+	vecCargos[3].Imprimir();
+	vecCargos[4].Imprimir();
+	vecCargos[5].Imprimir();
 
-    offset1 = dataAccess.Guardar(cargo1);
-    cout << "Offset de Lanus: " << offset1 << endl;
-    offset2 = dataAccess.Guardar(cargo2);
-    cout << "Offset de Cordoba: " << offset2 << endl;
-    offset3 = dataAccess.Guardar(cargo3);
-    cout << "Offset de Santa Fe: " << offset3 << endl;
-    offset4 = dataAccess.Guardar(cargo4);
-    cout << "Offset de Pehuajo: " << offset4 << endl;
-    offset5 = dataAccess.Guardar(cargo5);
-    cout << "Offset de Olivos: " << offset5 << endl;
-    offset6 = dataAccess.Guardar(cargo6);
-    cout << "Offset de Springfield: " << offset6 << endl << endl;
+    unsigned long int offset0, offset1, offset2, offset3, offset4, offset5;
 
-    dataAccess.Leer(cargo1,offset6);
-    dataAccess.Leer(cargo2,offset5);
-    dataAccess.Leer(cargo3,offset4);
-    dataAccess.Leer(cargo4,offset3);
-    dataAccess.Leer(cargo5,offset2);
-    dataAccess.Leer(cargo6,offset1);
+    offset0 = dataAccess.Guardar(vecCargos[0]);
+    cout << "Offset de Lanus: " << offset0 << endl;
+    offset1 = dataAccess.Guardar(vecCargos[1]);
+    cout << "Offset de Cordoba: " << offset1 << endl;
+    offset2 = dataAccess.Guardar(vecCargos[2]);
+    cout << "Offset de Santa Fe: " << offset2 << endl;
+    offset3 = dataAccess.Guardar(vecCargos[3]);
+    cout << "Offset de Pehuajo: " << offset3 << endl;
+    offset4 = dataAccess.Guardar(vecCargos[4]);
+    cout << "Offset de Olivos: " << offset4 << endl;
+    offset5 = dataAccess.Guardar(vecCargos[5]);
+    cout << "Offset de Springfield: " << offset5 << endl << endl;
 
-    cargo1.Imprimir();
-    cargo2.Imprimir();
-    cargo3.Imprimir();
-    cargo4.Imprimir();
-    cargo5.Imprimir();
-    cargo6.Imprimir();
+    dataAccess.Leer(vecCargos[0],offset5);
+    dataAccess.Leer(vecCargos[1],offset4);
+    dataAccess.Leer(vecCargos[2],offset3);
+    dataAccess.Leer(vecCargos[3],offset2);
+    dataAccess.Leer(vecCargos[4],offset1);
+    dataAccess.Leer(vecCargos[5],offset0);
+
+	vecCargos[0].Imprimir();
+	vecCargos[1].Imprimir();
+	vecCargos[2].Imprimir();
+	vecCargos[3].Imprimir();
+	vecCargos[4].Imprimir();
+	vecCargos[5].Imprimir();
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                    Fin Test Cargos" << endl;
@@ -162,128 +137,86 @@ void TestPersistencias::TestCargo() {
 }
 
 
-/* Se crean 6 Cargos principales, con "i" cargos secundarios (i es indice de cargo).
- * Se guardan en archivo y se recuperan en forma opuesta*/
+/* Se crean 6 Elecciones. Se guardan en archivo y se recuperan en forma opuesta*/
 void TestPersistencias::TestEleccion() {
-/*
+
 	cout << endl << "********************************************************" << endl;
 	cout << "                Comienzo Test Eleccion" << endl;
 	cout << "********************************************************" << endl << endl;
 
-	unsigned long int offset1, offset2, offset3, offset4, offset5, offset6;
+	 unsigned long int offset0, offset1, offset2, offset3, offset4, offset5;
 
-	Distrito distrito1("Lanus");
-    Distrito distrito2("Cordoba");
-    Distrito distrito3("Santa Fe");
-    Distrito distrito4("Pehuajo");
-    Distrito distrito5("Olivos");
-    Distrito distrito6("Springfield");
+	 vector<Distrito> vecDistritos;
+	 vector<Cargo> vecCargos;
 
-    /* Guardo los distritos y los agrego al hash
-	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_regs>"));
-	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_bloq_lib>"));
-	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_tabla>"));
-	hash_extensible hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
-	RegistroIndice aAgregar(distrito.getNombre(),0);
-	RegistroIndice *returnReg = hash->buscar(&aAgregar);
-	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
-	distrito.setId(ManejoIDs::obtenerIDnuevo("Distrito"));
-	this->dataAccess.Guardar(distrito);
+	 UtilidadesTests::cargarDistritos(vecDistritos);
+	 UtilidadesTests::cargarCargos(vecCargos);
 
 
+    /* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() */
+    ABMentidades ABMaux;
+    bool exito = ABMaux.altaDistrito(vecDistritos[0]);
+    if (exito) exito = ABMaux.altaDistrito(vecDistritos[1]);
+    if (exito) exito = ABMaux.altaDistrito(vecDistritos[2]);
+    if (exito) exito = ABMaux.altaDistrito(vecDistritos[3]);
+    if (exito) exito = ABMaux.altaDistrito(vecDistritos[4]);
+    if (exito) exito = ABMaux.altaDistrito(vecDistritos[5]);
+    if (!exito) {
+    	cout << "Fallo la carga de Distritos" << endl << endl;
+    	return;
+    }
 
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() */
+	exito = ABMaux.altaCargo(vecCargos[0]);
+    if (exito) exito = ABMaux.altaCargo(vecCargos[1]);
+    if (exito) exito = ABMaux.altaCargo(vecCargos[2]);
+    if (exito) exito = ABMaux.altaCargo(vecCargos[3]);
+    if (exito) exito = ABMaux.altaCargo(vecCargos[4]);
+    if (exito) exito = ABMaux.altaCargo(vecCargos[5]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos" << endl << endl;
+    	return;
+    }
 
-	delete this->hash;
-    hash_extensible *hash = new hash_extensible()
-    offset1 = dataAccess.Guardar(distrito1);
-    offset2 = dataAccess.Guardar(distrito2);
-    offset3 = dataAccess.Guardar(distrito3);
-    offset4 = dataAccess.Guardar(distrito4);
-    offset5 = dataAccess.Guardar(distrito5);
-    offset6 = dataAccess.Guardar(distrito6);;
+	vector<Eleccion> vecElecciones;
 
-	Cargo cargo1 ("Intendente Lanus");
-	Cargo cargo2("Gobernador Cordoba");
-	Cargo cargo3("Diputado Santa Fe");
-	Cargo cargo4("Senador Pehuajo");
-	Cargo cargo5("Ministro de Olivos");
-	Cargo cargo6("Presidente de Springfield");
+	UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
 
-	cargo1.agregarCargoSecundario("Secretario Lanus");
-	cargo2.agregarCargoSecundario("Vicegobernador Cordoba");
-	cargo2.agregarCargoSecundario("Secretario Cordoba");
-	cargo3.agregarCargoSecundario("Diputado segundo");
-	cargo3.agregarCargoSecundario("Diputado tercero");
-	cargo3.agregarCargoSecundario("Diputado cuarto");
-	cargo4.agregarCargoSecundario("Senador segundo");
-	cargo4.agregarCargoSecundario("Senador tercero");
-	cargo4.agregarCargoSecundario("Senador cuarto");
-	cargo4.agregarCargoSecundario("Senador quinto");
-	cargo5.agregarCargoSecundario("Ministro segundo");
-	cargo5.agregarCargoSecundario("Ministro tercero");
-	cargo5.agregarCargoSecundario("Ministro cuarto");
-	cargo5.agregarCargoSecundario("Ministro quinto");
-	cargo5.agregarCargoSecundario("Ministro sexto");
-	cargo6.agregarCargoSecundario("Vicepresidente Springfield");
-	cargo6.agregarCargoSecundario("Ministro Springfield");
-	cargo6.agregarCargoSecundario("Senador Springfield");
-	cargo6.agregarCargoSecundario("Diputado Springfield");
-	cargo6.agregarCargoSecundario("Gobernador Springfield");
-	cargo6.agregarCargoSecundario("Intendente Springfield");
+	vecElecciones[0].Imprimir();
+	vecElecciones[1].Imprimir();
+	vecElecciones[2].Imprimir();
+	vecElecciones[3].Imprimir();
+	vecElecciones[4].Imprimir();
+	vecElecciones[5].Imprimir();
 
-	Eleccion eleccion1("01/01/2001",cargo1,distrito1);
-	Eleccion eleccion2("02/02/2002",cargo2,distrito2);
-	Eleccion eleccion3("03/03/2003",cargo3,distrito3);
-	Eleccion eleccion4("04/04/2004",cargo4,distrito4);
-	Eleccion eleccion5("05/05/2005",cargo5,distrito5);
-	Eleccion eleccion6("06/06/2006",cargo6,distrito6);
+    offset0 = dataAccess.Guardar(vecElecciones[0]);
+    cout << "Offset de 01/01/2001: " << offset0 << endl;
+    offset1 = dataAccess.Guardar(vecElecciones[1]);
+    cout << "Offset de 02/02/2002: " << offset1 << endl;
+    offset2 = dataAccess.Guardar(vecElecciones[2]);
+    cout << "Offset de 03/03/2003: " << offset2 << endl;
+    offset3 = dataAccess.Guardar(vecElecciones[3]);
+    cout << "Offset de 04/04/2004: " << offset3 << endl;
+    offset4 = dataAccess.Guardar(vecElecciones[4]);
+    cout << "Offset de 05/05/2005: " << offset4 << endl;
+    offset5 = dataAccess.Guardar(vecElecciones[5]);
+    cout << "Offset de 06/06/2006: " << offset5 << endl << endl;
 
-	eleccion2.agregarDistrito(distrito1);
-	eleccion3.agregarDistrito(distrito2);
-	eleccion3.agregarDistrito(distrito1);
-	eleccion4.agregarDistrito(distrito3);
-	eleccion4.agregarDistrito(distrito2);
-	eleccion4.agregarDistrito(distrito1);
-	eleccion5.agregarDistrito(distrito4);
-	eleccion5.agregarDistrito(distrito3);
-	eleccion5.agregarDistrito(distrito2);
-	eleccion5.agregarDistrito(distrito1);
-	eleccion6.agregarDistrito(distrito5);
-	eleccion6.agregarDistrito(distrito4);
-	eleccion6.agregarDistrito(distrito3);
-	eleccion6.agregarDistrito(distrito2);
-	eleccion6.agregarDistrito(distrito1);
+    dataAccess.Leer(vecElecciones[0],offset5);
+    dataAccess.Leer(vecElecciones[1],offset4);
+    dataAccess.Leer(vecElecciones[2],offset3);
+    dataAccess.Leer(vecElecciones[3],offset2);
+    dataAccess.Leer(vecElecciones[4],offset1);
+    dataAccess.Leer(vecElecciones[5],offset0);
 
-
-
-    offset1 = dataAccess.Guardar(eleccion1);
-    cout << "Offset de Lanus: " << offset1 << endl;
-    offset2 = dataAccess.Guardar(eleccion2);
-    cout << "Offset de Cordoba: " << offset2 << endl;
-    offset3 = dataAccess.Guardar(eleccion3);
-    cout << "Offset de Santa Fe: " << offset3 << endl;
-    offset4 = dataAccess.Guardar(eleccion4);
-    cout << "Offset de Pehuajo: " << offset4 << endl;
-    offset5 = dataAccess.Guardar(eleccion5);
-    cout << "Offset de Olivos: " << offset5 << endl;
-    offset6 = dataAccess.Guardar(eleccion6);
-    cout << "Offset de Springfield: " << offset6 << endl << endl;
-
-    dataAccess.Leer(cargo1,offset6);
-    dataAccess.Leer(cargo2,offset5);
-    dataAccess.Leer(cargo3,offset4);
-    dataAccess.Leer(cargo4,offset3);
-    dataAccess.Leer(cargo5,offset2);
-    dataAccess.Leer(cargo6,offset1);
-
-    cargo1.Imprimir();
-    cargo2.Imprimir();
-    cargo3.Imprimir();
-    cargo4.Imprimir();
-    cargo5.Imprimir();
-    cargo6.Imprimir();
+	vecElecciones[0].Imprimir();
+	vecElecciones[1].Imprimir();
+	vecElecciones[2].Imprimir();
+	vecElecciones[3].Imprimir();
+	vecElecciones[4].Imprimir();
+	vecElecciones[5].Imprimir();
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                    Fin Test Eleccion" << endl;
-	cout << "********************************************************" << endl << endl; */
+	cout << "********************************************************" << endl << endl;
 }
