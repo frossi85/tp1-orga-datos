@@ -66,16 +66,16 @@ Conteo.o: Conteo.cpp Conteo.h
 	$(CC) $(CFLAGS) Conteo.cpp
 
 Conteo.h: Grabable.h Lista.h Logueable.h Distrito.h Eleccion.h Configuracion.h hash_extensible.h DataAccess.h
-	
+
 Utilidades.o: Utilidades.cpp Utilidades.h
 	$(CC) $(CFLAGS) Utilidades.cpp
-	
+
 VotoElectronicoExcepcion.o: VotoElectronicoExcepcion.cpp VotoElectronicoExcepcion.h
 	$(CC) $(CFLAGS) VotoElectronicoExcepcion.cpp
 
 RegistroIndice.o: RegistroIndice.cpp RegistroIndice.h
 	$(CC) $(CFLAGS) RegistroIndice.cpp
-	
+
 BloqueHash.o: BloqueHash.cpp BloqueHash.h
 	$(CC) $(CFLAGS) BloqueHash.cpp
 	
@@ -182,7 +182,7 @@ ABMentidades.o: ABM\ Entidades/ABMentidades.cpp ABM\ Entidades/ABMentidades.h
 	$(CC) $(CFLAGS) ABM\ Entidades/ABMentidades.cpp
 
 ABM\ Entidades/ABMentidades.h: DataAccess.h Configuracion.h hash_extensible.h Eleccion.h Distrito.h Cargo.h Votante.h \
-Lista.h Candidato.h RegistroIndice.h ManejoIDs.h
+Lista.h Candidato.h RegistroIndice.h ManejoIDs.h Utilidades.h
 
 ConsultaEntidades.o: ABM\ Entidades/ConsultaEntidades.cpp ABM\ Entidades/ConsultaEntidades.h
 	$(CC) $(CFLAGS) ABM\ Entidades/ConsultaEntidades.cpp
