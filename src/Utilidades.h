@@ -27,6 +27,7 @@ public:
 	static string getFechaYHora();
 	static string toString(long int a);
 	static string indexarFecha(string fecha);
+	static void formatearClave(string &clave);
 
 	static unsigned int getDNIaleatorio(int semilla);
 
