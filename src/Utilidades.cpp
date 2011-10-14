@@ -47,7 +47,7 @@ string Utilidades::indexarFecha(string fecha) {
 
 
 /* Reemplaza los espacios de una clave por & */
-void formatearClave(string &clave) {
+void Utilidades::formatearClave(string &clave) {
 	size_t posicion;
 	do {
 		posicion = clave.find(" ");
