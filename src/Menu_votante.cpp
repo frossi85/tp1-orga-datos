@@ -118,6 +118,9 @@ void Menu_votante::mostrar_listas_a_votar(Eleccion *eleccion){
 		//SE selecciona la Lista
 		//..
 		//..
+
+
+
 		if(opcion!='v' && opcion!='V'){
 			confirmacion=confirmar_votacion(eleccion,lista);
 		}
@@ -137,6 +140,17 @@ void Menu_votante::mostrar_listas_a_votar(Eleccion *eleccion){
 	}
 
 }
+
+
+Lista* Menu_votante::elegir_Lista(){
+
+	Eleccion e;
+
+
+
+
+}
+
 
 bool Menu_votante::confirmar_votacion(Eleccion *eleccion,Lista *lista){
 
@@ -196,16 +210,12 @@ void Menu_votante::mostrar_menu_datos(){
 			case 'V':	opciones();
 				 		break;
 			case 'c':
-			case 'C': 	//Se cambia la clave
-//						cout<<"Se cambio la Clave"<<endl;
-						this->cambiar_clave();
+			case 'C': 	this->cambiar_clave();
 						mostrar_menu_datos();
 						break;
 
 			case 'd':
-			case 'D':	//Se cambia el domicilio
-						//cout<<"Se cambio el domicilio"<<endl;
-						this->cambiar_domicilio();
+			case 'D':	this->cambiar_domicilio();
 						mostrar_menu_datos();
 						break;
 			default: break;

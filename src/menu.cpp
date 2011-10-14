@@ -11,6 +11,7 @@
 #include <string.h>
 #include <cstdlib>
 #include "DataAccess.h"
+#include "DataGetter.h"
 using namespace std;
 
 Menu::Menu() {
@@ -72,7 +73,7 @@ bool Menu::acceder_usuario() {
 	//char passOk[20]="1111";
 
 	DataAccess data_access;
-	Votante *votante=data_access.getVotante(user);
+	Votante *votante=DataGetter::getVotante(user);
 
 	if ((votante!=NULL) && (strncmp(votante->getClave().c_str(),pass,20)==0))
 	//if ( (strncmp(user,userOk,20)==0) && (strncmp(pass,passOk,20)==0) )

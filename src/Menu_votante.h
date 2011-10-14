@@ -36,11 +36,13 @@ private:
 	 * Lista a votar.
 	 */
 	bool confirmar_votacion(Eleccion *eleccion,Lista *lista);
+	Lista* elegir_Lista();
 
 	/*
 	 * Guarda los cambios de los datos del Votante modificados
 	 */
 	void guardar_cambios();
+
 
 	void cambiar_clave();
 	void cambiar_domicilio();
