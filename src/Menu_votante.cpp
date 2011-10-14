@@ -6,6 +6,8 @@
  */
 
 #include "Menu_votante.h"
+#include "DataGetter.h"
+#include <vector>
 
 Menu_votante::Menu_votante(Votante *votante) {
 
@@ -61,31 +63,10 @@ void Menu_votante::mostrar_menu_elecciones(){
 	Eleccion *eleccion;
 
 
-	//Se cargan todas las Elecciones Disponibles para el Usuario
-	//...
-	//...
+	eleccion=this->elegir_eleccion();
 
 
-	cout<<"**********************************"<<endl;
-	cout<<"Elecciones Disponibles"<<endl<<endl;
-	/*
-	 *Muestra todas las elecciones
-	 *Se selecciona alguna y se llama
-	 *a la funcion que muestra las listas
-	 *que corresponden a esa Eleccion
-	 *
-	 */
-
-	cout<<"A - Eleccion para Presidente"<<endl;
-	cout<<"B - Eleccion para Diputados"<<endl;
-	cout<<endl<<"V - Volver a menu anterior"<<endl;
-	cin>>opcion;
-
-	//Se asigna el puntero a la eleccion que corresponda
-	//... ...
-	//... ...
-
-	if(opcion=='v' || opcion=='V'){
+	if(eleccion==NULL){
 		opciones();
 	}else{
 		mostrar_listas_a_votar(eleccion);
@@ -96,43 +77,82 @@ void Menu_votante::mostrar_menu_elecciones(){
 }
 
 
+Eleccion* Menu_votante::elegir_eleccion(){
+
+	bool eleccion_elegida=false;
+	unsigned opcion;
+	Eleccion *resultado;
+	vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante);
+	int cantidad_elecciones=elecciones.size();
+	cout<<"************************************"<<endl;
+	cout<<endl<<"Elecciones Disponibles: "<<endl;
+	do{
+		opcion=1;
+
+		for(int i=0;i<cantidad_elecciones;i++){
+
+			cout<<opcion+i<<" - "<<elecciones[i]->getCargo().getCargoPrincipal()<<endl;
+
+		}
+
+		cout<<"0 - Volver a menu anterior"<<endl;
+
+		cin>>opcion;
+		eleccion_elegida=( opcion>=0) && (opcion<=cantidad_elecciones);
+
+	}while(!eleccion_elegida);
+
+
+	if(opcion==0){
+
+		resultado=NULL;
+
+	}else{
+		resultado=elecciones[opcion-1];
+	}
+
+	return resultado;
+
+}
+
+
 void Menu_votante::mostrar_listas_a_votar(Eleccion *eleccion){
 
 	Lista *lista;
 
-	char opcion;
+	char opcion='A';
 	bool confirmacion=false;
 
 	do{
 		//Se muestran Las Listas para seleccionar alguna
 		//...
 		//...
-
-		cout<<"Listas Para Eleccion: "<<endl; //eleccion->Imprimir();
-
-		cout<<"A - Lista 001"<<endl<<"B - Lista 002"<<"C - Lista 003"<<endl;
-		cout<<"V - Volver a Menu de Elecciones"<<endl;
-
-		cin>>opcion;
+//
+//		cout<<"Listas Para Eleccion: "<<endl; //eleccion->Imprimir();
+//
+//		cout<<"A - Lista 001"<<endl<<"B - Lista 002"<<"C - Lista 003"<<endl;
+//		cout<<"V - Volver a Menu de Elecciones"<<endl;
+//
+//		cin>>opcion;
 
 		//SE selecciona la Lista
 		//..
 		//..
 
+		lista=this->elegir_Lista(eleccion);
 
-
-		if(opcion!='v' && opcion!='V'){
+		if(lista!=NULL){
 			confirmacion=confirmar_votacion(eleccion,lista);
 		}
 
-	}while(!confirmacion &&( opcion!='v' && opcion!='V'));
+	}while((!confirmacion) || lista==NULL);
 
 	if (confirmacion){
 		cout<<"Voto Aceptado"<<endl;
 
 		//Se regresa al menu Principal
 		opciones();
-	}else if(opcion=='v' || opcion=='V'){
+	}else {
 
 
 		mostrar_menu_elecciones();
@@ -142,11 +162,34 @@ void Menu_votante::mostrar_listas_a_votar(Eleccion *eleccion){
 }
 
 
-Lista* Menu_votante::elegir_Lista(){
+Lista* Menu_votante::elegir_Lista(Eleccion *eleccion){
 
-	Eleccion e;
+	Lista *lista_resultado;
+	bool lista_elegida=false;
+	vector<Lista *> listas=DataGetter::getListas_por_Eleccion(*eleccion);
+	int cantidad_listas=listas.size();
+	unsigned opcion;
+	do{
+		cout<<endl<<"Listas Disponibles a votar:"<<endl;
+		for(int i=0;i<cantidad_listas;i++){
 
+			cout<<(i+1)<<" - "<<listas[i]->getNombre()<<endl;
+		}
 
+		cout<<endl<<"0 - Volver a menu anterior"<<endl;
+		cout<<"Elegir Lista: ";
+		cin>>opcion;
+
+		lista_elegida=(opcion>=0) && (opcion<=cantidad_listas);
+	}while(!lista_elegida);
+
+	if(opcion==0){
+		lista_resultado=NULL;
+	}else{
+		lista_resultado=listas[opcion-1];
+	}
+
+	return lista_resultado;
 
 
 }
@@ -154,7 +197,7 @@ Lista* Menu_votante::elegir_Lista(){
 
 bool Menu_votante::confirmar_votacion(Eleccion *eleccion,Lista *lista){
 
-	system("clear");
+	//system("clear");
 	char opcion;
 	bool opcion_elegida=false;
 	bool confirmacion=false;
@@ -162,7 +205,7 @@ bool Menu_votante::confirmar_votacion(Eleccion *eleccion,Lista *lista){
 	do{
 
 
-		cout<<"Confirmacion de voto a: PEPITO"<<endl;//lista->getNombre();
+		cout<<"Confirmacion de voto a: "<<lista->getNombre()<<endl;
 		cout<<"A - Aceptar voto"<<endl;
 		cout<<"R - Rechazar Voto"<<endl;
 		cin>>opcion;

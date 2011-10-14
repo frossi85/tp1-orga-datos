@@ -28,6 +28,7 @@ private:
 	void opciones();
 
 	void mostrar_menu_elecciones();
+	Eleccion* elegir_eleccion();
 	void mostrar_menu_datos();
 	void mostrar_listas_a_votar(Eleccion *eleccion);
 
@@ -36,7 +37,7 @@ private:
 	 * Lista a votar.
 	 */
 	bool confirmar_votacion(Eleccion *eleccion,Lista *lista);
-	Lista* elegir_Lista();
+	Lista* elegir_Lista(Eleccion *eleccion);
 
 	/*
 	 * Guarda los cambios de los datos del Votante modificados
