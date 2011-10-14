@@ -20,6 +20,9 @@ public:
 	///Devuelve la clave del registro.
 	string getClave();
 
+	///Establece la clave del registro.
+	void setClave(string clave);
+
 	///Devuelve el offset del registro.
 	unsigned int getOffset();
 

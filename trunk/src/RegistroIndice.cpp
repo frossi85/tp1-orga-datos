@@ -13,6 +13,12 @@ string RegistroIndice::getClave(){
 
 ////////////////
 
+void RegistroIndice::setClave(string clave){
+	this->clave = clave;
+}
+
+//////////////
+
 unsigned int RegistroIndice::getOffset(){
         return this->offset;
 }
