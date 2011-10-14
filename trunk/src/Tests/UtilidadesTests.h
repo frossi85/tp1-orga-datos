@@ -21,12 +21,12 @@ public:
 	UtilidadesTests();
 	virtual ~UtilidadesTests();
 
-	static void cargarDistritos(vector<Distrito> vecDistritos);
-	static void cargarCargos(vector<Cargo> vecCargos);
-	static void cargarElecciones(vector<Eleccion> vecElecciones, vector<Cargo> vecCargos, vector<Distrito> vecDistritos);
-	static void cargarListas(vector<Lista> vecListas);
-	static void cargarVotantes(vector<Votante> vecVotantes);
-	static void cargarCandidatos(vector<Candidato> vecCandidatos);
+	static void cargarDistritos(vector<Distrito> &vecDistritos);
+	static void cargarCargos(vector<Cargo> &vecCargos);
+	static void cargarElecciones(vector<Eleccion> &vecElecciones, vector<Cargo> &vecCargos, vector<Distrito> &vecDistritos);
+	static void cargarListas(vector<Lista> &vecListas);
+	static void cargarVotantes(vector<Votante> &vecVotantes);
+	static void cargarCandidatos(vector<Candidato> &vecCandidatos);
 };
 
 #endif /* UTILIDADESTESTS_H_ */

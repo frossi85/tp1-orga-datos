@@ -12,7 +12,7 @@ UtilidadesTests::UtilidadesTests() {}
 UtilidadesTests::~UtilidadesTests() {}
 
 
-void UtilidadesTests::cargarDistritos(vector<Distrito> vecDistritos) {
+void UtilidadesTests::cargarDistritos(vector<Distrito> &vecDistritos) {
 	if (!vecDistritos.empty()) vecDistritos.clear();
 	Distrito distrito1("Lanus");
     Distrito distrito2("Cordoba");
@@ -30,7 +30,7 @@ void UtilidadesTests::cargarDistritos(vector<Distrito> vecDistritos) {
 }
 
 
-void UtilidadesTests::cargarCargos(vector<Cargo> vecCargos) {
+void UtilidadesTests::cargarCargos(vector<Cargo> &vecCargos) {
 	if (!vecCargos.empty()) vecCargos.clear();
 	Cargo cargo1 ("Intendente Lanus");
 	Cargo cargo2("Gobernador Cordoba");
@@ -69,7 +69,7 @@ void UtilidadesTests::cargarCargos(vector<Cargo> vecCargos) {
 }
 
 
-void UtilidadesTests::cargarElecciones(vector<Eleccion> vecElecciones, vector<Cargo> vecCargos, vector<Distrito> vecDistritos) {
+void UtilidadesTests::cargarElecciones(vector<Eleccion> &vecElecciones, vector<Cargo> &vecCargos, vector<Distrito> &vecDistritos) {
 	if (!vecElecciones.empty()) vecElecciones.clear();
 	Eleccion eleccion1("01/01/2001",vecCargos[0],vecDistritos[0]);
 	Eleccion eleccion2("02/02/2002",vecCargos[1],vecDistritos[1]);
@@ -102,16 +102,16 @@ void UtilidadesTests::cargarElecciones(vector<Eleccion> vecElecciones, vector<Ca
 }
 
 
-void UtilidadesTests::cargarListas(vector<Lista> vecListas) {
+void UtilidadesTests::cargarListas(vector<Lista> &vecListas) {
 
 }
 
 
-void UtilidadesTests::cargarVotantes(vector<Votante> vecVotantes) {
+void UtilidadesTests::cargarVotantes(vector<Votante> &vecVotantes) {
 
 }
 
 
-void UtilidadesTests::cargarCandidatos(vector<Candidato> vecCandidatos) {
+void UtilidadesTests::cargarCandidatos(vector<Candidato> &vecCandidatos) {
 
 }
