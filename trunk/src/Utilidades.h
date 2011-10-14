@@ -46,6 +46,8 @@ public:
 	static string stringFromFile(std::fstream & ifs);
 
 	static void sleep(unsigned int mseconds);
+
+
 };
 
 #endif /* UTILIDADES_H_ */
