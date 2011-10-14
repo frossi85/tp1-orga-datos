@@ -84,14 +84,14 @@ unsigned long int Candidato::Guardar(ofstream & ofs)
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 
+	long idLista = (*(_listaPropia)).getId();
+	ofs.write(reinterpret_cast<char *>(&idLista), sizeof(idLista));
+
 	//Habria q verificar q no se guarde un Candidato q se halla creado con Candidato()
-	//Se escribe la referencia al Cargo guardando su id
+	//Se escribe la referencia al Votante guardando su id
 	long idVotante = (*(_votante)).getId();
 	ofs.write(reinterpret_cast<char *>(&idVotante), sizeof(idVotante));
 
-
-	long idLista = (*(_listaPropia)).getId();
-	ofs.write(reinterpret_cast<char *>(&idLista), sizeof(idLista));
 
 	return offset;
 }
@@ -106,15 +106,62 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 
 	//Habria q verificar q no se guarde un Candidato q se halla creado con Candidato()
-	//Se escribe la referencia al Cargo guardando su id
+	//Se escribe la referencia a la lista guardando su id
+	long idLista = 0;
+	ifs.read(reinterpret_cast<char *>(&idLista), sizeof(idLista));
+
+	// Busco en el hash id_lista/offset el offset de ese idLista
+	string idLis = Utilidades::toString(idLista);
+	string arch_registros_lis((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
+	string arch_bloq_libres_lis((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB));
+	string arch_tabla_lis((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_TABLA));
+	hash_extensible *hashIDListas = new hash_extensible(arch_registros_lis,arch_bloq_libres_lis,arch_tabla_lis);
+	RegistroIndice ListaBuscar(idLis,0);
+	RegistroIndice *returnLista = hashIDListas->buscar(&ListaBuscar);
+	if (returnLista == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de lista en el hash");
+	offset = returnLista->getOffset();
+
+	// Leo la lista del archivo de listas
+	Lista lista; //si no funciona probar con un puntero a distrito
+
+	string rutaArchivo = lista.getURLArchivoDatos();
+	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
+	if(!ifsDatos.is_open())
+		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + lista.getClassName());
+
+	lista.Leer(ifsDatos, offset);
+	ifsDatos.close();
+	_listaPropia = new Lista(lista);
+	delete hashIDListas;
+
+	//leo el id del votante
 	long idVotante = 0;
 	ifs.read(reinterpret_cast<char *>(&idVotante), sizeof(idVotante));
 
-	long idCargo = 0;
-	ifs.read(reinterpret_cast<char *>(&idCargo), sizeof(idCargo));
+	// Busco en el hash id_lista/offset el offset de ese idLista
+	string idVot = Utilidades::toString(idVotante);
+	string arch_registros_vot((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_REGS));
+	string arch_bloq_libres_vot((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_BLOQ_LIB));
+	string arch_tabla_vot((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_TABLA));
+	hash_extensible *hashIDVotantes = new hash_extensible(arch_registros_vot,arch_bloq_libres_vot,arch_tabla_vot);
+	RegistroIndice VotanteBuscar(idVot,0);
+	RegistroIndice *returnVotante = hashIDVotantes->buscar(&VotanteBuscar);
+	if (returnVotante == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de votante en el hash");
+	offset = returnVotante->getOffset();
 
-	long idLista = 0;
-	ifs.read(reinterpret_cast<char *>(&idLista), sizeof(idLista));
+	// Leo el votante del archivo de votantes
+	Votante votante; //si no funciona probar con un puntero a votante
+
+	rutaArchivo = lista.getURLArchivoDatos();
+	ifsDatos.open(rutaArchivo.c_str(), ios::in | ios::binary);
+	if(!ifsDatos.is_open())
+		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + votante.getClassName());
+
+	votante.Leer(ifsDatos, offset);
+	ifsDatos.close();
+	_votante = new Votante(votante);
+	delete hashIDVotantes;
+
 
 	//DataAccess dataAccess;
 	//Votante votante;
