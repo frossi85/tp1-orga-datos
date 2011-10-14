@@ -19,11 +19,9 @@
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
 //DE ACA PARA ABAJO NO TENDRIAN QUE ESTAR ESTOS INCLUDES
-#include "Distrito.h"
+
 #include "Conteo.h" //<--- este no lo borren que anda bien
-#include "Votante.h"
-#include "Eleccion.h"
-#include "Lista.h"
+
 
 class Conteo;
 
@@ -43,16 +41,7 @@ public:
 	// LA IDEA DEL DATA ACCESS ES QUE RECIBA Y DEVUELVA OBJETOS DE LA CLASE PADRE GUARDABLE. ESTOS METODOS TENDRIAN QUE ESTAR
 	// EN OTRO LADO. ESTA CLASE ES PARA LEER GUARDAR Y ELIMINAR. SI LE METEMOS ESTOS INCLUDES SE HACEN REFERENCIAS CIRCULARES.
 
-	//Falta Implemetar
-	vector<Conteo*> getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito&);
 
-	//Falta Implementar
-	vector<Conteo*> getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccion &eleccion);
-
-	//Devuelve el puntero a un votante
-	//Devuelve NULL si no encontro al votante con ese dni
-	//Falta Implementar
-	Votante* getVotante(const char dni[]);
 
 };
 

@@ -8,6 +8,7 @@
 #include "Informe.h"
 #include <vector>
 #include "DataAccess.h"
+#include "DataGetter.h"
 
 Informe::Informe(Eleccion& eleccion) {
 
@@ -45,7 +46,7 @@ Informe::Informe(Eleccion& eleccion) {
 		//
 
 
-		vector<Conteo *> conteos=data_access.getConteos_por_Eleccion_y_Distrito(eleccion,(*distritos[i]));
+		vector<Conteo *> conteos=DataGetter::getConteos_por_Eleccion_y_Distrito(eleccion,(*distritos[i]));
 		cout<<"Votos Para Distrito: "<<distritos[i]->getNombre()<<endl;
 		total_votos+=this->mostrar_Conteos_por_Distrito(conteos);
 
@@ -87,11 +88,10 @@ Informe::Informe(Distrito& distrito) {
 Informe::Informe(Lista& lista){
 
 	Eleccion eleccion=lista.getEleccion();
-	DataAccess data_access;
 
 	long total_votos=0;
 
-	vector<Conteo *> conteos=data_access.getConteos_por_Lista_y_Eleccion(lista,eleccion);
+	vector<Conteo *> conteos=DataGetter::getConteos_por_Lista_y_Eleccion(lista,eleccion);
 
 	vector<Conteo *>::size_type cantidad_Conteos = conteos.size();
 
