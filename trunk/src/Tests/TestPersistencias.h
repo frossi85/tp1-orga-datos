@@ -9,6 +9,7 @@
 #define TESTPERSISTENCIAS_H_
 
 #include <iostream>
+#include "Test.h"
 
 #include "../Distrito.h"
 #include "../Cargo.h"
@@ -18,7 +19,11 @@
 #include "../RegistroIndice.h"
 #include "../Configuracion.h"
 
-class TestPersistencias {
+/*
+ * Ya Agregue Este Test para que se ejecute con Tester
+ */
+
+class TestPersistencias: public Test {
 public:
 	TestPersistencias();
 	virtual ~TestPersistencias();
@@ -27,8 +32,12 @@ public:
 	void TestCargo();
 	void TestEleccion();
 
+	void comenzar();
+	void inicializar(){ }
+	void liberarMemoria(){ }
 private:
 	DataAccess dataAccess;
+
 };
 
 #endif /* TESTPERSISTENCIAS_H_ */

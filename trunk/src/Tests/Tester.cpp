@@ -14,6 +14,8 @@
 #include "TestLista.h"
 #include "TestCargo.h"
 #include "TestCandidato.h"
+#include "TestABMentidades.h"
+#include "TestPersistencias.h"
 #include <iostream>
 
 using namespace std;
@@ -24,7 +26,7 @@ Tester::Tester() {
 
 void Tester::comenzarTests(){
 
-	int cantidad_tests=7;
+	int cantidad_tests=8;
 
 	cout<<"Se inician los test de las Clases"<<endl;
 
@@ -37,6 +39,8 @@ void Tester::comenzarTests(){
 	test[4]=new TestLista();
 	test[5]=new TestCargo();
 	test[5]=new TestCandidato();
+	test[6]=new TestABMentidades();
+	test[7]=new TestPersistencias();
 
 	for (int i=0;i<cantidad_tests;i++){
 		test[i]->comenzar();

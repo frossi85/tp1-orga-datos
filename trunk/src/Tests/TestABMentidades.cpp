@@ -5,9 +5,34 @@
  *      Author: martin
  */
 
+
+
+/*
+ * Ya Agregue Este Test para que se ejecute con Tester
+ */
+
+
+
 #include "TestABMentidades.h"
 
-TestABMentidades::TestABMentidades() {}
+TestABMentidades::TestABMentidades() {
+
+	this->clase_en_testeo="ABMentidades";
+
+}
+
+void TestABMentidades::comenzar(){
+
+	this->tituloTest();
+
+	this->testAltaCandidato();
+	this->testAltaCargo();
+	this->testAltaDistrito();
+	this->testAltaEleccion();
+	this->testAltaLista();
+	this->testAltaVotante();
+
+}
 
 
 TestABMentidades::~TestABMentidades() {}
