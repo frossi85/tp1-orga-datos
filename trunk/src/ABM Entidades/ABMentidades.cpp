@@ -19,8 +19,10 @@ bool ABMentidades::altaEleccion(Eleccion &eleccion) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	
 	/* Busco en el hash si ya existe la eleccion */
-	string clave = Utilidades::indexarFecha(eleccion.getFecha());
-	clave = clave + "$" + eleccion.getCargo().getCargoPrincipal();
+	string fecha = Utilidades::indexarFecha(eleccion.getFecha());
+	string cargo = eleccion.getCargo().getCargoPrincipal();
+	Utilidades::formatearClave(cargo);
+	string clave = fecha + "$" + cargo;
 	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
@@ -53,7 +55,9 @@ bool ABMentidades::altaDistrito(Distrito &distrito) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe el distrito */
-	RegistroIndice aAgregar(distrito.getNombre(),0);
+	string clave = distrito.getNombre();
+	Utilidades::formatearClave(clave);
+	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
 
@@ -86,7 +90,9 @@ bool ABMentidades::altaCargo(Cargo &cargo) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe el cargo */
-	RegistroIndice aAgregar(cargo.getCargoPrincipal(),0);
+	string clave = cargo.getCargoPrincipal();
+	Utilidades::formatearClave(clave);
+	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
 
@@ -152,9 +158,12 @@ bool ABMentidades::altaLista(Lista &lista) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe la lista */
-	string clave = Utilidades::indexarFecha(lista.getEleccion().getFecha());
-	clave = clave + "$" + lista.getEleccion().getCargo().getCargoPrincipal();
-	clave = clave + "$" + lista.getNombre();
+	string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
+	string cargo = lista.getEleccion().getCargo().getCargoPrincipal();
+	string nombreLista = lista.getNombre();
+	Utilidades::formatearClave(cargo);
+	Utilidades::formatearClave(nombreLista);
+	string clave = fecha + "$" + cargo + "$" + nombreLista;
 	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
@@ -188,10 +197,13 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe el candidato */
-	string clave = Utilidades::indexarFecha(candidato.getLista().getEleccion().getFecha());
-	clave = clave + "$" + candidato.getLista().getEleccion().getCargo().getCargoPrincipal();
-	clave = clave + "$" + candidato.getLista().getNombre();
-	clave = clave + "$" + Utilidades::toString(candidato.getDNI());
+	string fecha = Utilidades::indexarFecha(candidato.getLista().getEleccion().getFecha());
+	string cargo = candidato.getLista().getEleccion().getCargo().getCargoPrincipal();
+	string lista = candidato.getLista().getNombre();
+	string DNI = Utilidades::toString(candidato.getDNI());
+	Utilidades::formatearClave(cargo);
+	Utilidades::formatearClave(lista);
+	string clave = fecha + "$" + cargo + "$" + lista + "$" + DNI;
 	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;					// Ya existia en el hash, no se agrega
