@@ -74,6 +74,8 @@ unsigned long int Lista::Guardar(ofstream & ofs)
 	//(*(_eleccion)).fueModificada();
 	//DataAccess dataAccess;
 	//dataAccess.Guardar(*(_eleccion));
+	// RTA: NO NOS PUSIMOS, O POR LO MENOS YO, A PENSAR TANTO EN MODIFICACIONES..ESTOY TRATANDO DE QUE ANDEN LOS INSERTAR Y ELIMINAR
+	// (MARTIN)
 	return offset;
 }
 
@@ -100,26 +102,23 @@ void Lista::Leer(ifstream & ifs, unsigned long int offset)
 	offset = returnEleccion->getOffset();
 
 	// Leo la eleccion del archivo de elecciones
+	DataAccess dataAccess;
+	Eleccion eleccion;
+	dataAccess.Leer(eleccion,offset);
+	_eleccion = new Eleccion(eleccion);
+	delete hashIDElecciones;
 
+/*
 	Eleccion eleccion; //si no funciona probar con un puntero a eleccion
-
 	string rutaArchivo = eleccion.getURLArchivoDatos();
 	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
 	if(!ifsDatos.is_open())
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + eleccion.getClassName());
-
 	eleccion.Leer(ifsDatos, offset);
 	ifsDatos.close();
 	_eleccion = new Eleccion(eleccion);
 	delete hashIDElecciones;
-
-	/*Esto lo reemplacé por lo de arriba porque no puedo usar DataAcces
-	 *(por referencia cirular)
-	 */
-	//DataAccess dataAccess;
-	//dataAccess.Leer(eleccion,offset);
-	//dataAccess.getPorId(idEleccion, eleccion);
-	//_eleccion = eleccion;
+*/                                            // BORRAR EL COMENTARIO SI ANDA COMO ESTA ARRIBA (MARTIN)
 }
 
 

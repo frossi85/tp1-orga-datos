@@ -139,6 +139,7 @@ void Votante::Imprimir()
 unsigned long int Votante::Guardar(ofstream & ofs)
 {
 	unsigned long int offset = ofs.tellp();
+
 	//Comienzo escritura de atributos
 	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 	ofs.write(reinterpret_cast<char *>(&_dni), sizeof(_dni));
@@ -146,8 +147,7 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 	Utilidades::stringToFile(_clave, ofs);
 	Utilidades::stringToFile(_domicilio, ofs);
 
-	//Habria q verificar q no se guarde un Votante q se halla creado con Votante()
-	//Se escribe la referencia al Cargo guardando su id
+	//Se escribe la referencia al Distrito guardando su id
 	long idDistrito = (*(_distrito)).getId();
 	ofs.write(reinterpret_cast<char *>(&idDistrito), sizeof(idDistrito));
 
@@ -157,6 +157,7 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 	 * no hay un archivo VotanteEleccion, así no la complico.
 	 * Si hace falta después lo cambiamos.
 	 */
+
 	//Grabo la cantidad de elecciones que tiene
 	string::size_type cantidadElecciones = this->_elecciones.size();
 	ofs.write(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
@@ -167,7 +168,6 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 		idEleccion = this->_elecciones[i]->getId();
 		ofs.write(reinterpret_cast<char *>(&idEleccion), sizeof(idEleccion));
 	}
-
 
 	return offset;
 }
@@ -198,7 +198,12 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	offset = returnDistrito->getOffset();
 
 	// Leo el distrito del archivo de distritos
-	Distrito distrito; //si no funciona probar con un puntero a distrito
+	DataAccess dataAccess;
+	Distrito distrito;
+	dataAccess.Leer(distrito,offset);
+	_distrito = new Distrito(distrito);
+
+	/*Distrito distrito; //si no funciona probar con un puntero a distrito
 
 	string rutaArchivo = distrito.getURLArchivoDatos();
 	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
@@ -209,15 +214,7 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	ifsDatos.close();
 	_distrito = new Distrito(distrito);
 	delete hashIDDistritos;
-
-
-	/*Esto lo reemplacé por lo de arriba porque no puedo usar DataAcces
-	 *(por referencia cirular)
-	 */
-	//DataAccess dataAccess;
-	//Distrito distrito;
-	//dataAccess.Leer(idDistrito, Distrito);
-	//_distrito = &distrito; //Ver si la instancia q creo aca se guarda en el puntero o se elimina al salir del metodo
+*/															// BORRAR SI LO DE ARRIBA FUNCIONA (MARITN)
 
 	//Aca se tendrian q leer todos los ids(u offsets) de elecciones
 	//O el offset dentro del archivo VotanteEleccion y cargar los distritos al array
@@ -225,7 +222,8 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	 * no hay un archivo VotanteEleccion, así no la complico.
 	 * Si hace falta después lo cambiamos.
 	 */
-	// leo la cantidad de elecciones
+
+	// Leo la cantidad de elecciones
 	string::size_type cantidadElecciones = 0;
 	ifs.read(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
 
@@ -243,10 +241,6 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	//cosas que se usan adentro del for
 	string idEleccion;
 	RegistroIndice *returnEleccion;
-	rutaArchivo = eleccion.getURLArchivoDatos();
-	ifsDatos.open(rutaArchivo.c_str(), ios::in | ios::binary);
-	if(!ifsDatos.is_open())
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + eleccion.getClassName());
 
 	for(string::size_type i = 0; i < cantidadElecciones; i++){
 		idEleccion = Utilidades::toString(idVector[i]);
@@ -255,13 +249,10 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 		if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de la eleccion en el hash");
 		offset = returnEleccion->getOffset();
 
-		// Leo la eleccion del archivo de elecciones
-		Eleccion eleccion; //si no funciona probar con un puntero a eleccion
-		eleccion.Leer(ifsDatos, offset);
-		this->_elecciones.push_back(new Eleccion(eleccion));	// Anda? No usar push_back(&distrito) xq eso esta muy mal.
+		// Leo la eleccion del archivo de elecciones;
+		dataAccess.Leer(eleccion,offset);
+		this->_elecciones.push_back(new Eleccion(eleccion));	// Anda? No usar push_back(&eleccion) xq eso esta muy mal.
 	}
-	ifsDatos.close();
-
 	delete hashIDElecciones;
 }
 
