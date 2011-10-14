@@ -87,7 +87,41 @@ vector<Lista *> DataGetter::getListas_por_Eleccion(Eleccion& eleccion){
 	vector<Lista *> resultado;
 
 
+	//Para probar
+
+	Lista *l1,*l2,*l3;
+	l1= new Lista("Proyecto Sur",eleccion);
+	l2= new Lista("Pro",eleccion);
+	l3= new Lista("Frente Amplio Progresista",eleccion);
+
+	resultado.push_back(l1);
+	resultado.push_back(l2);
+	resultado.push_back(l3);
+
 	return resultado;
+
+}
+
+vector<Eleccion *> DataGetter::getElecciones_por_Votante(Votante &votante){
+
+	vector<Eleccion *> elecciones_resultado;
+
+
+
+	//Para Probar Metodo
+	Cargo cargo1("Presidente"),cargo2("Gobernador");
+	Distrito distrito("Lanus");
+
+	Eleccion *e1,*e2;
+
+	e1= new Eleccion("20111023",cargo1,distrito);
+	e2= new Eleccion("20111023",cargo2,distrito);
+
+	elecciones_resultado.push_back(e1);
+	elecciones_resultado.push_back(e2);
+
+	return elecciones_resultado;
+
 
 }
 
