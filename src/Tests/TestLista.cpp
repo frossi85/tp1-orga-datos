@@ -5,7 +5,7 @@
  *      Author: administrador
  */
 
-/*
+
 
 #include "TestLista.h"
 
@@ -47,12 +47,18 @@ void TestLista::inicializar(){
 
 bool TestLista::testConstructor(){
 	bool error_encontrado=false;
+	bool error_nombre,error_eleccion;
+	this->inicializar();
 
+	error_nombre=!(this->lista->getNombre()=="Proyecto Sur");
 
+	error_eleccion=!( this->lista->getEleccion().getFecha()=="20110901"); //ultimo numero es 1
 
+	error_encontrado=error_nombre || error_eleccion;
+
+	this->liberarMemoria();
 
 	return error_encontrado;
-
 
 }
 
@@ -83,4 +89,4 @@ void TestLista::liberarMemoria(){
 TestLista::~TestLista() {
 	// TODO Auto-generated destructor stub
 }
-*/
+

@@ -12,10 +12,14 @@
 #include "../Candidato.h"
 #include "../Cargo.h"
 #include "../Lista.h"
+#include "../Votante.h"
+#include "../Eleccion.h"
 
 class TestCandidato: public Test {
 private:
 	Candidato *candidato;
+	Votante *votante;
+	Eleccion *eleccion;
 	Cargo *cargo;
 	Lista *lista;
 

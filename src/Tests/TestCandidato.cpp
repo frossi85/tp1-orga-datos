@@ -20,6 +20,7 @@ void TestCandidato::comenzar(){
 	this->tituloTest();
 	this->error_encontrado=false;
 
+
 	if(this->testConstructor()){
 		this->informarError("Constructor");
 		this->error_encontrado=true;
@@ -37,11 +38,21 @@ void TestCandidato::comenzar(){
 
 void TestCandidato::inicializar(){
 
+
 	this->cargo=new Cargo("Gobernador");
-	Eleccion eleccion;
-	this->lista=new Lista("Lista 001",eleccion);
 	Distrito distrito("Quilmes");
+
+	this->eleccion=new Eleccion("200110905",*this->cargo,distrito);
+
+	this->lista=new Lista("Lista 001",*this->eleccion);
+
+
+
+
 	//this->candidato=new Candidato(35000000,"Monica Lopez","1234","Callao 242",distrito,*this->lista,*this->cargo);
+
+	this->votante=new Votante(35000000,"Monica Lopez","1234","Callao 424",distrito);
+	this->candidato=new Candidato(*this->votante,*this->lista);
 }
 
 bool TestCandidato::testConstructor(){
@@ -79,7 +90,9 @@ bool TestCandidato::testLectura_y_Escritura(){
 void TestCandidato::liberarMemoria(){
 
 	delete this->cargo;
+	delete this->eleccion;
 	delete this->lista;
+	delete this->votante;
 	delete this->candidato;
 
 }
