@@ -135,9 +135,9 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 	offset = returnReg->getOffset();
 
 	// Leo el cargo del archivo de cargos
-//	DataAccess dataAccess;
+	DataAccess dataAccess;
 	Cargo cargo;
-//	dataAccess.Leer(cargo,offset);
+	dataAccess.Leer(cargo,offset);
 	_cargo = new Cargo(cargo);
 	delete hash;
 
@@ -163,7 +163,7 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 		offset = returnReg->getOffset();
 
 		// Leo el distrito del archivo de cargos
-//		dataAccess.Leer(distrito,offset);
+		dataAccess.Leer(distrito,offset);
 		this->_distritos.push_back(new Distrito(distrito));	// Anda? No usar push_back(&distrito) xq eso esta muy mal.
 	}
 	delete hash;

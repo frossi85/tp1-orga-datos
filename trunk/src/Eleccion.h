@@ -8,7 +8,7 @@
 #include "RegistroIndice.h"
 #include "hash_extensible.h"
 #include "Configuracion.h"
-//#include "DataAccess.h"
+#include "DataAccess.h"
 
 
 using namespace std;
