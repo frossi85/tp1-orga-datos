@@ -31,7 +31,7 @@ public:
 
 	static vector<Lista* > getListas_por_Eleccion(Eleccion& eleccion);
 
-
+	static vector<Eleccion *> getElecciones_por_Votante(Votante &votante);
 	virtual ~DataGetter();
 
 };
