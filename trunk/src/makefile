@@ -1,7 +1,7 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o Menu_votante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
-TestCandidato.o TestLista.o DataGetter.o
+TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -107,7 +107,8 @@ hash_extensible.o: hash_extensible.cpp hash_extensible.h
 hash_extensible.h: BloqueHash.h RegistroIndice.h
 
 Tester.o: Tests/Tester.cpp Tests/Tester.h Tests/Test.h Tests/TestCargo.h Tests/TestDataAccess.h Tests/TestDistrito.h \
-Tests/TestEleccion.h Tests/TestVotante.h Tests/TestCandidato.h Tests/TestLista.h
+Tests/TestEleccion.h Tests/TestVotante.h Tests/TestCandidato.h Tests/TestLista.h Tests/TestABMentidades.h \
+Tests/TestPersistencias.h
 	$(CC) $(CFLAGS) Tests/Tester.cpp
 	
 Test.o: Tests/Test.cpp Tests/Test.h
@@ -148,6 +149,17 @@ TestCandidato.o: Tests/TestCandidato.cpp Tests/TestCandidato.h Eleccion.h Distri
 	
 Tests/TestCandidato.h: Tests/Test.h Candidato.h Cargo.h Lista.h
 
+TestABMentidades.o: Tests/TestABMentidades.cpp Tests/TestABMentidades.h ABM\ Entidades/ConsultaEntidades.h
+	$(CC) $(CFLAGS) Tests/TestABMentidades.cpp
+
+Tests/TestABMentidades.h: Tests/Test.h ABM\ Entidades/ABMentidades.h ABM\ Entidades/ConsultaEntidades.h
+
+TestPersistencias.o: Tests/TestPersistencias.cpp Tests/TestPersistencias.h
+	$(CC) $(CFLAGS) Tests/TestPersistencias.cpp
+
+Tests/TestPersistencias.h: Tests/Test.h Distrito.h Cargo.h Eleccion.h DataAccess.h hash_extensible.h RegistroIndice.h \
+Configuracion.h
+
 RegistroArbol.o: RegistroArbol.h RegistroArbol.cpp
 	$(CC) $(CFLAGS) RegistroArbol.cpp
 	
@@ -171,3 +183,8 @@ ABMentidades.o: ABM\ Entidades/ABMentidades.cpp ABM\ Entidades/ABMentidades.h
 
 ABM\ Entidades/ABMentidades.h: DataAccess.h Configuracion.h hash_extensible.h Eleccion.h Distrito.h Cargo.h Votante.h \
 Lista.h Candidato.h RegistroIndice.h ManejoIDs.h
+
+ConsultaEntidades.o: ABM\ Entidades/ConsultaEntidades.cpp ABM\ Entidades/ConsultaEntidades.h
+	$(CC) $(CFLAGS) ABM\ Entidades/ConsultaEntidades.cpp
+	
+ABM\ Entidades/ConsultaEntidades.h: Grabable.h DataAccess.h hash_extensible.h RegistroIndice.h
