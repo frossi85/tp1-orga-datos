@@ -83,20 +83,20 @@ Eleccion* Menu_votante::elegir_eleccion(){
 	unsigned opcion;
 	Eleccion *resultado;
 	vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante);
-	int cantidad_elecciones=elecciones.size();
+	unsigned int cantidad_elecciones=elecciones.size();
 	cout<<"************************************"<<endl;
 	cout<<endl<<"Elecciones Disponibles: "<<endl;
 	do{
 		opcion=1;
 
-		for(int i=0;i<cantidad_elecciones;i++){
+		for(unsigned i=0;i<cantidad_elecciones;i++){
 
 			cout<<opcion+i<<" - "<<elecciones[i]->getCargo().getCargoPrincipal()<<endl;
 
 		}
 
-		cout<<"0 - Volver a menu anterior"<<endl;
-
+		cout<<"0 - Volver a menu anterior"<<endl<<endl;
+		cout<<"Elegir Eleccion: ";
 		cin>>opcion;
 		eleccion_elegida=( opcion>=0) && (opcion<=cantidad_elecciones);
 
@@ -120,24 +120,9 @@ void Menu_votante::mostrar_listas_a_votar(Eleccion *eleccion){
 
 	Lista *lista;
 
-	char opcion='A';
 	bool confirmacion=false;
 
 	do{
-		//Se muestran Las Listas para seleccionar alguna
-		//...
-		//...
-//
-//		cout<<"Listas Para Eleccion: "<<endl; //eleccion->Imprimir();
-//
-//		cout<<"A - Lista 001"<<endl<<"B - Lista 002"<<"C - Lista 003"<<endl;
-//		cout<<"V - Volver a Menu de Elecciones"<<endl;
-//
-//		cin>>opcion;
-
-		//SE selecciona la Lista
-		//..
-		//..
 
 		lista=this->elegir_Lista(eleccion);
 
@@ -145,14 +130,14 @@ void Menu_votante::mostrar_listas_a_votar(Eleccion *eleccion){
 			confirmacion=confirmar_votacion(eleccion,lista);
 		}
 
-	}while((!confirmacion) || lista==NULL);
+	}while((!confirmacion) && lista!=NULL);
 
 	if (confirmacion){
 		cout<<"Voto Aceptado"<<endl;
 
 		//Se regresa al menu Principal
 		opciones();
-	}else {
+	}else if (lista==NULL) {
 
 
 		mostrar_menu_elecciones();
@@ -169,7 +154,9 @@ Lista* Menu_votante::elegir_Lista(Eleccion *eleccion){
 	vector<Lista *> listas=DataGetter::getListas_por_Eleccion(*eleccion);
 	int cantidad_listas=listas.size();
 	unsigned opcion;
+
 	do{
+		cout<<"************************************"<<endl;
 		cout<<endl<<"Listas Disponibles a votar:"<<endl;
 		for(int i=0;i<cantidad_listas;i++){
 
