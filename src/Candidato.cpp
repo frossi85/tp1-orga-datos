@@ -122,7 +122,14 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	offset = returnLista->getOffset();
 
 	// Leo la lista del archivo de listas
-	Lista lista; //si no funciona probar con un puntero a distrito
+	DataAccess dataAccess;
+	Lista lista;
+	dataAccess.Leer(lista,offset);
+	_listaPropia = new Lista(lista);
+	delete hashIDListas;
+
+	// Leo la lista del archivo de listas
+	/*Lista lista; //si no funciona probar con un puntero a distrito
 
 	string rutaArchivo = lista.getURLArchivoDatos();
 	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
@@ -132,7 +139,7 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	lista.Leer(ifsDatos, offset);
 	ifsDatos.close();
 	_listaPropia = new Lista(lista);
-	delete hashIDListas;
+	delete hashIDListas;*/  //BORRAR ESTE COMENTARIO SI LO DE ARRIBA ANDA BIEN
 
 	//leo el id del votante
 	long idVotante = 0;
@@ -150,7 +157,14 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	offset = returnVotante->getOffset();
 
 	// Leo el votante del archivo de votantes
-	Votante votante; //si no funciona probar con un puntero a votante
+	Votante votante;
+	dataAccess.Leer(votante,offset);
+	_votante = new Votante(votante);
+	delete hashIDVotantes;
+
+
+	// Leo el votante del archivo de votantes
+/*	Votante votante; //si no funciona probar con un puntero a votante
 
 	rutaArchivo = lista.getURLArchivoDatos();
 	ifsDatos.open(rutaArchivo.c_str(), ios::in | ios::binary);
@@ -160,7 +174,7 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	votante.Leer(ifsDatos, offset);
 	ifsDatos.close();
 	_votante = new Votante(votante);
-	delete hashIDVotantes;
+	delete hashIDVotantes; */ //BORRAR ESTE COMENTARIO SI LO DE ARRIBA ANDA BIEN
 
 
 	//DataAccess dataAccess;
