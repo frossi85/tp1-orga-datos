@@ -9,8 +9,6 @@
 #include "Cargo.h"
 #include "DataAccess.h"
 #include "Tests/Tester.h"
-#include "Tests/TestABMentidades.h"
-#include "Tests/TestPersistencias.h"
 #include "RegistroArbol.h"
 #include "Nodo.h"
 #include "ArbolBMas.h"
@@ -26,10 +24,12 @@ void testArbolBMasClavesDuplicadas();
 
 int main(int argc, char *argv[]){
 
-        Tester *tester=new Tester();
+ /*       Tester *tester=new Tester();
         tester->comenzarTests();
         delete tester;
-
+*/
+	// TODAVIA NO ANDAN LOS TESTS DE TESTABMentidades Y TESTPERSISTENCIA..SI QUIEREN PROBAR LOS OTROS
+	// SAQUENLOS DEL TESTER.CPP (MARTIN)
 
  /*       Menu *menu = Menu::getMenu();
         if (argc != 2){
