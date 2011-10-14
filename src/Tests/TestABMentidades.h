@@ -11,6 +11,7 @@
 #include <iostream>
 #include "../ABM Entidades/ABMentidades.h"
 #include "../ABM Entidades/ConsultaEntidades.h"
+#include "Test.h"
 /*#include "../Distrito.h"
 #include "../Cargo.h"
 #include "../Eleccion.h"
@@ -19,7 +20,13 @@
 #include "../RegistroIndice.h"
 #include "../Configuracion.h"*/
 
-class TestABMentidades {
+
+/*
+ * Ya Agregue Este Test para que se ejecute con Tester
+ */
+
+
+class TestABMentidades: public Test {
 public:
 	TestABMentidades();
 	virtual ~TestABMentidades();
@@ -30,6 +37,10 @@ public:
 	void testAltaVotante();
 	void testAltaCandidato();
 	void testAltaLista();
+
+	void comenzar();
+	void inicializar(){ }
+	void liberarMemoria(){ }
 
 private:
 	ABMentidades ABMtest;

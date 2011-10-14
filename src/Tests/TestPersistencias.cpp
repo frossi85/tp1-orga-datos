@@ -5,9 +5,28 @@
  *      Author: martin
  */
 
+/*
+ * Ya Agregue Este Test para que se ejecute con Tester
+ */
+
+
 #include "TestPersistencias.h"
 
-TestPersistencias::TestPersistencias() {}
+TestPersistencias::TestPersistencias() {
+	this->clase_en_testeo="Persistencias";
+}
+
+void TestPersistencias::comenzar(){
+
+	this->tituloTest();
+
+	this->TestCargo();
+
+	this->TestDistrito();
+
+	this->TestEleccion();
+
+}
 
 TestPersistencias::~TestPersistencias() {}
 
