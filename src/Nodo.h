@@ -2,7 +2,7 @@
  * Nodo.h
  *
  *  Created on: 02/10/2011
- *      Author: martin
+ *      Author: facundo
  */
 
 #ifndef NODO_H_
@@ -15,56 +15,56 @@
 using namespace std;
 
 class Nodo {
+    friend class ArbolBMas;
 public:
-	Nodo();
-	virtual ~Nodo();
-	unsigned int getCantidadRegistros();
+    Nodo();
+    virtual ~Nodo();
+    unsigned int getCantidadRegistros();
 
-	void Guardar(fstream &ofs);
-	static Nodo * Leer(fstream &ifs);
+    void Guardar(fstream &ofs);
+    static Nodo * Leer(fstream &ifs);
 
+    int agregarRegistro( const string & clave, const long & offset);
+    int agregarRegistro(RegistroArbol & registro);
+    int agregarRegistroAlFinal( RegistroArbol & elemento );
 
-	////Agregados Facundo
-	int agregarRegistro( const string & clave, const long & offset);
-	int agregarRegistro(RegistroArbol & registro);
-	int agregarRegistroAlFinal( RegistroArbol & elem );
+    void removerEnPosicion(int indice);
+    void removerEnPosicion(int indice, RegistroArbol & removido );
 
-	void removerEnPosicion(int indice);
-	void removerEnPosicion(int indice, RegistroArbol & removido );
+    void limpiar();
 
-	void clear();
+    bool buscarRegistro( const string &clave, int &indice ) const;
 
-	bool find( const string &clave, int &index ) const;
+    bool tieneHijos() const;
+    bool estaVacio() const;
+    bool estaLleno() const;
 
-	bool tieneHijos() const;
-	bool estaVacio() const;
-	bool estaLleno() const;
+    int count() const;
 
-	int count() const;
+    void setFlag(int flags);
+    int getFlag();
 
-	enum Flags
-	{
-		NodoCambiado = 1
-	};
+    void setAddr(int addr);
+    int getAddr();
 
+    void Imprimir();
 
-        //Max Keys se usa, NO borrarlo
-	const static unsigned int maxKeys = 3;
+    enum Flags
+    {
+        NodoCambiado = 1
+    };
 
-	// Data
-	int addr_;
-	int less_;
-	int size_; //Es cantidadRegistros
-	int padre_;
-	char flags_;
+private:
+    //====================== Seccion de Atributos ==========================
+    int _addr;
+    int _menor;
+    int _padre;
+    char _flags;
+    int _tamanio;
+    vector<RegistroArbol *> _registros; //Settear el NodeSize de acuerdo a la cantidad de red
 
-	const static unsigned int NodeSize = 500;
-	const static unsigned int capacidadEnBytes = 500;
-
-	//vector<RegistroArbol *> elems_; 
-	vector<RegistroArbol *> elems_; //Settear el NodeSize de acuerdo a la cantidad de red
-	
-	void Imprimir();
+    const static unsigned int _tamanioMaximoNodo = 500;
+    const static unsigned int _cantidadMaximaRegistros = 3;
 };
 
 

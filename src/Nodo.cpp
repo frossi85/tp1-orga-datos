@@ -7,245 +7,266 @@
 
 #include "Nodo.h"
 
+//==============================================================================
 Nodo::Nodo()
 {
-	this->addr_ = 0;
-	less_ = 0 ;
-	size_ = 0;
-	padre_ = 0;
-	flags_ = 0;
+	this->_addr = 0;
+	_menor = 0 ;
+	_tamanio = 0;
+	_padre = 0;
+	_flags = 0;
 }
 
+//==============================================================================
 Nodo::~Nodo() {
-	// TODO Auto-generated destructor stub
+//    if(!_registros.empty())
+//        limpiar();
 }
 
-int Nodo::agregarRegistro( const string &key, const long &data )
+//==============================================================================
+int Nodo::agregarRegistro( const string &clave, const long &offset )
 {
-	bool fueAgregado = false;
-	RegistroArbol * registro = new RegistroArbol(key, data);
+    bool fueAgregado = false;
+    RegistroArbol * registro = new RegistroArbol(clave, offset);
 
-	//TODO: Buscar en los archios originales para q es less_ y usarlo en
-	//esta clase, creo q son los hijos
+    int i = 0;
+    for ( i = 0; i < _tamanio; i++ )
+    {
+        if ( _registros[ i ]->getClave() > clave )
+        {
+            // Inserto en entre medio de uno menor y uno mayor q la clave
+            //pasaron como parametro
+            _registros.insert( _registros.begin( ) + i, registro);
+            _registros[ i ]->_link = 0;
+            fueAgregado = true;
+            break;
+        }
+    }
 
-	int i = 0;
-	for ( i = 0; i < size_; i++ )
-	{
-		if ( elems_[ i ]->getClave() > key )
-		{
-			// Inserto en entre medio de uno menor y uno mayor q la clave
-			//pasaron como parametro
-			//Ver si aca tengo q corroborar q no sea duplicado
-			elems_.insert( elems_.begin( ) + i, registro);
-			elems_[ i ]->link_ = 0;
-			fueAgregado = true;
-			break;
-		}
-	}
+    if ( !fueAgregado )
+    {
+        //Si no fue insertado entre medio lo meto al final
+        _registros.push_back(registro);
+        i = _tamanio;
+    }
 
-	if ( !fueAgregado )
-	{
-		//Si no fue insertado entre medio lo meto al final
-		elems_.push_back(registro);
-		i = size_;
-	}
+    _tamanio++;
+    _flags = Nodo::NodoCambiado;
 
-	size_++;
-	flags_ = Nodo::NodoCambiado;
-	return i;
+    return i;
 }
 
-int Nodo::agregarRegistro( RegistroArbol & elem )
+//==============================================================================
+int Nodo::agregarRegistro( RegistroArbol & elemento )
 {
-	int posicion = agregarRegistro( elem.getClave(), elem.getOffset() );
-	elems_[ posicion ]->link_ = elem.link_;
-	return posicion;
+    int posicion = agregarRegistro( elemento.getClave(), elemento.getOffset() );
+    _registros[ posicion ]->_link = elemento._link;
+    return posicion;
 }
 
-int Nodo::agregarRegistroAlFinal( RegistroArbol & elem )
+//==============================================================================
+int Nodo::agregarRegistroAlFinal( RegistroArbol & elemento )
 {
-	//RegistroArbol * registro = new RegistroArbol(elem.getClave(), elem.getOffset());
-	//Ver si aca tengo q corroborar q no sea duplicado
+    //RegistroArbol * registro = new RegistroArbol(elem.getClave(), elem.getOffset());
 
-	elems_.push_back(&elem);
+    _registros.push_back(&elemento);
 
-	size_++;
-	flags_ = Nodo::NodoCambiado;
-	return (size_ - 1);
+    _tamanio++;
+    _flags = Nodo::NodoCambiado;
+    return (_tamanio - 1);
 }
 
 ////	===================================================================
 void Nodo::Guardar(fstream &ofs)
 {
-	//Situar el stream en la posicion absoluta addr_
-	ofs.seekp(addr_);
-	unsigned int capacidadEnBytesAux = capacidadEnBytes;
+    //Situar el stream en la posicion absoluta addr_
+    ofs.seekp(_addr);
+    unsigned int capacidadEnBytesAux = _tamanioMaximoNodo;
 
-	//ofs.write(reinterpret_cast<char *>(&capacidadEnBytesAux), sizeof(capacidadEnBytesAux));
-	//ofs.write(reinterpret_cast<char *>(&tamanioEnBytesOcupados), sizeof(tamanioEnBytesOcupados));
-	//ofs.write(reinterpret_cast<char *>(&addr_), sizeof(addr_));
-	//ofs.write(reinterpret_cast<char *>(&less_), sizeof(less_));
-	//ofs.write(reinterpret_cast<char *>(&size_), sizeof(size_));
-	//ofs.write(reinterpret_cast<char *>(&padre_), sizeof(padre_));
+    //ofs.write(reinterpret_cast<char *>(&capacidadEnBytesAux), sizeof(capacidadEnBytesAux));
+    //ofs.write(reinterpret_cast<char *>(&tamanioEnBytesOcupados), sizeof(tamanioEnBytesOcupados));
+    //ofs.write(reinterpret_cast<char *>(&addr_), sizeof(addr_));
+    //ofs.write(reinterpret_cast<char *>(&less_), sizeof(less_));
+    //ofs.write(reinterpret_cast<char *>(&size_), sizeof(size_));
+    //ofs.write(reinterpret_cast<char *>(&padre_), sizeof(padre_));
 
 
-	ofs<<capacidadEnBytesAux<<"|";
-	ofs<<size_<<"|";
-	ofs<<addr_<<"|";
-	ofs<<less_<<"|";
-	ofs<<padre_<<"|";
+    ofs<<capacidadEnBytesAux<<"|";
+    ofs<<_tamanio<<"|";
+    ofs<<_addr<<"|";
+    ofs<<_menor<<"|";
+    ofs<<_padre<<"|";
 
-	for(unsigned int i = 0; i < elems_.size(); i++)
-	{
-		elems_[i]->Guardar(ofs);
-	}
-	//Hago un seek para dejarlo en los proximos 512bytes??
-	ofs<<"||";
-	long posicionStream = ofs.tellp();
-	long cantidadALimpiar = capacidadEnBytes - (posicionStream - addr_);
+    for(unsigned int i = 0; i < _registros.size(); i++)
+    {
+        _registros[i]->Guardar(ofs);
+    }
 
-	for(long i = 0; i<cantidadALimpiar; i++)
-	{
-		ofs<<" ";
-	}
+    ofs<<"||";
+    long posicionStream = ofs.tellp();
+    long cantidadALimpiar = _tamanioMaximoNodo - (posicionStream - _addr);
+
+    for(long i = 0; i<cantidadALimpiar; i++)
+    {
+        ofs<<" ";
+    }
 }
 
-//El arbol ya deja situado al fstream en la posicion correcta para
-//leer el nodo
+//==============================================================================
 Nodo * Nodo::Leer(fstream &ifs)
 {
-	unsigned int capacidadEnBytesAux = 0;
-	Nodo * nodo = new Nodo();
+    unsigned int capacidadEnBytesAux = 0;
+    Nodo * nodo = new Nodo();
 
-	//ifs.read(reinterpret_cast<char *>(&(capacidadEnBytesAux)), sizeof((capacidadEnBytesAux)));
-	//ifs.read(reinterpret_cast<char *>(&(nodo->tamanioEnBytesOcupados)), sizeof((nodo->tamanioEnBytesOcupados)));
-	//ifs.read(reinterpret_cast<char *>(&(nodo->addr_)), sizeof((nodo->addr_)));
-	//ifs.read(reinterpret_cast<char *>(&(nodo->less_)), sizeof((nodo->less_)));
-	//ifs.read(reinterpret_cast<char *>(&(nodo->size_)), sizeof((nodo->size_)));
-	//ifs.read(reinterpret_cast<char *>(&(nodo->padre_)), sizeof((nodo->padre_)));
+    //ifs.read(reinterpret_cast<char *>(&(capacidadEnBytesAux)), sizeof((capacidadEnBytesAux)));
+    //ifs.read(reinterpret_cast<char *>(&(nodo->tamanioEnBytesOcupados)), sizeof((nodo->tamanioEnBytesOcupados)));
+    //ifs.read(reinterpret_cast<char *>(&(nodo->addr_)), sizeof((nodo->addr_)));
+    //ifs.read(reinterpret_cast<char *>(&(nodo->less_)), sizeof((nodo->less_)));
+    //ifs.read(reinterpret_cast<char *>(&(nodo->size_)), sizeof((nodo->size_)));
+    //ifs.read(reinterpret_cast<char *>(&(nodo->padre_)), sizeof((nodo->padre_)));
 
-	char delimitador;
+    char delimitador;
 
-	ifs>>(capacidadEnBytesAux)>>delimitador;
-	ifs>>(nodo->size_)>>delimitador;
-	ifs>>(nodo->addr_)>>delimitador;
-	ifs>>(nodo->less_)>>delimitador;
-	ifs>>(nodo->padre_)>>delimitador;
+    ifs>>(capacidadEnBytesAux)>>delimitador;
+    ifs>>(nodo->_tamanio)>>delimitador;
+    ifs>>(nodo->_addr)>>delimitador;
+    ifs>>(nodo->_menor)>>delimitador;
+    ifs>>(nodo->_padre)>>delimitador;
 
-	//TODO: cuando capacidadEnBytesAux deje de ser constante tendria q
-	//settearlo aca o en el ifs.read()
+    //TODO: cuando capacidadEnBytesAux deje de ser constante tendria q
+    //settearlo aca o en el ifs.read()
 
-	for(int i = 0; i < nodo->size_; i++)
-	{
+    for(int i = 0; i < nodo->_tamanio; i++)
+    {
+        nodo->_registros.push_back(RegistroArbol::Leer(ifs));
+    }
 
-		nodo->elems_.push_back(RegistroArbol::Leer(ifs));
-	}
+    ifs>>delimitador>>delimitador;
 
-	ifs>>delimitador>>delimitador;
-
-	return nodo;
+    return nodo;
 }
 
-//Agregados Facundo
-////void removeAt( int index )
+//==============================================================================
 void Nodo::removerEnPosicion(int indice){
-	elems_.erase(elems_.begin() + indice);
-	size_--;
-	flags_ = NodoCambiado;
+    _registros.erase(_registros.begin() + indice);
+    _tamanio--;
+    _flags = NodoCambiado;
 }
-//void  removeAt( int index, ElemType &removed )
+
+//==============================================================================
 void Nodo::removerEnPosicion(int indice, RegistroArbol & removido ){
-	//Antes de remover dvuelve por parametro una referencia al elemento
-	//q quiero borrar en esa posicion
-	removido = *elems_[indice];
-	removerEnPosicion(indice);
+    //Antes de remover devuelve por parametro una referencia al elemento
+    //q quiero borrar en esa posicion
+    removido = *_registros[indice];
+    removerEnPosicion(indice);
 }
 
-void Nodo::clear()
+//==============================================================================
+void Nodo::limpiar()
 {
-	size_ = 0;
-	flags_ = 0;
+    _tamanio = 0;
+    _flags = 0;
 
-	RegistroArbol * registro;
+    RegistroArbol * registro;
 
-	while(!elems_.empty())
-	{
-		registro = elems_.back();
-		elems_.pop_back();
-		delete registro;
-	}
+    while(!_registros.empty())
+    {
+        registro = _registros.back();
+        _registros.pop_back();
+        delete registro;
+    }
 }
 
-//////	===============================================================
-////bool find( const string & key, int &index ) const
-//Busqueda binaria por clave en un vector, devuelve true si lo encontro
-//Por ahiora lo hago secuencial despues veo de implementarlo c binaria
-bool Nodo::find( const string &clave, int &index ) const
+//==============================================================================
+bool Nodo::buscarRegistro( const string &clave, int &indice ) const
 {
-	int lb = 0, ub = size_ - 1;
+    int lb = 0, ub = _tamanio - 1;
 
-	while( lb <= ub )
-	{
-		index = ( lb + ub ) >> 1;
+    while( lb <= ub )
+    {
+        indice = ( lb + ub ) >> 1;
 
-		if( clave < elems_[ index ]->getClave() )
-		{
-			ub = index - 1;
-		}
-		else
-		{
-			if( clave > elems_[ index ]->getClave() )
-			{
-				lb = index + 1;
-			}
-			else
-			{
-				return true;
-			}
-		}
-	}
+        if( clave < _registros[ indice ]->getClave() )
+        {
+            ub = indice - 1;
+        }
+        else
+        {
+            if( clave > _registros[ indice ]->getClave() )
+            {
+                lb = indice + 1;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 
-	index = lb;
-	return false;
+    indice = lb;
+    return false;
 }
 
+//==============================================================================
 bool Nodo::tieneHijos() const
 {
-	return less_ != 0;
+    return _menor != 0;
 }
 
+//==============================================================================
 bool Nodo::estaVacio() const
 {
-	return size_ == 0;
+    return _tamanio == 0;
 }
 
+//==============================================================================
 bool Nodo::estaLleno() const
 {
-	return size_ == maxKeys;
+    return _tamanio == _cantidadMaximaRegistros;
 }
 
+//==============================================================================
 int Nodo::count() const
 {
-	return size_;
+    return _tamanio;
 }
 
+//==============================================================================
+void Nodo::setFlag(int flags)
+{
+    _flags = flags;
+}
+
+//==============================================================================
+int Nodo::getFlag()
+{
+    return _flags;
+}
+
+//==============================================================================
+void Nodo::setAddr(int addr)
+{
+    _addr = addr;
+}
+
+//==============================================================================
+int Nodo::getAddr()
+{
+    return _addr;
+}
+
+//==============================================================================
 void Nodo::Imprimir()
 {
-	cout << "Capacidad en bytes: " << capacidadEnBytes << endl;
-	cout << "Cantidad de Registros: " << size_ << endl;
-	cout << "Address: " << addr_ << endl;
+    cout << "Capacidad en bytes: " << _tamanioMaximoNodo << endl;
+    cout << "Cantidad de Registros: " << _tamanio << endl;
+    cout << "Address: " << _addr << endl;
 
-	cout << "Registros del Nodo: " << endl;
-	for(unsigned int i = 0; i < elems_.size(); i++)
-	{
-		cout << "Registro Nro" << i+1 << endl;
-		elems_[i]->Imprimir();
-		cout<< endl;
-	}
-	
-	//addr_;
-	//less_;
-	//size_;
-	//padre_;
-	//flags_;
+    cout << "Registros del Nodo: " << endl;
+    for(unsigned int i = 0; i < _registros.size(); i++)
+    {
+        cout << "Registro Nro" << i+1 << endl;
+        _registros[i]->Imprimir();
+        cout<< endl;
+    }
 }

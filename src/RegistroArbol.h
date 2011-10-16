@@ -16,26 +16,28 @@
 using namespace std;
 
 class RegistroArbol{
+    friend class ArbolBMas;
+    friend class Nodo;
 public:
-	//PARA EJECUTAR PROGRAMAS EN LINUX ESCRIBIR EL COMANDO  ./VotoElectronico
-
-	RegistroArbol();
-	RegistroArbol(string clave, long offset);
+    RegistroArbol();
+    RegistroArbol(string clave, long offset);
     RegistroArbol(RegistroArbol & registro);
-	virtual ~RegistroArbol();
-	string getClave();
-	long getOffset();
-	void setClave(string offset);
-	void setOffset(long offset);
-	long getTamanioEnDisco();
-	static RegistroArbol * Leer(fstream & archivo);
-	void Guardar(fstream & archivo);
-	void Imprimir();
+    virtual ~RegistroArbol();
 
-	string clave;
-	long offset;
-	long link_; //Si no me equivoco es el puntero al nodo hoja de la derecha para
-	//hacer el barrido secuencial
+    string getClave();
+    long getOffset();
+    void setClave(string offset);
+    void setOffset(long offset);
+    long getTamanioEnDisco();
+    static RegistroArbol * Leer(fstream & archivo);
+    void Guardar(fstream & archivo);
+    void Imprimir();
+
+private:
+    //====================== Seccion de Atributos ==========================
+    string _clave;
+    long _offset;
+    long _link; //Al nodo que contiene el registro inmediatemente mayor
 };
 
 

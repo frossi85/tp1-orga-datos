@@ -7,918 +7,880 @@
 
 #include "ArbolBMas.h"
 
+//==============================================================================
 ArbolBMas::ArbolBMas() {
-	// TODO Auto-generated constructor stub
-	//Creo q habria q hacer lo del StreamControler
-	root_ = 0;
-	//maxCacheSize_ = 0;
-	
-	maxCacheSize_ = 512; //deberia settearlo con un setter probar como funciona con 0 tambien
-	rootAddr_ = 0;
-
+    _raiz = 0;
+    _estaAbierto = false;
+    _tamanioMaximoCache = 512;
+    _addrRaiz = 0;
 }
 
+//==============================================================================
 ArbolBMas::~ArbolBMas() {
-	close();
+    if(_estaAbierto)
+        cerrar();
 }
 
-//	===================================================================
-bool ArbolBMas::agregar( const string &key, const long &offset )
+//==============================================================================
+bool ArbolBMas::agregar( const string &clave, const long &offset )
 {
-	if ( !isOpen() ) return false;
-	
-	if ( !root_ )
-	{
-		int addr = rootAddr();
-		if ( !addr )
-		{
-			root_ = newnodo();
-			root_->flags_ = Nodo::NodoCambiado;
-			rootAddr( root_->addr_ );
-		}
-		else
-		{
-			if ( !loadnodo( &root_, addr ) )
-			{
-				cout<<"ERROR: No estaba cargada ni se pudo cargar la raiz al insertar"<<endl;
-				return false;
-			}
-		}
-	}
+    if ( !estaAbierto() ) return false;
 
-	if ( !root_ ) return false;
-
-	// Busco el nodo destino
-	bool econtrado = false;
-	string copyKey(key);
-	long copyData(offset);
-	int retIndex = -1, padreIndex = 0;
-
-	Nodo *nodo = findnodo( root_, copyKey, retIndex, padreIndex, econtrado );
-
-	if ( econtrado || !nodo )
-	{
-		//cout<<"clave duplicada"<<endl;
-		
-		// No se permiten claves duplicadas
-		releaseCache();
-		return false;
-	}
-
-	if ( !nodo->estaLleno() )
-	{
-		// Lo agrego al nodo, ya q no esta lleno	
-		nodo->agregarRegistro( copyKey, copyData );	
-		//ImprimirCache();
-		releaseCache();
-		return true;
-	}
-	else
-	{		
-		//Si el nodo esta lleno tengo q partirlo en dos, mitades
-		//Tener contador de cantidad de registros en el nodo
-		RegistroArbol median(key,offset);
-		Nodo *nodoDerecho = 0;
-		Nodo *padre = 0;
-		if ( !loadnodo( &padre, nodo->padre_ ) )
-		{
-			releaseCache();
-			return false;
-		}
-
-		// Parto el nodo y obtengo el intermedio (median)
-		if ( !splitnodo( nodo, median, &nodoDerecho ) )
-		{
-			releaseCache();
-			return false;
-		}
-
-		while ( 0 != padre )
-		{
-			// Agrego el intermedio al padre
-			//Lo repito hasta que el padre no necesite ser particionado
-			if ( padre->estaLleno() )
-			{
-				if ( !splitnodo( padre, median, &nodoDerecho ) )
-				{
-					releaseCache();
-					return false;
-				}
-
-				nodo = padre;
-
-				// Move Up
-				if ( !loadnodo( &padre, padre->padre_ ) )
-				{
-					releaseCache();
-					return false;
-				}
-			}
-			else
-			{
-				padre->agregarRegistro( median );
-				padre->flags_ = Nodo::NodoCambiado;
-				nodoDerecho->padre_ = padre->addr_;
-				nodoDerecho->flags_ = Nodo::NodoCambiado;
-				break;
-			}
-		}
-
-		//Si la raiz se partio, entonces creo una nueva raiz q tenga un elemento y dos punteros
-		if ( !padre )
-		{
-			// El nodo raiz!
-			root_ = newnodo();
-			rootAddr( root_->addr_ );
-			nodo->padre_ = root_->addr_;
-			nodo->flags_ = Nodo::NodoCambiado;
-			nodoDerecho->padre_ = root_->addr_;
-			nodoDerecho->flags_ = Nodo::NodoCambiado;
-
-			root_->agregarRegistro( median.clave, median.offset );
-			root_->elems_[ 0 ]->link_ = nodoDerecho->addr_;
-			root_->less_ = nodo->addr_;
-		}
-	}
-
-	releaseCache();
-	return true;
-}
-
-void ArbolBMas::ImprimirCache()
-{
-	cout<<"/////////////Comienza imprecion de cache//////////////"<<endl;
-	
-	for(int i=0; i<cache_.size(); i++)
-	{
-		cache_[i]->Imprimir();
-		cout<<endl;
-	}
-		
-	cout<<"/////////////Fin imprecion de cache//////////////"<<endl;
-		
-	getchar();
-}
-
-//	===================================================================
-bool ArbolBMas::remove( const string &key )
-{
-    long basura;
-    return remove(key, basura);
-}
-
-//	===================================================================
-bool ArbolBMas::remove( const string &key, long &data )
-{
-    if ( !root_ )
+    if ( !_raiz )
     {
-            return false;
+        int addr = getAddrRaiz();
+        if ( !addr )
+        {
+            _raiz = getNodoNuevo();
+            _raiz->_flags = Nodo::NodoCambiado;
+            setAddrRaiz( _raiz->_addr );
+        }
+        else
+        {
+            if ( !cargarNodo( &_raiz, addr ) )
+            {
+                cout<<"ERROR: No estaba cargada ni se pudo cargar la raiz al insertar"<<endl;
+                return false;
+            }
+        }
     }
 
-    // Find targeted nodo
+    if ( !_raiz ) return false;
+
+    // Busco el nodo destino
     bool econtrado = false;
-    int retIndex = -1, padreIndex = 0;
+    string copiaClave(clave);
+    long copiaOffset(offset);
+    int indiceRetornado = -1, indicePadre = 0;
 
-    Nodo *nodo = findnodo( root_, key, retIndex, padreIndex, econtrado );
+    Nodo *nodo = encontrarNodo( _raiz, copiaClave, indiceRetornado, indicePadre, econtrado );
 
-    if ( !econtrado || !nodo )
+    if ( econtrado || !nodo )
     {
-        // Key not econtrado
-        releaseCache();
+        // No se permiten claves duplicadas
+        liberarCache();
         return false;
     }
-    else
-    {
-        data = nodo->elems_[ retIndex ]->offset;
-    }
 
-    if ( !nodo->tieneHijos() )
+    if ( !nodo->estaLleno() )
     {
-        nodo->removerEnPosicion( retIndex );
-        if ( !rebalance( nodo, padreIndex ) )
-        {
-                releaseCache();
-                return false;
-        }
+        // Lo agrego al nodo, ya q no esta lleno
+        nodo->agregarRegistro( copiaClave, copiaOffset );
+        liberarCache();
+        return true;
     }
     else
     {
-        if ( !pullOut( nodo, retIndex ) )
+        //Si el nodo esta lleno tengo q partirlo en dos, mitades
+        //Tener contador de cantidad de registros en el nodo
+        RegistroArbol medio(clave,offset);
+        Nodo *nodoDerecho = 0;
+        Nodo *padre = 0;
+        if ( !cargarNodo( &padre, nodo->_padre ) )
         {
-                releaseCache();
-                return false;
+            liberarCache();
+            return false;
         }
-    }
 
-    releaseCache();
-    return true;
-}
+        // Parto el nodo y obtengo el intermedio (medio)
+        if ( !partirNodo( nodo, medio, &nodoDerecho ) )
+        {
+            liberarCache();
+            return false;
+        }
 
-//	===================================================================
-//Creo q busca si esta y nada mas
-bool ArbolBMas::buscar( const string &key, long &data )
-{
-	if ( !root_ )
-	{
-		return false;
-	}
-
-	int index = 0, padreIndex = 0;
-	bool econtrado = false;
-	Nodo *nodo = findnodo( root_, key, index, padreIndex, econtrado );
-
-	if ( !nodo || index < 0 )
-	{
-		releaseCache();
-		return false;
-	}
-
-	if ( econtrado )
-	{
-		// Clave econtrada
-		data = nodo->elems_[ index ]->getOffset();
-		releaseCache();
-		return true;
-	}
-
-	releaseCache();
-
-	// Key not econtrado
-	return false;
-}
-
-//===================================================================
-bool ArbolBMas::search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch, const string &condition )
-{
-    return search(retList, startclave, preciseSearch, true, condition );
-}
-bool ArbolBMas::search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch)
-{
-    return search(retList, startclave, preciseSearch, false, "" );
-}
-bool ArbolBMas::search( list<RegistroArbol *> &retList, const string &startclave, const string &condition )
-{
-    return search(retList, startclave, false, true, condition );
-}
-
-//===================================================================
-bool ArbolBMas::search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch, bool habilitarCondicion, const string &condition ) //TChecker &condition )
-{
-	retList.clear();
-
-	// Find targeted nodo
-	bool econtrado = false;
-	int retIndex = -1, padreIndex = 0;
-	Nodo *nodo = findnodo( root_, startclave, retIndex, padreIndex, econtrado );
-
-	if ( ( preciseSearch && !econtrado ) || !nodo )
-	{
-		releaseCache();
-		return false;
-	}
-
-	if ( !allKeys( nodo, retList, retIndex, startclave, habilitarCondicion, condition ) )
-	{
-		releaseCache();
-		return false;
-	}
-
-	releaseCache();
-	return true;
-}
-
-//	===================================================================
-bool ArbolBMas::getTodosLosRegistros( list<RegistroArbol *> &retList )
-{
-	if ( !allKeys( root_, retList ) )
-	{
-		releaseCache();
-		return false;
-	}
-
-	releaseCache();
-	return true;
-}
-
-//	===================================================================
-//	BTreeAlgorithms< nodoSize, string, long, TController >::changeData
-
-void ArbolBMas::cambiarOffset( const string &clave, const long &nuevoOffset )
-{
-	if ( !root_ )
-	{
-		return;
-	}
-
-	int indice = 0, indicePadre = 0;
-	bool econtrado = false;
-	Nodo *nodo = findnodo( root_, clave, indice, indicePadre, econtrado );
-
-	if ( !nodo || indice < 0 )
-	{
-		releaseCache();
-		return;
-	}
-
-	if ( econtrado )
-	{
-		// Clave econtrada
-		nodo->elems_[ indice ]->offset = nuevoOffset;
-		nodo->flags_ = Nodo::NodoCambiado;
-		releaseCache();
-		return;
-	}
-
-	releaseCache();
-}
-
-//void cambiarClave( const string &clave, const long &nuevaClave )
-//{
-//	if ( !root_ )
-//	{
-//		return;
-//	}
-//
-//	int indice = 0, indicePadre = 0;
-//	bool econtrado = false;
-//	Nodo *nodo = findnodo( root_, clave, indice, indicePadre, econtrado );
-//
-//	if ( !nodo || indice < 0 )
-//	{
-//		releaseCache();
-//		return;
-//	}
-//
-//	if ( econtrado )
-//	{
-//		// Clave econtrada
-//                RegistroArbol registro; //ver si no tiene q ser un puntero con new
-//                nodo->removerEnPosicion(indice, registro);
-//		registro->clave = nuevaClave;
-//		nodo->flags_ = Nodo::NodoCambiado;
-//                //Inserto el registro devuelta en el arbol
-//
-//                //Si lo de arriba no funciona: (creo q lo de arriba no me asegura q el arbol no se deforme
-//                //1.- Crear copia del registro
-//                //2.- Settear nueva clave
-//                //3.- Hacer arbol.remover(registroSinNuevaClave);
-//                //4.- Hacer arbol.add(registroNuevaClave);
-//
-//		releaseCache();
-//		return;
-//	}
-//
-//	releaseCache();
-//}
-
-//	==========
-bool ArbolBMas::allKeys(Nodo *nodo, list<RegistroArbol *> &retList, int elemIndex, const string &startKey, bool habilitarCondicion, const string &condition ) //era TChecker &condition
-{
-	if ( !nodo ) return true;
-
-	if ( -1 == elemIndex )
-	{
-		nodo->find( startKey, elemIndex );
-		if ( -1 == elemIndex )
-		{
-			return false;
-		}
-	}
-
-	int i = elemIndex;
-	//if ( i > 0 ) i--;
-
-	while ( i < nodo->size_ )
-	{
-            if ( !((nodo->elems_[ i ]->clave >= condition) && habilitarCondicion) )
+        while ( 0 != padre )
+        {
+            // Agrego el intermedio al padre
+            //Lo repito hasta que el padre no necesite ser particionado
+            if ( padre->estaLleno() )
             {
-                retList.push_back( new RegistroArbol( *(nodo->elems_[ i ] )) );
-
-                if ( nodo->elems_[ i ]->link_ )
+                if ( !partirNodo( padre, medio, &nodoDerecho ) )
                 {
-                    // Examine each child item
-                    Nodo *child = 0;
-                    bool wasInCache = nodoInCache( nodo->elems_[ i ]->link_ );
-                    if ( !loadnodo( &child, nodo->elems_[ i ]->link_ ) ) return false;
-                    allKeys( child, retList, habilitarCondicion, condition );
-                    if ( child && !wasInCache ) releasenodo( child->addr_ );
+                    liberarCache();
+                    return false;
+                }
+
+                nodo = padre;
+
+                // Me mueve hacia la raiz
+                if ( !cargarNodo( &padre, padre->_padre ) )
+                {
+                    liberarCache();
+                    return false;
                 }
             }
             else
             {
-                    break;
+                padre->agregarRegistro( medio );
+                padre->_flags = Nodo::NodoCambiado;
+                nodoDerecho->_padre = padre->_addr;
+                nodoDerecho->_flags = Nodo::NodoCambiado;
+                break;
             }
-
-            // Move to nodo end
-            i++;
-	}
-
-	if ( !nodo->padre_ )
-	{
-            // End of search has reached
-            return true;
-	}
-
-	// Move to up
-	Nodo *padre = 0;
-	bool wasInCache = nodoInCache( nodo->padre_ );
-	if ( !loadnodo( &padre, nodo->padre_ ) )
-	{
-            return false;
-	}
-
-	bool ret = allKeys( padre, retList, -1, startKey, habilitarCondicion, condition );
-	if ( padre && !wasInCache ) releasenodo( padre->addr_ );
-	return ret;
-}
-
-
-//===================================================================
-bool ArbolBMas::allKeys(Nodo *nodo, list<RegistroArbol *> &retList, bool habilitarCondicion, const string &condition ) //era TChecker &condition
-{
-	if ( !nodo ) return true;
-
-	if ( nodo->less_ )
-	{
-		Nodo *less = 0;
-
-		bool wasInCache = nodoInCache( nodo->less_ );
-		if ( !loadnodo( &less, nodo->less_ ) ) return false;
-
-		if ( !allKeys( less, retList ) )
-		{
-			// End of the condition had reached
-			return false;
-		}
-
-		if ( less && !wasInCache ) releasenodo( less->addr_ );
-	}
-
-	for ( int i = 0; i < nodo->size_; i++ )
-	{
-            		// Apply condition
-                if ( ((nodo->elems_[ i ]->clave >= condition) && habilitarCondicion) )
-		{
-			// Stop key reached
-			return false;
-		}
-
-                retList.push_back( new RegistroArbol( *(nodo->elems_[ i ]) ) );
-
-		if ( nodo->elems_[ i ]->link_ )
-		{
-                    Nodo *kid = 0;
-                    bool wasInCache = nodoInCache( nodo->elems_[ i ]->link_ );
-                    if ( !loadnodo( &kid, nodo->elems_[ i ]->link_ ) ) return false;
-                    if ( !allKeys( kid, retList ) )
-                    {
-                            // End of tree or condition had reached
-                            return false;
-                    }
-                    if ( kid && !wasInCache ) releasenodo( kid->addr_ );
-		}
-	}
-
-	return true;
-}
-
-//	===================================================================
-bool ArbolBMas::allKeys(Nodo *nodo, list<RegistroArbol *> &retList )
-{
-	if ( !nodo ) return true;
-
-	if ( nodo->less_ )
-	{
-		Nodo *less = 0;
-
-		bool wasInCache = nodoInCache( nodo->less_ );
-		if ( !loadnodo( &less, nodo->less_ ) ) return false;
-		if ( !allKeys( less, retList ) ) return false;
-		if ( less && !wasInCache ) releasenodo( less->addr_ );
-	}
-
-	for ( int i = 0; i < nodo->count(); i++ )
-	{
-		retList.push_back( new RegistroArbol( *(nodo->elems_[ i ] )) );
-
-		if ( nodo->elems_[ i ]->link_ )
-		{
-			Nodo *kid = 0;
-
-			bool wasInCache = nodoInCache( nodo->elems_[ i ]->link_ );
-			if ( !loadnodo( &kid, nodo->elems_[ i ]->link_ ) ) return false;
-			if ( !allKeys( kid, retList ) ) return false;
-			if ( kid && !wasInCache ) releasenodo( kid->addr_ );
-		}
-	}
-
-	return true;
-}
-
-//	===================================================================
-void ArbolBMas::close()
-{
-	delete root_;
-	root_ = 0;
-
-	storage.close();
-	closeController();
-}
-
-//	===================================================================
-bool ArbolBMas::rebalance( Nodo *nodo, int padreIndex )
-{
-	int minimal = nodo->maxKeys >> 1;
-
-	if ( nodo->count() >= minimal )
-	{
-		// El nodo esta balanceado
-		return true;
-	}
-
-	Nodo *padre = 0;
-	if ( !loadnodo( &padre, nodo->padre_ ) )
-	{
-		return false;
-	}
-
-	Nodo *leftnodo = 0, *Derechonodo = 0;
-	Nodo *combinednodo = 0;
-
-	if ( 0 == padreIndex - 1 )
-	{
-		if ( !loadnodo( &leftnodo, padre->less_ ) ) return false;
-	}
-	else if ( padreIndex >= 2 )
-	{
-		if ( !loadnodo( &leftnodo, padre->elems_[ padreIndex - 2 ]->link_ ) ) return false;
-	}
-
-	if ( padre && padreIndex < padre->count() )
-	{
-		if ( !loadnodo( &Derechonodo, padre->elems_[ padreIndex ]->link_ ) ) return false;
-	}
-
-	if ( leftnodo && leftnodo->count() > minimal )
-	{
-                //ACA era un Registro arbol y no un puntero, ver eso
-
-                // Chequeo el izquierdo
-		RegistroArbol padreElem( *(padre->elems_[ padreIndex - 1 ]) );
-		padreElem.link_ = nodo->less_;
-		nodo->less_ = leftnodo->elems_[ leftnodo->count() - 1 ]->link_;
-		nodo->agregarRegistro( padreElem );
-		nodo->flags_ = Nodo::NodoCambiado;
-
-		if ( nodo->less_ )
-		{
-			Nodo *less = 0;
-			if ( !loadnodo( &less, nodo->less_ ) ) return false;
-			less->padre_ = nodo->addr_;
-			less->flags_ = Nodo::NodoCambiado;
-		}
-
-		RegistroArbol largest;
-		leftnodo->removerEnPosicion( leftnodo->count() - 1, largest );
-		padre->elems_[ padreIndex - 1 ]->clave = largest.clave;
-		padre->elems_[ padreIndex - 1 ]->offset = largest.offset;
-		padre->flags_ = Nodo::NodoCambiado;
-	}
-	else if ( Derechonodo && Derechonodo->count() > minimal )
-	{
-		// Chequeo el derecho
-		RegistroArbol padreElem( *(padre->elems_[ padreIndex ]) );
-		padreElem.link_ = Derechonodo->less_;
-		nodo->agregarRegistro( padreElem );
-
-		if ( Derechonodo->less_ )
-		{
-			Nodo *less = 0;
-			if ( !loadnodo( &less, Derechonodo->less_ ) ) return false;
-			less->padre_ = nodo->addr_;
-			less->flags_ = Nodo::NodoCambiado;
-		}
-
-		RegistroArbol smallest;
-		Derechonodo->removerEnPosicion( 0, smallest );
-		Derechonodo->less_ = smallest.link_;
-		padre->elems_[ padreIndex ]->clave = smallest.clave;
-		padre->elems_[ padreIndex ]->offset = smallest.offset;
-		padre->flags_ = Nodo::NodoCambiado;
-	}
-	else
-	{
-		// Combino los nodos
-		if ( leftnodo )
-		{
-			int index = leftnodo->agregarRegistro( padre->elems_[ padreIndex - 1 ]->clave, padre->elems_[ padreIndex - 1 ]->offset );
-			leftnodo->elems_[ index ]->link_ = nodo->less_;
-			if ( nodo->less_ )
-			{
-				Nodo *less = 0;
-				if ( !loadnodo( &less, nodo->less_ ) ) return false;
-				less->padre_ = leftnodo->addr_;
-				less->flags_ = Nodo::NodoCambiado;
-			}
-
-			if ( !combine( leftnodo, nodo ) ) return false;
-			combinednodo = leftnodo;
-			padre->removerEnPosicion( padreIndex - 1 );
-		}
-		else if ( Derechonodo )
-		{
-			int index = nodo->agregarRegistro( padre->elems_[ padreIndex ]->clave, padre->elems_[ padreIndex ]->offset );
-			nodo->elems_[ index ]->link_ = Derechonodo->less_;
-
-			if ( Derechonodo->less_ )
-			{
-				Nodo *less = 0;
-				if ( !loadnodo( &less, Derechonodo->less_ ) ) return false;
-				less->padre_ = nodo->addr_;
-				less->flags_ = Nodo::NodoCambiado;
-			}
-
-			if ( !combine( nodo, Derechonodo ) ) return false;
-			combinednodo = nodo;
-			padre->removerEnPosicion( padreIndex );
-		}
-
-		padreIndex = -1;
-
-		if ( padre && padre->padre_ )
-		{
-			// Busco el indice del padre
-			Nodo *pp = 0;
-			if ( !loadnodo( &pp, padre->padre_ ) ) return false;
-
-			if ( pp->less_ == padre->addr_ )
-			{
-				padreIndex = 0;
-			}
-			else
-			{
-				// Checkeo el padre del padre
-				for ( int i = 0; i < pp->count(); i++ )
-				{
-					if ( pp->elems_[ i ]->link_ == padre->addr_ )
-					{
-						padreIndex = i + 1;
-						break;
-					}
-				}
-			}
-
-			if ( padreIndex >= 0 )
-			{
-				if ( !rebalance( padre, padreIndex ) ) return false;
-			}
-		}
-		else
-		{
-			// Esta es la raiz
-			if ( padre && padre->estaVacio() )
-			{
-				deletenodo( root_ );
-				root_ = combinednodo;
-				rootAddr( root_->addr_ );
-				combinednodo->padre_ = 0;
-				combinednodo->flags_ = Nodo::NodoCambiado;
-			}
-		}
-	}
-
-	return true;
-}
-
-//===================================================================
-bool ArbolBMas::combine( Nodo *leftnodo, Nodo *Derechonodo )
-{
-	if ( leftnodo->count() + Derechonodo->count() > leftnodo->maxKeys )
-	{
-		// No hay espacio para combinar
-		return true;
-	}
-
-	for ( int i = 0; i < Derechonodo->count(); i++ )
-	{
-		leftnodo->agregarRegistroAlFinal(*(Derechonodo->elems_[ i ]));
-
-		if ( Derechonodo->elems_[ i ]->link_ )
-		{
-			Nodo *link = 0;
-			if ( !loadnodo( &link, Derechonodo->elems_[ i ]->link_ ) ) return false;
-			link->padre_ = leftnodo->addr_;
-			link->flags_ = Nodo::NodoCambiado;
-		}
-
-		//leftnodo->size_++; //Creo q lo pone aca por q si lo de arriba retorna con false, ver de cambiar pocicion
-		leftnodo->flags_ = Nodo::NodoCambiado;
-	}
-
-	deletenodo( Derechonodo );
-	return true;
-}
-
-//	===================================================================
-bool ArbolBMas::pullOut( Nodo *nodo, int itemIndex )
-{
-	Nodo *leftSubtree = 0, *DerechoSubtree = 0;
-
-	// Obtener subarboles
-	if ( 0 == itemIndex )
-	{
-		if ( !loadnodo( &leftSubtree, nodo->less_ ) ) return false;
-	}
-	else
-	{
-		if ( !loadnodo( &leftSubtree, nodo->elems_[ itemIndex - 1 ]->link_ ) ) return false;
-	}
-
-	if ( !loadnodo( &DerechoSubtree, nodo->elems_[ itemIndex ]->link_ ) ) return false;
-	if ( !leftSubtree || !DerechoSubtree ) return false;
-
-	if ( leftSubtree->count() > DerechoSubtree->count() )
-	{
-		// El subarbol izquierdo es mayor
-		if ( leftSubtree->tieneHijos() )
-		{
-			string largestKey;
-			long largestData;
-			Nodo *largestnodo = DerechoMost( leftSubtree, largestKey, largestData );
-			nodo->elems_[ itemIndex ]->clave = largestKey;
-			nodo->elems_[ itemIndex ]->offset = largestData;
-			nodo->flags_ = Nodo::NodoCambiado;
-			largestnodo->removerEnPosicion( largestnodo->count() - 1 );
-
-			Nodo *largestpadre = 0;
-			if ( !loadnodo( &largestpadre, largestnodo->padre_ ) ) return false;
-			if ( !rebalance( largestnodo, largestpadre->count() ) ) return false;
-		}
-		else
-		{
-			nodo->elems_[ itemIndex ]->clave = leftSubtree->elems_[ leftSubtree->count() - 1 ]->clave;
-			nodo->elems_[ itemIndex ]->offset = leftSubtree->elems_[ leftSubtree->count() - 1 ]->offset;
-			nodo->flags_ = Nodo::NodoCambiado;
-			leftSubtree->removerEnPosicion( leftSubtree->count() - 1 );
-			if ( !rebalance( leftSubtree, itemIndex ) ) return false;
-		}
-	}
-	else
-	{
-		// El subarbol derecho es mayor
-		if ( DerechoSubtree->tieneHijos() )
-		{
-			string smallestKey;
-			long smallestData;
-			Nodo *smallestnodo = leftMost( DerechoSubtree, smallestKey, smallestData );
-			nodo->elems_[ itemIndex ]->clave = smallestKey;
-			nodo->elems_[ itemIndex ]->offset = smallestData;
-			nodo->flags_ = Nodo::NodoCambiado;
-			smallestnodo->removerEnPosicion( 0 );
-			if ( !rebalance( smallestnodo, 0 ) ) return false;
-		}
-		else
-		{
-			nodo->elems_[ itemIndex ]->clave = DerechoSubtree->elems_[ 0 ]->clave;
-			nodo->elems_[ itemIndex ]->offset = DerechoSubtree->elems_[ 0 ]->offset;
-			nodo->flags_ = Nodo::NodoCambiado;
-			DerechoSubtree->removerEnPosicion( 0 );
-			if ( !rebalance( DerechoSubtree, itemIndex + 1 ) ) return false;
-		}
-	}
-
-	return true;
-}
-
-//	===================================================================
-Nodo* ArbolBMas::DerechoMost( Nodo *subtree, string &largestKey, long &largestData )
-{
-	if ( subtree->elems_[ subtree->count() - 1 ]->link_ )
-	{
-		Nodo *DerechoMostLink = 0;
-		if ( !loadnodo( &DerechoMostLink, subtree->elems_[ subtree->count() - 1 ]->link_ ) )
-		{
-			return 0;
-		}
-
-		return DerechoMost( DerechoMostLink, largestKey, largestData );
-	}
-	else
-	{
-		largestKey = subtree->elems_[ subtree->count() - 1 ]->clave;
-		largestData = subtree->elems_[ subtree->count() - 1 ]->offset;
-		return subtree;
-	}
-}
-
-//	===================================================================
-Nodo* ArbolBMas::leftMost( Nodo *subtree, string &smallestKey, long &smallestData )
-{
-    if ( subtree->less_ )
-    {
-        Nodo *leftMostLink = 0;
-        if ( !loadnodo( &leftMostLink, subtree->less_ ) )
-        {
-                return 0;
         }
 
-        return leftMost( leftMostLink, smallestKey, smallestData );
+        //Si la raiz se partio, entonces creo una nueva raiz q tenga un elemento y dos punteros
+        if ( !padre )
+        {
+            // El nodo raiz!
+            _raiz = getNodoNuevo();
+            setAddrRaiz( _raiz->_addr );
+            nodo->_padre = _raiz->_addr;
+            nodo->_flags = Nodo::NodoCambiado;
+            nodoDerecho->_padre = _raiz->_addr;
+            nodoDerecho->_flags = Nodo::NodoCambiado;
+
+            _raiz->agregarRegistro( medio._clave, medio._offset );
+            _raiz->_registros[ 0 ]->_link = nodoDerecho->_addr;
+            _raiz->_menor = nodo->_addr;
+        }
+    }
+
+    liberarCache();
+    return true;
+}
+
+//==============================================================================
+void ArbolBMas::ImprimirCache()
+{
+    cout<<"/////////////Comienza imprecion de cache//////////////"<<endl;
+
+    for(int i=0; i<_cache.size(); i++)
+    {
+        _cache[i]->Imprimir();
+        cout<<endl;
+    }
+
+    cout<<"/////////////Fin imprecion de cache//////////////"<<endl;
+}
+
+//==============================================================================
+bool ArbolBMas::eliminar( const string &clave )
+{
+    long basura;
+    return eliminar(clave, basura);
+}
+
+//==============================================================================
+bool ArbolBMas::eliminar( const string &clave, long &offsetRetornado )
+{
+    if ( !_raiz )
+    {
+        return false;
+    }
+
+    // Buscar nodo objetivo
+    bool econtrado = false;
+    int indice = -1, indicePadre = 0;
+
+    Nodo *nodo = encontrarNodo( _raiz, clave, indice, indicePadre, econtrado );
+
+    if ( !econtrado || !nodo )
+    {
+        // Clave no encontrada
+        liberarCache();
+        return false;
     }
     else
     {
-        smallestKey = subtree->elems_[ 0 ]->clave;
-        smallestData = subtree->elems_[ 0 ]->offset;
-        return subtree;
+        offsetRetornado = nodo->_registros[ indice ]->_offset;
     }
+
+    if ( !nodo->tieneHijos() )
+    {
+        nodo->removerEnPosicion( indice );
+        if ( !rebalancear( nodo, indicePadre ) )
+        {
+            liberarCache();
+            return false;
+        }
+    }
+    else
+    {
+        if ( !retirar( nodo, indice ) )
+        {
+            liberarCache();
+            return false;
+        }
+    }
+
+    liberarCache();
+    return true;
 }
 
-//===================================================================
-bool ArbolBMas::splitnodo( Nodo *nodo,	RegistroArbol &median, Nodo **nodoDerecho )
+//==============================================================================
+bool ArbolBMas::buscar( const string &clave, long &offset )
 {
-    RegistroArbol insertElem(median);
-
-    int medianIndex = getMedian( nodo, median );
-
-    Nodo nodoLeftTmp;
-    *nodoDerecho = newnodo();
-
-    // Replace element
-    nodo->removerEnPosicion( medianIndex );
-    nodo->agregarRegistro( insertElem );
-
-    ( *nodoDerecho )->less_ = median.link_;
-    if ( median.link_ )
+    if ( !_raiz )
     {
-            Nodo *link = 0;
-            if ( !loadnodo( &link, median.link_ ) ) return false;
-            link->padre_ = ( *nodoDerecho )->addr_;
-            link->flags_ = Nodo::NodoCambiado;
+        return false;
     }
-    nodoLeftTmp.less_ = nodo->less_;
 
+    int indice = 0, indicePadre = 0;
+    bool econtrado = false;
+    Nodo *nodo = encontrarNodo( _raiz, clave, indice, indicePadre, econtrado );
 
-    for ( int i = 0; i < nodo->size_; i++ )
+    if ( !nodo || indice < 0 )
     {
-        if ( nodo->elems_[ i ]->getClave() < median.getClave() )
+        liberarCache();
+        return false;
+    }
+
+    if ( econtrado )
+    {
+        // Clave econtrada
+        offset = nodo->_registros[ indice ]->getOffset();
+        liberarCache();
+        return true;
+    }
+
+    liberarCache();
+
+    // Clave no econtrada
+    return false;
+}
+
+//==============================================================================
+bool ArbolBMas::buscar( list<RegistroArbol *> &listaRetornada, const string &claveInicial, bool esBusquedaPrecisa, const string &condicion )
+{
+    return buscar(listaRetornada, claveInicial, esBusquedaPrecisa, true, condicion );
+}
+
+//==============================================================================
+bool ArbolBMas::buscar( list<RegistroArbol *> &listaRetornada, const string &claveInicial, bool esBusquedaPrecisa)
+{
+    return buscar(listaRetornada, claveInicial, esBusquedaPrecisa, false, "" );
+}
+
+//==============================================================================
+bool ArbolBMas::buscar( list<RegistroArbol *> &listaRetornada, const string &claveInicial, const string &condicion )
+{
+    return buscar(listaRetornada, claveInicial, false, true, condicion );
+}
+
+//==============================================================================
+bool ArbolBMas::buscar( list<RegistroArbol *> &listaRetornada, const string &claveInicial, bool esBusquedaPrecisa, bool habilitarCondicion, const string &condicion ) //TChecker &condition )
+{
+    listaRetornada.clear();
+
+    // Econtrar el nodo objetivo
+    bool econtrado = false;
+    int indice = -1, inidicePadre = 0;
+    Nodo *nodo = encontrarNodo( _raiz, claveInicial, indice, inidicePadre, econtrado );
+
+    if ( ( esBusquedaPrecisa && !econtrado ) || !nodo )
+    {
+        liberarCache();
+        return false;
+    }
+
+    if ( !registrosDesdeNodo( nodo, listaRetornada, indice, claveInicial, habilitarCondicion, condicion ) )
+    {
+        liberarCache();
+        return false;
+    }
+
+    liberarCache();
+    return true;
+}
+
+//==============================================================================
+bool ArbolBMas::getTodosLosRegistros( list<RegistroArbol *> &listaRetornada )
+{
+    if ( !registrosDesdeNodo( _raiz, listaRetornada ) )
+    {
+        liberarCache();
+        return false;
+    }
+
+    liberarCache();
+    return true;
+}
+
+//==============================================================================
+void ArbolBMas::cambiarOffset( const string &clave, const long &nuevoOffset )
+{
+    if ( !_raiz )
+    {
+        return;
+    }
+
+    int indice = 0, indicePadre = 0;
+    bool econtrado = false;
+    Nodo *nodo = encontrarNodo( _raiz, clave, indice, indicePadre, econtrado );
+
+    if ( !nodo || indice < 0 )
+    {
+        liberarCache();
+        return;
+    }
+
+    if ( econtrado )
+    {
+        // Clave econtrada
+        nodo->_registros[ indice ]->_offset = nuevoOffset;
+        nodo->_flags = Nodo::NodoCambiado;
+        liberarCache();
+        return;
+    }
+
+    liberarCache();
+}
+
+//==============================================================================
+void ArbolBMas::cambiarClave( const string &clave, const string &nuevaClave )
+{
+    long offset = -1;
+
+    if(buscar(clave, offset))
+        if(eliminar(clave))
+            agregar(nuevaClave, offset);
+}
+
+//==============================================================================
+bool ArbolBMas::registrosDesdeNodo(Nodo *nodo, list<RegistroArbol *> &listaRetornada, int indiceElemento, const string &claveInicial, bool habilitarCondicion, const string &condicion )
+{
+    if ( !nodo ) return true;
+
+    if ( -1 == indiceElemento )
+    {
+        nodo->buscarRegistro( claveInicial, indiceElemento );
+        if ( -1 == indiceElemento )
         {
-            //nodoLeftTmp.elems_[ nodoLeftTmp.size_ ] = nodo->elems_[ i ];
-            nodoLeftTmp.agregarRegistroAlFinal(*nodo->elems_[ i ]);
-            //nodoLeftTmp.size_++;
+                return false;
+        }
+    }
+
+    int i = indiceElemento;
+
+    while ( i < nodo->count() )
+    {
+        if ( !((nodo->_registros[ i ]->_clave >= condicion) && habilitarCondicion) )
+        {
+            listaRetornada.push_back( new RegistroArbol( *(nodo->_registros[ i ] )) );
+
+            if ( nodo->_registros[ i ]->_link )
+            {
+                // Examino cada item hijo
+                Nodo *hijo = 0;
+                bool estabaEnCache = nodoEstaEnCache( nodo->_registros[ i ]->_link );
+                if ( !cargarNodo( &hijo, nodo->_registros[ i ]->_link ) ) return false;
+                registrosDesdeNodo( hijo, listaRetornada, habilitarCondicion, condicion );
+                if ( hijo && !estabaEnCache ) liberarNodo( hijo->_addr );
+            }
         }
         else
         {
-            ( *nodoDerecho )->agregarRegistroAlFinal(*nodo->elems_[ i ]);
-
-            if ( nodo->elems_[ i ]->link_ )
-            {
-                Nodo *link = 0;
-
-                bool estabaEnCache = nodoInCache( nodo->elems_[ i ]->link_ );
-                if ( !loadnodo( &link, nodo->elems_[ i ]->link_ ) ) return false;
-                link->padre_ = ( *nodoDerecho )->addr_;
-                link->flags_ = Nodo::NodoCambiado;
-                if ( link && !estabaEnCache ) releasenodo( link->addr_ );
-            }
-
-            //( *nodoDerecho )->size_++; //Esto lo hace mi insertar al final pero capaz lo puso aca por si fallaba lo anterior
+            break;
         }
+
+        // Me muevo hacia el final del nodo
+        i++;
     }
 
-    // Preparo el resultado
-    ( *nodoDerecho )->padre_ = nodo->padre_;
-    nodoLeftTmp.padre_ = nodo->padre_;
-    nodoLeftTmp.addr_ = nodo->addr_;
-    *nodo = nodoLeftTmp;
+    if ( !nodo->_padre )
+    {
+        // Se ha llegado al final de la busqueda
+        return true;
+    }
 
-    ( *nodoDerecho )->flags_ = Nodo::NodoCambiado;
-    nodo->flags_ = Nodo::NodoCambiado;
+    Nodo *padre = 0;
+    bool estabaEnCache = nodoEstaEnCache( nodo->_padre );
+    if ( !cargarNodo( &padre, nodo->_padre ) )
+    {
+        return false;
+    }
 
-    median.link_ = ( *nodoDerecho )->addr_;
+    bool ret = registrosDesdeNodo( padre, listaRetornada, -1, claveInicial, habilitarCondicion, condicion );
+    if ( padre && !estabaEnCache ) liberarNodo( padre->_addr );
+    return ret;
+}
+
+
+//==============================================================================
+bool ArbolBMas::registrosDesdeNodo(Nodo *nodo, list<RegistroArbol *> &listaRetornada, bool habilitarCondicion, const string &condicion )
+{
+    if ( !nodo ) return true;
+
+    if ( nodo->_menor )
+    {
+        Nodo *menor = 0;
+
+        bool estabaEnCache = nodoEstaEnCache( nodo->_menor );
+        if ( !cargarNodo( &menor, nodo->_menor ) ) return false;
+
+        if ( !registrosDesdeNodo( menor, listaRetornada ) )
+        {
+            // Fin
+            return false;
+        }
+
+        if ( menor && !estabaEnCache ) liberarNodo( menor->_addr );
+    }
+
+    for ( int i = 0; i < nodo->count(); i++ )
+    {
+        //Aplico la condicion, si estaba habilitada
+        if ( ((nodo->_registros[ i ]->_clave >= condicion) && habilitarCondicion) )
+        {
+            // Paro condicion alcanzada
+            return false;
+        }
+
+        listaRetornada.push_back( new RegistroArbol( *(nodo->_registros[ i ]) ) );
+
+        if ( nodo->_registros[ i ]->_link )
+        {
+            Nodo *hijo = 0;
+            bool estabaEnCache = nodoEstaEnCache( nodo->_registros[ i ]->_link );
+            if ( !cargarNodo( &hijo, nodo->_registros[ i ]->_link ) ) return false;
+            if ( !registrosDesdeNodo( hijo, listaRetornada ) )
+            {
+                // Final del arbol o condicion alcanzada
+                return false;
+            }
+            if ( hijo && !estabaEnCache ) liberarNodo( hijo->_addr );
+        }
+    }
 
     return true;
 }
 
-int ArbolBMas::getMedian( Nodo *nodo, RegistroArbol &elem )
+//==============================================================================
+bool ArbolBMas::registrosDesdeNodo(Nodo *nodo, list<RegistroArbol *> &listaRetornada )
 {
-    int medianRange = nodo->size_ >> 1;
-    elem = *nodo->elems_[ medianRange ];
-    return medianRange;
+    if ( !nodo ) return true;
+
+    if ( nodo->_menor )
+    {
+        Nodo *menor = 0;
+
+        bool estabaEnCache = nodoEstaEnCache( nodo->_menor );
+        if ( !cargarNodo( &menor, nodo->_menor ) ) return false;
+        if ( !registrosDesdeNodo( menor, listaRetornada ) ) return false;
+        if ( menor && !estabaEnCache ) liberarNodo( menor->_addr );
+    }
+
+    for ( int i = 0; i < nodo->count(); i++ )
+    {
+        listaRetornada.push_back( new RegistroArbol( *(nodo->_registros[ i ] )) );
+
+        if ( nodo->_registros[ i ]->_link )
+        {
+            Nodo *hijo = 0;
+
+            bool estabaEnCache = nodoEstaEnCache( nodo->_registros[ i ]->_link );
+            if ( !cargarNodo( &hijo, nodo->_registros[ i ]->_link ) ) return false;
+            if ( !registrosDesdeNodo( hijo, listaRetornada ) ) return false;
+            if ( hijo && !estabaEnCache ) liberarNodo( hijo->_addr );
+        }
+    }
+
+    return true;
 }
 
-bool ArbolBMas::nodoInCache( int addr )
+//==============================================================================
+void ArbolBMas::cerrar()
+{
+    _tamanioMaximoCache = 0;
+    liberarCache();
+    if(_raiz != NULL)
+        delete _raiz;
+    _raiz = 0;
+    cerrarControlador();
+    _estaAbierto = false;
+}
+
+//==============================================================================
+bool ArbolBMas::rebalancear( Nodo *nodo, int indicePadre )
+{
+    int minimo = nodo->_cantidadMaximaRegistros >> 1;
+
+    if ( nodo->count() >= minimo )
+    {
+        // El nodo esta balanceado
+        return true;
+    }
+
+    Nodo *padre = 0;
+    if ( !cargarNodo( &padre, nodo->_padre ) )
+    {
+        return false;
+    }
+
+    Nodo *nodoIzquierdo = 0, *nodoDerecho = 0;
+    Nodo *nodoCombinado = 0;
+
+    if ( 0 == indicePadre - 1 )
+    {
+        if ( !cargarNodo( &nodoIzquierdo, padre->_menor ) ) return false;
+    }
+    else if ( indicePadre >= 2 )
+    {
+        if ( !cargarNodo( &nodoIzquierdo, padre->_registros[ indicePadre - 2 ]->_link ) ) return false;
+    }
+
+    if ( padre && indicePadre < padre->count() )
+    {
+        if ( !cargarNodo( &nodoDerecho, padre->_registros[ indicePadre ]->_link ) ) return false;
+    }
+
+    if ( nodoIzquierdo && nodoIzquierdo->count() > minimo )
+    {
+        // Chequeo el izquierdo
+        RegistroArbol registroPadre( *(padre->_registros[ indicePadre - 1 ]) );
+        registroPadre._link = nodo->_menor;
+        nodo->_menor = nodoIzquierdo->_registros[ nodoIzquierdo->count() - 1 ]->_link;
+        nodo->agregarRegistro( registroPadre );
+        nodo->_flags = Nodo::NodoCambiado;
+
+        if ( nodo->_menor )
+        {
+            Nodo *menor = 0;
+            if ( !cargarNodo( &menor, nodo->_menor ) ) return false;
+            menor->_padre = nodo->_addr;
+            menor->_flags = Nodo::NodoCambiado;
+        }
+
+        RegistroArbol registroMasGrande;
+        nodoIzquierdo->removerEnPosicion( nodoIzquierdo->count() - 1, registroMasGrande );
+        padre->_registros[ indicePadre - 1 ]->_clave = registroMasGrande._clave;
+        padre->_registros[ indicePadre - 1 ]->_offset = registroMasGrande._offset;
+        padre->_flags = Nodo::NodoCambiado;
+    }
+    else if ( nodoDerecho && nodoDerecho->count() > minimo )
+    {
+        // Chequeo el derecho
+        RegistroArbol registroPadre( *(padre->_registros[ indicePadre ]) );
+        registroPadre._link = nodoDerecho->_menor;
+        nodo->agregarRegistro( registroPadre );
+
+        if ( nodoDerecho->_menor )
+        {
+            Nodo *menor = 0;
+            if ( !cargarNodo( &menor, nodoDerecho->_menor ) ) return false;
+            menor->_padre = nodo->_addr;
+            menor->_flags = Nodo::NodoCambiado;
+        }
+
+        RegistroArbol registroMasChico;
+        nodoDerecho->removerEnPosicion( 0, registroMasChico );
+        nodoDerecho->_menor = registroMasChico._link;
+        padre->_registros[ indicePadre ]->_clave = registroMasChico._clave;
+        padre->_registros[ indicePadre ]->_offset = registroMasChico._offset;
+        padre->_flags = Nodo::NodoCambiado;
+    }
+    else
+    {
+        // Combino los nodos
+        if ( nodoIzquierdo )
+        {
+            int indice = nodoIzquierdo->agregarRegistro( padre->_registros[ indicePadre - 1 ]->_clave, padre->_registros[ indicePadre - 1 ]->_offset );
+            nodoIzquierdo->_registros[ indice ]->_link = nodo->_menor;
+            if ( nodo->_menor )
+            {
+                Nodo *menor = 0;
+                if ( !cargarNodo( &menor, nodo->_menor ) ) return false;
+                menor->_padre = nodoIzquierdo->_addr;
+                menor->_flags = Nodo::NodoCambiado;
+            }
+
+            if ( !combinarNodos( nodoIzquierdo, nodo ) ) return false;
+            nodoCombinado = nodoIzquierdo;
+            padre->removerEnPosicion( indicePadre - 1 );
+        }
+        else if ( nodoDerecho )
+        {
+            int indice = nodo->agregarRegistro( padre->_registros[ indicePadre ]->_clave, padre->_registros[ indicePadre ]->_offset );
+            nodo->_registros[ indice ]->_link = nodoDerecho->_menor;
+
+            if ( nodoDerecho->_menor )
+            {
+                Nodo *menor = 0;
+                if ( !cargarNodo( &menor, nodoDerecho->_menor ) ) return false;
+                menor->_padre = nodo->_addr;
+                menor->_flags = Nodo::NodoCambiado;
+            }
+
+            if ( !combinarNodos( nodo, nodoDerecho ) ) return false;
+            nodoCombinado = nodo;
+            padre->removerEnPosicion( indicePadre );
+        }
+
+        indicePadre = -1;
+
+        if ( padre && padre->_padre )
+        {
+            // Busco el indice del padre
+            Nodo *pp = 0;
+            if ( !cargarNodo( &pp, padre->_padre ) ) return false;
+
+            if ( pp->_menor == padre->_addr )
+            {
+                indicePadre = 0;
+            }
+            else
+            {
+                // Checkeo el padre del padre
+                for ( int i = 0; i < pp->count(); i++ )
+                {
+                    if ( pp->_registros[ i ]->_link == padre->_addr )
+                    {
+                        indicePadre = i + 1;
+                        break;
+                    }
+                }
+            }
+
+            if ( indicePadre >= 0 )
+            {
+                if ( !rebalancear( padre, indicePadre ) ) return false;
+            }
+        }
+        else
+        {
+            // Esta es la raiz
+            if ( padre && padre->estaVacio() )
+            {
+                borrarNodo( _raiz );
+                _raiz = nodoCombinado;
+                setAddrRaiz( _raiz->_addr );
+                nodoCombinado->_padre = 0;
+                nodoCombinado->_flags = Nodo::NodoCambiado;
+            }
+        }
+    }
+
+    return true;
+}
+
+//==============================================================================
+bool ArbolBMas::combinarNodos( Nodo *nodoIzquierdo, Nodo *nodoDerecho )
+{
+    if ( nodoIzquierdo->count() + nodoDerecho->count() > nodoIzquierdo->_cantidadMaximaRegistros )
+    {
+        // No hay espacio para combinar
+        return true;
+    }
+
+    for ( int i = 0; i < nodoDerecho->count(); i++ )
+    {
+        nodoIzquierdo->agregarRegistroAlFinal(*(nodoDerecho->_registros[ i ]));
+
+        if ( nodoDerecho->_registros[ i ]->_link )
+        {
+            Nodo *link = 0;
+            if ( !cargarNodo( &link, nodoDerecho->_registros[ i ]->_link ) ) return false;
+            link->_padre = nodoIzquierdo->_addr;
+            link->_flags = Nodo::NodoCambiado;
+        }
+
+        nodoIzquierdo->_flags = Nodo::NodoCambiado;
+    }
+
+    borrarNodo( nodoDerecho );
+    return true;
+}
+
+//==============================================================================
+bool ArbolBMas::retirar( Nodo *nodo, int indiceItem )
+{
+    Nodo *subarbolIzquierdo = 0, *subarbolDerecho = 0;
+
+    // Obtener subarboles
+    if ( 0 == indiceItem )
+    {
+        if ( !cargarNodo( &subarbolIzquierdo, nodo->_menor ) ) return false;
+    }
+    else
+    {
+        if ( !cargarNodo( &subarbolIzquierdo, nodo->_registros[ indiceItem - 1 ]->_link ) ) return false;
+    }
+
+    if ( !cargarNodo( &subarbolDerecho, nodo->_registros[ indiceItem ]->_link ) ) return false;
+    if ( !subarbolIzquierdo || !subarbolDerecho ) return false;
+
+    if ( subarbolIzquierdo->count() > subarbolDerecho->count() )
+    {
+        // El subarbol izquierdo es mayor
+        if ( subarbolIzquierdo->tieneHijos() )
+        {
+            string mayorClave;
+            long offset;
+            Nodo *nodoMasGrande = getNodoMasDerecho( subarbolIzquierdo, mayorClave, offset );
+            nodo->_registros[ indiceItem ]->_clave = mayorClave;
+            nodo->_registros[ indiceItem ]->_offset = offset;
+            nodo->_flags = Nodo::NodoCambiado;
+            nodoMasGrande->removerEnPosicion( nodoMasGrande->count() - 1 );
+
+            Nodo *padreMasGrande = 0;
+            if ( !cargarNodo( &padreMasGrande, nodoMasGrande->_padre ) ) return false;
+            if ( !rebalancear( nodoMasGrande, padreMasGrande->count() ) ) return false;
+        }
+        else
+        {
+            nodo->_registros[ indiceItem ]->_clave = subarbolIzquierdo->_registros[ subarbolIzquierdo->count() - 1 ]->_clave;
+            nodo->_registros[ indiceItem ]->_offset = subarbolIzquierdo->_registros[ subarbolIzquierdo->count() - 1 ]->_offset;
+            nodo->_flags = Nodo::NodoCambiado;
+            subarbolIzquierdo->removerEnPosicion( subarbolIzquierdo->count() - 1 );
+            if ( !rebalancear( subarbolIzquierdo, indiceItem ) ) return false;
+        }
+    }
+    else
+    {
+        // El subarbol derecho es mayor
+        if ( subarbolDerecho->tieneHijos() )
+        {
+            string claveMasChica;
+            long offset;
+            Nodo *nodoMasChico = getNodoMasIzquierdo( subarbolDerecho, claveMasChica, offset );
+            nodo->_registros[ indiceItem ]->_clave = claveMasChica;
+            nodo->_registros[ indiceItem ]->_offset = offset;
+            nodo->_flags = Nodo::NodoCambiado;
+            nodoMasChico->removerEnPosicion( 0 );
+            if ( !rebalancear( nodoMasChico, 0 ) ) return false;
+        }
+        else
+        {
+            nodo->_registros[ indiceItem ]->_clave = subarbolDerecho->_registros[ 0 ]->_clave;
+            nodo->_registros[ indiceItem ]->_offset = subarbolDerecho->_registros[ 0 ]->_offset;
+            nodo->_flags = Nodo::NodoCambiado;
+            subarbolDerecho->removerEnPosicion( 0 );
+            if ( !rebalancear( subarbolDerecho, indiceItem + 1 ) ) return false;
+        }
+    }
+
+    return true;
+}
+
+//==============================================================================
+Nodo* ArbolBMas::getNodoMasDerecho( Nodo *subarbol, string &claveMasGrande, long &offset )
+{
+    if ( subarbol->_registros[ subarbol->count() - 1 ]->_link )
+    {
+        Nodo *linkMasDerecho = 0;
+        if ( !cargarNodo( &linkMasDerecho, subarbol->_registros[ subarbol->count() - 1 ]->_link ) )
+        {
+            return 0;
+        }
+
+        return getNodoMasDerecho( linkMasDerecho, claveMasGrande, offset );
+    }
+    else
+    {
+        claveMasGrande = subarbol->_registros[ subarbol->count() - 1 ]->_clave;
+        offset = subarbol->_registros[ subarbol->count() - 1 ]->_offset;
+        return subarbol;
+    }
+}
+
+//==============================================================================
+Nodo* ArbolBMas::getNodoMasIzquierdo( Nodo *subarbol, string &claveMasChica, long &offset )
+{
+    if ( subarbol->_menor )
+    {
+        Nodo *linkMasInzquierdo = 0;
+        if ( !cargarNodo( &linkMasInzquierdo, subarbol->_menor ) )
+        {
+                return 0;
+        }
+
+        return getNodoMasIzquierdo( linkMasInzquierdo, claveMasChica, offset );
+    }
+    else
+    {
+        claveMasChica = subarbol->_registros[ 0 ]->_clave;
+        offset = subarbol->_registros[ 0 ]->_offset;
+        return subarbol;
+    }
+}
+
+//==============================================================================
+bool ArbolBMas::partirNodo( Nodo *nodo,	RegistroArbol &medio, Nodo **nodoDerecho )
+{
+    RegistroArbol insertElem(medio);
+
+    int indiceMedio = getRegistroDelMedio( nodo, medio );
+
+    Nodo nodoIzquierdoTmp;
+    *nodoDerecho = getNodoNuevo();
+
+    // Reemplazo el elemento
+    nodo->removerEnPosicion( indiceMedio );
+    nodo->agregarRegistro( insertElem );
+
+    ( *nodoDerecho )->_menor = medio._link;
+    if ( medio._link )
+    {
+            Nodo *link = 0;
+            if ( !cargarNodo( &link, medio._link ) ) return false;
+            link->_padre = ( *nodoDerecho )->_addr;
+            link->_flags = Nodo::NodoCambiado;
+    }
+    nodoIzquierdoTmp._menor = nodo->_menor;
+
+
+    for ( int i = 0; i < nodo->count(); i++ )
+    {
+        if ( nodo->_registros[ i ]->getClave() < medio.getClave() )
+        {
+            nodoIzquierdoTmp.agregarRegistroAlFinal(*nodo->_registros[ i ]);
+        }
+        else
+        {
+            ( *nodoDerecho )->agregarRegistroAlFinal(*nodo->_registros[ i ]);
+
+            if ( nodo->_registros[ i ]->_link )
+            {
+                Nodo *link = 0;
+
+                bool estabaEnCache = nodoEstaEnCache( nodo->_registros[ i ]->_link );
+                if ( !cargarNodo( &link, nodo->_registros[ i ]->_link ) ) return false;
+                link->_padre = ( *nodoDerecho )->_addr;
+                link->_flags = Nodo::NodoCambiado;
+                if ( link && !estabaEnCache ) liberarNodo( link->_addr );
+            }
+        }
+    }
+
+    // Preparo el resultado
+    ( *nodoDerecho )->_padre = nodo->_padre;
+    nodoIzquierdoTmp._padre = nodo->_padre;
+    nodoIzquierdoTmp._addr = nodo->_addr;
+    *nodo = nodoIzquierdoTmp;
+
+    ( *nodoDerecho )->_flags = Nodo::NodoCambiado;
+    nodo->_flags = Nodo::NodoCambiado;
+
+    medio._link = ( *nodoDerecho )->_addr;
+
+    return true;
+}
+
+//==============================================================================
+int ArbolBMas::getRegistroDelMedio( Nodo *nodo, RegistroArbol &elem )
+{
+    int posicionMedio = nodo->count() >> 1;
+    elem = *nodo->_registros[ posicionMedio ];
+    return posicionMedio;
+}
+
+//==============================================================================
+bool ArbolBMas::nodoEstaEnCache( int addr )
 {
     return (buscarEnCache(addr) != NULL);
 }
 
-//	===================================================================
-Nodo* ArbolBMas::findnodo( Nodo *nodo, const string &key, int &retIndex, int &padreIndex, bool &econtrado )
+//==============================================================================
+Nodo* ArbolBMas::encontrarNodo( Nodo *nodo, const string &clave, int &indiceRetornado, int &indicePadre, bool &econtrado )
 {
     if ( !nodo ) return 0;
 
     econtrado = false;
-    retIndex = -1;
+    indiceRetornado = -1;
 
-    if ( nodo->find( key, retIndex ) )
+    if ( nodo->buscarRegistro( clave, indiceRetornado ) )
     {
         // Key econtrado
         econtrado = true;
@@ -927,13 +889,13 @@ Nodo* ArbolBMas::findnodo( Nodo *nodo, const string &key, int &retIndex, int &pa
 
     int link = 0;
 
-    if ( retIndex > 0 )
+    if ( indiceRetornado > 0 )
     {
-        link = nodo->elems_[ retIndex - 1 ]->link_;
+        link = nodo->_registros[ indiceRetornado - 1 ]->_link;
     }
     else
     {
-        link = nodo->less_;
+        link = nodo->_menor;
     }
 
     if ( !link )
@@ -941,132 +903,98 @@ Nodo* ArbolBMas::findnodo( Nodo *nodo, const string &key, int &retIndex, int &pa
         // No hay mas hijos
         return nodo;
     }
-    else if ( link == nodo->addr_ )
+    else if ( link == nodo->_addr )
     {
         //En caso de un indice corrupto
         return 0;
     }
 
     Nodo *nextLink = 0;
-    if ( !loadnodo( &nextLink, link ) ) return 0;
+    if ( !cargarNodo( &nextLink, link ) ) return 0;
 
-    padreIndex = retIndex;
-    return findnodo( nextLink, key, retIndex, padreIndex, econtrado );
+    indicePadre = indiceRetornado;
+    return encontrarNodo(nextLink, clave, indiceRetornado, indicePadre, econtrado);
 }
 
-
-
-
-/////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////
-//Seccion stream controler
-//////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////
-
-
-//	===================================================================
-
-bool ArbolBMas::open(string url)//( JStream *stor, guint maxCacheSize, JStream *journal )
+//==============================================================================
+bool ArbolBMas::abrir(string url)//(int maxTamanioCache
 {
-	//storage.open(url.c_str(), ios::in | ios::out | ios::binary);
-	storage.open(url.c_str(), ios::in | ios::out);
-	
+    //storage.open(url.c_str(), ios::in | ios::out | ios::binary);
+    _storage.open(url.c_str(), ios::in | ios::out);
 
-	if (!storage.is_open())
-	{
-		clearCache();		
-		delete root_;
-		root_ = 0;
-		closeController();
-		cout<<"NO SE PUDO ABRIR EL ARCHIVO DEL ARBOL"<<endl;
+    if (!_storage.is_open())
+    {
+        limpiarCache();
+        delete _raiz;
+        _raiz = 0;
+        cerrarControlador();
+        cout<<"NO SE PUDO ABRIR EL ARCHIVO DEL ARBOL"<<endl;
 
-		return false;
-	}
+        return false;
+    }
 
-	////1-Si el arbol esta vacio, creo un nodo raiz
-	////2.-Si el arbol no esta vacio, cargo el nodo raiz
-	////	2.1-Abro el archivo de nodos borrados o libres y me situo al principio
-	if(storageSize() == 0)
-	{	
-		storage.seekp(0);	
-		storage<<finCamposControl<<"|";	//Es la direccion cuando se crea por primera vez la raiz
+    ////1-Si el arbol esta vacio, creo un nodo raiz
+    ////2.-Si el arbol no esta vacio, cargo el nodo raiz
+    ////	2.1-Abro el archivo de nodos borrados o libres y me situo al principio
+    if(tamanioStorage() == 0)
+    {
+        _storage.seekp(0);
+        _storage<<_finCamposControl<<"|";	//Es la direccion cuando se crea por primera vez la raiz
 
-		root_ = new Nodo();
-		root_->addr_ = finCamposControl;
-		rootAddr(root_->addr_);
-		root_->flags_ = Nodo::NodoCambiado;
+        _raiz = new Nodo();
+        _raiz->_addr = _finCamposControl;
+        setAddrRaiz(_raiz->_addr);
+        _raiz->_flags = Nodo::NodoCambiado;
 
-                cache_.push_back(root_);
+        _cache.push_back(_raiz);
 
-//                int addr = finCamposControl;
-//		if ( addr )
-//		{
-//			if ( !loadnodo( &root_, addr ) )
-//			{
-//				return false;
-//			}
-//		}
-//                rootAddr(root_->addr_);
-//		root_->flags_ = Nodo::NodoCambiado;
+        for(int i = 0; i < _finCamposControl-4; i++) //finCamposControl-4 por q es modo texto sino va sin el 4
+                _storage<<" ";
+        _storage.seekp(0);
 
-		//En realidad el for de abajo tengo q cambiarlo cuando en los primeros
-		//512 escriba los datos de control y ahi completo con vacio los
-		//espacios faltantes
-		//Tengo q generar espacio en e; archivo si esta vacio para poder
-		//hacer seekp sobre una posicion q no existe
-		for(int i = 0; i < finCamposControl-4; i++) //finCamposControl-4 por q es modo texto sino va sin el 4
-			storage<<" ";
-		storage.seekp(0);
-		
-		//cout<<"ESTABA VACIO EL ARBOL CREO LA RAIZ AL ABRIR"<<endl;
+        guardarNodo(_raiz);
+    }
+    else
+    {
+        int addr = getAddrRaiz();
+        if ( addr )
+        {
+            if ( !cargarNodo( &_raiz, addr ) )
+            {
+                return false;
+            }
+        }
+    }
 
-		savenodo(root_);
-	}
-	else
-	{
-		//Cargar los nodos libres
-		
-		
-		cout<<"EL ARBOL TENIA RAIZ AL ABRIR"<<endl;
-		
-		int addr = rootAddr();
-		if ( addr )
-		{
-			if ( !loadnodo( &root_, addr ) )
-			{
-				cout<<"ERROR: No se cargo la raiz al abrir el arbol"<<endl;
-				return false;
-			}
-		}
-	}
+    _estaAbierto = true;
 
-	return true;
+    return true;
 }
 
-//	===================================================================
-bool ArbolBMas::isOpen()
+//==============================================================================
+bool ArbolBMas::estaAbierto()
 {
-    return (storage.is_open());
+    return (_storage.is_open());
 }
 
-int ArbolBMas::storageSize()
+//==============================================================================
+int ArbolBMas::tamanioStorage()
 {
-    storage.seekg(0, ios::end);
-    int size = storage.tellg();
+    _storage.seekg(0, ios::end);
+    int tamanio = _storage.tellg();
 
     //Si lo de abajo lo comento y funciona, borrarlo
-    storage.seekg(0, ios::beg);
+    _storage.seekg(0, ios::beg);
 
-    return size;
+    return tamanio;
 }
 
-//	===================================================================
-//	StreamBTreeController< nodoSize, string, long >::newnodo
-Nodo* ArbolBMas::newnodo()
+//==============================================================================
+Nodo* ArbolBMas::getNodoNuevo()
 {
     int addr = 0;
 
-    //TODO: ARBOL: freeChunks se refiere a los nodos liberados y q se guardan en una lista o en un archivo
+    //TODO: ARBOL: freeChunks = nodos liberados q se guardan en un archivo
     if ( hayEspacioLibre() )
     {
         //freeChunks_.erase( freeChunks_.begin() );
@@ -1075,30 +1003,90 @@ Nodo* ArbolBMas::newnodo()
     }
     else
     {
-        addr = storageSize();
+        addr = tamanioStorage();
     }
 
-    Nodo *newnodo = new Nodo();
-    newnodo->addr_ = addr;
-    newnodo->flags_ = Nodo::NodoCambiado;
+    Nodo *nodoNuevo = new Nodo();
+    nodoNuevo->_addr = addr;
+    nodoNuevo->_flags = Nodo::NodoCambiado;
 
-    savenodo( newnodo );
-    cache_.push_back(newnodo);
+    guardarNodo( nodoNuevo );
+    _cache.push_back(nodoNuevo);
 
-    return newnodo;
+    return nodoNuevo;
 }
 
+//==============================================================================
 bool ArbolBMas::hayEspacioLibre(){
-	return false;
+    return false;
 }
 
 
-//===================================================================
-void ArbolBMas::deletenodo( Nodo* nodo )
+//Guarda en el archivo de espacio libre, los espacios q se generan
+//bool ArbolBMas::allocFreeSpace()
+//{
+//	gint64 fullSize = storage_->size() - sizeof( int )*3;
+//	if ( !fullSize ) return true;
+//
+//	qint32 nodoCount = fullSize / sizeof( Nodo );
+//	gint64 offset = sizeof( int )*3;
+//
+//	for ( int i = 0; i < nodoCount; i++ )
+//	{
+//		freeChunks_.insert( offset );
+//		offset += sizeof( Nodo );
+//	}
+//
+//	if ( !root_ ) return false;
+//
+//	if ( !readAllOffsets( root_ ) ) return false;
+//	freeChunks_.erase( root_->addr_ );
+//	releaseCache();
+//	return true;
+//}
+
+//	===================================================================
+//	StreamBTreeController< nodoSize, string, long >::readAllOffsets
+//bool Stream::readAllOffsets(Nodo *nodo )
+//{
+//	if ( !nodo ) return true;
+//
+//	if ( nodo->less_ )
+//	{
+//		Nodo *less;
+//		if ( !loadnodo( &less, nodo->less_ ) ) return false;
+//		freeChunks_.erase( nodo->less_ );
+//		readAllOffsets( less );
+//		if ( less ) releasenodo( less->addr_ );
+//
+//		// Iterate other children if we have a less one
+//		for ( int i = 0; i < nodo->count(); i++ )
+//		{
+//			Nodo *kid = 0;
+//
+//			if ( nodo->elems_[ i ].link_ )
+//			{
+//				if ( !loadnodo( &kid, nodo->elems_[ i ].link_ ) ) return false;
+//			}
+//			freeChunks_.erase( nodo->elems_[ i ].link_ );
+//
+//			if ( kid )
+//			{
+//				readAllOffsets( kid );
+//				releasenodo( kid->addr_ );
+//			}
+//		}
+//	}
+//
+//	return true;
+//}
+
+//==============================================================================
+void ArbolBMas::borrarNodo( Nodo* nodo )
 {
     int indice = -1;
 
-    if(buscarEnCache(nodo->addr_, indice))
+    if(buscarEnCache(nodo->_addr, indice))
     {
         if(indice >= 0)
         {
@@ -1110,34 +1098,36 @@ void ArbolBMas::deletenodo( Nodo* nodo )
     delete nodo;
 }
 
+//==============================================================================
 Nodo * ArbolBMas::buscarEnCache(int addr)
 {
-    for(unsigned int i = 0; i < cache_.size(); i++)
+    for(unsigned int i = 0; i < _cache.size(); i++)
     {
-        if(cache_[i]->addr_ == addr)
-                return cache_[i];
+        if(_cache[i]->_addr == addr)
+                return _cache[i];
     }
 
     return NULL;
 }
 
+//==============================================================================
 Nodo * ArbolBMas::buscarEnCache(int addr, int &pos)
 {
     pos = -1;
-    for(unsigned int i = 0; i < cache_.size(); i++)
+    for(unsigned int i = 0; i < _cache.size(); i++)
     {
-        if(cache_[i]->addr_ == addr)
+        if(_cache[i]->_addr == addr)
         {
                 pos = i;
-                return cache_[i];
+                return _cache[i];
         }
     }
 
     return NULL;
 }
 
-//	===================================================================
-bool ArbolBMas::loadnodo(Nodo **nodo, int addr )
+//==============================================================================
+bool ArbolBMas::cargarNodo(Nodo **nodo, int addr )
 {
     if ( !addr )
     {
@@ -1148,16 +1138,16 @@ bool ArbolBMas::loadnodo(Nodo **nodo, int addr )
     if((*nodo = buscarEnCache(addr)) == NULL)
     {
         *nodo = new Nodo();
-        storage.seekg( addr );
-        *nodo = Nodo::Leer(storage);
+        _storage.seekg( addr );
+        *nodo = Nodo::Leer(_storage);
 
-        if ( addr == ( *nodo )->addr_ )
+        if ( addr == ( *nodo )->_addr )
         {
-            cache_.push_back(*nodo);
+            _cache.push_back(*nodo);
         }
     }
 
-    if ( ( *nodo )->addr_ != addr )
+    if ( ( *nodo )->_addr != addr )
     {
         cout<<"El storage esta corrupto!"<<endl;
         return false;
@@ -1166,16 +1156,15 @@ bool ArbolBMas::loadnodo(Nodo **nodo, int addr )
     return true;
 }
 
-//	===================================================================
-void ArbolBMas::savenodo( Nodo *nodo )
+//==============================================================================
+void ArbolBMas::guardarNodo( Nodo *nodo )
 {
-    nodo->flags_ = 0;
-    nodo->Guardar(storage);
+    nodo->_flags = 0;
+    nodo->Guardar(_storage);
 }
 
-
-//	===================================================================
-void ArbolBMas::releasenodo( int addr )
+//==============================================================================
+void ArbolBMas::liberarNodo( int addr )
 {
     int posicionEnCache = -1;
 
@@ -1183,14 +1172,14 @@ void ArbolBMas::releasenodo( int addr )
 
     if( posicionEnCache > 0 )
     {
-        if ( Nodo::NodoCambiado == nodo->flags_ )
+        if ( Nodo::NodoCambiado == nodo->_flags )
         {
-            flushChanges();
-            releasenodo( addr );
+            impactarCambios();
+            liberarNodo( addr );
             return;
         }
 
-        if ( nodo != root_ )
+        if ( nodo != _raiz )
         {
             delete nodo;
             borrarDeCache(posicionEnCache);
@@ -1198,105 +1187,139 @@ void ArbolBMas::releasenodo( int addr )
     }
 }
 
+//==============================================================================
 void ArbolBMas::borrarDeCache(int indice)
 {
-    cache_.erase(cache_.begin() + indice);
+    _cache.erase(_cache.begin() + indice);
 }
 
-//	===================================================================
-int ArbolBMas::rootAddr()
+//==============================================================================
+int ArbolBMas::getAddrRaiz()
 {
     int addr = 0;
     //storage_->seek( sizeof( int ) );
     //storage_->read( ( char* ) &addr, sizeof( addr ) );
 
-    storage.seekg(0);
+    _storage.seekg(0);
     //Aca despues tengo q usar read
     char delimitador;
-    storage>>addr>>delimitador;
+    _storage>>addr>>delimitador;
 
     return addr;
 }
 
-void ArbolBMas::rootAddr(int addr)
+//==============================================================================
+void ArbolBMas::setAddrRaiz(int addr)
 {
-    rootAddr_ = addr;
+    _addrRaiz = addr;
 }
 
-
+//==============================================================================
 Nodo * ArbolBMas::getRaiz()
 {
-    return root_;
+    return _raiz;
 }
 
-
-
-//	===================================================================
-void ArbolBMas::closeController()
+//==============================================================================
+void ArbolBMas::cerrarControlador()
 {
-	//Usaba cache_.clear() pero tengo q eliminar los Nodos q tienen los punteros
-        for(unsigned int i = 0; cache_.size(); i++)
-        {
-            delete cache_[i];
-        }
+    //Usaba cache_.clear() pero tengo q eliminar los Nodos q tienen los punteros
+    for(unsigned int i = 0; _cache.size(); i++)
+    {
+        //No deberia eleminar tambien los registros del nodo, o eso lo hace
+        //cuando llama al destructor el delete del nodo??
+        delete _cache[i];
+    }
+
+    //Esto es lo ultimo que debo hacer
+    if(_storage.is_open())
+        _storage.close();
+
+//	if ( storage_ )
+//	{
+//		if ( !freeChunks_.empty() )
+//		{
+//			// Save removed nodos list
+//			guint rlistAddr = storage_->size();
+//			QByteArray rblock;
+//			FreeChunksSet::const_iterator iter = freeChunks_.begin();
+//			guint aaddr = 0;
+//			for ( ; iter != freeChunks_.end(); iter++ )
+//			{
+//				aaddr = *iter;
+//				rblock.resize( rblock.size() + sizeof( aaddr ) );
+//				::memcpy( rblock.data() + rblock.size() - sizeof( aaddr ),
+//					( char* ) &aaddr, sizeof( aaddr ) );
+//			}
+//			freeChunks_.clear();
+//
+//			storage_->seek( rlistAddr );
+//			storage_->write( rblock.data(), rblock.size() );
+//
+//			storage_->seek( constRemovedAddr );
+//			storage_->write( ( char* ) &rlistAddr, sizeof( rlistAddr ) );
+//		}
+//
+//		storage->close();
+//		storage_ = 0;
+//	}
 }
 
-
-void ArbolBMas::flushChanges()
+//==============================================================================
+void ArbolBMas::impactarCambios()
 {
-    if ( !isOpen() ) return;
+    if ( !estaAbierto() ) return;
 
     // Grabo los nodos en cache
-    int tamanioCache = cache_.size();
+    int tamanioCache = _cache.size();
     for (int i = 0; i < tamanioCache ;i++)
     {
-            if ( Nodo::NodoCambiado == cache_[i]->flags_ )
-            {
-                    // Save node
-                    savenodo( cache_[i] );
-            }
+        if ( Nodo::NodoCambiado == _cache[i]->_flags )
+        {
+            // Guardo el nodo
+            guardarNodo( _cache[i] );
+        }
     }
 
     // Escribo la raiz
-    if ( rootAddr_ )
+    if ( _addrRaiz )
     {
-        storage.seekp(0); //posicion donde guardo direccion de la raiz
+        _storage.seekp(0); //posicion donde guardo direccion de la raiz
         //Aca despues tengo q usar write
-        storage<<rootAddr_<<"|";
-        rootAddr_ = 0;
+        _storage<<_addrRaiz<<"|";
+        _addrRaiz = 0;
     }
 }
 
-void ArbolBMas::releaseCache()
+//==============================================================================
+void ArbolBMas::liberarCache()
 {
     //if ( cache_.size() > maxCacheSize_ )
     //{
-        clearCache();
+        limpiarCache();
     //}
 }
 
-void ArbolBMas::clearCache()
+//==============================================================================
+void ArbolBMas::limpiarCache()
 {
-    flushChanges();
+    impactarCambios();
 
     //Vacio la cache eliminando los nodos q no sean la raiz
-    for(unsigned int i = 0; i <cache_.size(); i++)
+    for(unsigned int i = 0; i <_cache.size(); i++)
     {
-            //TODO: Guarda con las comparaciones estas
-        if ( cache_[i] != root_ )
+        if ( _cache[i] != _raiz )
         {
-            delete cache_[i];
+            delete _cache[i];
         }
     }
 
     //Limpio el vector cache de referencias invalidas
-    cache_.clear();
-
+    _cache.clear();
 
     //Si la raiz esta en memoria la cargo a la cache
-    if ( root_ )
+    if ( _raiz )
     {
-        cache_.push_back(root_);
+        _cache.push_back(_raiz);
     }
 }
-
