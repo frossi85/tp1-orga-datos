@@ -34,7 +34,7 @@ public:
 	//Devuelve el puntero a un votante
 	//Devuelve NULL si no encontro al votante con ese dni
 	//Falta Implementar
-	static Votante* getVotante(const char dni[]);
+	static Votante* getVotante(const string dni);
 
 
 	static vector<Eleccion *> getElecciones_por_Votante(Votante &votante);
