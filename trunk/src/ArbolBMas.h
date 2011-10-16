@@ -1,7 +1,7 @@
 /*
  * ArbolBMas.h
  *
- *  Created on: 02/10/2011
+ *  Created on: 08/10/2011
  *      Author: facundo
  */
 
@@ -15,155 +15,148 @@
 
 using namespace std;
 
-////////////////////////////////////////////////////////////////////////
-///Ejemplo de uso del arbol:
-/// PRECONDICION: El archivo de datos debe ser creado a mano antes de usar
-///               por primera vez el arbol
-///
-/// 1.- ArbolBMas * arbol = new ArbolBMas();
-/// 2.- arbol->open(url);
-/// 3.- arbol->agregar(clave, offset);     //Devuelve bool diciendo si se agrego o no
-/// 4.- arbol->buscar(clave, offsetEcontrado);  //Si lo encontr devuelve true, sino false.
-///                                             //Guarda en offsetEcontrado el valor del offset de la buscada
-/// 5.- arbol->close();
+/// Arbol B+ con administracion de chache.
+/**
+ * Este arbol B+ está preparado para contener objetos de la clase Nodo, este, a
+ * su vez contiene objetos de la clase RegistroArbol.
+ * Los datos son almacenados en disco. Para funcionar requiere de los siguientes
+ * archivos:
+ *
+ * - Nodos: es donde se guardan los nodos con los registros.
+ *
+ * Ejemplo de uso:
+ *  1.- ArbolBMas * arbol = new ArbolBMas();
+ *  2.- arbol->abrir(url);
+ *  3.- arbol->agregar(clave, offset);
+ *  4.- arbol->buscar(clave, offsetEcontrado);
+ *  5.- arbol->cerrar();
+ *  6.- delete arbol;
+*/
 
 class ArbolBMas {
 public:
-	//La raiz siempre la tengo q mandener en memoria
+    ArbolBMas();
+    virtual ~ArbolBMas();
 
-	ArbolBMas();
-	virtual ~ArbolBMas();
+    bool abrir(string url);
 
-        ///
-	/// Open stream-based BTree storage
-	bool open(string url); //( JStream *stor, guint maxCacheSize, JStream *journal = 0 );
+    /// Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto
+    bool estaAbierto();
 
-	///
-	/// Returns true if tree is opened
-	bool isOpen();
+    /// Pre: el arbol fue creado. Post: se agrega un registro con clave y offset pasado por parametro
+    /**Si no se puede agregar o ya existia un registro con esa clave, devuelve false */
+    bool agregar( const string &clave, const long &offset );
 
-	///
-	/// Agrega un par clave:offset si no existia en el arbol
-        //  Devuelve true si lo pudo agregar y false si no lo pudo agregar
-	bool agregar( const string &clave, const long &offset );
+    /// Pre: el arbol fue creado. Post: se elimina un registro por clave
+    /**Si no se puede eliminar o no existia el registro, devuelve false */
+    bool eliminar( const string &clave );
 
-	///
-	/// Remove pair by clave
-	bool remove( const string &clave );
+    /// Pre: el arbol fue creado. Post: se elimina un registro por clave y devuelve por parametro su offset
+    /**Si no se puede eliminar o no existia el registro, devuelve false */
+    bool eliminar( const string &clave, long &offset );
 
-	///
-	/// Remove pair by clave and return associated data
-	bool remove( const string &clave, long &data );
+    /// Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro su offset
+    /**Si no encuentra el registro, devuelve false */
+    bool buscar( const string &clave, long &offset );
 
-	///
-	/// Find data by clave, or return false if clave was not found
-	bool buscar( const string &clave, long &data );
+    /// Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves esten entre claveInicial y condicion
+    /**Si esBusquedaPrecisa es true y claveInicial no existe en el arbol, devuelve una lista vacia, sino devuelve la lista y true.
+     * Si esBusquedaPresisa es false devuelve una lista con los inmediatamente mayores a claveIncial hasta condicion*/
+    bool buscar( list<RegistroArbol *> &retList, const string &claveInicial, bool esBusquedaPrecisa, const string &condicion );
 
-	///
-	/// Find all specified data
-        /// preciseShearh si es true y startcalve no estaba en el arbol, devuelve false y lista vacia, si estaba devuelve una lista con
-        /// el registro q tiene startclave y sus mayores
-        /// preciseShearh si es false y startcalve no estaba en el arbol, devuelve true y lista con los inmediatos mayores a startclave
-        /// si startclave estaba en se devuelve a el y a sus inmediatos mayores
-        bool search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch, const string &condition );
-        bool search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch);
-        bool search( list<RegistroArbol *> &retList, const string &startclave, const string &condition );
+    /// Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves sean igual o mayor a claveInicial
+    /**Si esBusquedaPrecisa es true y claveInicial no existe en el arbol, devuelve una lista vacia, sino devuelve la lista y true.
+     * Si esBusquedaPresisa es false devuelve una lista con los inmediatamente mayores a claveIncial*/
+    bool buscar( list<RegistroArbol *> &retList, const string &claveInicial, bool esBusquedaPrecisa);
 
-//	///
-//	/// Get all specified in container data
-	bool getTodosLosRegistros(list<RegistroArbol *> &retList );
+    /// Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves esten entre claveInicial y condicion
+    /**Si no habia registros que devolver, devuelve false*/
+    bool buscar( list<RegistroArbol *> &retList, const string &claveInicial, const string &condicion );
 
-	///
-	/// Change data which belongs to the clave is specified
-	void cambiarOffset( const string &clave, const long &nuevoOffset );
-        //void cambiarClave( const string &clave, const string &nuevaClave );
+    /// Pre: el arbol fue creado. Post: devuelve todos los registros del arbol de manera ordenada
+    /**Si no habia registros que devolver, devuelve false*/
+    bool getTodosLosRegistros(list<RegistroArbol *> &retList );
 
-	///
-	/// Close BTree and release all occupied resources
-	void close();
+    /// Pre: el arbol fue creado. Post: cambia el offset del registro que tiene la clave pasada como parametro*/
+    void cambiarOffset( const string &clave, const long &nuevoOffset );
+
+    /// Pre: el arbol fue creado. Post: cambia la clave del registro que tiene la clave pasada como parametro*/
+    /**Se verifica que el registro exista y se reoragniza el arbol si es necesario*/
+    void cambiarClave( const string &clave, const string &nuevaClave );
+
+    /// Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/
+    void cerrar();
 
 private:
+    //====================== Seccion de Atributos ==========================
+    Nodo * _raiz;
+    fstream _storage;
+    long _tamanioMaximoCache; //son cantidad de nodos en RAM
+    long _addrRaiz;
+    //vector<Nodo *> freeChunks;
+    vector<Nodo *> _cache;
+    bool _estaAbierto;
 
-	int getMedian( Nodo *nodo, RegistroArbol &elem );
+    const static int _finCamposControl = 512;
 
-	//void splitnodoByclave( Nodo **fullnodo, string &clave );
-	bool splitnodo( Nodo *nodo, RegistroArbol &median, Nodo **nodoRight );
+    //======================= Metodos Internos =============================
 
-	Nodo* findnodo( Nodo *nodo, const string &clave, int &retIndex, int &parentIndex, bool &found );
+    int getRegistroDelMedio( Nodo *nodo, RegistroArbol &elem );
 
-        //Para manejo de nodos libres
-        bool hayEspacioLibre();
+    bool partirNodo( Nodo *nodo, RegistroArbol &medio, Nodo **nodoDerecho );
 
-	bool rebalance( Nodo *nodo, int parentIndex );
-	bool combine( Nodo *leftnodo, Nodo *rightnodo );
-	bool pullOut( Nodo *nodo, int itemIndex );
+    Nodo* encontrarNodo( Nodo *nodo, const string &clave, int &retIndice, int &indicePadre, bool &econtrado );
 
-	Nodo* DerechoMost( Nodo *subtree, string &largestclave, long &largestData );
-	Nodo* leftMost( Nodo *subtree, string &smallestclave, long &smallestData );
+    bool hayEspacioLibre();
 
-	// Internal search methods, buscan registros a partir de un nodo el buscado + todos sus mayores
-        bool search( list<RegistroArbol *> &retList, const string &startclave, bool preciseSearch, bool habilitarCondicion, const string &condition );
-        bool allKeys( Nodo *nodo, list<RegistroArbol *> &retList, int elemIndex, const string &startclave, bool habilitarCondicion, const string &condition );
-	bool allKeys( Nodo *nodo, list<RegistroArbol *> &retList, bool habilitarCondicion, const string &condition ); //era TChecker &condition
-	bool allKeys( Nodo *nodo, list<RegistroArbol *> &retList );
+    bool rebalancear( Nodo *nodo, int indicePadre );
+    bool combinarNodos( Nodo *nodoIzquierdo, Nodo *nodoDerecho );
+    bool retirar( Nodo *nodo, int indiceItem );
 
-	////////////////////////////////////////////////////////////////////
-	//Seccion stream controler
-	/////////////////////////////////////////////////////////////////
+    Nodo* getNodoMasDerecho( Nodo *subarbol, string &mayorClave, long &mayorOffset );
+    Nodo* getNodoMasIzquierdo( Nodo *subarbol, string &menorClave, long &menorOffset );
 
-	///
-	/// Release only one nodo
-	void releasenodo( int addr );
+    // Metodos de busqueda internos, buscan registros a partir de un nodo el buscado + todos sus mayores
+    bool buscar( list<RegistroArbol *> &retList, const string &claveInicial, bool esBusquedaPrecisa, bool habilitarCondicion, const string &claveHasta );
+    bool registrosDesdeNodo( Nodo *nodo, list<RegistroArbol *> &retList, int indiceElem, const string &claveInicial, bool habilitarCondicion, const string &claveHasta );
+    bool registrosDesdeNodo( Nodo *nodo, list<RegistroArbol *> &retList, bool habilitarCondicion, const string &claveHasta );
+    bool registrosDesdeNodo( Nodo *nodo, list<RegistroArbol *> &retList );
 
-	///
-	/// Clear tree fully
-	//bool clear();
 
-	///
-	/// Get root pointer
-	//Nodo* root();
+    ///
+    /// Limpia completamente el arbol
+    //bool clear();
 
-	///
-	/// Load nodo is specified
-	bool loadnodo( Nodo **nodo, int addr );
+    // Operaciones de Storage
+    //bool allocFreeSpace();
+    //bool readAllOffsets( Nodo *nodo );
 
-	// Storage related operations
-	Nodo* newnodo();
-	//bool allocFreeSpace();
-	//bool readAllOffsets( Nodo *nodo );
-	void deletenodo( Nodo *nodo );
-	void savenodo( Nodo *nodo );
-	int rootAddr();
-	void rootAddr( int addr );
+    ///
+    /// Carga el nodo especificado
+    bool cargarNodo( Nodo **nodo, int addr );
+    Nodo* getNodoNuevo();
+    void borrarNodo( Nodo *nodo );
+    ///
+    /// Libera un solo nodo
+    void liberarNodo( int addr );
+    void guardarNodo( Nodo *nodo );
+    int getAddrRaiz();
+    void setAddrRaiz( int addr );
+    Nodo * getRaiz();
 
-	Nodo * getRaiz();
+    int tamanioStorage();
 
-	// Data
-	Nodo *root_;
-	fstream storage;
-	//ios::pos_type storageSize;
+    // Metodos para el manejo del cache
+    void limpiarCache();
+    void liberarCache();
+    void ImprimirCache();
+    Nodo * buscarEnCache(int addr);
+    Nodo * buscarEnCache(int addr, int &pos);
+    bool nodoEstaEnCache( int addr );
+    void borrarDeCache(int indice);
 
-	long maxCacheSize_; //son cantidad de nodos en RAM
-	long rootAddr_;
-	
-	const static int finCamposControl = 512;
-	
-	int storageSize();
-	//vector<Nodo *> freeChunks;
-	vector<Nodo *> cache_;
-	
-	Nodo * buscarEnCache(int addr);
-	Nodo * buscarEnCache(int addr, int &pos);
-	
-	bool nodoInCache( int addr );
-	void borrarDeCache(int indice);
-	
-	void flushChanges();
-	void closeController();
-	void clearCache();
-	void releaseCache();
-	
-	void ImprimirCache();
+    void impactarCambios();
+    void cerrarControlador();
 };
 
 #endif /* ArbolBMas_H_ */

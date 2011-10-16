@@ -166,13 +166,13 @@ void testNodoArbol()
 		r3 = new RegistroArbol("reg3", 3);
 		r4 = new RegistroArbol("reg4", 4);
 		/////////Pruebas/////////////
-		n1->addr_ = primeraPosicionNodo;
+		n1->setAddr(primeraPosicionNodo);
 		n1->agregarRegistro(r1->getClave(), r1->getOffset());
 		n1->agregarRegistro(*r2);
 		n1->agregarRegistro(r3->getClave(), r3->getOffset());
 		n1->agregarRegistro(*r4);
 
-		if(n1->flags_==Nodo::NodoCambiado)
+		if(n1->getFlag() == Nodo::NodoCambiado)
 			cout<< "flag_ se esta setteando bien en el agregarRegistro()"<<endl;
 
 		if(n1->estaLleno())
@@ -184,7 +184,7 @@ void testNodoArbol()
 		n1->Guardar(f);
 
 		cout<<"Se limpio el nodo"<<endl;
-		n1->clear();
+		n1->limpiar();
 
 		if(n1->estaVacio())
 			cout<<"Si no se imprimio nada clear() y estaVacio() OK"<<endl;
@@ -214,7 +214,7 @@ void testNodoArbol()
 		f.seekg(primeraPosicionNodo);
 		n1 = Nodo::Leer(f);
 
-		n1->addr_ = primeraPosicionNodo; //Si asi funciona el leer creo q no funca bien
+		n1->setAddr(primeraPosicionNodo);
 
 		if(n1->estaLleno())
 			cout << "estaLleno() OK"<<endl;
@@ -226,9 +226,9 @@ void testNodoArbol()
 
 		int posicionRegistroBuscado = -1;
 		statusOK = false;
-		if(n1->find("reg3", posicionRegistroBuscado))
+		if(n1->buscarRegistro("reg3", posicionRegistroBuscado))
 			if(posicionRegistroBuscado == 2)
-				if(!(n1->find("rerer", posicionRegistroBuscado)))
+				if(!(n1->buscarRegistro("rerer", posicionRegistroBuscado)))
 					statusOK = true;
 
 		if(statusOK)
@@ -240,7 +240,7 @@ void testNodoArbol()
 		statusOK = false;
 		n1->removerEnPosicion(1); //Remueve el segundo registro
 		if(n1->count() == 3)
-			if(!(n1->find("re2", posicionRegistroBuscado)))
+			if(!(n1->buscarRegistro("re2", posicionRegistroBuscado)))
 				statusOK = true;
 
 		if(statusOK)
@@ -256,7 +256,7 @@ void testNodoArbol()
 		r4 = new RegistroArbol();
 		n1->removerEnPosicion(0, *r4); //Remueve el primer registro
 		if(n1->count() == 2)
-			if(!(n1->find("r1", posicionRegistroBuscado)))
+			if(!(n1->buscarRegistro("r1", posicionRegistroBuscado)))
 				if(r4->getClave() == "r1" && r4->getOffset() == 1)
 					statusOK = true;
 
@@ -326,7 +326,7 @@ void testArbolBMasClavesDuplicadas()
     string clave9 = "reg9";
     string clave10 = "reg99";
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     arbol->agregar(clave1, 1);
 
@@ -388,7 +388,7 @@ void testArbolBMas2()
     f.open(url.c_str(), ios::out|ios::trunc);
     f.close();
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     for(int i = 0; i < cantidadRegistros; i++){
             random_integer = lowest + rand() % (highest +1 - lowest);
@@ -447,7 +447,7 @@ void testArbolBMasEliminar()
     f.open(url.c_str(), ios::out|ios::trunc);
     f.close();
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     for(int i = 0; i < cantidadRegistros; i++){
         //random_integer = lowest + rand() % (highest +1 - lowest);
@@ -464,7 +464,7 @@ void testArbolBMasEliminar()
     for(int i = 0; i < 700; i++)
     {
         clave = "reg" + Utilidades::toString(registros[i]);
-        arbol->remove(clave);
+        arbol->eliminar(clave);
     }
 
 
@@ -532,7 +532,7 @@ void testArbolBMasCambiarOffsetRegistro()
     f.open(url.c_str(), ios::out|ios::trunc);
     f.close();
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     for(int i = 0; i < cantidadRegistros; i++){
             random_integer = lowest + rand() % (highest +1 - lowest);
@@ -599,7 +599,7 @@ void testArbolBMasGetTodos()
     string clave9 = "reg9";
     string clave10 = "reg99";
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     arbol->agregar(clave1, 1);
     arbol->agregar(clave2, 2);
@@ -618,7 +618,7 @@ void testArbolBMasGetTodos()
     pos = registros.begin();
     while( pos != registros.end())
     {
-        cout << (*pos)->clave << endl;
+        cout << (*pos)->getClave() << endl;
         pos++;
     }
 
@@ -655,7 +655,7 @@ void testArbolBMasBusquedaAproximada()
     string clave9 = "reg9";
     string clave10 = "reg99";
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     arbol->agregar(clave1, 1);
     arbol->agregar(clave2, 2);
@@ -667,19 +667,19 @@ void testArbolBMasBusquedaAproximada()
     arbol->agregar(clave9, 9);
     arbol->agregar(clave10, 10);
 
-    arbol->search(registros,clave2,true);
+    arbol->buscar(registros,clave2,true);
 
     list<RegistroArbol *>::iterator pos;
     pos = registros.begin();
     cout<<"Impresion busqueda precisa: "<<endl;
     while( pos != registros.end())
     {
-        cout << (*pos)->clave << endl;
+        cout << (*pos)->getClave() << endl;
         pos++;
     }
 
     registros.clear();
-    arbol->search(registros,clave5, clave9);//clave9);
+    arbol->buscar(registros,clave5, clave9);//clave9);
     //lo de abajo compila pero toma la cadena reg9 como si fuera un booleano y se llama a la a qno debe
     //arbol->search(registros,clave5, "reg9");
 
@@ -687,12 +687,12 @@ void testArbolBMasBusquedaAproximada()
     cout<<"Impresion busqueda no precisa: "<<endl;
     while( pos != registros.end())
     {
-        cout << (*pos)->clave << endl;
+        cout << (*pos)->getClave() << endl;
         pos++;
     }
 
     registros.clear();
-    arbol->search(registros,clave5,true);
+    arbol->buscar(registros,clave5,true);
 
     if(registros.size() == 0)
         cout<<"Busqueda precisa de un nodo no existente OK"<<endl;
@@ -734,7 +734,7 @@ void testArbolBMas1()
     string clave9 = "reg9";
     string clave10 = "reg99";
 
-    arbol->open(url);
+    arbol->abrir(url);
 
     if(!arbol->agregar(clave1, 1))
             cout<<"1er add() devolvio FALSE"<<endl;
