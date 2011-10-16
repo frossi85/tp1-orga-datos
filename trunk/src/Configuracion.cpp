@@ -69,6 +69,9 @@ Configuracion::Configuracion() {
 	constantes[42]=RUTA_HASH_IDLISTA_REGS;
 	constantes[43]=RUTA_HASH_IDLISTA_BLOQ_LIB;
 	constantes[44]=RUTA_HASH_IDLISTA_TABLA;
+	constantes[45]=RUTA_ARBOL_REPORTE_DISTRITO;
+	constantes[46]=RUTA_ARBOL_REPORTE_ELECCION;
+	constantes[47]=RUTA_ARBOL_REPORTE_LISTA;
 
 	FILE *fp;
 	char cadena[100];
