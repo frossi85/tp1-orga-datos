@@ -59,8 +59,11 @@
 #define RUTA_HASH_IDLISTA_REGS "<ruta_hash_idlista_regs>"
 #define RUTA_HASH_IDLISTA_BLOQ_LIB "<ruta_hash_idlista_bloq_lib>"
 #define RUTA_HASH_IDLISTA_TABLA "<ruta_hash_idlista_tabla>"
+#define RUTA_ARBOL_REPORTE_DISTRITO "<ruta_arbol_reporte_distrito>"
+#define RUTA_ARBOL_REPORTE_ELECCION "<ruta_arbol_reporte_eleccion>"
+#define RUTA_ARBOL_REPORTE_LISTA "<ruta_arbol_reporte_lista>"
 
-#define CANT_CONF 45
+#define CANT_CONF 48
 
 #include <string>
 
