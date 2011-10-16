@@ -4,7 +4,7 @@
 #include <string>
 #include <cstdlib>
 
-#include "menu.h"
+#include "Menu.h"
 #include "Distrito.h"
 #include "Cargo.h"
 #include "DataAccess.h"
@@ -12,6 +12,8 @@
 #include "RegistroArbol.h"
 #include "Nodo.h"
 #include "ArbolBMas.h"
+
+#include <cctype>
 
 using namespace std;
 
@@ -28,6 +30,7 @@ void testArbolBMasEliminar();
 
 int main(int argc, char *argv[]){
 
+
  /*       Tester *tester=new Tester();
         tester->comenzarTests();
         delete tester;
@@ -35,47 +38,52 @@ int main(int argc, char *argv[]){
 	// TODAVIA NO ANDAN LOS TESTS DE TESTABMentidades Y TESTPERSISTENCIA..SI QUIEREN PROBAR LOS OTROS
 	// SAQUENLOS DEL TESTER.CPP (MARTIN)
 
- /*       Menu *menu = Menu::getMenu();
-        if (argc != 2){
-                // Numero incorrecto de parametros
-                cout << "Uso: voto_electronico -h\n";
-                return 0;
-        }
 
-        if ( !(strcmp(argv[1],"-h")) || !(strcmp(argv[1],"--help")) ) {
-                // La funcionalidad deseada es acceder a la ayuda del programa.
-                menu->mostrar_ayuda();
-                return 0;
-        }
+	Menu *menu = Menu::getMenu();
+	if (argc != 2){
+			// Numero incorrecto de parametros
+			cout << "Uso: voto_electronico -h\n";
+			return 0;
+	}
 
-        if ( !(strcmp(argv[1],"-a")) || !(strcmp(argv[1],"--admin")) ) {
+	//Esta declaracion va aca ya que si no corroboro q argc es 2, va a lanzar una excepcion
+	//el constructor
+	string argumento(argv[1]);
 
-                cout << "Ingreso como administrador. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
-                // La funcionalidad deseada es acceder como administrador
-                // Se pide y verifica usuario y contraseña
-                do {
-                        menu->pedir_usuario();
-                        menu->pedir_contrasena();
-                } while (!menu->acceder_admin());
+	if ( argumento == "-h" || argumento == "--help" ) {
+			// La funcionalidad deseada es acceder a la ayuda del programa.
+			menu->mostrarAyuda();
+			return 0;
+	}
 
-                return 0;
-        }
-        if ( !(strcmp(argv[1],"-u")) || !(strcmp(argv[1],"--user")) ) {
+	if ( argumento == "-a" || argumento== "--admin" ) {
 
-                cout << "Ingreso como usuario. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
-                // La funcionalidad deseada es acceder como usuario
-                // Se pide y verifica usuario y contraseña
-                do {
-                        menu->pedir_usuario();
-                        menu->pedir_contrasena();
-                } while (!menu->acceder_usuario());
+			cout << "Ingreso como administrador. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
+			// La funcionalidad deseada es acceder como administrador
+			// Se pide y verifica usuario y contraseña
+			do {
+					menu->pedir_usuario();
+					menu->pedir_contrasena();
+			} while (!menu->acceder_admin());
 
-                return 0;
-        }
+			return 0;
+	}
+	if ( argumento == "-u" || argumento == "--user" ) {
 
-        cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones
-	*/
-        return 0;
+			cout << "Ingreso como usuario. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
+			// La funcionalidad deseada es acceder como usuario
+			// Se pide y verifica usuario y contraseña
+			do {
+					menu->pedir_usuario();
+					menu->pedir_contrasena();
+			} while (!menu->acceder_usuario());
+
+			return 0;
+	}
+
+	cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones
+
+	return 0;
 }
 
 void testRegistroArbol()

@@ -90,7 +90,7 @@ Conteo* DataGetter::getConteo(Eleccion& eleccion,Lista& lista, Distrito& distrit
 }
 
 
-Votante* DataGetter::getVotante(const char dni[]){
+Votante* DataGetter::getVotante(const string dni){
 
 	Votante *votante_resultante;
 
@@ -98,7 +98,7 @@ Votante* DataGetter::getVotante(const char dni[]){
 	//...
 
 	Distrito distrito_prueba("Lanus");
-	Votante *votante_prueba=new Votante(1111,"Juan Perez","1111","Corrientes 443",distrito_prueba);
+	Votante *votante_prueba=new Votante(1111,"Juan Perez","tp","Corrientes 443",distrito_prueba);
 	votante_resultante=votante_prueba;
 
 	return votante_resultante;
