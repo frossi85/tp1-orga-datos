@@ -22,12 +22,12 @@ Conteo::Conteo(const Conteo &conteo){
 }
 
 Conteo::~Conteo() {
-	// TODO Auto-generated destructor stub
+	if (this->_distrito != NULL)	delete this->_distrito;
+	if (this->_lista != NULL)	delete this->_lista;
+	if (this->_eleccion != NULL)	delete this->_eleccion;
 }
 
-void Conteo::incrementar(){
-	this->_cantidad++;
-}
+void Conteo::incrementar(){	this->_cantidad++;}
 
 long Conteo::getId() {return _id;}
 
@@ -63,6 +63,10 @@ unsigned long int Conteo::Guardar(ofstream & ofs){
 }
 
 void Conteo::Leer(ifstream & ifs, unsigned long int offset){
+	// Elimino atributos de la instancia
+	if (this->_distrito != NULL)	delete this->_distrito;
+	if (this->_lista != NULL)	delete this->_lista;
+	if (this->_eleccion != NULL)	delete this->_eleccion;
 
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);
@@ -144,10 +148,7 @@ inline string Conteo::getURLArchivoDatos(){
 	return ((*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_CONTEO));
 }
 
-string Conteo::getClassName(){
-
-	return "Conteo";
-}
+string Conteo::getClassName(){return "Conteo";}
 
 void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
     //Usando los datos recibidos por parámetro busca el objeto conteo

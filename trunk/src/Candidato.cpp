@@ -97,6 +97,10 @@ unsigned long int Candidato::Guardar(ofstream & ofs)
 
 void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Elimino atributos de la instancia
+	if (this->_listaPropia != NULL)	delete this->_listaPropia;
+	if (this->_votante != NULL)	delete this->_votante;
+
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);
 

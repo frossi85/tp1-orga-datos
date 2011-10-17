@@ -82,6 +82,9 @@ unsigned long int Lista::Guardar(ofstream & ofs)
 
 void Lista::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Elimino atributos de la instancia
+	if (this->_eleccion != NULL) delete this->_eleccion;
+
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	_nombre = Utilidades::stringFromFile(ifs);

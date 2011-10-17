@@ -47,12 +47,13 @@ ConsultaEntidades::~ConsultaEntidades() {}
  *
  */
 
-bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aGuardar) {
+
+bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aSobreescribir) {
 	/* Formatea la clave (no indexa fecha!) */
 	Utilidades::formatearClave(clave);
 
 	/* Obtiene las rutas de los hash */
-	this->getURLs(aGuardar.getClassName());
+	this->getURLs(aSobreescribir.getClassName());
 
 	/* Busco el id del registro en el primer hash */
 	this->hash = new hash_extensible(this->URL_hash_regs,this->URL_hash_bloq_lib,this->URL_hash_tabla);
@@ -70,7 +71,7 @@ bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aGuardar) {
 	unsigned long int offset = returnReg->getOffset();
 
 	/* Recupero el registro del archivo de datos */
-	this->dataAccess.Leer(aGuardar,offset);
+	this->dataAccess.Leer(aSobreescribir,offset);
 	return true;
 }
 
@@ -85,6 +86,7 @@ void ConsultaEntidades::getURLs(string classname) {
 		return;
 	}
 	if (classname == "Cargo") {
+
 		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_cargo_regs>");
 		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_cargo_bloq_lib>");
 		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_cargo_tabla>");

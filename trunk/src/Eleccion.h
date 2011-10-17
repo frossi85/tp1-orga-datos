@@ -36,6 +36,7 @@ public:
 	vector<Distrito *> getDistritos();
 	void setId(long id) {this->_id=id;}
 	void setCargo(Cargo cargo);
+	void vaciarVectorDistritos();
 
 	//Interface de Guardable
 	unsigned long int Guardar(ofstream & ofs);
