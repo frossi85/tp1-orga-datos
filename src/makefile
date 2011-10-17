@@ -1,5 +1,5 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
-Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o menu.o DataAccess.o hash_extensible.o Menu_votante.o \
+Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o hash_extensible.o MenuVotante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
 TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o UtilidadesTests.o
 CC = g++
@@ -10,7 +10,7 @@ LFLAGS = -Wall $(DEBUG)
 VotoElectronico: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o VotoElectronico
 
-main.o: main.cpp menu.h Distrito.h Cargo.h DataAcces.h Tests/Tester.h RegistroArbol.h Nodo.h ArbolBMas.h
+main.o: main.cpp Menu.h Distrito.h Cargo.h DataAcces.h Tests/Tester.h RegistroArbol.h Nodo.h ArbolBMas.h
 	$(CC) $(CFLAGS) main.cpp
 
 Cargo.o: Cargo.cpp Cargo.h ManejoIDs.h
@@ -81,15 +81,15 @@ BloqueHash.o: BloqueHash.cpp BloqueHash.h
 	
 BloqueHash.h: Bloque.h RegistroIndice.h
 
-menu.o: menu.cpp menu.h DataAccess.h
-	$(CC) $(CFLAGS) menu.cpp
+Menu.o: Menu.cpp Menu.h DataAccess.h
+	$(CC) $(CFLAGS) Menu.cpp
 
-menu.h: Menu_votante.h
+Menu.h: MenuVotante.h
 
-Menu_votante.o: Menu_votante.cpp Menu_votante.h
-	$(CC) $(CFLAGS) Menu_votante.cpp
+MenuVotante.o: MenuVotante.cpp MenuVotante.h DataGetter.h
+	$(CC) $(CFLAGS) MenuVotante.cpp
 	
-Menu_votante.h: Votante.h Eleccion.h Lista.h
+MenuVotante.h: Votante.h Eleccion.h Lista.h
 
 DataAccess.o: DataAccess.cpp DataAccess.h
 	$(CC) $(CFLAGS) DataAccess.cpp
