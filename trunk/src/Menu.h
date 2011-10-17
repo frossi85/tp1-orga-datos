@@ -10,6 +10,8 @@
 
 #include <string.h>
 #include "MenuVotante.h"
+#include "ABM Entidades/ABMentidades.h"
+#include "ABM Entidades/ConsultaEntidades.h"
 
 using namespace std;
 
@@ -18,21 +20,21 @@ class Menu {
 public:
 	void mostrarAyuda();
 
-	void pedir_usuario();
+	void pedirUsuario();
 
-	void pedir_contrasena();
+	void pedirContrasena();
 
-	bool acceder_admin();
+	bool accesoAdmin();
 
-	bool acceder_usuario();
+	bool accesoUsuario();
 
 	bool loggin();
 
-	void admin_main();
+	void adminMain();
 
-	void admin_distritos();
+	void adminDistrito();
 
-	void admin_votante();
+	void adminVotante();
 
 public:
 	static Menu *getMenu();

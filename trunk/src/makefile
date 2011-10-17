@@ -1,6 +1,6 @@
 OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Configuracion.o Informe.o Lista.o Logger.o Logueable.o \
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o hash_extensible.o MenuVotante.o \
-RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
+RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Administrador.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
 TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o UtilidadesTests.o
 CC = g++
 DEBUG = -g
@@ -84,7 +84,7 @@ BloqueHash.h: Bloque.h RegistroIndice.h
 Menu.o: Menu.cpp Menu.h DataAccess.h
 	$(CC) $(CFLAGS) Menu.cpp
 
-Menu.h: MenuVotante.h
+Menu.h: MenuVotante.h ABM\ Entidades/ABMentidades.h ABM\ Entidades/ConsultaEntidades.h
 
 MenuVotante.o: MenuVotante.cpp MenuVotante.h DataGetter.h
 	$(CC) $(CFLAGS) MenuVotante.cpp
@@ -182,6 +182,9 @@ ManejoIDs.o: ManejoIDs.cpp ManejoIDs.h
 	$(CC) $(CFLAGS) ManejoIDs.cpp
 
 ManejoIDs.h: Configuracion.h
+
+Administrador.o: Administrador.h Administrador.cpp 
+	$(CC) $(CFLAGS) Administrador.cpp
 
 ABMentidades.o: ABM\ Entidades/ABMentidades.cpp ABM\ Entidades/ABMentidades.h
 	$(CC) $(CFLAGS) ABM\ Entidades/ABMentidades.cpp
