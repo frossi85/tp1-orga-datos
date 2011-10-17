@@ -53,11 +53,11 @@ public:
 
 	static void AgregarVoto(Lista& lista, Distrito& distrito);
 
-        static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
+    static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
 
-        static vector<Conteo *> getConteosPorLista(Lista& lista);
+    static vector<Conteo *> getConteosPorLista(Lista& lista);
 
-        static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
+    static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
 };
 
 #endif /* CONTEO_H_ */

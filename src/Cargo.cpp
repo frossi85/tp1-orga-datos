@@ -14,7 +14,9 @@ Cargo::Cargo(string cargoPrincipal){
 }
 
 
-Cargo::~Cargo() {}
+Cargo::~Cargo() {
+	this->vaciarVectorCargosSecundarios();
+}
 
 
 Cargo::Cargo(const Cargo &cargo){
@@ -42,6 +44,9 @@ long Cargo::getId() {return _id;}
 void Cargo::agregarCargoSecundario(string cargo) {this->cargosSecundarios.push_back(cargo);}
 
 
+void Cargo::vaciarVectorCargosSecundarios() {this->cargosSecundarios.clear();}
+
+
 //Implementacion de interfaz Guardable
 unsigned long int Cargo::Guardar(ofstream & ofs)
 {
@@ -65,6 +70,9 @@ unsigned long int Cargo::Guardar(ofstream & ofs)
 
 void Cargo::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Elimino atributos de la instancia
+	this->vaciarVectorCargosSecundarios();
+
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);
 

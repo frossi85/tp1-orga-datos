@@ -19,9 +19,8 @@ Eleccion::Eleccion(string fecha, Cargo cargo, Distrito primerDistrito)
 
 
 Eleccion::~Eleccion() {
-	delete this->_cargo;
-	int cantidad = this->_distritos.size();
-	for(int i=0;i<cantidad;i++)	delete this->_distritos[i];
+	if (this->_cargo != NULL) delete this->_cargo;
+	this->vaciarVectorDistritos();
 }
 
 
@@ -64,6 +63,13 @@ string Eleccion::getDescripcion(){
 }
 
 
+void Eleccion::vaciarVectorDistritos() {
+	int cantidad = this->_distritos.size();
+	for(int i=0;i<cantidad;i++)	delete this->_distritos[i];
+	this->_distritos.clear();
+}
+
+
 void Eleccion::Imprimir()
 {
 	cout<<"Id Eleccion: " <<_id << endl;
@@ -75,9 +81,9 @@ void Eleccion::Imprimir()
 
 void Eleccion::ImprimirDistritos()
 {
-	vector<Distrito *>::size_type cantidadDistritos = _distritos.size();
+	int cantidadDistritos = _distritos.size();
 	cout << "Distritos de la eleccion: " << endl;
-	for(vector<Distrito *>::size_type i = 0; i < cantidadDistritos; i++)
+	for(int i = (cantidadDistritos-1); i > -1 ; i--)
 		_distritos[i]->Imprimir();
 	cout << endl;
 }
@@ -112,6 +118,10 @@ unsigned long int Eleccion::Guardar(ofstream & ofs)
 
 void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Elimino atributos de la instancia
+	if (this->_cargo != NULL) delete this->_cargo;
+	this->vaciarVectorDistritos();
+
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);
 
@@ -165,7 +175,7 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 
 		// Leo el distrito del archivo de cargos
 		dataAccess.Leer(distrito,offset);
-		this->_distritos.push_back(new Distrito(distrito));	// Anda? No usar push_back(&distrito) xq eso esta muy mal.
+		this->_distritos.push_back(new Distrito(distrito));
 	}
 	delete hash;
 }

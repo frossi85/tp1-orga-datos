@@ -96,7 +96,7 @@ void TestPersistencias::TestEleccion() {
 	cout << "                Comienzo Test Eleccion" << endl;
 	cout << "********************************************************" << endl << endl;
 
-	 unsigned long int offset0, offset1, offset2, offset3, offset4, offset5;
+	 unsigned long int offset[6];
 
 	 vector<Distrito> vecDistritos;
 	 vector<Cargo> vecCargos;
@@ -105,28 +105,22 @@ void TestPersistencias::TestEleccion() {
 	 UtilidadesTests::cargarCargos(vecCargos);
 
 
-    /* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() */
+    /* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
     ABMentidades ABMaux;
-    bool exito = ABMaux.altaDistrito(vecDistritos[0]);
-    if (exito) exito = ABMaux.altaDistrito(vecDistritos[1]);
-    if (exito) exito = ABMaux.altaDistrito(vecDistritos[2]);
-    if (exito) exito = ABMaux.altaDistrito(vecDistritos[3]);
-    if (exito) exito = ABMaux.altaDistrito(vecDistritos[4]);
-    if (exito) exito = ABMaux.altaDistrito(vecDistritos[5]);
+    bool exito = true;
+    for (int i=0;i<6;i++)	if (exito) exito = ABMaux.altaDistrito(vecDistritos[i]);
     if (!exito) {
-    	cout << "Fallo la carga de Distritos" << endl << endl;
+    	cout << "Fallo la carga de Distritos (verificar que no exitan los hash de distrito)" << endl << endl;
     	return;
     }
 
-	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() */
-	exito = ABMaux.altaCargo(vecCargos[0]);
-    if (exito) exito = ABMaux.altaCargo(vecCargos[1]);
-    if (exito) exito = ABMaux.altaCargo(vecCargos[2]);
-    if (exito) exito = ABMaux.altaCargo(vecCargos[3]);
-    if (exito) exito = ABMaux.altaCargo(vecCargos[4]);
-    if (exito) exito = ABMaux.altaCargo(vecCargos[5]);
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = ABMaux.altaCargo(vecCargos[i]);
     if (!exito) {
-    	cout << "Fallo la carga de Cargos" << endl << endl;
+    	cout << "Fallo la carga de Cargos (verificar que no exitan los hash de cargo)" << endl << endl;
     	return;
     }
 
@@ -134,39 +128,23 @@ void TestPersistencias::TestEleccion() {
 
 	UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
 
-	vecElecciones[0].Imprimir();
-	vecElecciones[1].Imprimir();
-	vecElecciones[2].Imprimir();
-	vecElecciones[3].Imprimir();
-	vecElecciones[4].Imprimir();
-	vecElecciones[5].Imprimir();
+	for(int i=0;i<6;i++) {
+		vecElecciones[i].Imprimir();
+		vecElecciones[i].ImprimirDistritos();
+	}
 
-    offset0 = dataAccess.Guardar(vecElecciones[0]);
-    cout << "Offset de 01/01/2001: " << offset0 << endl;
-    offset1 = dataAccess.Guardar(vecElecciones[1]);
-    cout << "Offset de 02/02/2002: " << offset1 << endl;
-    offset2 = dataAccess.Guardar(vecElecciones[2]);
-    cout << "Offset de 03/03/2003: " << offset2 << endl;
-    offset3 = dataAccess.Guardar(vecElecciones[3]);
-    cout << "Offset de 04/04/2004: " << offset3 << endl;
-    offset4 = dataAccess.Guardar(vecElecciones[4]);
-    cout << "Offset de 05/05/2005: " << offset4 << endl;
-    offset5 = dataAccess.Guardar(vecElecciones[5]);
-    cout << "Offset de 06/06/2006: " << offset5 << endl << endl;
+	for(int i=0;i<6;i++) {
+		offset[i] = dataAccess.Guardar(vecElecciones[i]);
+		cout << "Offset de " << vecElecciones[i].getFecha() << ": " << offset[i] << endl;
+	}
+	cout << endl;
 
-    dataAccess.Leer(vecElecciones[0],offset5);
-    dataAccess.Leer(vecElecciones[1],offset4);
-    dataAccess.Leer(vecElecciones[2],offset3);
-    dataAccess.Leer(vecElecciones[3],offset2);
-    dataAccess.Leer(vecElecciones[4],offset1);
-    dataAccess.Leer(vecElecciones[5],offset0);
+    for(int i=0;i<6;i++)	dataAccess.Leer(vecElecciones[i],offset[5-i]);
 
-	vecElecciones[0].Imprimir();
-	vecElecciones[1].Imprimir();
-	vecElecciones[2].Imprimir();
-	vecElecciones[3].Imprimir();
-	vecElecciones[4].Imprimir();
-	vecElecciones[5].Imprimir();
+	for(int i=0;i<6;i++) {
+		vecElecciones[i].Imprimir();
+		vecElecciones[i].ImprimirDistritos();
+	}
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                    Fin Test Eleccion" << endl;

@@ -59,6 +59,7 @@ public:
 	//en esa Lista en el Distrito q vota
 	void votarEnEleccionALista(Eleccion& eleccion, Lista& lista);
 	void agregarEleccion(Eleccion eleccion);
+	void vaciarVectorElecciones();
 
 	//Interface de Guardable
 	unsigned long int Guardar(ofstream & ofs);

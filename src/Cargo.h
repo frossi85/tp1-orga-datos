@@ -36,6 +36,8 @@ public:
 	void Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
 
+	void vaciarVectorCargosSecundarios();
+
 	inline string getURLArchivoDatos();
 
 	//Metodos interfaz Logueable

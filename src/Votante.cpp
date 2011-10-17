@@ -42,10 +42,7 @@ Votante::Votante(const Votante &votante) {
 
 Votante::~Votante() {
 	if (this->_distrito != NULL)	delete this->_distrito;
-	int cantidad = this->_elecciones.size();
-	for(int i=0;i<cantidad;i++) {
-		if (this->_elecciones[i] != NULL)	delete this->_elecciones[i];
-	}
+	this->vaciarVectorElecciones();
 }
 
 
@@ -67,6 +64,15 @@ string Votante::getDomicilio() {return this->_domicilio;}
 Distrito Votante::getDistrito() {return *(this->_distrito);}
 
 
+void Votante::vaciarVectorElecciones() {
+	int cantidad = this->_elecciones.size();
+	for(int i=0;i<cantidad;i++) {
+		if (this->_elecciones[i] != NULL)	delete this->_elecciones[i];
+	}
+	this->_elecciones.clear();
+}
+
+
 void Votante::votarEnEleccionALista(Eleccion& eleccion, Lista& lista)
 {
 	//TODO: Implementar el metodo votar
@@ -78,18 +84,14 @@ void Votante::agregarEleccion(Eleccion eleccion) {
 }
 
 
-/* Devuelve una copia del vector de punteros a Eleccion, y copias de los datos apuntados por cada Eleccion*.
- * Si no fueran copias, se podria modificar desde el que lo llame y arruina todo
- * ESTAS SERIAN EN REALIDAD LAS ELECCIONES EN LAS QUE YA VOTO
- */
-vector<Eleccion *> Votante::getElecciones() {
-	int cantidad = this->_elecciones.size();
+vector<Eleccion *> Votante::getElecciones() { return this->_elecciones;}
+/*	int cantidad = this->_elecciones.size();
 	vector<Eleccion *> retorno;
 	for(int i=0;i<cantidad;i++){
 		retorno.push_back(new Eleccion(*(this->_elecciones[i])));
 	}
 	return retorno;
-}
+}*/
 
 
 bool Votante::cambiarClave(string claveAnterior, string claveNueva)
@@ -175,6 +177,10 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 
 void Votante::Leer(ifstream & ifs, unsigned long int offset)
 {
+	// Elimino atributos de la instancia
+	if (this->_distrito != NULL)	delete this->_distrito;
+	this->vaciarVectorElecciones();
+
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	ifs.read(reinterpret_cast<char *>(&_dni), sizeof(_dni));
