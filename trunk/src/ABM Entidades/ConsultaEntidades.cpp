@@ -48,7 +48,9 @@ ConsultaEntidades::~ConsultaEntidades() {}
  */
 
 bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aGuardar) {
+	/* Formatea la clave (no indexa fecha!) */
 	Utilidades::formatearClave(clave);
+
 	/* Obtiene las rutas de los hash */
 	this->getURLs(aGuardar.getClassName());
 
