@@ -227,3 +227,79 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	delete this->hash;
 	return true;
 }
+
+
+bool ABMentidades::modificacionEleccion(Eleccion &eleccion)
+{
+    return true;
+}
+
+bool ABMentidades::modificacionDistrito(Distrito &distrito)
+{
+    return true;
+}
+bool ABMentidades::modificacionCargo(Cargo &cargo)
+{
+    return true;
+}
+
+bool ABMentidades::modificacionVotante(Votante &votante)
+{
+    return true;
+}
+
+bool ABMentidades::modificacionLista(Lista &lista)
+{
+    return true;
+}
+
+bool ABMentidades::modificacionCandidato(Candidato &candidato)
+{
+    return true;
+}
+
+bool ABMentidades::bajaEleccion(Eleccion &eleccion)
+{
+    return true;
+}
+
+bool ABMentidades::bajaDistrito(Distrito &distrito)
+{
+    return true;
+}
+
+bool ABMentidades::bajaCargo(Cargo &cargo)
+{
+    return true;
+}
+
+bool ABMentidades::bajaVotante(Votante &votante)
+{
+    return true;
+}
+
+bool ABMentidades::bajaLista(Lista &lista)
+{
+    return true;
+}
+
+bool ABMentidades::bajaCandidato(Candidato &candidato)
+{
+    return true;
+}
+
+
+bool ABMentidades::altaAdministrador(Administrador &administrador)
+{
+    return true;
+}
+
+bool ABMentidades::modificacionAdministrador(Administrador &administrador)
+{
+    return true;
+}
+
+bool ABMentidades::bajaAdministrador(Administrador &administrador)
+{
+    return true;
+}

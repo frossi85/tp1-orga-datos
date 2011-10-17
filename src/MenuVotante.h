@@ -12,6 +12,7 @@
 #include "Votante.h"
 #include "Eleccion.h"
 #include "Lista.h"
+#include "Candidato.h"
 
 using namespace std;
 
@@ -27,26 +28,29 @@ private:
 	 */
 	void opciones();
 
-	void mostrar_menu_elecciones();
-	Eleccion* elegir_eleccion();
-	void mostrar_menu_datos();
-	void mostrar_listas_a_votar(Eleccion *eleccion);
+	void mostrarMenuElecciones();
+	Eleccion* elegirEleccion();
+	void mostrarMenuDatos();
+	void mostrarListasPresentadas(Eleccion *eleccion);
 
 	/*
 	 * Confirma la votacion devolviendo TRUE si se confirma la
 	 * Lista a votar.
 	 */
-	bool confirmar_votacion(Eleccion *eleccion,Lista *lista);
-	Lista* elegir_Lista(Eleccion *eleccion);
+	bool confirmarVotacion(Eleccion *eleccion,Lista *lista);
+	Lista* elegirLista(Eleccion *eleccion);
 
 	/*
 	 * Guarda los cambios de los datos del Votante modificados
 	 */
-	void guardar_cambios();
+	void guardarCambios();
 
 
-	void cambiar_clave();
-	void cambiar_domicilio();
+	void cambiarClave();
+	void cambiarDomicilio();
+
+	//TODO: pasarlo al lugar correspondiente
+	vector<Candidato *> getCandidatosPorLista(Lista &lista);
 
 public:
 	MenuVotante(Votante *votante);

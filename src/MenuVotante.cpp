@@ -14,7 +14,6 @@ MenuVotante::MenuVotante(Votante *votante) {
 	this->votante=votante;
 
 	opciones();
-
 }
 
 void MenuVotante::opciones(){
@@ -29,76 +28,71 @@ void MenuVotante::opciones(){
 		cout<<"V - Votar en Eleccion"<<endl;
 		cout<<"O - Cambiar Datos personales"<<endl;
 		cout<<"S - Salir"<<endl<<endl;
+		cout<<"Elegir opcion: ";
 
 		cin>>opcion;
 
-		opcion_elegida=	opcion=='v' || opcion=='V' ||
-						opcion=='o' || opcion=='O' ||
-						opcion=='s' || opcion=='S';
+		opcion =(char) toupper(opcion);
+
+		opcion_elegida=	opcion=='V' ||
+						opcion=='O' ||
+						opcion=='S';
 	}
 	while(!opcion_elegida);
 
-	switch (opcion){
-
-	case 'v':
-	case 'V':	mostrar_menu_elecciones();
-		 		break;
-	case 'o':
-	case 'O': 	mostrar_menu_datos();
-				break;
-
-	case 's':
-	case 'S':
-				break;
-	default: break;
-
+	switch ((char)toupper(opcion)){
+		case 'V':
+			mostrarMenuElecciones();
+			break;
+		case 'O':
+			mostrarMenuDatos();
+			break;
+		case 'S':
+			break;
+		default:
+			break;
 	}
-
-
 }
 
-void MenuVotante::mostrar_menu_elecciones(){
-
-	char opcion;
+void MenuVotante::mostrarMenuElecciones(){
 	Eleccion *eleccion;
 
-
-	eleccion=this->elegir_eleccion();
-
+	eleccion=this->elegirEleccion();
 
 	if(eleccion==NULL){
 		opciones();
 	}else{
-		mostrar_listas_a_votar(eleccion);
+		mostrarListasPresentadas(eleccion);
 	}
-
-
-
 }
 
 
-Eleccion* MenuVotante::elegir_eleccion(){
+Eleccion* MenuVotante::elegirEleccion(){
 
 	bool eleccion_elegida=false;
 	unsigned opcion;
 	Eleccion *resultado;
+	//TODO: la que va es la q esta comentada
+	//vector<Eleccion *> elecciones=DataGetter::getEleccionesPorFechaYDistrito(*this->votante);
 	vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante);
 	unsigned int cantidad_elecciones=elecciones.size();
+
+	system("clear");
 	cout<<"************************************"<<endl;
-	cout<<endl<<"Elecciones Disponibles: "<<endl;
+	cout<<"Elecciones Disponibles: "<<endl<<endl;
 	do{
 		opcion=1;
 
 		for(unsigned i=0;i<cantidad_elecciones;i++){
 
-			cout<<opcion+i<<" - "<<elecciones[i]->getCargo().getCargoPrincipal()<<endl;
+			cout<<opcion+i<<" - "<<elecciones[i]->getCargo().getCargoPrincipal()<<" "<<elecciones[i]->getFecha()<<endl;
 
 		}
 
 		cout<<"0 - Volver a menu anterior"<<endl<<endl;
 		cout<<"Elegir Eleccion: ";
 		cin>>opcion;
-		eleccion_elegida=( opcion>=0) && (opcion<=cantidad_elecciones);
+		eleccion_elegida=((opcion>=0) && (opcion<=cantidad_elecciones));
 
 	}while(!eleccion_elegida);
 
@@ -116,7 +110,7 @@ Eleccion* MenuVotante::elegir_eleccion(){
 }
 
 
-void MenuVotante::mostrar_listas_a_votar(Eleccion *eleccion){
+void MenuVotante::mostrarListasPresentadas(Eleccion *eleccion){
 
 	Lista *lista;
 
@@ -124,10 +118,10 @@ void MenuVotante::mostrar_listas_a_votar(Eleccion *eleccion){
 
 	do{
 
-		lista=this->elegir_Lista(eleccion);
+		lista=this->elegirLista(eleccion);
 
 		if(lista!=NULL){
-			confirmacion=confirmar_votacion(eleccion,lista);
+			confirmacion=confirmarVotacion(eleccion,lista);
 		}
 
 	}while((!confirmacion) && lista!=NULL);
@@ -138,39 +132,37 @@ void MenuVotante::mostrar_listas_a_votar(Eleccion *eleccion){
 		//Se regresa al menu Principal
 		opciones();
 	}else if (lista==NULL) {
-
-
-		mostrar_menu_elecciones();
-
+		mostrarMenuElecciones();
 	}
-
 }
 
 
-Lista* MenuVotante::elegir_Lista(Eleccion *eleccion){
+Lista* MenuVotante::elegirLista(Eleccion *eleccion){
 
 	Lista *lista_resultado;
-	bool lista_elegida=false;
-	vector<Lista *> listas=DataGetter::getListas_por_Eleccion(*eleccion);
-	int cantidad_listas=listas.size();
-	unsigned opcion;
+	bool listaElegida=false;
+	vector<Lista *> listas=DataGetter::getListas_por_Eleccion(*eleccion); //TODO: traer listas por eleccion
+	unsigned int cantidad_listas=listas.size();
+	unsigned int opcion;
 
 	do{
+		system("clear");
 		cout<<"************************************"<<endl;
-		cout<<endl<<"Listas Disponibles a votar:"<<endl;
-		for(int i=0;i<cantidad_listas;i++){
+		cout<<"Eleccion "<< eleccion->getCargo().getCargoPrincipal()<<endl<<endl;
+		cout<<"Listas Presentadas:"<<endl;
+		for(unsigned int i=0;i<cantidad_listas;i++){
 
-			cout<<(i+1)<<" - "<<listas[i]->getNombre()<<endl;
+			cout<<(i+1)<<" -"<<listas[i]->getNombre()<<endl;
 		}
 
 		cout<<endl<<"0 - Volver a menu anterior"<<endl;
-		cout<<"Elegir Lista: ";
+		cout<<"Elegir Lista a Votar: ";
 		cin>>opcion;
 
-		lista_elegida=(opcion>=0) && (opcion<=cantidad_listas);
-	}while(!lista_elegida);
+		listaElegida= ((opcion>=0) && (opcion<=cantidad_listas));
+	}while(!listaElegida);
 
-	if(opcion==0){
+	if(opcion == 0){
 		lista_resultado=NULL;
 	}else{
 		lista_resultado=listas[opcion-1];
@@ -181,84 +173,117 @@ Lista* MenuVotante::elegir_Lista(Eleccion *eleccion){
 
 }
 
+vector<Candidato *> MenuVotante::getCandidatosPorLista(Lista &lista)
+{
+	vector<Candidato *> candidatos;
 
-bool MenuVotante::confirmar_votacion(Eleccion *eleccion,Lista *lista){
+	Distrito distrito;
+	Votante v1(1, "Facundo", "tp", "saraza", distrito);
+	Votante v2(1, "Leandro", "tp", "saraza", distrito);
+	Votante v3(1, "Martin", "tp", "saraza", distrito);
+
+	candidatos.push_back(new Candidato(v1, lista));
+	candidatos.push_back(new Candidato(v2, lista));
+	candidatos.push_back(new Candidato(v3, lista));
+
+	return candidatos;
+}
+
+bool MenuVotante::confirmarVotacion(Eleccion *eleccion,Lista *lista){
 
 	//system("clear");
 	char opcion;
 	bool opcion_elegida=false;
 	bool confirmacion=false;
+	vector<Candidato *> candidatosListaElegida = getCandidatosPorLista(*lista);
 
 	do{
+		system("clear");
+		cout<<"***********************"<<endl;
+		cout<<"Se ha elegido la lista "<<lista->getNombre()<<endl<<endl;
+		cout<<" Sus candidatos son: "<<endl;
 
+		for(unsigned int i = 0; i < candidatosListaElegida.size(); i++)
+		{
+			cout<<"  -"<<candidatosListaElegida[i]->getNombreYApellido()<<endl;
+		}
+		cout<<endl;
 
-		cout<<"Confirmacion de voto a: "<<lista->getNombre()<<endl;
-		cout<<"A - Aceptar voto"<<endl;
+		cout<<"C - Confirmar voto"<<endl;
 		cout<<"R - Rechazar Voto"<<endl;
+		cout<<"Elegir opcion: ";
 		cin>>opcion;
 
-		opcion_elegida= opcion=='a' || opcion=='A' ||
-						opcion=='r' || opcion=='R';
+		opcion =(char) toupper(opcion);
+
+		opcion_elegida= opcion=='C' ||
+						opcion=='R';
 
 
 	}while(!opcion_elegida);
 
-	if (opcion=='a' || opcion=='A'){
+	if (opcion=='C'){
 
-		//votante->votarEnEleccionALista(*eleccion,*lista);
+		//TODO: Pedir conteo por Eleccion, lista y distrito e incrementarlos
 		confirmacion=true;
 	}
+
+	//Limpio el vector de candidatos
+	int cantidadCandidatos = candidatosListaElegida.size();
+
+	for(int i = 0; i < cantidadCandidatos; i++)
+		delete candidatosListaElegida[i];
 
 	return confirmacion;
 
 }
 
-void MenuVotante::mostrar_menu_datos(){
+void MenuVotante::mostrarMenuDatos(){
 
-	    char opcion;
-		bool opcion_elegida=false;
+	char opcion;
+	bool opcion_elegida=false;
 
-		do{
-			system("clear");
-			cout<<"***********************"<<endl;
-			cout<<"Menu Datos Personales"<<endl<<endl;
-			cout<<"C - Cambiar Clave "<<endl;
-			cout<<"D - Cambiar Domicilio"<<endl<<endl;
-			cout<<"V - Volver a Menu Principal"<<endl;
+	do{
+		system("clear");
+		cout<<"***********************"<<endl;
+		cout<<"Menu Datos Personales"<<endl<<endl;
+		cout<<"C - Cambiar Clave "<<endl;
+		cout<<"D - Cambiar Domicilio"<<endl<<endl;
+		cout<<"V - Volver a Menu Principal"<<endl;
+		cout<<"Elegir opcion: ";
 
-			cin>>opcion;
+		cin>>opcion;
 
-			opcion_elegida=	opcion=='c' || opcion=='C' ||
-							opcion=='d' || opcion=='D' ||
-							opcion=='v' || opcion=='V';
-		}
-		while(!opcion_elegida);
+		opcion =(char) toupper(opcion);
 
-		switch (opcion){
+		opcion_elegida=	opcion=='C' ||
+						opcion=='D' ||
+						opcion=='V';
+	}
+	while(!opcion_elegida);
 
-			case 'v':
-			case 'V':	opciones();
-				 		break;
-			case 'c':
-			case 'C': 	this->cambiar_clave();
-						mostrar_menu_datos();
-						break;
-
-			case 'd':
-			case 'D':	this->cambiar_domicilio();
-						mostrar_menu_datos();
-						break;
-			default: break;
-
-			}
-
-
+	switch (opcion){
+		case 'V':
+			opciones();
+				break;
+		case 'C':
+			this->cambiarClave();
+			mostrarMenuDatos();
+			break;
+		case 'D':
+			this->cambiarDomicilio();
+			mostrarMenuDatos();
+			break;
+		default:
+			break;
+	}
 }
 
-void MenuVotante::cambiar_clave(){
+void MenuVotante::cambiarClave(){
 
-	char nueva_clave[20],nueva_clave_conf[20];
-	bool ingreso_correcto=false;
+	string nueva_clave;
+	string nueva_clave_conf;
+	bool ingreso_correcto = false;
 
 	while (!ingreso_correcto){
 
@@ -266,18 +291,18 @@ void MenuVotante::cambiar_clave(){
 		system("stty -echo");
 		cin >> nueva_clave;
 		system("stty echo");
+		cout<<endl;
 
 		cout<<"Reingresar Nueva Clave: ";
 		system("stty -echo");
 		cin >> nueva_clave_conf;
 		system("stty echo");
+		cout<<endl;
 
-		ingreso_correcto=strcmp(nueva_clave,nueva_clave_conf)==0;
-
-		if (ingreso_correcto){
+		if (nueva_clave == nueva_clave_conf){
 
 			cout<<"Clave Nueva ingresada Correctamente."<<endl;
-
+			ingreso_correcto = true;
 		}
 		else{
 
@@ -289,25 +314,24 @@ void MenuVotante::cambiar_clave(){
 	}
 	string clave_cambiada(nueva_clave);
 	this->votante->cambiarClave(votante->getClave(),clave_cambiada);
-	this->guardar_cambios();
-
+	this->guardarCambios();
 }
 
-void MenuVotante::cambiar_domicilio(){
+void MenuVotante::cambiarDomicilio(){
 
 	char nuevo_domicilio[30];
 	cout<<"Domicilio Anterior: "<<this->votante->getDomicilio()<<endl;
 	cout<<"Ingrese Nuevo Domicilio: ";
 
-	scanf("%s",nuevo_domicilio);
+	cin>>nuevo_domicilio;
 	string nuevo_domicilio_str(nuevo_domicilio);
 	this->votante->setDomicilio(nuevo_domicilio_str);
-	this->guardar_cambios();
+	this->guardarCambios();
 
 }
 
-void MenuVotante::guardar_cambios(){
-
+void MenuVotante::guardarCambios(){
+	//TODO: guardar votante
 
 
 }

@@ -56,29 +56,32 @@ int main(int argc, char *argv[]){
 			return 0;
 	}
 
-	if ( argumento == "-a" || argumento== "--admin" ) {
+	if ( argumento == "-a" || argumento== "--admin" )
+	{
+		cout << "Ingreso como administrador. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
+		// La funcionalidad deseada es acceder como administrador
+		// Se pide y verifica usuario y contraseña
+		do {
+			menu->pedirUsuario();
+			menu->pedirContrasena();
+		} while (!menu->accesoAdmin());
 
-			cout << "Ingreso como administrador. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
-			// La funcionalidad deseada es acceder como administrador
-			// Se pide y verifica usuario y contraseña
-			do {
-					menu->pedir_usuario();
-					menu->pedir_contrasena();
-			} while (!menu->acceder_admin());
-
-			return 0;
+		return 0;
 	}
-	if ( argumento == "-u" || argumento == "--user" ) {
-
+	else
+	{
+		if ( argumento == "-u" || argumento == "--user" )
+		{
 			cout << "Ingreso como usuario. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
 			// La funcionalidad deseada es acceder como usuario
 			// Se pide y verifica usuario y contraseña
 			do {
-					menu->pedir_usuario();
-					menu->pedir_contrasena();
-			} while (!menu->acceder_usuario());
+				menu->pedirUsuario();
+				menu->pedirContrasena();
+			} while (!menu->accesoUsuario());
 
 			return 0;
+		}
 	}
 
 	cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones

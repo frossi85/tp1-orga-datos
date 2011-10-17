@@ -13,6 +13,7 @@
 #include <cctype>
 #include "DataAccess.h"
 #include "DataGetter.h"
+#include "ABM Entidades/ABMentidades.h"
 using namespace std;
 
 Menu::Menu() {
@@ -34,19 +35,19 @@ void Menu::mostrarAyuda() {
     cout << "*************************************************************\n";
 }
 
-void Menu::pedir_usuario() {
-    cout<<("Usuario: ");
+void Menu::pedirUsuario() {
+    cout<<"Usuario: ";
     cin >> user;
 }
 
-void Menu::pedir_contrasena() {
-	cout<<("Contraseña: ");
+void Menu::pedirContrasena() {
+	cout<<"Contraseña: ";
 	system("stty -echo");
 	cin >> pass;
 	system("stty echo");
 }
 
-bool Menu::acceder_admin() {
+bool Menu::accesoAdmin() {
 	//Administrator admin = DataGet::getAdministrator();
 
 	string userOk="tp"; //admin.getUser();
@@ -54,11 +55,11 @@ bool Menu::acceder_admin() {
 
 	if ( user == userOk && pass == passOk ) {
 		cout<< "Accedio al sistema." << endl;
-		admin_main();
+		adminMain();
 		return true;
 	} else {
 		if ( user == salir || pass == salir) {
-			cout << "Eligio terminar el programa." << endl;
+			cout <<endl<< "Eligio terminar el programa." << endl;
 			return true;
 		} else {
 			cout << "El usuario o la contraseña son invalidos." << endl;
@@ -67,7 +68,7 @@ bool Menu::acceder_admin() {
 	}
 }
 
-bool Menu::acceder_usuario() {
+bool Menu::accesoUsuario() {
 	DataAccess data_access;
 	Votante *votante= DataGetter::getVotante(user);
 
@@ -91,7 +92,7 @@ bool Menu::acceder_usuario() {
 	}
 }
 
-void Menu::admin_main() {
+void Menu::adminMain() {
 	char opcion;
 
 
@@ -117,11 +118,11 @@ void Menu::admin_main() {
 		invalida=false;
 		switch ((char)toupper(opcion)) {
 		case 'D':
-			admin_distritos();
+			adminDistrito();
 			retorno=true;
 			break;
 		case 'V':
-			admin_votante();
+			adminVotante();
 			retorno=true;
 			break;
 		case 'S':
@@ -135,7 +136,7 @@ void Menu::admin_main() {
 	} while ((invalida) || (retorno));
 }
 
-void Menu::admin_distritos() {
+void Menu::adminDistrito() {
 	char opcion;
 	bool invalida=false;
 	bool retorno=false;
@@ -225,183 +226,178 @@ void Menu::admin_distritos() {
 	} while ((invalida) || (retorno));
 }
 
-void Menu::admin_votante() {
-	char opcion;
-	bool invalida=false;
-	bool retorno=false;
-	char nombre[50], direccion[50], dni[50];
-	int resultado;
-	do {
-		system("clear");
-		if (invalida) {
-			cout << "Opcion invalida, intente nuevamente." << endl;
-		}
-		cout << "********************************" << endl;
-		cout << "A => Crear un Votante." << endl;
-		cout << "B => Borrar un Votante." << endl;
-		cout << "M => Modificar un Votante." << endl;
-		cout << "V => Volver." << endl << "Opcion: ";
-		cin >> opcion;
+void Menu::adminVotante() {
+    char opcion;
+    bool invalida=false;
+    bool retorno=false;
+    char nombre[50], direccion[50], dni[50];
+    string nombreDistrito;
+    Votante votante;
+    Distrito distrito;
+    ConsultaEntidades consulta;
+    ABMentidades abm;
 
-		retorno=false;
-		invalida=false;
-		switch ((char)toupper(opcion)) {
-		case 'A':
-			cout << endl <<endl; //((DNI)i, NombreyApellido, clave, domicilio, (distrito)ie, ((eleccion)ie)*)
-			cout << "Ingrese el nombre y apellido del nuevo Votante: ";
-			cin >> nombre;
-			cout << "Ingrese el domicilio: ";
-			cin >> direccion;
-			int dniN;
-			dniN= -2;
-			do {
-				if (dniN!=-2) {
-					cout << "El DNI ingresado es invalido." << endl;
-				}
-				cout << "Ingrese el DNI: ";
-				cin >> dni;
-				dniN = atoi(dni);
-			} while ( (dniN<5000000) || (dniN>100000000) );
+    int resultado;
+    do {
+        system("clear");
+        if (invalida) {
+                cout << "Opcion invalida, intente nuevamente." << endl;
+        }
+        cout << "********************************" << endl;
+        cout << "A => Crear un Votante." << endl;
+        cout << "B => Borrar un Votante." << endl;
+        cout << "M => Modificar un Votante." << endl;
+        cout << "V => Volver." << endl << "Opcion: ";
+        cin >> opcion;
 
-			//aqui
-			resultado= 0;//creaDistrito(nombre);
-			if (resultado==0) {
-				cout << "Se agrego al Votante \"" << dni << "\"." << endl;
-			} else {
-				cout << "Error al crear al Votante. Codigo: " << resultado << endl;
-			}
-			cout << "Ingrese cualquier letra para continuar: ";
-			cin >> opcion;
-			retorno=true;
-			break;
-		case 'B':
-			dniN= -2;
-			do {
-				if (dniN!=-2) {
-					cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
-				}
-				cout << "Ingrese el DNI del Votante a borrar: ";
-				cin >> dni;
-				dniN = atoi(dni);
-			} while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
+        retorno=false;
+        invalida=false;
+        opcion = (char)toupper(opcion);
+        switch (opcion) {
+            case 'A':
+                    cout << endl <<endl; //((DNI)i, NombreyApellido, clave, domicilio, (distrito)ie, ((eleccion)ie)*)
+                    int dniN;
+                    dniN= -2;
+                    do {
+                            if (dniN!=-2) {
+                                    cout << "El DNI ingresado es invalido." << endl;
+                            }
+                            cout << "Ingrese el DNI: ";
+                            cin >> dni;
+                            dniN = atoi(dni);
+                    } while ( (dniN<5000000) || (dniN>100000000) );
 
-			//aqui
-			resultado= 0;//borraVotante(dniN);
-			if (resultado==0) {
-				cout << "Se borro el Votante \"" << nombre << "\"." << endl;
-			} else {
-				cout << "No se encontro el Votante \"" << nombre << "\"." << endl;
-			}
-			cout << "Ingrese cualquier letra para continuar: ";
-			cin >> opcion;
-			retorno=true;
-			break;
-		case 'M':
-			dniN= -2;
-			do {
-				if (dniN!=-2) {
-					cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
-				}
-				cout << "Ingrese el DNI: del Votante a modificar: ";
-				cin >> dni;
-				dniN = atoi(dni);
-			} while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
+                    cout << "Ingrese el nombre y apellido del nuevo Votante: ";
+                    cin >> nombre;
+                    cout << "Ingrese el domicilio: ";
+                    cin >> direccion;
+                    cout << "ingrese el nombre del distrito del Votante: ";
+                    cin >> nombreDistrito;
 
-			//aqui
-			resultado= 1;//buscarDistrito(nombre);
-			if (resultado>0) {
-				bool invalida_v=false;
-				do {
-					system("clear");
-					if (invalida_v) {
-						cout << "Opcion invalida, intente nuevamente." << endl;
-					}
-					cout << "********************************" << endl;
-					cout << "N => Modificar el nombre." << endl;
-					cout << "O => Modificar el domicilio." << endl;
-					cout << "D => Modificar el distrito." << endl;
-					cout << "I => Modificar el DNI." << endl;
-					cout << "V => Volver." << endl << "Opcion: ";
-					cin >> opcion;
+                    //Se verifica si existe el distrito
+                    if(consulta.ObtenerRegistro(nombreDistrito, distrito))
+                        votante.setDistrito(distrito);
+                    else
+                        cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
 
-					int resultado_v;
-					invalida_v=false;
-					switch ((char)toupper(opcion)) {
-					case 'N':
-						cout << "ingrese el nuevo nombre del Votante: ";
-						cin >> nombre;
+                    //Se crea el votante, verificando si no existia
+                    if(abm.altaVotante(votante))
+                        cout << "Se creo el Votante \"" << nombre << "\"." << endl;
+                    else
+                        cout << "El votante ya existe o se produjo un error al crearlo." << endl;
 
-						resultado_v= 0;//modificarVotante('nombre',nombre);
-						if (resultado_v==0) {
-							cout << "Se modifico el Votante \"" << nombre << "\"." << endl;
-						} else {
-							cout << "Error al modificar al Votante. Codigo: " << resultado << endl;
-						}
-						break;
-					case 'O':
-						cout << "ingrese el nuevo domicilio del Votante: ";
-						cin >> nombre;
+                    cout << "Ingrese cualquier letra para continuar: ";
+                    cin >> opcion;
+                    retorno=true;
+                    break;
+            case 'B':
+                    dniN= -2;
+                    do {
+                            if (dniN!=-2) {
+                                    cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
+                            }
+                            cout << "Ingrese el DNI del Votante a borrar: ";
+                            cin >> dni;
+                            dniN = atoi(dni);
+                    } while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
 
-						resultado_v= 0;//modificarVotante('domicilio',nombre);
-						if (resultado_v==0) {
-							cout << "Se modifico el domicilio \"" << nombre << "\"." << endl;
-						} else {
-							cout << "Error al modificar al Votante. Codigo: " << resultado << endl;
-						}
-						break;
-					case 'D':
-						cout << "ingrese el nombre del nuevo distrito del Votante: ";
-						cin >> nombre;
+                    if(!(consulta.ObtenerRegistro(dni, votante)))
+                    {
+                        cout<<"El votante no existe"<<endl;
+                        resultado = -1;
+                        break;
+                    }
+                    if(abm.bajaVotante(votante))
+                        cout << "Se borro el Votante \"" << nombre << "\"." << endl;
+                    else
+                        cout<< "No se ha podido borrar al votante." << endl;
+                    
+                    cout << "Ingrese cualquier letra para continuar: ";
+                    cin >> opcion;
+                    retorno=true;
+                    break;
+            case 'M':
+                dniN= -2;
+                do {
+                    if (dniN!=-2) {
+                        cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
+                    }
+                    cout << "Ingrese el DNI del Votante a modificar: ";
+                    cin >> dni;
+                    dniN = atoi(dni);
+                } while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
 
-						resultado_v= 0;//modificarVotante('distiro',nombre);
-						if (resultado_v==0) {
-							cout << "Se modifico el Votante al distrito \"" << nombre << "\"." << endl;
-						} else {
-							cout << "Error al modificar al Votante. Codigo: " << resultado << endl; // no se encontro distrito
-						}
-						break;
-					case 'I':
-						dniN= -2;
-						do {
-							if (dniN!=-2) {
-								cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
-							}
-							cout << "Ingrese el DNI: del Votante a modificar: ";
-							cin >> dni;
-							dniN = atoi(dni);
-						} while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir,5);
+                if(!(consulta.ObtenerRegistro(dni, votante)))
+                {
+                    cout<<"El votante no existe"<<endl;
+                    resultado = -1;
+                    break;
+                }
+                resultado= 1;
+                if (resultado>0) {
+                    bool invalida_v=false;
+                    do {
+                        system("clear");
+                        if (invalida_v) {
+                            cout << "Opcion invalida, intente nuevamente." << endl;
+                        }
+                        cout << "********************************" << endl;
+                        cout << "O => Modificar el domicilio." << endl;
+                        cout << "D => Modificar el distrito." << endl;
+                        cout << "V => Volver." << endl << "Opcion: ";
+                        cin >> opcion;
 
-						resultado_v= 0;//modificarVotante('dni',dniN);
-						if (resultado_v==0) {
-							cout << "Se modifico el Votante \"" << nombre << "\"." << endl;
-						} else {
-							cout << "Error al modificar al Votante. Codigo: " << resultado << endl;
-						}
-						break;
-					case 'V':
-						break;
-					default:
-						invalida_v=true;
-						break;
-					}
+                        int resultado_v;
+                        invalida_v=false;
+                        switch ((char)toupper(opcion)) {
+                        case 'O':
+                            cout << "ingrese el nuevo domicilio del Votante: ";
+                            cin >> nombre;
 
-				} while (invalida_v);
-			} else {
-				cout << "No se encontro el Votante \"" << nombre << "\"." << endl;
-			}
-			cout << "Ingrese cualquier letra para continuar: ";
-			cin >> opcion;
-			retorno=true;
-			break;
-		case 'V':
-			system("clear");
-			break;
-		default:
-			invalida=true;
-			break;
-		}
+                            votante.setDomicilio(nombre);
+                            break;
+                        case 'D':
+                            cout << "ingrese el nombre del nuevo distrito del Votante: ";
+                            cin >> nombre;
+                            
+                            if(consulta.ObtenerRegistro(nombre, distrito))
+                                votante.setDistrito(distrito);
+                            else
+                                cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
+                            break;
+                        case 'V':
+                            break;
+                        default:
+                            invalida_v=true;
+                            break;
+                        }
 
-	} while ((invalida) || (retorno));
+                        if(!invalida_v && (opcion != 'V'))
+                        {
+                            if((abm.modificacionVotante(votante)))
+                                cout << "Se modifico el Votante \"" << nombre << "\"." << endl;
+                            else
+                                cout << "Error al modificar al Votante." << endl;
+                        }
+
+                    } while (invalida_v);
+                } else {
+                        cout << "No se encontro el Votante \"" << nombre << "\"." << endl;
+                }
+                
+                cout << "Ingrese cualquier letra para continuar: ";
+                cin >> opcion;
+                retorno=true;
+                break;
+            case 'V':
+                system("clear");
+                break;
+            default:
+                invalida=true;
+                break;
+        }
+
+    } while ((invalida) || (retorno));
 }
 
 Menu::~Menu() {
