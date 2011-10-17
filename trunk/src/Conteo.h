@@ -34,8 +34,8 @@ private:
 public:
 	//Las referencias deben ser inicializadas si o si en el constructor mediante listas de
 	//inicializacion como en el ejemplo de abajo
-	Conteo(Eleccion& eleccion, Lista& lista, Distrito& distrito);
-	Conteo(const Conteo &eleccion);
+	Conteo(Lista& lista, Distrito& distrito);
+	Conteo(const Conteo &conteo);
 	virtual ~Conteo();
 	long getId();
 	void incrementar();
@@ -47,10 +47,11 @@ public:
 
 	void Leer(ifstream & ifs, unsigned long int offset);
 
-	//Falta Implementar
 	string getURLArchivoDatos();
 
 	string getClassName();
+
+	static void AgregarVoto(Lista& lista, Distrito& distrito);
 
 };
 

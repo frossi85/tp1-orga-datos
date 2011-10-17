@@ -6,8 +6,9 @@
  */
 
 #include "Conteo.h"
+#include "ArbolBMas.h"
 
-Conteo::Conteo(Eleccion& eleccion, Lista& lista, Distrito& distrito) : _distrito(&distrito), _lista(&lista), _eleccion(&eleccion){
+Conteo::Conteo(Lista& lista, Distrito& distrito) : _distrito(&distrito), _lista(&lista), _eleccion(&(lista.getEleccion())){
 	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
 	this->_cantidad = 0;
 }
@@ -148,4 +149,32 @@ string Conteo::getClassName(){
 	return "Conteo";
 }
 
+void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
+    //Usando los datos recibidos por parámetro busca el objeto conteo
+    //en el árbol de reporte por distrito.
+    ArbolBMas *arbolDistrito = new ArbolBMas();
+    arbolDistrito->abrir(RUTA_ARBOL_REPORTE_DISTRITO);
+
+    //obtiene la clave concatenada para buscar
+    string claveConcatenada = distrito.getNombre() +"$" +lista.getNombre();
+    long int offsetConteo;
+
+    DataAccess dataAccess;
+
+    //Si el conteo no existe, le da de alta con cantidad = 1 y
+    //lo indexa en los 3 árboles de índices para reportes, y termina
+    if(!arbolDistrito->buscar(claveConcatenada, offsetConteo)){
+
+       // Conteo conteoNuevo();
+
+       /* delete arbolDistrito;
+        delete arbolLista;
+        delete arbolEleccion;*/
+        return;
+    }
+
+    //Si ya existía, lo lee, incrementa en 1 su cantidad, y guarda
+    //el cambio (en el archivo de registros variables)
+    delete arbolDistrito;
+}
 

@@ -24,8 +24,8 @@ vector<Conteo*> DataGetter::getConteos_por_Eleccion_y_Distrito(Eleccion &eleccio
 	Lista lista1("IPF",eleccion),lista2("UxI",eleccion);
 	Conteo *conteo1;
 	Conteo *conteo2;
-	conteo1=new Conteo(eleccion,lista1,distrito);
-	conteo2=new Conteo(eleccion,lista2,distrito);
+	conteo1=new Conteo(lista1,distrito);
+	conteo2=new Conteo(lista2,distrito);
 	conteo1->incrementar();conteo1->incrementar(); conteo1->incrementar();
 	conteo2->incrementar(); conteo2->incrementar();
 	resultado.push_back(conteo1);
@@ -52,8 +52,8 @@ vector<Conteo*> DataGetter::getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccio
 	Distrito dist1("Avellaneda"),dist2("Lomas de Zamora");
 	Conteo *conteo1,*conteo2;
 
-	conteo1=new Conteo(eleccion,lista,dist1);
-	conteo2=new Conteo(eleccion,lista,dist2);
+	conteo1=new Conteo(lista,dist1);
+	conteo2=new Conteo(lista,dist2);
 	conteo1->incrementar();conteo1->incrementar(); conteo1->incrementar();
 	conteo2->incrementar(); conteo2->incrementar();
 	resultado.push_back(conteo1);
