@@ -72,8 +72,19 @@ Eleccion* MenuVotante::elegirEleccion(){
 	bool eleccion_elegida=false;
 	unsigned opcion;
 	Eleccion *resultado;
+	string fecha;
+
+	do{
+		cout<<endl<<"Ingrese la fecha de hoy en el siguiente formato DD/MM/AAAA: ";
+		cin>>fecha;
+		if(Utilidades::indexarFecha(fecha)=="aaaammdd")
+			cout<<endl<<"La fecha ingresada no es correcta."<<endl;
+		else
+			break;
+	}while(1);
+
 	//TODO: la que va es la q esta comentada
-	//vector<Eleccion *> elecciones=DataGetter::getEleccionesPorFechaYDistrito(*this->votante);
+	//vector<Eleccion *> elecciones=DataGetter::getEleccionesPorFechaYDistrito(fecha, (*this->votante).getDistrito());
 	vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante);
 	unsigned int cantidad_elecciones=elecciones.size();
 
