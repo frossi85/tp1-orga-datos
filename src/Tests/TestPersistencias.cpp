@@ -5,10 +5,6 @@
  *      Author: martin
  */
 
-/*
- * Ya Agregue Este Test para que se ejecute con Tester
- */
-
 
 #include "TestPersistencias.h"
 
@@ -30,7 +26,7 @@ void TestPersistencias::comenzar(){
 
 TestPersistencias::~TestPersistencias() {}
 
-/* Se crean 6 Distritos, se guardan en archivo y se recuperan en forma opuesta*/
+/* Se crean 6 Distritos, se guardan en archivo y se recuperan en forma opuesta */
 void TestPersistencias::TestDistrito() {
 
 	cout << endl << "********************************************************" << endl;
@@ -41,41 +37,19 @@ void TestPersistencias::TestDistrito() {
 
 	UtilidadesTests::cargarDistritos(vecDistritos);
 
-    vecDistritos[0].Imprimir();
-    vecDistritos[1].Imprimir();
-    vecDistritos[2].Imprimir();
-    vecDistritos[3].Imprimir();
-    vecDistritos[4].Imprimir();
-    vecDistritos[5].Imprimir();
+	for(int i=0;i<6;i++)	vecDistritos[i].Imprimir();
 
-    unsigned long int offset0, offset1, offset2, offset3, offset4, offset5;
+    unsigned long int offset[6];
 
-    offset0 = dataAccess.Guardar(vecDistritos[0]);
-    cout << "Offset de Lanus: " << offset0 << endl;
-    offset1 = dataAccess.Guardar(vecDistritos[1]);
-    cout << "Offset de Cordoba: " << offset1 << endl;
-    offset2 = dataAccess.Guardar(vecDistritos[2]);
-    cout << "Offset de Santa Fe: " << offset2 << endl;
-    offset3 = dataAccess.Guardar(vecDistritos[3]);
-    cout << "Offset de Pehuajo: " << offset3 << endl;
-    offset4 = dataAccess.Guardar(vecDistritos[4]);
-    cout << "Offset de Olivos: " << offset4 << endl;
-    offset5 = dataAccess.Guardar(vecDistritos[5]);
-    cout << "Offset de Springfield: " << offset5 << endl << endl;
+    for(int i=0;i<6;i++) {
+        offset[i] = dataAccess.Guardar(vecDistritos[i]);
+        cout << "Offset de "<< vecDistritos[i].getNombre() << ": " << offset[i] << endl;
+    }
+    cout << endl;
 
-    dataAccess.Leer(vecDistritos[0],offset5);
-    dataAccess.Leer(vecDistritos[1],offset4);
-    dataAccess.Leer(vecDistritos[2],offset3);
-    dataAccess.Leer(vecDistritos[3],offset2);
-    dataAccess.Leer(vecDistritos[4],offset1);
-    dataAccess.Leer(vecDistritos[5],offset0);
+    for(int i=0;i<6;i++)     dataAccess.Leer(vecDistritos[i],offset[5-i]);
 
-    vecDistritos[0].Imprimir();
-    vecDistritos[1].Imprimir();
-    vecDistritos[2].Imprimir();
-    vecDistritos[3].Imprimir();
-    vecDistritos[4].Imprimir();
-    vecDistritos[5].Imprimir();
+	for(int i=0;i<6;i++)	vecDistritos[i].Imprimir();
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                  Fin Test Distritos" << endl;
@@ -84,7 +58,7 @@ void TestPersistencias::TestDistrito() {
 
 
 /* Se crean 6 Cargos principales, con "i" cargos secundarios (i es indice de cargo).
- * Se guardan en archivo y se recuperan en forma opuesta*/
+ * Se guardan en archivo y se recuperan en forma opuesta */
 void TestPersistencias::TestCargo() {
 
 	cout << endl << "********************************************************" << endl;
@@ -95,41 +69,19 @@ void TestPersistencias::TestCargo() {
 
 	UtilidadesTests::cargarCargos(vecCargos);
 
-	vecCargos[0].Imprimir();
-	vecCargos[1].Imprimir();
-	vecCargos[2].Imprimir();
-	vecCargos[3].Imprimir();
-	vecCargos[4].Imprimir();
-	vecCargos[5].Imprimir();
+	for(int i=0;i<6;i++)	vecCargos[i].Imprimir();
 
-    unsigned long int offset0, offset1, offset2, offset3, offset4, offset5;
+    unsigned long int offset[6];
 
-    offset0 = dataAccess.Guardar(vecCargos[0]);
-    cout << "Offset de Lanus: " << offset0 << endl;
-    offset1 = dataAccess.Guardar(vecCargos[1]);
-    cout << "Offset de Cordoba: " << offset1 << endl;
-    offset2 = dataAccess.Guardar(vecCargos[2]);
-    cout << "Offset de Santa Fe: " << offset2 << endl;
-    offset3 = dataAccess.Guardar(vecCargos[3]);
-    cout << "Offset de Pehuajo: " << offset3 << endl;
-    offset4 = dataAccess.Guardar(vecCargos[4]);
-    cout << "Offset de Olivos: " << offset4 << endl;
-    offset5 = dataAccess.Guardar(vecCargos[5]);
-    cout << "Offset de Springfield: " << offset5 << endl << endl;
+    for(int i=0;i<6;i++) {
+        offset[i] = dataAccess.Guardar(vecCargos[i]);
+        cout << "Offset de "<< vecCargos[i].getCargoPrincipal() << ": " << offset[i] << endl;
+    }
+    cout << endl;
 
-    dataAccess.Leer(vecCargos[0],offset5);
-    dataAccess.Leer(vecCargos[1],offset4);
-    dataAccess.Leer(vecCargos[2],offset3);
-    dataAccess.Leer(vecCargos[3],offset2);
-    dataAccess.Leer(vecCargos[4],offset1);
-    dataAccess.Leer(vecCargos[5],offset0);
+    for(int i=0;i<6;i++)     dataAccess.Leer(vecCargos[i],offset[5-i]);
 
-	vecCargos[0].Imprimir();
-	vecCargos[1].Imprimir();
-	vecCargos[2].Imprimir();
-	vecCargos[3].Imprimir();
-	vecCargos[4].Imprimir();
-	vecCargos[5].Imprimir();
+	for(int i=0;i<6;i++)	vecCargos[i].Imprimir();
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                    Fin Test Cargos" << endl;
