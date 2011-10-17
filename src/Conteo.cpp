@@ -156,7 +156,10 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
     arbolDistrito->abrir(RUTA_ARBOL_REPORTE_DISTRITO);
 
     //obtiene la clave concatenada para buscar
-    string claveConcatenada = distrito.getNombre() +"$" +lista.getNombre();
+    string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
+    string nombreCargo = lista.getEleccion().getCargo().getCargoPrincipal();
+
+    string claveConcatenada = distrito.getNombre() +"$" +fecha +"$" +nombreCargo +"$" +lista.getNombre();
     long int offsetConteo;
 
     //Si el conteo no existe, le da de alta con cantidad = 1 y
@@ -164,12 +167,8 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
     if(!arbolDistrito->buscar(claveConcatenada, offsetConteo)){
 
        Conteo conteoNuevo(lista, distrito);
-
-       unsigned int offsetConteo = 0;
-       /**************************************************************
-        * ACÁ VA EL MÉTODO DE ABMEntidades PARA DAR DE ALTA UN CONTEO
-        * (ponerlo cuando esté hecho)
-        **************************************************************/
+       DataAccess dataAccess;
+       offsetConteo = dataAccess.Guardar(conteoNuevo);
 
        //indexa en árbol de reporte por distrito:
        arbolDistrito->agregar(claveConcatenada, offsetConteo);
@@ -180,7 +179,7 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
        ArbolBMas *arbolLista = new ArbolBMas();
        arbolLista->abrir(RUTA_ARBOL_REPORTE_LISTA);
 
-       string claveArbolLista = lista.getNombre() +"$" +distrito.getNombre();
+       string claveArbolLista = fecha +"$" +nombreCargo +"$" +lista.getNombre() +"$" +distrito.getNombre();
 
        arbolLista->agregar(claveArbolLista, offsetConteo);
        arbolLista->cerrar();
@@ -190,8 +189,7 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
        ArbolBMas *arbolEleccion = new ArbolBMas();
        arbolEleccion->abrir(RUTA_ARBOL_REPORTE_ELECCION);
 
-       string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
-       string nombreCargo = lista.getEleccion().getCargo().getCargoPrincipal();
+
        string claveArbolEleccion =  fecha +"$" +nombreCargo +"$" +distrito.getNombre() +"$" +lista.getNombre();
 
        arbolEleccion->agregar(claveArbolEleccion, offsetConteo);
@@ -206,11 +204,21 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
 
     //Si ya existía, lo lee, incrementa en 1 su cantidad, y guarda
     //el cambio (en el archivo de registros variables)
+    
+    //(en este caso no puedo usar el Guardar de DataAccess, porque solo
+    //guarda al final, en vez de sobreescribirlo, así que eso lo hago a mano).
     DataAccess dataAccess;
     Conteo *conteoExistente = NULL;
 
     dataAccess.Leer(*conteoExistente, offsetConteo);
     conteoExistente->incrementar();
-    dataAccess.Guardar(*conteoExistente);
-}
 
+    //sobreescribe el registro
+    string rutaArchivo = conteoExistente->getURLArchivoDatos();
+    ofstream ofs(rutaArchivo.c_str(), ios::out | ios::binary);
+    if(!ofs.is_open())
+	throw VotoElectronicoExcepcion("No se pudo abrir el archivo de Conteo");
+    ofs.seekp(offsetConteo);
+    conteoExistente->Guardar(ofs);
+    ofs.close();
+}
