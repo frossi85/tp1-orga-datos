@@ -65,23 +65,39 @@ void TestABMentidades::testAltaDistrito() {
     distrito6.Imprimir();
 
     if (ABMtest.altaDistrito(distrito1)) cout << "\nAlta "<<clave1<<" correcta" << endl;
-    else cout << "\nAlta "<<clave1<<" incorrecta" << endl;
+    else cout << "\nAlta "<<clave1<<" incorrecta (ya existia)" << endl;
 
     if (ABMtest.altaDistrito(distrito2)) cout << "\nAlta "<<clave2<<" correcta" << endl;
-    else cout << "\nAlta "<<clave2<<" incorrecta" << endl;
+    else cout << "\nAlta "<<clave2<<" incorrecta (ya existia)" << endl;
 
     if (ABMtest.altaDistrito(distrito3)) cout << "\nAlta "<<clave3<<" correcta" << endl;
-    else cout << "\nAlta "<<clave3<<" incorrecta" << endl;
+    else cout << "\nAlta "<<clave3<<" incorrecta (ya existia)" << endl;
 
     if (ABMtest.altaDistrito(distrito4)) cout << "\nAlta "<<clave4<<" correcta" << endl;
-    else cout << "\nAlta "<<clave4<<" incorrecta" << endl;
+    else cout << "\nAlta "<<clave4<<" incorrecta (ya existia)" << endl;
 
     if (ABMtest.altaDistrito(distrito5)) cout << "\nAlta "<<clave5<<" correcta" << endl;
-    else cout << "\nAlta "<<clave5<<" incorrecta" << endl;
+    else cout << "\nAlta "<<clave5<<" incorrecta (ya existia)" << endl;
 
-    if (ABMtest.altaDistrito(distrito6)) cout << "\nAlta "<<clave6<<" correcta" << endl;
-    else cout << "\nAlta "<<clave6<<" incorrecta" << endl;
+    if (ABMtest.altaDistrito(distrito6)) cout << "\nAlta "<<clave6<<" correcta" << endl << endl;
+    else cout << "\nAlta "<<clave6<<" incorrecta (ya existia)" << endl << endl;
 
+    /* Pido que se impriman archivos de texto del hash para control */
+    string regs((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_regs>"));
+    string bloq_lib((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_bloq_lib>"));
+    string tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_tabla>"));
+
+    hash_extensible hash_distrito(regs,bloq_lib,tabla);
+    hash_distrito.imprimir("./archivos/Tests/testABM_hash_distrito");
+
+    regs = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_iddistrito_regs>"));
+    bloq_lib = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_iddistrito_bloq_lib>"));
+    tabla = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_iddistrito_tabla>"));
+
+    hash_extensible hash_iddistrito(regs,bloq_lib,tabla);
+    hash_iddistrito.imprimir("./archivos/Tests/testABM_hash_iddistrito");
+
+    /* Recupero los valores de distritos */
     this->ConsultaEntidadesTest.ObtenerRegistro(clave6,distrito1);
     this->ConsultaEntidadesTest.ObtenerRegistro(clave5,distrito2);
     this->ConsultaEntidadesTest.ObtenerRegistro(clave4,distrito3);
@@ -95,6 +111,7 @@ void TestABMentidades::testAltaDistrito() {
     distrito4.Imprimir();
     distrito5.Imprimir();
     distrito6.Imprimir();
+
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                Fin Test Alta Distritos" << endl;

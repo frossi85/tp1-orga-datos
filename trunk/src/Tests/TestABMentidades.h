@@ -12,11 +12,14 @@
 #include "../ABM Entidades/ABMentidades.h"
 #include "../ABM Entidades/ConsultaEntidades.h"
 #include "Test.h"
+using namespace std;
+
 /*#include "../Distrito.h"
+#include "../hash_extensible.h"
 #include "../Cargo.h"
 #include "../Eleccion.h"
 #include "../DataAccess.h"
-#include "../hash_extensible.h"
+
 #include "../RegistroIndice.h"
 #include "../Configuracion.h"*/
 

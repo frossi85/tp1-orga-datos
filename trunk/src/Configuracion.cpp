@@ -76,7 +76,7 @@ Configuracion::Configuracion() {
 	FILE *fp;
 	char cadena[100];
 	char *c,*conv;
-	int i;
+	int i,j;
 	bool seguir;
 	fp = fopen("./config.ini", "r");
 	do {
@@ -91,12 +91,17 @@ Configuracion::Configuracion() {
 				}
 				else i++;
 			}
-			for (i=0; i<CANT_CONF;i++) {
-				conv=&constantes[i][0];
+			seguir = true;
+			j = 0;
+			while (seguir) {
+				conv = &constantes[j][0];
 				if (strcmp(cadena,conv)==0) {
 					c = fgets(cadena, 100, fp);
-					valores[i]=string(cadena);
+					valores[j]=string(cadena);
+					valores[j][valores[j].size()-1] = '\0';
+					seguir = false;
 				}
+				else j++;
 			}
 		}
 	} while (c != NULL);
