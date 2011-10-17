@@ -10,7 +10,7 @@
 
 Conteo::Conteo(Lista& lista, Distrito& distrito) : _distrito(&distrito), _lista(&lista), _eleccion(&(lista.getEleccion())){
 	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
-	this->_cantidad = 0;
+	this->_cantidad = 1;
 }
 
 Conteo::Conteo(const Conteo &conteo){
@@ -159,22 +159,58 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
     string claveConcatenada = distrito.getNombre() +"$" +lista.getNombre();
     long int offsetConteo;
 
-    DataAccess dataAccess;
-
     //Si el conteo no existe, le da de alta con cantidad = 1 y
     //lo indexa en los 3 árboles de índices para reportes, y termina
     if(!arbolDistrito->buscar(claveConcatenada, offsetConteo)){
 
-       // Conteo conteoNuevo();
+       Conteo conteoNuevo(lista, distrito);
 
-       /* delete arbolDistrito;
-        delete arbolLista;
-        delete arbolEleccion;*/
-        return;
+       unsigned int offsetConteo = 0;
+       /**************************************************************
+        * ACÁ VA EL MÉTODO DE ABMEntidades PARA DAR DE ALTA UN CONTEO
+        * (ponerlo cuando esté hecho)
+        **************************************************************/
+
+       //indexa en árbol de reporte por distrito:
+       arbolDistrito->agregar(claveConcatenada, offsetConteo);
+       arbolDistrito->cerrar();
+       delete arbolDistrito;
+
+       //indexa en árbol de reporte por lista:
+       ArbolBMas *arbolLista = new ArbolBMas();
+       arbolLista->abrir(RUTA_ARBOL_REPORTE_LISTA);
+
+       string claveArbolLista = lista.getNombre() +"$" +distrito.getNombre();
+
+       arbolLista->agregar(claveArbolLista, offsetConteo);
+       arbolLista->cerrar();
+       delete arbolLista;
+
+       //indexa en árbol de reporte por eleccion:
+       ArbolBMas *arbolEleccion = new ArbolBMas();
+       arbolEleccion->abrir(RUTA_ARBOL_REPORTE_ELECCION);
+
+       string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
+       string nombreCargo = lista.getEleccion().getCargo().getCargoPrincipal();
+       string claveArbolEleccion =  fecha +"$" +nombreCargo +"$" +distrito.getNombre() +"$" +lista.getNombre();
+
+       arbolEleccion->agregar(claveArbolEleccion, offsetConteo);
+       arbolEleccion->cerrar();
+       delete arbolEleccion;
+
+       return;
     }
+
+    arbolDistrito->cerrar();
+    delete arbolDistrito;
 
     //Si ya existía, lo lee, incrementa en 1 su cantidad, y guarda
     //el cambio (en el archivo de registros variables)
-    delete arbolDistrito;
+    DataAccess dataAccess;
+    Conteo *conteoExistente = NULL;
+
+    dataAccess.Leer(*conteoExistente, offsetConteo);
+    conteoExistente->incrementar();
+    dataAccess.Guardar(*conteoExistente);
 }
 
