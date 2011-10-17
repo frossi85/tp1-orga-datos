@@ -40,6 +40,12 @@ public:
 	static vector<Eleccion *> getElecciones_por_Votante(Votante &votante);
 	virtual ~DataGetter();
 
+        static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
+
+        static vector<Conteo *> getConteosPorLista(Lista& lista);
+
+        static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
+
 };
 
 #endif /* DATAGETTER_H_ */
