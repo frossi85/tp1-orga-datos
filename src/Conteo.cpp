@@ -9,16 +9,21 @@
 #include "ArbolBMas.h"
 
 Conteo::Conteo(Lista& lista, Distrito& distrito) : _distrito(&distrito), _lista(&lista), _eleccion(&(lista.getEleccion())){
-	this->_id = ManejoIDs::obtenerIDnuevo(this->getClassName());
 	this->_cantidad = 1;
 }
 
 Conteo::Conteo(const Conteo &conteo){
-	this->_id = conteo._id;
 	this->_distrito = new Distrito(*(conteo._distrito));
 	this->_lista = new Lista(*(conteo._lista));
 	this->_eleccion = new Eleccion(*(conteo._eleccion));
 	this->_cantidad = conteo._cantidad;
+}
+
+Conteo::Conteo(){
+    this->_distrito = NULL;
+    this->_lista = NULL;
+    this->_eleccion = NULL;
+    this->_cantidad = 0;
 }
 
 Conteo::~Conteo() {
@@ -28,8 +33,6 @@ Conteo::~Conteo() {
 }
 
 void Conteo::incrementar(){	this->_cantidad++;}
-
-long Conteo::getId() {return _id;}
 
 long Conteo::getVotos(){ return _cantidad; }
 
@@ -43,7 +46,6 @@ unsigned long int Conteo::Guardar(ofstream & ofs){
 	unsigned long int offset = ofs.tellp();
 
 	// Comienzo escritura de atributos
-	ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
 
 	//Se escribe la referencia al Distrito guardando su id
 	long idDistrito = this->_distrito->getId();
@@ -72,7 +74,6 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	ifs.seekg(offset,ios::beg);
 
 	//Comienzo lectura de atributos
-	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 
 	// Leo el id del distrito
 	long idDistrito = 0;
@@ -161,6 +162,7 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
     string nombreCargo = lista.getEleccion().getCargo().getCargoPrincipal();
 
     string claveConcatenada = distrito.getNombre() +"$" +fecha +"$" +nombreCargo +"$" +lista.getNombre();
+    Utilidades::formatearClave(claveConcatenada);
     long int offsetConteo;
 
     //Si el conteo no existe, le da de alta con cantidad = 1 y
@@ -181,6 +183,7 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
        arbolLista->abrir(RUTA_ARBOL_REPORTE_LISTA);
 
        string claveArbolLista = fecha +"$" +nombreCargo +"$" +lista.getNombre() +"$" +distrito.getNombre();
+       Utilidades::formatearClave(claveArbolLista);
 
        arbolLista->agregar(claveArbolLista, offsetConteo);
        arbolLista->cerrar();
@@ -192,6 +195,7 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
 
 
        string claveArbolEleccion =  fecha +"$" +nombreCargo +"$" +distrito.getNombre() +"$" +lista.getNombre();
+       Utilidades::formatearClave(claveArbolEleccion);
 
        arbolEleccion->agregar(claveArbolEleccion, offsetConteo);
        arbolEleccion->cerrar();

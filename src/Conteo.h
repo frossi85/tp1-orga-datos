@@ -17,7 +17,6 @@
 #include "Eleccion.h"
 #include "Configuracion.h"
 #include "hash_extensible.h"
-#include "ManejoIDs.h"
 #include "DataAccess.h"
 
 
@@ -25,7 +24,6 @@ using namespace std;
 
 class Conteo : public Grabable {
 private:
-	long _id;
 	Distrito *_distrito;
 	Lista *_lista;
 	Eleccion *_eleccion;
@@ -36,8 +34,8 @@ public:
 	//inicializacion como en el ejemplo de abajo
 	Conteo(Lista& lista, Distrito& distrito);
 	Conteo(const Conteo &conteo);
+        Conteo();
 	virtual ~Conteo();
-	long getId();
 	void incrementar();
 	long getVotos();
 	Lista& getLista();
@@ -52,12 +50,6 @@ public:
 	string getClassName();
 
 	static void AgregarVoto(Lista& lista, Distrito& distrito);
-
-    static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
-
-    static vector<Conteo *> getConteosPorLista(Lista& lista);
-
-    static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
 };
 
 #endif /* CONTEO_H_ */
