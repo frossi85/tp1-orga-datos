@@ -150,6 +150,10 @@ vector<Eleccion *> DataGetter::getElecciones_por_Votante(Votante &votante){
 
 }
 
+DataGetter::~DataGetter() {
+	// TODO Auto-generated destructor stub
+}
+
 vector<Conteo *> DataGetter::getConteosPorDistrito(Distrito& distrito){
 
     //obtiene los offsets de los conteos requeridos
@@ -178,6 +182,61 @@ vector<Conteo *> DataGetter::getConteosPorDistrito(Distrito& distrito){
     return conteos;
 }
 
-DataGetter::~DataGetter() {
-	// TODO Auto-generated destructor stub
+
+vector<Conteo *> DataGetter::getConteosPorLista(Lista& lista){
+
+    //obtiene los offsets de los conteos requeridos
+    ArbolBMas *arbol = new ArbolBMas();
+    arbol->abrir(RUTA_ARBOL_REPORTE_LISTA);
+
+    string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
+    string claveInicial = fecha +"$" +lista.getEleccion().getCargo().getCargoPrincipal() +"$" +lista.getNombre();
+    Utilidades::formatearClave(claveInicial);
+    string claveFinal = claveInicial + "&";
+
+    list<RegistroArbol *> offsetsConteos;
+    arbol->buscar(offsetsConteos, claveInicial, false, claveFinal);
+
+    //a partir de la lista de offsets crea un vector de Conteo* y lo devuelve
+    DataAccess dataAccess;
+    RegistroArbol *registroEnLista = NULL;
+    list<RegistroArbol *>::iterator it;
+    vector<Conteo *> conteos;
+    conteos.reserve(offsetsConteos.size());
+    Conteo contAux;
+    for (it = offsetsConteos.begin(); it != offsetsConteos.end(); it++){
+	registroEnLista = *it;
+        dataAccess.Leer(contAux, registroEnLista->getOffset());
+        conteos.push_back(new Conteo(contAux));
+    }
+    return conteos;
+}
+
+vector<Conteo *> DataGetter::getConteosPorEleccion(Eleccion& eleccion){
+    
+    //obtiene los offsets de los conteos requeridos
+    ArbolBMas *arbol = new ArbolBMas();
+    arbol->abrir(RUTA_ARBOL_REPORTE_ELECCION);
+
+    string fecha = Utilidades::indexarFecha(eleccion.getFecha());
+    string claveInicial = fecha +"$" +eleccion.getCargo().getCargoPrincipal();
+    Utilidades::formatearClave(claveInicial);
+    string claveFinal = claveInicial + "&";
+
+    list<RegistroArbol *> offsetsConteos;
+    arbol->buscar(offsetsConteos, claveInicial, false, claveFinal);
+
+    //a partir de la lista de offsets crea un vector de Conteo* y lo devuelve
+    DataAccess dataAccess;
+    RegistroArbol *registroEnLista = NULL;
+    list<RegistroArbol *>::iterator it;
+    vector<Conteo *> conteos;
+    conteos.reserve(offsetsConteos.size());
+    Conteo contAux;
+    for (it = offsetsConteos.begin(); it != offsetsConteos.end(); it++){
+	registroEnLista = *it;
+        dataAccess.Leer(contAux, registroEnLista->getOffset());
+        conteos.push_back(new Conteo(contAux));
+    }
+    return conteos;
 }
