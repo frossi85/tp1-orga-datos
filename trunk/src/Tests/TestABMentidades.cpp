@@ -7,12 +7,6 @@
 
 
 
-/*
- * Ya Agregue Este Test para que se ejecute con Tester
- */
-
-
-
 #include "TestABMentidades.h"
 
 TestABMentidades::TestABMentidades() {
@@ -37,50 +31,24 @@ void TestABMentidades::comenzar(){
 
 TestABMentidades::~TestABMentidades() {}
 
-
+/* Se crean 6 Distritos, se guardan en archivo y hash y se recuperan en forma opuesta */
 void TestABMentidades::testAltaDistrito() {
 	cout << endl << "********************************************************" << endl;
 	cout << "            Comienzo Alta Test Distritos" << endl;
 	cout << "********************************************************" << endl << endl;
 
-	string clave1 = "Lanus";
-	string clave2 = "Cordoba";
-	string clave3 = "Santa Fe";
-	string clave4 = "Pehuajo";
-	string clave5 = "Olivos";
-	string clave6 = "Springfield";
+	vector<Distrito> vecDistritos;
 
-	Distrito distrito1(clave1);
-    Distrito distrito2(clave2);
-    Distrito distrito3(clave3);
-    Distrito distrito4(clave4);
-    Distrito distrito5(clave5);
-    Distrito distrito6(clave6);
+	UtilidadesTests::cargarDistritos(vecDistritos);
 
-    distrito1.Imprimir();
-    distrito2.Imprimir();
-    distrito3.Imprimir();
-    distrito4.Imprimir();
-    distrito5.Imprimir();
-    distrito6.Imprimir();
+	for(int i=0;i<6;i++)	vecDistritos[i].Imprimir();
 
-    if (ABMtest.altaDistrito(distrito1)) cout << "\nAlta "<<clave1<<" correcta" << endl;
-    else cout << "\nAlta "<<clave1<<" incorrecta (ya existia)" << endl;
+    for(int i=0;i<6;i++) {
+        if (ABMtest.altaDistrito(vecDistritos[i])) cout << "Alta "<<vecDistritos[i].getNombre()<<" correcta" << endl;
+        else cout << "Alta "<<vecDistritos[i].getNombre()<<" incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
 
-    if (ABMtest.altaDistrito(distrito2)) cout << "\nAlta "<<clave2<<" correcta" << endl;
-    else cout << "\nAlta "<<clave2<<" incorrecta (ya existia)" << endl;
-
-    if (ABMtest.altaDistrito(distrito3)) cout << "\nAlta "<<clave3<<" correcta" << endl;
-    else cout << "\nAlta "<<clave3<<" incorrecta (ya existia)" << endl;
-
-    if (ABMtest.altaDistrito(distrito4)) cout << "\nAlta "<<clave4<<" correcta" << endl;
-    else cout << "\nAlta "<<clave4<<" incorrecta (ya existia)" << endl;
-
-    if (ABMtest.altaDistrito(distrito5)) cout << "\nAlta "<<clave5<<" correcta" << endl;
-    else cout << "\nAlta "<<clave5<<" incorrecta (ya existia)" << endl;
-
-    if (ABMtest.altaDistrito(distrito6)) cout << "\nAlta "<<clave6<<" correcta" << endl << endl;
-    else cout << "\nAlta "<<clave6<<" incorrecta (ya existia)" << endl << endl;
 
     /* Pido que se impriman archivos de texto del hash para control */
     string regs((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_distrito_regs>"));
@@ -98,19 +66,13 @@ void TestABMentidades::testAltaDistrito() {
     hash_iddistrito.imprimir("./archivos/Tests/testABM_hash_iddistrito");
 
     /* Recupero los valores de distritos */
-    this->ConsultaEntidadesTest.ObtenerRegistro(clave6,distrito1);
-    this->ConsultaEntidadesTest.ObtenerRegistro(clave5,distrito2);
-    this->ConsultaEntidadesTest.ObtenerRegistro(clave4,distrito3);
-    this->ConsultaEntidadesTest.ObtenerRegistro(clave3,distrito4);
-    this->ConsultaEntidadesTest.ObtenerRegistro(clave2,distrito5);
-    this->ConsultaEntidadesTest.ObtenerRegistro(clave1,distrito6);
+    // Debo guardar las claves para que no se cambien al cargar los registros
+	string clave[6];
+	for(int i=0;i<6;i++)	clave[i] = vecDistritos[i].getNombre();
 
-    distrito1.Imprimir();
-    distrito2.Imprimir();
-    distrito3.Imprimir();
-    distrito4.Imprimir();
-    distrito5.Imprimir();
-    distrito6.Imprimir();
+    for(int i=0;i<6;i++)	this->ConsultaEntidadesTest.ObtenerRegistro(clave[5-i],vecDistritos[i]);
+
+	for(int i=0;i<6;i++)	vecDistritos[i].Imprimir();
 
 
 	cout << endl << "********************************************************" << endl;
@@ -119,8 +81,54 @@ void TestABMentidades::testAltaDistrito() {
 }
 
 
+/* Se crean 6 Cargos principales, con "i" cargos secundarios (i es indice de cargo).
+ * Se guardan en archivo y hash y se recuperan en forma opuesta */
 void TestABMentidades::testAltaCargo() {
+	cout << endl << "********************************************************" << endl;
+	cout << "            Comienzo Alta Test Cargos" << endl;
+	cout << "********************************************************" << endl << endl;
 
+	vector<Cargo> vecCargos;
+
+	UtilidadesTests::cargarCargos(vecCargos);
+
+	for(int i=0;i<6;i++)	vecCargos[i].Imprimir();
+
+    for(int i=0;i<6;i++) {
+        if (ABMtest.altaCargo(vecCargos[i])) cout << "Alta " << vecCargos[i].getCargoPrincipal() << " correcta" << endl;
+        else cout << "Alta " << vecCargos[i].getCargoPrincipal() << " incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+
+    /* Pido que se impriman archivos de texto del hash para control */
+    string regs((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_cargo_regs>"));
+    string bloq_lib((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_cargo_bloq_lib>"));
+    string tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_cargo_tabla>"));
+
+    hash_extensible hash_distrito(regs,bloq_lib,tabla);
+    hash_distrito.imprimir("./archivos/Tests/testABM_hash_cargo");
+
+    regs = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idcargo_regs>"));
+    bloq_lib = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idcargo_bloq_lib>"));
+    tabla = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idcargo_tabla>"));
+
+    hash_extensible hash_iddistrito(regs,bloq_lib,tabla);
+    hash_iddistrito.imprimir("./archivos/Tests/testABM_hash_idcargo");
+
+    /* Recupero los valores de cargos */
+    // Debo guardar las claves para que no se cambien al cargar los registros
+    string clave[6];
+	for(int i=0;i<6;i++)	clave[i] = vecCargos[i].getCargoPrincipal();
+
+	for(int i=0;i<6;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[5-i],vecCargos[i]);
+
+	for(int i=0;i<6;i++)	vecCargos[i].Imprimir();
+
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                Fin Test Alta Cargos" << endl;
+	cout << "********************************************************" << endl << endl;
 }
 
 

@@ -9,9 +9,11 @@
 #define TESTABMENTIDADES_H_
 
 #include <iostream>
+#include <vector>
 #include "../ABM Entidades/ABMentidades.h"
 #include "../ABM Entidades/ConsultaEntidades.h"
 #include "Test.h"
+#include "UtilidadesTests.h"
 using namespace std;
 
 /*#include "../Distrito.h"
