@@ -16,22 +16,8 @@
 #include "UtilidadesTests.h"
 using namespace std;
 
-/*#include "../Distrito.h"
-#include "../hash_extensible.h"
-#include "../Cargo.h"
-#include "../Eleccion.h"
-#include "../DataAccess.h"
 
-#include "../RegistroIndice.h"
-#include "../Configuracion.h"*/
-
-
-/*
- * Ya Agregue Este Test para que se ejecute con Tester
- */
-
-
-class TestABMentidades: public Test {
+class TestABMentidades {
 public:
 	TestABMentidades();
 	virtual ~TestABMentidades();
@@ -40,12 +26,9 @@ public:
 	void testAltaCargo();
 	void testAltaEleccion();
 	void testAltaVotante();
-	void testAltaCandidato();
 	void testAltaLista();
+	void testAltaCandidato();
 
-	void comenzar();
-	void inicializar(){ }
-	void liberarMemoria(){ }
 
 private:
 	ABMentidades ABMtest;

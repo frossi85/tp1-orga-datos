@@ -39,8 +39,6 @@ void Tester::comenzarTests(){
 	test[4]=new TestLista();
 	test[5]=new TestCargo();
 	test[5]=new TestCandidato();
-	test[6]=new TestABMentidades();
-	test[7]=new TestPersistencias();
 
 	for (int i=0;i<cantidad_tests;i++){
 		test[i]->comenzar();
