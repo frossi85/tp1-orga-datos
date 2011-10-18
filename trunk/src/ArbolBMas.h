@@ -97,7 +97,7 @@ private:
     vector<Nodo *> _cache;
     bool _estaAbierto;
 
-    const static int _finCamposControl = 512;
+    const static long _finCamposControl = 512;
 
     //======================= Metodos Internos =============================
 
@@ -140,8 +140,8 @@ private:
     /// Libera un solo nodo
     void liberarNodo( int addr );
     void guardarNodo( Nodo *nodo );
-    int getAddrRaiz();
-    void setAddrRaiz( int addr );
+    long getAddrRaiz();
+    void setAddrRaiz( long addr );
     Nodo * getRaiz();
 
     int tamanioStorage();

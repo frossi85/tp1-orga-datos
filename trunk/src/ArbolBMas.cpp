@@ -919,8 +919,21 @@ Nodo* ArbolBMas::encontrarNodo( Nodo *nodo, const string &clave, int &indiceReto
 //==============================================================================
 bool ArbolBMas::abrir(string url)//(int maxTamanioCache
 {
-    //storage.open(url.c_str(), ios::in | ios::out | ios::binary);
-    _storage.open(url.c_str(), ios::in | ios::out);
+    //Trata de abrir los archivos para comprobar si existen. Si es así no hace nada, si no,
+    //los crea y los inicializa.
+    _storage.open(url.c_str(), ios::binary | ios::in);
+    if(!_storage.is_open())
+    {
+        //Si no existia lo creo
+        _storage.open(url.c_str(), ios::binary | ios::out);
+        _storage.close();
+    }
+    else
+        _storage.close();
+
+
+    _storage.open(url.c_str(), ios::in | ios::out | ios::binary);
+
 
     if (!_storage.is_open())
     {
@@ -939,17 +952,28 @@ bool ArbolBMas::abrir(string url)//(int maxTamanioCache
     if(tamanioStorage() == 0)
     {
         _storage.seekp(0);
-        _storage<<_finCamposControl<<"|";	//Es la direccion cuando se crea por primera vez la raiz
+        //Escribo la direccion de la raiz cuando se crea por primera vez el arbol
+        //_storage<<_finCamposControl<<"|";	//Es la direccion cuando se crea por primera vez la raiz
+        long finCamposControl = ArbolBMas::_finCamposControl;
+        _storage.write(reinterpret_cast<char *>(&(finCamposControl)), sizeof((finCamposControl)));
+
 
         _raiz = new Nodo();
-        _raiz->_addr = _finCamposControl;
+        _raiz->_addr = finCamposControl;
         setAddrRaiz(_raiz->_addr);
         _raiz->_flags = Nodo::NodoCambiado;
 
         _cache.push_back(_raiz);
 
-        for(int i = 0; i < _finCamposControl-4; i++) //finCamposControl-4 por q es modo texto sino va sin el 4
-                _storage<<" ";
+        //Creo el espacio para los campos de control q faltan
+        long tamanioALimpiar = finCamposControl - sizeof(finCamposControl); //Modo texto _finCamposControl-4;
+        char byteLimpio = 0;
+
+        for(int i = 0; i < tamanioALimpiar; i++) //finCamposControl-4 por q es modo texto sino va sin el 4
+        {
+        	//_storage<<" ";
+        	_storage.write(reinterpret_cast<char *>(&(byteLimpio)), sizeof((byteLimpio)));
+        }
         _storage.seekp(0);
 
         guardarNodo(_raiz);
@@ -1194,22 +1218,20 @@ void ArbolBMas::borrarDeCache(int indice)
 }
 
 //==============================================================================
-int ArbolBMas::getAddrRaiz()
+long ArbolBMas::getAddrRaiz()
 {
-    int addr = 0;
-    //storage_->seek( sizeof( int ) );
-    //storage_->read( ( char* ) &addr, sizeof( addr ) );
+    long addr = 0;
 
     _storage.seekg(0);
-    //Aca despues tengo q usar read
-    char delimitador;
-    _storage>>addr>>delimitador;
+//    char delimitador;
+//    _storage>>addr>>delimitador;
+    _storage.read( ( char* ) &addr, sizeof( addr ) );
 
     return addr;
 }
 
 //==============================================================================
-void ArbolBMas::setAddrRaiz(int addr)
+void ArbolBMas::setAddrRaiz(long addr)
 {
     _addrRaiz = addr;
 }
@@ -1286,7 +1308,9 @@ void ArbolBMas::impactarCambios()
     {
         _storage.seekp(0); //posicion donde guardo direccion de la raiz
         //Aca despues tengo q usar write
-        _storage<<_addrRaiz<<"|";
+        //_storage<<_addrRaiz<<"|";
+        _storage.write(reinterpret_cast<char *>(&(_addrRaiz)), sizeof((_addrRaiz)));
+
         _addrRaiz = 0;
     }
 }

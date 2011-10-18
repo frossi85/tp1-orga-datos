@@ -63,6 +63,7 @@ private:
     int _tamanio;
     vector<RegistroArbol *> _registros; //Settear el NodeSize de acuerdo a la cantidad de red
 
+	//Calcular un tamanioMaximoNodo de acuerdo al valor de cantidadMaximaRegistros
     const static unsigned int _tamanioMaximoNodo = 500;
     const static unsigned int _cantidadMaximaRegistros = 3;
 };

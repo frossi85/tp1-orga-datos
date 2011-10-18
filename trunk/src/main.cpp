@@ -30,7 +30,6 @@ void testArbolBMasEliminar();
 
 int main(int argc, char *argv[]){
 
-
  /*       Tester *tester=new Tester();
         tester->comenzarTests();
         delete tester;
@@ -89,57 +88,74 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
+
+void testArbolBMas()
+{
+    //testRegistroArbol();
+    //testNodoArbol();
+    //testArbolBMas1();
+    //testArbolBMasClavesDuplicadas();
+    //testArbolBMas2();
+    //testArbolBMasCambiarOffsetRegistro();
+    //testArbolBMasGetTodos();
+    //testArbolBMasBusquedaAproximada();
+    testArbolBMasEliminar();
+}
+
 void testRegistroArbol()
 {
-	fstream f;
-	//string url = "./test_registro.db";
-	string url = "./test_registro.txt";
-	//f.open(url.c_str(), ios::in | ios::out | ios::binary);
-	f.open(url.c_str(), ios::in | ios::out);
-	RegistroArbol * r1;
-	RegistroArbol * r2;
-	RegistroArbol * r3;
+    fstream f;
+    string url = "./test_registro.db";
 
-	if(f.is_open())
-	{
-		r1 = new RegistroArbol("r1", 1);
-		r2 = new RegistroArbol("re2", 2);
-		r3 = new RegistroArbol("reg3", 3);
+    //Elimino el archivo si exisita y sino lo creo
+    f.open(url.c_str(), ios::out|ios::trunc);
+    f.close();
 
-		r1->Guardar(f);
-		r2->Guardar(f);
-		r3->Guardar(f);
+    f.open(url.c_str(), ios::in | ios::out | ios::binary);
 
-		delete r1;
-		delete r2;
-		delete r3;
+    RegistroArbol * r1;
+    RegistroArbol * r2;
+    RegistroArbol * r3;
 
-		f.close();
-	}
-	else
-		cout<<"no se pudo abrir el archivo "+url+" para escribir";
+    if(f.is_open())
+    {
+        r1 = new RegistroArbol("r1", 1);
+        r2 = new RegistroArbol("re2", 2);
+        r3 = new RegistroArbol("reg3", 3);
 
+        r1->setLink(2);
+        r2->setLink(4);
+        r3->setLink(6);
 
-	//f.open(url.c_str(), ios::in | ios::out | ios::binary);
-	f.open(url.c_str(), ios::in | ios::out);
+        r1->Guardar(f);
+        r2->Guardar(f);
+        r3->Guardar(f);
 
-	if(f.is_open())
-	{
-		r3 = RegistroArbol::Leer(f);
-		r2 = RegistroArbol::Leer(f);
-		r1 = RegistroArbol::Leer(f);
-		r3->Imprimir();
-		//cout << r3->getTamanioEnDisco();
-		cout << endl;
-		r2->Imprimir();
-		//cout << r2->getTamanioEnDisco();
-		cout << endl;
-		r1->Imprimir();
-		//cout << r1->getTamanioEnDisco();
-		cout << endl;
-	}
-	else
-		cout<<"no se pudo abrir el archivo "+url+" para leer";
+        delete r1;
+        delete r2;
+        delete r3;
+
+        f.close();
+    }
+    else
+        cout<<"no se pudo abrir el archivo "+url+" para escribir";
+
+    f.open(url.c_str(), ios::in | ios::out | ios::binary);
+
+    if(f.is_open())
+    {
+        r3 = RegistroArbol::Leer(f);
+        r2 = RegistroArbol::Leer(f);
+        r1 = RegistroArbol::Leer(f);
+        r3->Imprimir();
+        cout << endl;
+        r2->Imprimir();
+        cout << endl;
+        r1->Imprimir();
+        cout << endl;
+    }
+    else
+        cout<<"no se pudo abrir el archivo "+url+" para leer";
 }
 
 void testNodoArbol()
@@ -148,11 +164,13 @@ void testNodoArbol()
 	Nodo * n2;
 
 	fstream f;
-	//string url = "./test_nodo.db";
-	//f.open(url.c_str(), ios::in | ios::out | ios::binary);
+	string url = "./test_nodo.db";
 
-	string url = "./test_nodo.txt";
-	f.open(url.c_str(), ios::in | ios::out);
+        //Elimino el archivo si exisita y sino lo creo
+        f.open(url.c_str(), ios::out|ios::trunc);
+        f.close();
+
+        f.open(url.c_str(), ios::in | ios::out | ios::binary);
 
 	RegistroArbol * r1;
 	RegistroArbol * r2;
@@ -164,8 +182,9 @@ void testNodoArbol()
 
 	//Tengo q generar espacio en e; archivo si esta vacio para poder
 	//hacer seekp sobre una posicion q no existe
+        char byteLimpio = 0;
 	for(int i = 0; i < primeraPosicionNodo; i++)
-		f<<" ";
+            f.write(reinterpret_cast<char *>(&(byteLimpio)), sizeof((byteLimpio)));
 
 	f.seekp(0);
 
@@ -214,8 +233,7 @@ void testNodoArbol()
 	else
 		cout<<"no se pudo abrir el archivo "+url;
 
-	//f.open(url.c_str(), ios::in | ios::out | ios::binary);
-	f.open(url.c_str(), ios::in | ios::out);
+	f.open(url.c_str(), ios::in | ios::out | ios::binary);
 
 	if(f.is_open())
 	{
@@ -243,9 +261,9 @@ void testNodoArbol()
 					statusOK = true;
 
 		if(statusOK)
-			cout<<"find() OK"<<endl;
+			cout<<"buscar() OK"<<endl;
 		else
-			cout<<"find() ERROR"<<endl;
+			cout<<"buscar() ERROR"<<endl;
 
 		posicionRegistroBuscado = -1;
 		statusOK = false;
@@ -303,27 +321,15 @@ void testNodoArbol()
 	delete n1;
 }
 
-void testArbolBMas()
-{
-    //testArbolBMas1();
-    //testArbolBMasClavesDuplicadas();
-    //testArbolBMas2();
-    //testArbolBMasCambiarOffsetRegistro();
-    //testArbolBMasGetTodos();
-    //testArbolBMasBusquedaAproximada();
-    testArbolBMasEliminar();
-}
-
 void testArbolBMasClavesDuplicadas()
 {
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol1.txt";
+    string url = "./test_arbol_claves_duplicadas.db";
     bool seEncontroTodo = true;
 
     //RegeneroArchivo de Prueba
     fstream f;
-    f.open(url.c_str(), ios::out|ios::trunc);
+    f.open(url.c_str(), ios::out| ios::binary | ios::trunc);
     f.close();
 
     string clave1 = "reg1";
@@ -373,7 +379,7 @@ void testArbolBMasClavesDuplicadas()
     else
         cout<<"ERROR: No se econtro algun registro"<<endl;
 
-    cout<<"Toque una tecla para terminar TestArbol1"<<endl;
+    cout<<"Toque una tecla para terminar Test"<<endl;
     getchar();
 
 }
@@ -381,8 +387,7 @@ void testArbolBMasClavesDuplicadas()
 void testArbolBMas2()
 {
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol2.txt";
+    string url = "./test_arbol2.db";
 
     long random_integer;
     int lowest=1, highest=10000000;
@@ -429,9 +434,9 @@ void testArbolBMas2()
     }
 
     if(busquedaFunciona)
-            cout<<"find() OK"<<endl;
+            cout<<"buscar() OK"<<endl;
     else
-            cout<<"find() Error"<<endl;
+            cout<<"buscar() Error"<<endl;
 
     cout<<"Toque una tecla para terminar TestArbol2"<<endl;
     getchar();
@@ -440,8 +445,7 @@ void testArbolBMas2()
 void testArbolBMasEliminar()
 {
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_eliminar.txt";
+    string url = "./test_arbol_eliminar.db";
 
     long random_integer;
     int lowest=1, highest=10000000;
@@ -454,22 +458,20 @@ void testArbolBMasEliminar()
 
     srand(time(NULL));
 
+    //RegeneroArchivo de Prueba
     fstream f;
-    f.open(url.c_str(), ios::out|ios::trunc);
+    f.open(url.c_str(), ios::out| ios::binary | ios::trunc);
     f.close();
 
     arbol->abrir(url);
 
     for(int i = 0; i < cantidadRegistros; i++){
-        //random_integer = lowest + rand() % (highest +1 - lowest);
         random_integer = i;
 
         clave = "reg" + Utilidades::toString(random_integer);
 
         registros.push_back(random_integer);
         arbol->agregar(clave, random_integer);
-
-        //Utilidades::sleep(10000);
     }
 
     for(int i = 0; i < 700; i++)
@@ -525,8 +527,7 @@ void testArbolBMasEliminar()
 void testArbolBMasCambiarOffsetRegistro()
 {
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_cambiar_offset.txt";
+    string url = "./test_arbol_cambiar_offset.db";
 
     long random_integer;
     int lowest=1, highest=10000000;
@@ -539,8 +540,9 @@ void testArbolBMasCambiarOffsetRegistro()
 
     srand(time(NULL));
 
+    //RegeneroArchivo de Prueba
     fstream f;
-    f.open(url.c_str(), ios::out|ios::trunc);
+    f.open(url.c_str(), ios::out| ios::binary | ios::trunc);
     f.close();
 
     arbol->abrir(url);
@@ -589,14 +591,13 @@ void testArbolBMasCambiarOffsetRegistro()
 void testArbolBMasGetTodos()
 {
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_getTodos.txt";
+    string url = "./test_arbol_getTodos.db";
     bool seEncontroTodo = true;
     list<RegistroArbol *> registros;
 
     //RegeneroArchivo de Prueba
     fstream f;
-    f.open(url.c_str(), ios::out|ios::trunc);
+    f.open(url.c_str(), ios::out| ios::binary | ios::trunc);
     f.close();
 
     string clave1 = "reg1";
@@ -645,14 +646,13 @@ void testArbolBMasGetTodos()
 void testArbolBMasBusquedaAproximada()
 {
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol_busquedaAprox.txt";
+    string url = "./test_arbol_busquedaAprox.db";
     bool seEncontroTodo = true;
     list<RegistroArbol *> registros;
 
     //RegeneroArchivo de Prueba
     fstream f;
-    f.open(url.c_str(), ios::out|ios::trunc);
+    f.open(url.c_str(), ios::out| ios::binary | ios::trunc);
     f.close();
 
     string clave1 = "reg1";
@@ -690,9 +690,7 @@ void testArbolBMasBusquedaAproximada()
     }
 
     registros.clear();
-    arbol->buscar(registros,clave5, clave9);//clave9);
-    //lo de abajo compila pero toma la cadena reg9 como si fuera un booleano y se llama a la a qno debe
-    //arbol->search(registros,clave5, "reg9");
+    arbol->buscar(registros,clave5, clave9);
 
     pos = registros.begin();
     cout<<"Impresion busqueda no precisa: "<<endl;
@@ -719,19 +717,14 @@ void testArbolBMasBusquedaAproximada()
     getchar();
 }
 
-
 void testArbolBMas1()
 {
-    //Cosas probadas y q funcionan bien:
-    //open(), close(), destructor
-
     ArbolBMas * arbol = new ArbolBMas();
-    //string urlArbol = "./test_arbol.db";
-    string url = "/home/facundo/workspace2/TP1Voto Electronico/test_arbol1.txt";
+    string url = "./test_arbol1.db";
 
     //RegeneroArchivo de Prueba
     fstream f;
-    f.open(url.c_str(), ios::out|ios::trunc);
+    f.open(url.c_str(), ios::out| ios::binary | ios::trunc);
     f.close();
 
     string clave1 = "reg1";

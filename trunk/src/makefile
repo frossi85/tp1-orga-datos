@@ -165,7 +165,7 @@ UtilidadesTests.o: Tests/UtilidadesTests.cpp Tests/UtilidadesTests.h
 
 Tests/UtilidadesTests.h: Distrito.h Cargo.h Eleccion.h Lista.h Votante.h Candidato.h
 
-RegistroArbol.o: RegistroArbol.h RegistroArbol.cpp
+RegistroArbol.o: RegistroArbol.h RegistroArbol.cpp Utilidades.h
 	$(CC) $(CFLAGS) RegistroArbol.cpp
 	
 RegistroArbol.h: Utilidades.h VotoElectronicoExcepcion.h

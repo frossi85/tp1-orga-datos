@@ -96,36 +96,41 @@ void Utilidades::stringToFile(std::string & str, std::ofstream & ofs)
 	ofs.write(str.c_str(), sizeof(char) * size);
 }
 
+void Utilidades::stringToFile(std::string & str, std::fstream & ofs)
+{
+	int size = str.size();
+
+	ofs.write(reinterpret_cast<char *>(&size), sizeof(size));
+	ofs.write(str.c_str(), sizeof(char) * size);
+}
+
 string Utilidades::stringFromFile(std::ifstream & ifs)
 {
-	int size = 0;
-	char buffer[500]; //MAX_STRING_BUFFER
+    int size = 0;
+    char buffer[500]; //MAX_STRING_BUFFER
 
-	ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
-	ifs.read(buffer, sizeof(char) * size);
+    ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
+    ifs.read(buffer, sizeof(char) * size);
 
-	buffer[size] = '\0';
-	string nombre(buffer);	//Por lo que probe el constructor copia le pone el "\0";
+    buffer[size] = '\0';
+    string nombre(buffer);	//Por lo que probe el constructor copia le pone el "\0";
 
-	return nombre;
+    return nombre;
 }
 
 
 string Utilidades::stringFromFile(std::fstream & ifs)
 {
-	char buffer[500]; //MAX_STRING_BUFFER
-	char leido;
-	int i;
+    int size = 0;
+    char buffer[500]; //MAX_STRING_BUFFER
 
-	for(i=0; (leido=ifs.get()) != '|'; i++)
-	{
-		buffer[i] = leido;
-	}
+    ifs.read(reinterpret_cast<char *>(&size), sizeof(size));
+    ifs.read(buffer, sizeof(char) * size);
 
-	buffer[i] = '\0';
-	string nombre(buffer);
+    buffer[size] = '\0';
+    string nombre(buffer);	//Por lo que probe el constructor copia le pone el "\0";
 
-	return nombre;
+    return nombre;
 }
 
 void Utilidades::sleep(unsigned int mseconds)
