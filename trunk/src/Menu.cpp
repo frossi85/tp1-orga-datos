@@ -14,6 +14,7 @@
 #include "DataAccess.h"
 #include "DataGetter.h"
 #include "ABM Entidades/ABMentidades.h"
+#include "Informe.h"
 using namespace std;
 
 Menu::Menu() {
@@ -110,7 +111,7 @@ void Menu::adminMain() {
 		cout << "C => Mantenimiento de Cargos." << endl;
 		cout << "L => Mantenimiento de Listas." << endl;
 		cout << "A => Mantenimiento de Candidatos." << endl;
-		cout << "R => Mantenimiento de Resultados." << endl;
+		cout << "R => Informes de Resultados." << endl;
 		cout << "S => Salir." << endl << "Opcion: ";
 		cin >> opcion;
 
@@ -127,6 +128,10 @@ void Menu::adminMain() {
 			break;
 		case 'C':
 			adminCargo();
+			retorno=true;
+			break;
+		case 'R':
+			adminInformes();
 			retorno=true;
 			break;
 		case 'S':
@@ -248,96 +253,6 @@ void Menu::adminDistrito() {
 	} while ((invalida) || (retorno));
 }
 
-void Menu::adminCargo() {
-	char opcion;
-		bool invalida=false;
-		bool retorno=false;
-		char nombre[50];
-		Cargo cargo;
-		int resultado;
-	    ConsultaEntidades consulta;
-	    ABMentidades abm;
-		do {
-			system("clear");
-			if (invalida) {
-				cout << "Opcion invalida, intente nuevamente." << endl;
-			}
-			cout << "********************************" << endl;
-			cout << "A => Crear un Cargo." << endl;
-			cout << "B => Borrar un Cargo." << endl;
-			cout << "G => Agregar un Cargo secundario." << endl;
-			cout << "V => Volver." << endl << "Opcion: ";
-			cin >> opcion;
-
-			retorno=false;
-			invalida=false;
-			switch ((char)toupper(opcion)) {
-			case 'A':
-			{
-				cout << endl <<endl;
-				cout << "Ingrese el nombre del nuevo Cargo: ";
-				cin >> nombre;
-
-				string cad(nombre);
-				Cargo nuevo(cad);
-				//Se crea el cargo, verificando si no existia
-				if(abm.altaCargo(nuevo))
-					cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
-				else
-					cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
-
-				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
-				retorno=true;
-				break;
-			}
-			case 'B':
-				cout << endl <<endl;
-				cout << "Ingrese el nombre del Cargo a borrar: ";
-				cin >> nombre;
-
-
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
-				{
-					cout<<"El cargo no existe"<<endl;
-					resultado = -1;
-					break;
-				}
-				if(abm.bajaCargo(cargo))
-					cout << "Se borro el cargo \"" << nombre << "\"." << endl;
-				else
-					cout<< "No se ha podido borrar al cargo." << endl;
-
-				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
-				retorno=true;
-				break;
-			case 'D':
-				cout << endl <<endl;
-				cout << "Ingrese el nombre del Cargo a modificar: ";
-				cin >> nombre;
-
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
-				{
-					cout<<"El cargo no existe"<<endl;
-					resultado = -1;
-					break;
-				} else {
-					cout << endl <<endl;
-					cout << "Ingrese el nombre del Cargo secundario: ";
-					cin >> nombre;
-
-					cargo.agregarCargoSecundario(nombre);
-				}
-
-				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
-				retorno=true;
-				break;
-			}
-		} while ((invalida) || (retorno));
-
-}
 void Menu::adminCargo() {
 	char opcion;
 		bool invalida=false;
@@ -684,6 +599,93 @@ void Menu::adminVotante() {
 
     } while ((invalida) || (retorno));
 }
+
+void Menu::adminInformes(){
+
+    char opcion;
+    bool invalida=false;
+    bool retorno=false;
+    string nombre_distrito;
+    string fecha_eleccion;
+    string clave;
+
+    Distrito distrito;
+    Eleccion eleccion;
+    Lista lista;
+
+    Informe *informe;
+    ConsultaEntidades consulta;
+    ABMentidades abm;
+
+    int resultado;
+    do {
+        system("clear");
+        if (invalida) {
+                cout << "Opcion invalida, intente nuevamente." << endl;
+        }
+        cout << "********************************" << endl;
+        cout << "E => Presentar Informe por Eleccion." << endl;
+        cout << "D => Presentar Informe por Distrito." << endl;
+        cout << "L => Presentar Informe por Lista." << endl;
+        cout << "V => Volver." << endl << "Opcion: ";
+        cin >> opcion;
+
+        retorno=false;
+        invalida=false;
+        opcion = (char)toupper(opcion);
+        switch (opcion) {
+
+            case 'E':
+
+				cout<<"Ingrese fecha Eleccion:";
+				cin>>fecha_eleccion;
+
+
+				retorno=true;
+				break;
+
+            case 'D':
+				cout<<"Ingrese Nombre de Distrito:";
+				cin>> nombre_distrito;
+
+				clave=nombre_distrito;
+
+				if(consulta.ObtenerRegistro(clave,distrito)){
+
+					informe=new Informe(distrito);
+					delete informe;
+
+				}else{
+
+					cout<<"No existe distrito "<<nombre_distrito<<"."<<endl;
+
+				}
+
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+
+            case 'L':
+
+                cout << "Ingrese cualquier letra para continuar: ";
+                cin >> opcion;
+                retorno=true;
+                break;
+            case 'V':
+                system("clear");
+                break;
+            default:
+                invalida=true;
+                break;
+        }
+
+    } while ((invalida) || (retorno));
+
+
+}
+
 
 Menu::~Menu() {
 }

@@ -30,6 +30,9 @@ public:
 
 	bool loggin();
 
+
+	void adminInformes();
+
 	void adminMain();
 
 	void adminDistrito();
