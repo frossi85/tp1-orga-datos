@@ -140,6 +140,204 @@ void Menu::adminMain() {
 	} while ((invalida) || (retorno));
 }
 
+
+void Menu::adminDistrito() {
+	char opcion;
+	bool invalida=false;
+	bool retorno=false;
+	char nombre[50];
+	std::string nombre_distrito;
+	ABMentidades abm;
+	ConsultaEntidades consulta;
+	Distrito *distrito;
+
+
+	do {
+		system("clear");
+		if (invalida) {
+			cout << "Opcion invalida, intente nuevamente." << endl;
+		}
+		cout << "********************************" << endl;
+		cout << "A => Crear un Distrito." << endl;
+		cout << "B => Borrar un Distrito." << endl;
+		cout << "M => Modificar un Distrito." << endl;
+		cout << "V => Volver." << endl << "Opcion: ";
+		cin >> opcion;
+
+		retorno=false;
+		invalida=false;
+		switch ((char)toupper(opcion)) {
+
+		case 'A':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del ditrito: ";
+
+			cin >> nombre_distrito;
+
+			//nombre_distrito.append(nombre);
+
+			distrito=new Distrito(nombre_distrito);
+
+			if(abm.altaDistrito(*distrito))
+				cout << "Se creo el Distrito \"" << nombre << "\"." << endl;
+			else
+				cout << "El Distrito ya existe o se produjo un error al crearlo." << endl;
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
+			retorno=true;
+			break;
+		case 'B':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del ditrito a borrar: ";
+			cin >> nombre_distrito;
+
+			distrito=new Distrito;
+
+
+			if (!consulta.ObtenerRegistro(nombre_distrito,*distrito))
+			{
+				cout << "No existe el Distrito \"" << nombre << "\"." << endl;
+			}else{
+				abm.bajaDistrito(*distrito);
+			}
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
+			retorno=true;
+			break;
+
+		case 'M':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del ditrito a modificar: ";
+			cin >> nombre_distrito;
+
+			distrito=new Distrito();
+
+			if(consulta.ObtenerRegistro(nombre_distrito,*distrito)){
+				cout << "Distrito encontrado." << endl;
+				cout << "ingrese el nuevo nombre del distrito: ";
+				cin >> nombre_distrito;
+
+				distrito->modificarNombre(nombre_distrito);
+
+				if(abm.modificacionDistrito(*distrito)){
+					cout<<"Se modifico el Distrito."<<endl;
+				}else{
+					cout << "Error al modificar el distrito."<<endl;
+				}
+
+			}else{
+				cout<<"El distrito No Existe"<<endl;
+
+			}
+
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
+			retorno=true;
+			break;
+
+		case 'V':
+			system("clear");
+			break;
+		default:
+			invalida=true;
+			break;
+		}
+
+	} while ((invalida) || (retorno));
+}
+
+void Menu::adminCargo() {
+	char opcion;
+		bool invalida=false;
+		bool retorno=false;
+		char nombre[50];
+		Cargo cargo;
+		int resultado;
+	    ConsultaEntidades consulta;
+	    ABMentidades abm;
+		do {
+			system("clear");
+			if (invalida) {
+				cout << "Opcion invalida, intente nuevamente." << endl;
+			}
+			cout << "********************************" << endl;
+			cout << "A => Crear un Cargo." << endl;
+			cout << "B => Borrar un Cargo." << endl;
+			cout << "G => Agregar un Cargo secundario." << endl;
+			cout << "V => Volver." << endl << "Opcion: ";
+			cin >> opcion;
+
+			retorno=false;
+			invalida=false;
+			switch ((char)toupper(opcion)) {
+			case 'A':
+			{
+				cout << endl <<endl;
+				cout << "Ingrese el nombre del nuevo Cargo: ";
+				cin >> nombre;
+
+				string cad(nombre);
+				Cargo nuevo(cad);
+				//Se crea el cargo, verificando si no existia
+				if(abm.altaCargo(nuevo))
+					cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
+				else
+					cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+			}
+			case 'B':
+				cout << endl <<endl;
+				cout << "Ingrese el nombre del Cargo a borrar: ";
+				cin >> nombre;
+
+
+				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				{
+					cout<<"El cargo no existe"<<endl;
+					resultado = -1;
+					break;
+				}
+				if(abm.bajaCargo(cargo))
+					cout << "Se borro el cargo \"" << nombre << "\"." << endl;
+				else
+					cout<< "No se ha podido borrar al cargo." << endl;
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+			case 'D':
+				cout << endl <<endl;
+				cout << "Ingrese el nombre del Cargo a modificar: ";
+				cin >> nombre;
+
+				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				{
+					cout<<"El cargo no existe"<<endl;
+					resultado = -1;
+					break;
+				} else {
+					cout << endl <<endl;
+					cout << "Ingrese el nombre del Cargo secundario: ";
+					cin >> nombre;
+
+					cargo.agregarCargoSecundario(nombre);
+				}
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+			}
+		} while ((invalida) || (retorno));
+
+}
 void Menu::adminCargo() {
 	char opcion;
 		bool invalida=false;
@@ -231,85 +429,57 @@ void Menu::adminCargo() {
 
 }
 
-void Menu::adminDistrito() {
+
+void Menu::adminEleccion(){
+
+
 	char opcion;
 	bool invalida=false;
 	bool retorno=false;
-	char nombre[50];
-	int resultado;
+
+	ABMentidades abm;
+	ConsultaEntidades consulta;
+
+	Eleccion eleccion;
+	string fecha_eleccion;
+
+	Distrito distrito;
+	string nom_distrito;
+
+
 	do {
 		system("clear");
 		if (invalida) {
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
-		cout << "A => Crear un Distrito." << endl;
-		cout << "B => Borrar un Distrito." << endl;
-		cout << "M => Modificar un Distrito." << endl;
+		cout << "A => Crear un Eleccion." << endl;
+		cout << "B => Borrar un Eleccion." << endl;
+		cout << "M => Modificar un Eleccion." << endl;
 		cout << "V => Volver." << endl << "Opcion: ";
 		cin >> opcion;
 
 		retorno=false;
 		invalida=false;
 		switch ((char)toupper(opcion)) {
+
 		case 'A':
 			cout << endl <<endl;
-			cout << "Ingrese el nombre del ditrito: ";
-			cin >> nombre;
+			cout << "Ingrese el Fecha de Eleccion: ";
 
-			//aqui
-			resultado= 0;//creaDistrito(nombre);
-			if (resultado==0) {
-				cout << "Se creo el Distrito \"" << nombre << "\"." << endl;
-			} else {
-				cout << "Error al crear al distrito. Codigo: " << resultado << endl;
-			}
-			cout << "Ingrese cualquier letra para continuar: ";
-			cin >> opcion;
-			retorno=true;
-			break;
+			cin >> fecha_eleccion;
+
+
 		case 'B':
-			cout << endl <<endl;
-			cout << "Ingrese el nombre del ditrito a borrar: ";
-			cin >> nombre;
 
-			//aqui
-			resultado= 0;//borraDistrito(nombre);
-			if (resultado==0) {
-				cout << "Se borro el Distrito \"" << nombre << "\"." << endl;
-			} else {
-				cout << "No se encontro el Distrito \"" << nombre << "\"." << endl;
-			}
-			cout << "Ingrese cualquier letra para continuar: ";
-			cin >> opcion;
 			retorno=true;
 			break;
+
 		case 'M':
-			cout << endl <<endl;
-			cout << "Ingrese el nombre del ditrito a modificar: ";
-			cin >> nombre;
 
-			//aqui
-			resultado= 1;//buscarDistrito(nombre);
-			if (resultado>0) {
-				cout << "Distrito encontrado." << endl;
-				cout << "ingrese el nuevo nombre del distrito: ";
-				cin >> nombre;
-
-				int resultado= 0;//modificarDistrito(nombre);
-				if (resultado==0) {
-					cout << "Se modifico el Distrito \"" << nombre << "\"." << endl;
-				} else {
-					cout << "Error al crear al distrito. Codigo: " << resultado << endl;
-				}
-
-			} else {
-				cout << "No se encontro el Distrito \"" << nombre << "\"." << endl;
-			}
-			cout << "Ingrese cualquier letra para continuar: ";
-			cin >> opcion;
 			retorno=true;
 			break;
+
 		case 'V':
 			system("clear");
 			break;
@@ -319,7 +489,10 @@ void Menu::adminDistrito() {
 		}
 
 	} while ((invalida) || (retorno));
+
+
 }
+
 
 void Menu::adminVotante() {
     char opcion;
@@ -349,6 +522,9 @@ void Menu::adminVotante() {
         invalida=false;
         opcion = (char)toupper(opcion);
         switch (opcion) {
+					/*
+					 * Crear un Votante
+					 */
             case 'A':
                     cout << endl <<endl; //((DNI)i, NombreyApellido, clave, domicilio, (distrito)ie, ((eleccion)ie)*)
                     int dniN;
@@ -385,6 +561,10 @@ void Menu::adminVotante() {
                     cin >> opcion;
                     retorno=true;
                     break;
+
+                    /*
+                     * Borrar Votante
+                     */
             case 'B':
                     dniN= -2;
                     do {
@@ -394,6 +574,7 @@ void Menu::adminVotante() {
                             cout << "Ingrese el DNI del Votante a borrar: ";
                             cin >> dni;
                             dniN = atoi(dni);
+
                     } while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
 
                     if(!(consulta.ObtenerRegistro(dni, votante)))
@@ -411,6 +592,12 @@ void Menu::adminVotante() {
                     cin >> opcion;
                     retorno=true;
                     break;
+
+                    /*
+                     * Modificar un Votante
+                     *
+                     */
+
             case 'M':
                 dniN= -2;
                 do {
@@ -445,12 +632,14 @@ void Menu::adminVotante() {
                         int resultado_v;
                         invalida_v=false;
                         switch ((char)toupper(opcion)) {
+                        case 'o':
                         case 'O':
                             cout << "ingrese el nuevo domicilio del Votante: ";
                             cin >> nombre;
 
                             votante.setDomicilio(nombre);
                             break;
+                        case 'd':
                         case 'D':
                             cout << "ingrese el nombre del nuevo distrito del Votante: ";
                             cin >> nombre;
@@ -460,6 +649,7 @@ void Menu::adminVotante() {
                             else
                                 cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
                             break;
+                        case 'v':
                         case 'V':
                             break;
                         default:
