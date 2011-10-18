@@ -36,6 +36,8 @@ public:
 
 	void adminVotante();
 
+	void adminCargo();
+
 public:
 	static Menu *getMenu();
 
