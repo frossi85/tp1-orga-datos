@@ -606,18 +606,18 @@ void Menu::adminInformes(){
     bool invalida=false;
     bool retorno=false;
     string nombre_distrito;
-    string fecha_eleccion;
+    Eleccion eleccion;
+    string fecha_eleccion,fecha_eleccion_index,cargo_eleccion;
     string clave;
+    string nombre_cargo,nombre_lista;
 
     Distrito distrito;
-    Eleccion eleccion;
     Lista lista;
 
     Informe *informe;
     ConsultaEntidades consulta;
     ABMentidades abm;
 
-    int resultado;
     do {
         system("clear");
         if (invalida) {
@@ -639,8 +639,23 @@ void Menu::adminInformes(){
 
 				cout<<"Ingrese fecha Eleccion:";
 				cin>>fecha_eleccion;
+				fecha_eleccion_index=Utilidades::indexarFecha(fecha_eleccion);
+				cout<<"Ingrese Cargo:";
+				cin>>cargo_eleccion;
 
+				clave=fecha_eleccion_index + "$" + cargo_eleccion;
+				if(consulta.ObtenerRegistro(clave,eleccion)){
 
+					informe=new Informe(eleccion);
+					delete informe;
+
+				}else{
+
+					cout<<"No existe la Eleccion ingresada."<<endl;
+				}
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
 				retorno=true;
 				break;
 
@@ -668,6 +683,29 @@ void Menu::adminInformes(){
 				break;
 
             case 'L':
+
+            	cout<<"Ingrese Nombre de Lista:";
+            	cin>>nombre_lista;
+
+            	cout<<"Ingrese Cargo que se postula en la Lista:";
+            	cin>>nombre_cargo;
+
+            	cout<<"Ingrese fecha de eleccion para la lista:";
+            	cin>>fecha_eleccion;
+
+            	fecha_eleccion_index=Utilidades::indexarFecha(fecha_eleccion);
+
+            	clave=fecha_eleccion_index + "$" + nombre_cargo + "$" + nombre_lista;
+
+            	if(consulta.ObtenerRegistro(clave,lista)){
+
+            		informe= new Informe(lista);
+            		delete informe;
+
+            	}else{
+
+            		cout<<"No Existe la Lista Ingresada."<<endl;
+            	}
 
                 cout << "Ingrese cualquier letra para continuar: ";
                 cin >> opcion;
