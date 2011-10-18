@@ -41,6 +41,8 @@ public:
 	Lista& getLista();
 	Distrito& getDistrito();
 
+	Eleccion& getEleccion(){ return *(this->_eleccion);}
+
 	unsigned long int Guardar(ofstream & ofs);
 
 	void Leer(ifstream & ifs, unsigned long int offset);
