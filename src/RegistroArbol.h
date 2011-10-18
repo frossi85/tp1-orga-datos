@@ -32,6 +32,8 @@ public:
     static RegistroArbol * Leer(fstream & archivo);
     void Guardar(fstream & archivo);
     void Imprimir();
+    void setLink(long link);
+    long getLink();
 
 private:
     //====================== Seccion de Atributos ==========================

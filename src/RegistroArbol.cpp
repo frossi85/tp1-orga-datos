@@ -56,6 +56,18 @@ void RegistroArbol::setOffset(long offset)
 }
 
 //==============================================================================
+void RegistroArbol::setLink(long link)
+{
+    this->_link = link;
+}
+
+//==============================================================================
+long RegistroArbol::getLink()
+{
+    return this->_link;
+}
+
+//==============================================================================
 long RegistroArbol::getTamanioEnDisco() {
     long tamanioClave = _clave.size() * sizeof(char);
     long tamanioOffset = sizeof(_offset);
@@ -71,15 +83,15 @@ RegistroArbol * RegistroArbol::Leer(fstream & ifs) {
     long offsetAux;
     long linkAux;
     //ifs.read(reinterpret_cast<char *>(&tamanioEnDisco), sizeof(tamanioEnDisco));
-    //claveAux = Utilidades::stringFromFile(ifs);
-    //ifs.read(reinterpret_cast<char *>(&offsetAux), sizeof(offsetAux));
-    //ifs.read(reinterpret_cast<char *>(&linkAux), sizeof(linkAux));
-
-    char delimitador;
-    ifs>>tamanioEnDisco>>delimitador;
     claveAux = Utilidades::stringFromFile(ifs);
-    ifs>>offsetAux>>delimitador;
-    ifs>>linkAux>>delimitador>>delimitador;
+    ifs.read(reinterpret_cast<char *>(&offsetAux), sizeof(offsetAux));
+    ifs.read(reinterpret_cast<char *>(&linkAux), sizeof(linkAux));
+
+//    char delimitador;
+//    ifs>>tamanioEnDisco>>delimitador;
+//    claveAux = Utilidades::stringFromFile(ifs);
+//    ifs>>offsetAux>>delimitador;
+//    ifs>>linkAux>>delimitador>>delimitador;
 
     RegistroArbol * registro = new RegistroArbol(claveAux, offsetAux);
     registro->_link = linkAux;
@@ -91,15 +103,15 @@ RegistroArbol * RegistroArbol::Leer(fstream & ifs) {
 void RegistroArbol::Guardar(fstream & ofs) {
     //long tamanioEnDisco = getTamanioEnDisco();
     //ofs.write(reinterpret_cast<char *>(&tamanioEnDisco), sizeof(tamanioEnDisco));
-    //Utilidades::stringToFile(clave, ofs);
-    //ofs.write(reinterpret_cast<char *>(&offset), sizeof(offset));
-    //ofs.write(reinterpret_cast<char *>(&link_), sizeof(link_));
+    Utilidades::stringToFile(_clave, ofs);
+    ofs.write(reinterpret_cast<char *>(&_offset), sizeof(_offset));
+    ofs.write(reinterpret_cast<char *>(&_link), sizeof(_link));
 
-    long tamanioEnDisco = getTamanioEnDisco();
-    ofs<<tamanioEnDisco<<"|";
-    ofs<<_clave<<"|";
-    ofs<<_offset<<"|";
-    ofs<<_link<<"||";
+//    long tamanioEnDisco = getTamanioEnDisco();
+//    ofs<<tamanioEnDisco<<"|";
+//    ofs<<_clave<<"|";
+//    ofs<<_offset<<"|";
+//    ofs<<_link<<"||";
 }
 
 //==============================================================================

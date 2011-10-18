@@ -85,30 +85,33 @@ void Nodo::Guardar(fstream &ofs)
 
     //ofs.write(reinterpret_cast<char *>(&capacidadEnBytesAux), sizeof(capacidadEnBytesAux));
     //ofs.write(reinterpret_cast<char *>(&tamanioEnBytesOcupados), sizeof(tamanioEnBytesOcupados));
-    //ofs.write(reinterpret_cast<char *>(&addr_), sizeof(addr_));
-    //ofs.write(reinterpret_cast<char *>(&less_), sizeof(less_));
-    //ofs.write(reinterpret_cast<char *>(&size_), sizeof(size_));
-    //ofs.write(reinterpret_cast<char *>(&padre_), sizeof(padre_));
+
+    ofs.write(reinterpret_cast<char *>(&(_tamanio)), sizeof((_tamanio)));
+    ofs.write(reinterpret_cast<char *>(&(_addr)), sizeof((_addr)));
+    ofs.write(reinterpret_cast<char *>(&(_menor)), sizeof((_menor)));
+    ofs.write(reinterpret_cast<char *>(&(_padre)), sizeof((_padre)));
 
 
-    ofs<<capacidadEnBytesAux<<"|";
-    ofs<<_tamanio<<"|";
-    ofs<<_addr<<"|";
-    ofs<<_menor<<"|";
-    ofs<<_padre<<"|";
+//    ofs<<capacidadEnBytesAux<<"|";
+//    ofs<<_tamanio<<"|";
+//    ofs<<_addr<<"|";
+//    ofs<<_menor<<"|";
+//    ofs<<_padre<<"|";
 
     for(unsigned int i = 0; i < _registros.size(); i++)
     {
         _registros[i]->Guardar(ofs);
     }
 
-    ofs<<"||";
+    //ofs<<"||";
     long posicionStream = ofs.tellp();
     long cantidadALimpiar = _tamanioMaximoNodo - (posicionStream - _addr);
+    char byteLimpio = 0;
 
     for(long i = 0; i<cantidadALimpiar; i++)
     {
-        ofs<<" ";
+        //ofs<<" ";
+    	ofs.write(reinterpret_cast<char *>(&(byteLimpio)), sizeof((byteLimpio)));
     }
 }
 
@@ -120,18 +123,19 @@ Nodo * Nodo::Leer(fstream &ifs)
 
     //ifs.read(reinterpret_cast<char *>(&(capacidadEnBytesAux)), sizeof((capacidadEnBytesAux)));
     //ifs.read(reinterpret_cast<char *>(&(nodo->tamanioEnBytesOcupados)), sizeof((nodo->tamanioEnBytesOcupados)));
-    //ifs.read(reinterpret_cast<char *>(&(nodo->addr_)), sizeof((nodo->addr_)));
-    //ifs.read(reinterpret_cast<char *>(&(nodo->less_)), sizeof((nodo->less_)));
-    //ifs.read(reinterpret_cast<char *>(&(nodo->size_)), sizeof((nodo->size_)));
-    //ifs.read(reinterpret_cast<char *>(&(nodo->padre_)), sizeof((nodo->padre_)));
 
-    char delimitador;
+    ifs.read(reinterpret_cast<char *>(&(nodo->_tamanio)), sizeof((nodo->_tamanio)));
+    ifs.read(reinterpret_cast<char *>(&(nodo->_addr)), sizeof((nodo->_addr)));
+    ifs.read(reinterpret_cast<char *>(&(nodo->_menor)), sizeof((nodo->_menor)));
+    ifs.read(reinterpret_cast<char *>(&(nodo->_padre)), sizeof((nodo->_padre)));
 
-    ifs>>(capacidadEnBytesAux)>>delimitador;
-    ifs>>(nodo->_tamanio)>>delimitador;
-    ifs>>(nodo->_addr)>>delimitador;
-    ifs>>(nodo->_menor)>>delimitador;
-    ifs>>(nodo->_padre)>>delimitador;
+//    char delimitador;
+//
+//    ifs>>(capacidadEnBytesAux)>>delimitador;
+//    ifs>>(nodo->_tamanio)>>delimitador;
+//    ifs>>(nodo->_addr)>>delimitador;
+//    ifs>>(nodo->_menor)>>delimitador;
+//    ifs>>(nodo->_padre)>>delimitador;
 
     //TODO: cuando capacidadEnBytesAux deje de ser constante tendria q
     //settearlo aca o en el ifs.read()
@@ -141,7 +145,7 @@ Nodo * Nodo::Leer(fstream &ifs)
         nodo->_registros.push_back(RegistroArbol::Leer(ifs));
     }
 
-    ifs>>delimitador>>delimitador;
+    //ifs>>delimitador>>delimitador;
 
     return nodo;
 }
@@ -222,7 +226,7 @@ bool Nodo::estaVacio() const
 //==============================================================================
 bool Nodo::estaLleno() const
 {
-    return _tamanio == _cantidadMaximaRegistros;
+    return _tamanio >= _cantidadMaximaRegistros;
 }
 
 //==============================================================================
