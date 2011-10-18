@@ -125,6 +125,10 @@ void Menu::adminMain() {
 			adminVotante();
 			retorno=true;
 			break;
+		case 'C':
+			adminCargo();
+			retorno=true;
+			break;
 		case 'S':
 			system("clear");
 			break;
@@ -134,6 +138,97 @@ void Menu::adminMain() {
 		}
 
 	} while ((invalida) || (retorno));
+}
+
+void Menu::adminCargo() {
+	char opcion;
+		bool invalida=false;
+		bool retorno=false;
+		char nombre[50];
+		Cargo cargo;
+		int resultado;
+	    ConsultaEntidades consulta;
+	    ABMentidades abm;
+		do {
+			system("clear");
+			if (invalida) {
+				cout << "Opcion invalida, intente nuevamente." << endl;
+			}
+			cout << "********************************" << endl;
+			cout << "A => Crear un Cargo." << endl;
+			cout << "B => Borrar un Cargo." << endl;
+			cout << "G => Agregar un Cargo secundario." << endl;
+			cout << "V => Volver." << endl << "Opcion: ";
+			cin >> opcion;
+
+			retorno=false;
+			invalida=false;
+			switch ((char)toupper(opcion)) {
+			case 'A':
+			{
+				cout << endl <<endl;
+				cout << "Ingrese el nombre del nuevo Cargo: ";
+				cin >> nombre;
+
+				string cad(nombre);
+				Cargo nuevo(cad);
+				//Se crea el cargo, verificando si no existia
+				if(abm.altaCargo(nuevo))
+					cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
+				else
+					cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+			}
+			case 'B':
+				cout << endl <<endl;
+				cout << "Ingrese el nombre del Cargo a borrar: ";
+				cin >> nombre;
+
+
+				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				{
+					cout<<"El cargo no existe"<<endl;
+					resultado = -1;
+					break;
+				}
+				if(abm.bajaCargo(cargo))
+					cout << "Se borro el cargo \"" << nombre << "\"." << endl;
+				else
+					cout<< "No se ha podido borrar al cargo." << endl;
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+			case 'D':
+				cout << endl <<endl;
+				cout << "Ingrese el nombre del Cargo a modificar: ";
+				cin >> nombre;
+
+				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				{
+					cout<<"El cargo no existe"<<endl;
+					resultado = -1;
+					break;
+				} else {
+					cout << endl <<endl;
+					cout << "Ingrese el nombre del Cargo secundario: ";
+					cin >> nombre;
+
+					cargo.agregarCargoSecundario(nombre);
+				}
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				cin >> opcion;
+				retorno=true;
+				break;
+			}
+		} while ((invalida) || (retorno));
+
 }
 
 void Menu::adminDistrito() {
