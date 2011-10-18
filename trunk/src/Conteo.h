@@ -50,6 +50,8 @@ public:
 	string getClassName();
 
 	static void AgregarVoto(Lista& lista, Distrito& distrito);
+
+        void Imprimir();
 };
 
 #endif /* CONTEO_H_ */

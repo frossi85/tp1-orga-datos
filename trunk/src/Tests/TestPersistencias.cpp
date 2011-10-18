@@ -23,7 +23,6 @@ void TestPersistencias::comenzar(){
 	this->TestEleccion();
 
         this->TestConteo();
-
 }
 
 TestPersistencias::~TestPersistencias() {}
@@ -177,8 +176,7 @@ void TestPersistencias::TestConteo() {
 	vector<Conteo> vecConteos;
 	UtilidadesTests::cargarConteos(vecConteos, vecListas, vecDistritos, vecElecciones);
 
-        //HACER
-	//for(int i = 0; i < 6; i++)  vecConteos[i].Imprimir();
+	for(int i = 0; i < 6; i++)  vecConteos[i].Imprimir();
 
         unsigned long int offset[6];
 
@@ -190,8 +188,7 @@ void TestPersistencias::TestConteo() {
 
         for(int i = 0; i < 6; i++) dataAccess.Leer(vecConteos[i],offset[5-i]);
 
-        //HACER
-	//for(int i = 0; i < 6; i++) vecConteos[i].Imprimir();
+	for(int i = 0; i < 6; i++) vecConteos[i].Imprimir();
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                  Fin Test Conteo" << endl;
