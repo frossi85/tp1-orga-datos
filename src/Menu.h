@@ -34,9 +34,11 @@ public:
 
 	void adminDistrito();
 
-	void adminVotante();
-
 	void adminCargo();
+
+	void adminEleccion();
+
+	void adminVotante();
 
 public:
 	static Menu *getMenu();
