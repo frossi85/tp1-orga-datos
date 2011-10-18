@@ -14,6 +14,7 @@
 #include "../Lista.h"
 #include "../Votante.h"
 #include "../Candidato.h"
+#include "../Conteo.h"
 #include <vector>
 
 class UtilidadesTests {
@@ -24,9 +25,10 @@ public:
 	static void cargarDistritos(vector<Distrito> &vecDistritos);
 	static void cargarCargos(vector<Cargo> &vecCargos);
 	static void cargarElecciones(vector<Eleccion> &vecElecciones, vector<Cargo> &vecCargos, vector<Distrito> &vecDistritos);
-	static void cargarListas(vector<Lista> &vecListas);
+	static void cargarListas(vector<Lista> &vecListas, vector<Eleccion> &vecElecciones);
 	static void cargarVotantes(vector<Votante> &vecVotantes);
 	static void cargarCandidatos(vector<Candidato> &vecCandidatos);
+        static void cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones);
 };
 
 #endif /* UTILIDADESTESTS_H_ */

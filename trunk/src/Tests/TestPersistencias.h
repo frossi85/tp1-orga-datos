@@ -15,6 +15,7 @@
 #include "../Distrito.h"
 #include "../Cargo.h"
 #include "../Eleccion.h"
+#include "../Conteo.h"
 #include "../DataAccess.h"
 #include "../hash_extensible.h"
 #include "../RegistroIndice.h"
@@ -34,6 +35,7 @@ public:
 	void TestDistrito();
 	void TestCargo();
 	void TestEleccion();
+        void TestConteo();
 
 	void comenzar();
 	void inicializar(){ }
