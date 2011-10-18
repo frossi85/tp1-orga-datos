@@ -10,9 +10,7 @@
 DataAccess::DataAccess() : configuracion(*Configuracion::getConfig()){
 }
 
-DataAccess::~DataAccess() {
-	// TODO Auto-generated destructor stub
-}
+DataAccess::~DataAccess() {}
 
 
 //Recibe el id del grabable q quiero leer, obj es una instacia vacia a sobreescribir con los

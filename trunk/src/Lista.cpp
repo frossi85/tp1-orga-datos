@@ -33,7 +33,10 @@ Lista::Lista(const Lista &lista) {
 
 
 Lista::~Lista() {
-	if (this->_eleccion != NULL) delete this->_eleccion;
+	if (this->_eleccion != NULL) {
+		delete this->_eleccion;
+		this->_eleccion =NULL;
+	}
 }
 
 
@@ -87,7 +90,13 @@ unsigned long int Lista::Guardar(ofstream & ofs)
 void Lista::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
-	if (this->_eleccion != NULL) delete this->_eleccion;
+	if (this->_eleccion != NULL) {
+		delete this->_eleccion;
+		this->_eleccion = NULL;
+	}
+
+	// Me posiciono en el archivo
+	ifs.seekg(offset,ios::beg);
 
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));

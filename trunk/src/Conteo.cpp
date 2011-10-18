@@ -27,9 +27,18 @@ Conteo::Conteo(){
 }
 
 Conteo::~Conteo() {
-	if (this->_distrito != NULL)	delete this->_distrito;
-	if (this->_lista != NULL)	delete this->_lista;
-	if (this->_eleccion != NULL)	delete this->_eleccion;
+	if (this->_distrito != NULL) {
+		delete this->_distrito;
+		this->_distrito = NULL;
+	}
+	if (this->_lista != NULL) {
+		delete this->_lista;
+		this->_lista = NULL;
+	}
+	if (this->_eleccion != NULL) {
+		delete this->_eleccion;
+		this->_eleccion = NULL;
+	}
 }
 
 void Conteo::incrementar(){	this->_cantidad++;}
@@ -65,10 +74,20 @@ unsigned long int Conteo::Guardar(ofstream & ofs){
 }
 
 void Conteo::Leer(ifstream & ifs, unsigned long int offset){
+
 	// Elimino atributos de la instancia
-	if (this->_distrito != NULL)	delete this->_distrito;
-	if (this->_lista != NULL)	delete this->_lista;
-	if (this->_eleccion != NULL)	delete this->_eleccion;
+	if (this->_distrito != NULL) {
+		delete this->_distrito;
+		this->_distrito = NULL;
+	}
+	if (this->_lista != NULL) {
+		delete this->_lista;
+		this->_lista = NULL;
+	}
+	if (this->_eleccion != NULL) {
+		delete this->_eleccion;
+		this->_eleccion = NULL;
+	}
 
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);

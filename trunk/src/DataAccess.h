@@ -18,10 +18,7 @@
 #include "Utilidades.h"
 #include "VotoElectronicoExcepcion.h"
 #include "Configuracion.h"
-//#include "Conteo.h"
 
-
-//class Conteo;
 
 class DataAccess {
 
@@ -34,11 +31,6 @@ public:
 	unsigned long int Guardar(Grabable & obj);				// Retorna el offset de donde lo guardo.
 	void Eliminar(Grabable & obj);
 	void Leer(Grabable & obj, unsigned long int offset);
-
-	//*************************************************************************************************************************
-	// LA IDEA DEL DATA ACCESS ES QUE RECIBA Y DEVUELVA OBJETOS DE LA CLASE PADRE GUARDABLE. ESTOS METODOS TENDRIAN QUE ESTAR
-	// EN OTRO LADO. ESTA CLASE ES PARA LEER GUARDAR Y ELIMINAR. SI LE METEMOS ESTOS INCLUDES SE HACEN REFERENCIAS CIRCULARES.
-
 
 
 };

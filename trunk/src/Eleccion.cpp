@@ -19,7 +19,10 @@ Eleccion::Eleccion(string fecha, Cargo cargo, Distrito primerDistrito)
 
 
 Eleccion::~Eleccion() {
-	if (this->_cargo != NULL) delete this->_cargo;
+	if (this->_cargo != NULL) {
+		delete this->_cargo;
+		this->_cargo = NULL;
+	}
 	this->vaciarVectorDistritos();
 }
 
@@ -65,7 +68,10 @@ string Eleccion::getDescripcion(){
 
 void Eleccion::vaciarVectorDistritos() {
 	int cantidad = this->_distritos.size();
-	for(int i=0;i<cantidad;i++)	delete this->_distritos[i];
+	for(int i=0;i<cantidad;i++)	{
+		if (this->_distritos[i] != NULL)	delete this->_distritos[i];
+		this->_distritos[i] = NULL;
+	}
 	this->_distritos.clear();
 }
 
@@ -119,7 +125,10 @@ unsigned long int Eleccion::Guardar(ofstream & ofs)
 void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
-	if (this->_cargo != NULL) delete this->_cargo;
+	if (this->_cargo != NULL) {
+		delete this->_cargo;
+		this->_cargo = NULL;
+	}
 	this->vaciarVectorDistritos();
 
 	// Me posiciono en el archivo
