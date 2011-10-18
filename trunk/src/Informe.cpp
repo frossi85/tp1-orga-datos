@@ -12,9 +12,7 @@
 
 Informe::Informe(Eleccion& eleccion) {
 
-	long id_eleccion=eleccion.getId();
-	long id_distrito;
-	Conteo *conteo;
+
 	DataAccess data_access;
 
 	vector<Conteo *> conteos=DataGetter::getConteosPorEleccion(eleccion);
