@@ -72,7 +72,4 @@ string Distrito::getURLArchivoDatos()
 }
 
 
-string Distrito::getClassName()
-{
-	return "Distrito";
-}
+string Distrito::getClassName() {return "Distrito";}

@@ -41,7 +41,10 @@ Votante::Votante(const Votante &votante) {
 
 
 Votante::~Votante() {
-	if (this->_distrito != NULL)	delete this->_distrito;
+	if (this->_distrito != NULL) {
+		delete this->_distrito;
+		this->_distrito = NULL;
+	}
 	this->vaciarVectorElecciones();
 }
 
@@ -67,7 +70,10 @@ Distrito Votante::getDistrito() {return *(this->_distrito);}
 void Votante::vaciarVectorElecciones() {
 	int cantidad = this->_elecciones.size();
 	for(int i=0;i<cantidad;i++) {
-		if (this->_elecciones[i] != NULL)	delete this->_elecciones[i];
+		if (this->_elecciones[i] != NULL) {
+			delete this->_elecciones[i];
+			this->_elecciones[i] = NULL;
+		}
 	}
 	this->_elecciones.clear();
 }
@@ -118,6 +124,7 @@ void Votante::setDomicilio(string nuevo_domicilio){
 
 void Votante::Imprimir()
 {
+	cout<<"Id Votante: " <<_id << endl;
 	cout<<"DNI: "<<_dni<<endl;
 	cout<<"Apellido y Nombre: "<<_nombreYApellido<<endl;
 	cout<<"Clave: "<<_clave<<endl;
@@ -125,10 +132,8 @@ void Votante::Imprimir()
 	cout<<"Distrito: "<<endl;
 	(*(_distrito)).Imprimir();
 
-	//TODO: Si no funciona size_type usar un long
 	vector<Eleccion *>::size_type cantidadElecciones = _elecciones.size();
 
-	//TODO: vale la misma aclaracion que para distrito
 	cout << "Elecciones en las que ya voto: "<<endl;
 	for(vector<Eleccion *>::size_type i = 0; i < cantidadElecciones; i++)
 	{
@@ -178,8 +183,14 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 void Votante::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
-	if (this->_distrito != NULL)	delete this->_distrito;
+	if (this->_distrito != NULL) {
+		delete this->_distrito;
+		this->_distrito = NULL;
+	}
 	this->vaciarVectorElecciones();
+
+	// Me posiciono en el archivo
+	ifs.seekg(offset,ios::beg);
 
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
