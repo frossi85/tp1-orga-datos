@@ -34,6 +34,7 @@ public:
 	string getNombre();
 
 	void setId(long id) {this->_id=id;}
+        void setEleccion(Eleccion eleccion);
 
 	unsigned long int Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs, unsigned long int offset);

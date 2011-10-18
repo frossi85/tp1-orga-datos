@@ -22,6 +22,8 @@ void TestPersistencias::comenzar(){
 
 	this->TestEleccion();
 
+        this->TestConteo();
+
 }
 
 TestPersistencias::~TestPersistencias() {}
@@ -148,5 +150,50 @@ void TestPersistencias::TestEleccion() {
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                    Fin Test Eleccion" << endl;
+	cout << "********************************************************" << endl << endl;
+}
+
+
+/* Se crean 6 Conteos, se guardan en archivo y se recuperan en forma opuesta */
+void TestPersistencias::TestConteo() {
+
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Conteo" << endl;
+	cout << "********************************************************" << endl << endl;
+
+        vector<Cargo> vecCargos;
+        UtilidadesTests::cargarCargos(vecCargos);
+
+        vector<Distrito> vecDistritos;
+        UtilidadesTests::cargarDistritos(vecDistritos);
+
+        vector<Eleccion> vecElecciones;
+        UtilidadesTests::cargarElecciones(vecElecciones, vecCargos, vecDistritos);
+
+        vector<Lista> vecListas;
+        UtilidadesTests::cargarListas(vecListas, vecElecciones);
+
+        
+	vector<Conteo> vecConteos;
+	UtilidadesTests::cargarConteos(vecConteos, vecListas, vecDistritos, vecElecciones);
+
+        //HACER
+	//for(int i = 0; i < 6; i++)  vecConteos[i].Imprimir();
+
+        unsigned long int offset[6];
+
+        for(int i = 0; i < 6; i++){
+            offset[i] = dataAccess.Guardar(vecConteos[i]);
+            cout << "Offset de conteo nro. " << i << ": " << offset[i] << endl;
+        }
+        cout << endl;
+
+        for(int i = 0; i < 6; i++) dataAccess.Leer(vecConteos[i],offset[5-i]);
+
+        //HACER
+	//for(int i = 0; i < 6; i++) vecConteos[i].Imprimir();
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Conteo" << endl;
 	cout << "********************************************************" << endl << endl;
 }

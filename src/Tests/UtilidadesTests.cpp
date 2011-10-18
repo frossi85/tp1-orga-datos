@@ -102,8 +102,23 @@ void UtilidadesTests::cargarElecciones(vector<Eleccion> &vecElecciones, vector<C
 }
 
 
-void UtilidadesTests::cargarListas(vector<Lista> &vecListas) {
+void UtilidadesTests::cargarListas(vector<Lista> &vecListas, vector<Eleccion> &vecElecciones) {
+    if (!vecListas.empty()) vecListas.clear();
+    Lista lista1("FPV 2011",vecElecciones[0]);
+    Lista lista2("UDESO 2011",vecElecciones[0]);
+    Lista lista3("FAP 2011",vecElecciones[0]);
+    Lista lista4("PRO 2009",vecElecciones[1]);
+    Lista lista5("Coalicion Civica 2009",vecElecciones[1]);
+    Lista lista6("Frente de Izquierda 2007", vecElecciones[2]);
 
+    vecListas.push_back(lista1);
+    vecListas.push_back(lista2);
+    vecListas.push_back(lista3);
+    vecListas.push_back(lista4);
+    vecListas.push_back(lista5);
+    vecListas.push_back(lista6);
+
+    return;
 }
 
 
@@ -114,4 +129,24 @@ void UtilidadesTests::cargarVotantes(vector<Votante> &vecVotantes) {
 
 void UtilidadesTests::cargarCandidatos(vector<Candidato> &vecCandidatos) {
 
+}
+
+void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones){
+
+        if (!vecConteos.empty()) vecConteos.clear();
+	Conteo conteo1(vecListas[0], vecDistritos[0]);
+	Conteo conteo2(vecListas[1], vecDistritos[1]);
+	Conteo conteo3(vecListas[2], vecDistritos[2]);
+	Conteo conteo4(vecListas[3], vecDistritos[3]);
+	Conteo conteo5(vecListas[4], vecDistritos[4]);
+	Conteo conteo6(vecListas[5], vecDistritos[5]);
+
+	vecConteos.push_back(conteo1);
+	vecConteos.push_back(conteo2);
+        vecConteos.push_back(conteo3);
+        vecConteos.push_back(conteo4);
+        vecConteos.push_back(conteo5);
+        vecConteos.push_back(conteo6);
+
+	return;
 }
