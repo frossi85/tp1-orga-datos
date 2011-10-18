@@ -8,24 +8,10 @@
 
 #include "TestPersistencias.h"
 
-TestPersistencias::TestPersistencias() {
-	this->clase_en_testeo="Persistencias";
-}
-
-void TestPersistencias::comenzar(){
-
-	this->tituloTest();
-
-	this->TestCargo();
-
-	this->TestDistrito();
-
-	this->TestEleccion();
-
-        this->TestConteo();
-}
+TestPersistencias::TestPersistencias() {}
 
 TestPersistencias::~TestPersistencias() {}
+
 
 /* Se crean 6 Distritos, se guardan en archivo y se recuperan en forma opuesta */
 void TestPersistencias::TestDistrito() {
@@ -153,6 +139,84 @@ void TestPersistencias::TestEleccion() {
 }
 
 
+/* Se crean 9 votantes y se le asignan elecciones (una o mas) a cada uno.
+ * Se guardan en archivo y luego se recuperan al reves. */
+void TestPersistencias::TestVotante() {
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Votantes" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	/* Cargo valores */
+	vector<Distrito> vecDistritos;
+	UtilidadesTests::cargarDistritos(vecDistritos);
+
+	vector<Cargo> vecCargos;
+	UtilidadesTests::cargarCargos(vecCargos);
+
+	/* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
+	ABMentidades ABMaux;
+	bool exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = ABMaux.altaDistrito(vecDistritos[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Distritos (verificar que no exitan los hash de distrito)" << endl << endl;
+	  	return;
+	}
+
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = ABMaux.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no exitan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+    vector<Eleccion> vecElecciones;
+    UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+
+	/* Guardo las elecciones. Verificar que ande antes el ABMentidades::altaEleccion() */
+	/* Para que tenga exito, no deben existir los archivos de hash de eleccion */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = ABMaux.altaEleccion(vecElecciones[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Elecciones (verificar que no exitan los hash de eleccion)" << endl << endl;
+	  	return;
+	}
+
+    vector<Votante> vecVotantes;
+    UtilidadesTests::cargarVotantes(vecVotantes,vecDistritos,vecElecciones);
+
+	for(int i=0;i<9;i++)	vecVotantes[i].Imprimir();
+
+	unsigned long int offset[10];
+
+	for(int i=0;i<9;i++) {
+        offset[i] = dataAccess.Guardar(vecVotantes[i]);
+        cout << "Offset de "<< vecVotantes[i].getDNI() << ": " << offset[i] << endl;
+    }
+    cout << endl;
+
+    for(int i=0;i<9;i++)     dataAccess.Leer(vecVotantes[i],offset[8-i]);
+
+	for(int i=0;i<9;i++)	vecVotantes[i].Imprimir();
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Votantes" << endl;
+	cout << "********************************************************" << endl << endl;
+}
+
+
+void TestPersistencias::TestLista() {
+
+}
+
+
+void TestPersistencias::TestCandidato() {
+
+}
+
+
 /* Se crean 6 Conteos, se guardan en archivo y se recuperan en forma opuesta */
 void TestPersistencias::TestConteo() {
 
@@ -172,7 +236,7 @@ void TestPersistencias::TestConteo() {
         vector<Lista> vecListas;
         UtilidadesTests::cargarListas(vecListas, vecElecciones);
 
-        
+
 	vector<Conteo> vecConteos;
 	UtilidadesTests::cargarConteos(vecConteos, vecListas, vecDistritos, vecElecciones);
 

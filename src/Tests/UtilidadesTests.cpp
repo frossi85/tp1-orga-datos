@@ -122,8 +122,91 @@ void UtilidadesTests::cargarListas(vector<Lista> &vecListas, vector<Eleccion> &v
 }
 
 
-void UtilidadesTests::cargarVotantes(vector<Votante> &vecVotantes) {
+void UtilidadesTests::cargarVotantes(vector<Votante> &vecVotantes, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones) {
 
+	/* Distritos:
+	 * i=
+	 * 0: Lanus
+	 * 1: Cordoba
+	 * 2: Santa Fe
+	 * 3: Pehuajo
+	 * 4: Olivos
+	 * 5: Springfield
+	 *
+	 * Distritos de las Elecciones:
+	 * i=
+	 * 0: Lanus
+	 * 1: Cordoba, Lanus
+	 * 2: Santa Fe, Cordoba, Lanus
+	 * 3: Pehuajo, Santa Fe, Cordoba, Lanus
+	 * 4: Olivos, Pehuajo, Santa Fe, Cordoba, Lanus
+	 * 5: Springfield, Olivos, Pehuajo, Santa Fe, Cordoba, Lanus
+	 */
+
+	if (!vecVotantes.empty()) vecVotantes.clear();
+	Votante votante1(5000000,"Lenny Leonard","carl","Saraza 601",vecDistritos[1]);
+	Votante votante2(10000000,"Carl Carlson","lenny","Sorozo 101",vecDistritos[5]);
+	Votante votante3(15000000,"Homero Simpson","cerveza","Avenida Evergreen 555",vecDistritos[2]);
+	Votante votante4(20000000,"Bart Simpson","patineta","Avenida Evergreen 555",vecDistritos[3]);
+	Votante votante5(25000000,"Barney Gomez","cerveza","Linyera 1402",vecDistritos[4]);
+	Votante votante6(30000000,"Moe Szyslack","escopeta","Sargento Cabral 740",vecDistritos[2]);
+	Votante votante7(35000000,"Ned Flanders","jesus","Avenida Evergreen 557",vecDistritos[5]);
+	Votante votante8(40000000,"Charles Montgomery Burns","money","Paseo Lucrativo 55",vecDistritos[0]);
+	Votante votante9(45000000,"Tony Fatso","spaghetti","Little Italy 940",vecDistritos[4]);
+
+	/* Elecciones de cada Votante:
+	 * i=
+	 * 0: Lenny: Cordoba. Vota en 02/02/2002 - 03/03/2003 - 04/04/2004 - 05/05/2005 - 06/06/2006
+	 * 1: Carl: Springfield. Vota en 06/06/2006
+	 * 2: Homero: Santa Fe. Vota en 03/03/2003 - 04/04/2004 - 05/05/2005 - 06/06/2006
+	 * 3: Bart: Pehuajo. Vota en 04/04/2004 - 05/05/2005 - 06/06/2006
+	 * 4: Barney: Olivos. Vota en 05/05/2005 - 06/06/2006
+	 * 5: Moe: Santa Fe. Vota en 03/03/2003 - 04/04/2004 - 05/05/2005 - 06/06/2006
+	 * 6: Ned: Springfield. Vota en 06/06/2006
+	 * 7: Charles: Cordoba. Vota en 01/01/2001 - 02/02/2002 - 03/03/2003 - 04/04/2004 - 05/05/2005 - 06/06/2006
+	 * 8: Tony: Olivos. Vota en 05/05/2005 - 06/06/2006
+	 */
+
+	votante1.agregarEleccion(vecElecciones[1]);
+	votante1.agregarEleccion(vecElecciones[2]);
+	votante1.agregarEleccion(vecElecciones[3]);
+	votante1.agregarEleccion(vecElecciones[4]);
+	votante1.agregarEleccion(vecElecciones[5]);
+	votante2.agregarEleccion(vecElecciones[5]);
+	votante3.agregarEleccion(vecElecciones[2]);
+	votante3.agregarEleccion(vecElecciones[3]);
+	votante3.agregarEleccion(vecElecciones[4]);
+	votante3.agregarEleccion(vecElecciones[5]);
+	votante4.agregarEleccion(vecElecciones[3]);
+	votante4.agregarEleccion(vecElecciones[4]);
+	votante4.agregarEleccion(vecElecciones[5]);
+	votante5.agregarEleccion(vecElecciones[4]);
+	votante5.agregarEleccion(vecElecciones[5]);
+	votante6.agregarEleccion(vecElecciones[2]);
+	votante6.agregarEleccion(vecElecciones[3]);
+	votante6.agregarEleccion(vecElecciones[4]);
+	votante6.agregarEleccion(vecElecciones[5]);
+	votante7.agregarEleccion(vecElecciones[5]);
+	votante8.agregarEleccion(vecElecciones[0]);
+	votante8.agregarEleccion(vecElecciones[1]);
+	votante8.agregarEleccion(vecElecciones[2]);
+	votante8.agregarEleccion(vecElecciones[3]);
+	votante8.agregarEleccion(vecElecciones[4]);
+	votante8.agregarEleccion(vecElecciones[5]);
+	votante9.agregarEleccion(vecElecciones[4]);
+	votante9.agregarEleccion(vecElecciones[5]);
+
+	vecVotantes.push_back(votante1);
+	vecVotantes.push_back(votante2);
+	vecVotantes.push_back(votante3);
+	vecVotantes.push_back(votante4);
+	vecVotantes.push_back(votante5);
+	vecVotantes.push_back(votante6);
+	vecVotantes.push_back(votante7);
+	vecVotantes.push_back(votante8);
+	vecVotantes.push_back(votante9);
+
+	return;
 }
 
 
@@ -133,7 +216,7 @@ void UtilidadesTests::cargarCandidatos(vector<Candidato> &vecCandidatos) {
 
 void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones){
 
-        if (!vecConteos.empty()) vecConteos.clear();
+    if (!vecConteos.empty()) vecConteos.clear();
 	Conteo conteo1(vecListas[0], vecDistritos[0]);
 	Conteo conteo2(vecListas[1], vecDistritos[1]);
 	Conteo conteo3(vecListas[2], vecDistritos[2]);
@@ -143,10 +226,10 @@ void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &v
 
 	vecConteos.push_back(conteo1);
 	vecConteos.push_back(conteo2);
-        vecConteos.push_back(conteo3);
-        vecConteos.push_back(conteo4);
-        vecConteos.push_back(conteo5);
-        vecConteos.push_back(conteo6);
+    vecConteos.push_back(conteo3);
+    vecConteos.push_back(conteo4);
+    vecConteos.push_back(conteo5);
+    vecConteos.push_back(conteo6);
 
 	return;
 }

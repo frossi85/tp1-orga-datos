@@ -23,11 +23,8 @@
 #include "../ABM Entidades/ABMentidades.h"
 #include "UtilidadesTests.h"
 
-/*
- * Ya Agregue Este Test para que se ejecute con Tester
- */
 
-class TestPersistencias: public Test {
+class TestPersistencias {
 public:
 	TestPersistencias();
 	virtual ~TestPersistencias();
@@ -35,11 +32,11 @@ public:
 	void TestDistrito();
 	void TestCargo();
 	void TestEleccion();
-        void TestConteo();
+	void TestVotante();
+	void TestLista();
+	void TestCandidato();
+    void TestConteo();
 
-	void comenzar();
-	void inicializar(){ }
-	void liberarMemoria(){ }
 private:
 	DataAccess dataAccess;
 };
