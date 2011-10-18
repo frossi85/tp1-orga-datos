@@ -24,6 +24,7 @@ public:
 	long getId();
 	string getNombre();
 	void setId(long id) {this->_id=id;}
+	void modificarNombre(string nombre_nuevo){ this->_nombre=nombre_nuevo;}
 
 	unsigned long int Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs, unsigned long int offset);
