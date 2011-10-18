@@ -122,8 +122,6 @@ void TestABMentidades::testAltaEleccion() {
 	cout << "                Comienzo Test Alta Eleccion" << endl;
 	cout << "********************************************************" << endl << endl;
 
-	 unsigned long int offset[6];
-
 	 vector<Distrito> vecDistritos;
 	 vector<Cargo> vecCargos;
 
@@ -186,7 +184,7 @@ void TestABMentidades::testAltaEleccion() {
  		clave[i] = Utilidades::indexarFecha(vecElecciones[i].getFecha()) + "$" + vecElecciones[i].getCargo().getCargoPrincipal();
  	}
 
-   	for(int i=0;i<6;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[5-i],vecElecciones[i]);;
+   	for(int i=0;i<6;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[5-i],vecElecciones[i]);
 
 	for(int i=0;i<6;i++) {
 		vecElecciones[i].Imprimir();
@@ -274,7 +272,7 @@ void TestABMentidades::testAltaVotante() {
    string clave[9];
    for(int i=0;i<9;i++)	clave[i] = Utilidades::toString(vecVotantes[i].getDNI());
 
-   for(int i=0;i<9;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[8-i],vecVotantes[i]);;
+   for(int i=0;i<9;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[8-i],vecVotantes[i]);
 
    for(int i=0;i<9;i++)	vecVotantes[i].Imprimir();
 
@@ -284,11 +282,198 @@ void TestABMentidades::testAltaVotante() {
 }
 
 
+/* Se crean 21 listas (6 nombres de listas, que se presentan a varias elecciones).
+ * Se guardan en archivo y se recuperan al reves */
 void TestABMentidades::testAltaLista() {
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Alta Listas" << endl;
+	cout << "********************************************************" << endl << endl;
 
+	/* Cargo valores */
+	vector<Distrito> vecDistritos;
+	UtilidadesTests::cargarDistritos(vecDistritos);
+
+	vector<Cargo> vecCargos;
+	UtilidadesTests::cargarCargos(vecCargos);
+
+	/* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
+	bool exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = this->ABMtest.altaDistrito(vecDistritos[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Distritos (verificar que no exitan los hash de distrito)" << endl << endl;
+	  	return;
+	}
+
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = this->ABMtest.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no exitan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+    vector<Eleccion> vecElecciones;
+    UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+
+	/* Guardo las elecciones. Verificar que ande antes el ABMentidades::altaEleccion() */
+	/* Para que tenga exito, no deben existir los archivos de hash de eleccion */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = this->ABMtest.altaEleccion(vecElecciones[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Elecciones (verificar que no exitan los hash de eleccion)" << endl << endl;
+	  	return;
+	}
+
+    vector<Lista> vecListas;
+    UtilidadesTests::cargarListas(vecListas,vecElecciones);
+
+	for(int i=0;i<21;i++)	vecListas[i].Imprimir();
+
+	for(int i=0;i<21;i++) {
+      if (ABMtest.altaLista(vecListas[i])) cout << "Alta " << vecListas[i].getNombre() << "$" << vecListas[i].getEleccion().getFecha() << " correcta" << endl;
+      else cout << "Alta " << vecListas[i].getNombre() << "$" << vecListas[i].getEleccion().getFecha() << " incorrecta (ya existia)" << endl;
+    }
+   cout << endl;
+
+   /* Pido que se impriman archivos de texto del hash para control */
+   string regs((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_lista_regs>"));
+   string bloq_lib((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_lista_bloq_lib>"));
+   string tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_lista_tabla>"));
+
+   hash_extensible hash_lista(regs,bloq_lib,tabla);
+   hash_lista.imprimir("./archivos/Tests/testABM_hash_lista");
+
+   regs = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idlista_regs>"));
+   bloq_lib = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idlista_bloq_lib>"));
+   tabla = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idlista_tabla>"));
+
+   hash_extensible hash_idlista(regs,bloq_lib,tabla);
+   hash_idlista.imprimir("./archivos/Tests/testABM_hash_idlista");
+
+   /* Recupero los valores de los candidatos */
+   // Debo guardar las claves para que no se cambien al cargar los registros
+   string clave[21];
+   for(int i=0;i<21;i++) {
+	   clave[i] = Utilidades::indexarFecha(vecListas[i].getEleccion().getFecha()) + "$" + vecListas[i].getEleccion().getCargo().getCargoPrincipal() + "$" + vecListas[i].getNombre();
+   }
+
+   for(int i=0;i<21;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[20-i],vecListas[i]);
+
+	for(int i=0;i<21;i++)	vecListas[i].Imprimir();
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Alta Listas" << endl;
+	cout << "********************************************************" << endl << endl;
 }
 
 
+/* Se crean 6 candidatos, se guardan en archivo y hash y se recuperan en forma opuesta */
 void TestABMentidades::testAltaCandidato() {
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Alta Candidatos" << endl;
+	cout << "********************************************************" << endl << endl;
 
+	/* Cargo valores */
+	vector<Distrito> vecDistritos;
+	UtilidadesTests::cargarDistritos(vecDistritos);
+
+	vector<Cargo> vecCargos;
+	UtilidadesTests::cargarCargos(vecCargos);
+
+	/* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
+	bool exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = this->ABMtest.altaDistrito(vecDistritos[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Distritos (verificar que no exitan los hash de distrito)" << endl << endl;
+	  	return;
+	}
+
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = this->ABMtest.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no exitan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+    vector<Eleccion> vecElecciones;
+    UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+
+	/* Guardo las elecciones. Verificar que ande antes el ABMentidades::altaEleccion() */
+	/* Para que tenga exito, no deben existir los archivos de hash de eleccion */
+	exito = true;
+	for (int i=0;i<6;i++)	if (exito) exito = this->ABMtest.altaEleccion(vecElecciones[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Elecciones (verificar que no exitan los hash de eleccion)" << endl << endl;
+	  	return;
+	}
+
+    vector<Lista> vecListas;
+    UtilidadesTests::cargarListas(vecListas,vecElecciones);
+
+	/* Guardo las listas. Verificar que ande antes el ABMentidades::altaLista() */
+	/* Para que tenga exito, no deben existir los archivos de hash de lista */
+	exito = true;
+	for (int i=0;i<21;i++)	if (exito) exito = this->ABMtest.altaLista(vecListas[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Listas (verificar que no exitan los hash de lista)" << endl << endl;
+	  	return;
+	}
+
+    vector<Votante> vecVotantes;
+    UtilidadesTests::cargarVotantes(vecVotantes,vecDistritos,vecElecciones);
+
+	/* Guardo los votantes. Verificar que ande antes el ABMentidades::altaVotante() */
+	/* Para que tenga exito, no deben existir los archivos de hash de votante */
+	exito = true;
+	for (int i=0;i<9;i++)	if (exito) exito = this->ABMtest.altaVotante(vecVotantes[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Votantes (verificar que no exitan los hash de votante)" << endl << endl;
+	  	return;
+	}
+
+	vector<Candidato> vecCandidatos;
+	UtilidadesTests::cargarCandidatos(vecCandidatos,vecListas,vecVotantes);
+
+	for(int i=0;i<6;i++)	vecCandidatos[i].Imprimir();
+
+	for(int i=0;i<6;i++) {
+      if (ABMtest.altaCandidato(vecCandidatos[i])) cout << "Alta " << vecCandidatos[i].getLista().getNombre() << "$" << vecCandidatos[i].getDNI() << " correcta" << endl;
+      else cout << "Alta " << vecCandidatos[i].getLista().getNombre() << "$" << vecCandidatos[i].getDNI() << " incorrecta (ya existia)" << endl;
+    }
+   cout << endl;
+
+   /* Pido que se impriman archivos de texto del hash para control */
+   string regs((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_candidato_regs>"));
+   string bloq_lib((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_candidato_bloq_lib>"));
+   string tabla((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_candidato_tabla>"));
+
+   hash_extensible hash_candidato(regs,bloq_lib,tabla);
+   hash_candidato.imprimir("./archivos/Tests/testABM_hash_candidato");
+
+   regs = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idcandidato_regs>"));
+   bloq_lib = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idcandidato_bloq_lib>"));
+   tabla = ((*Configuracion::getConfig()).getValorPorPrefijo("<ruta_hash_idcandidato_tabla>"));
+
+   hash_extensible hash_idcandidato(regs,bloq_lib,tabla);
+   hash_idcandidato.imprimir("./archivos/Tests/testABM_hash_idcandidato");
+
+   /* Recupero los valores de los candidatos */
+   // Debo guardar las claves para que no se cambien al cargar los registros
+   string clave[6];
+   for(int i=0;i<6;i++) {
+	   clave[i] = Utilidades::indexarFecha(vecCandidatos[i].getLista().getEleccion().getFecha()) + "$" + vecCandidatos[i].getLista().getEleccion().getCargo().getCargoPrincipal() + "$" + vecCandidatos[i].getLista().getNombre() + "$" + Utilidades::toString(vecCandidatos[i].getDNI());
+   }
+
+   for(int i=0;i<6;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[5-i],vecCandidatos[i]);
+
+	for(int i=0;i<6;i++)	vecCandidatos[i].Imprimir();
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Candidatos" << endl;
+	cout << "********************************************************" << endl << endl;
 }

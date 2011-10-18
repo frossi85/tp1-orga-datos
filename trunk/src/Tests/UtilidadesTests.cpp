@@ -104,12 +104,27 @@ void UtilidadesTests::cargarElecciones(vector<Eleccion> &vecElecciones, vector<C
 
 void UtilidadesTests::cargarListas(vector<Lista> &vecListas, vector<Eleccion> &vecElecciones) {
     if (!vecListas.empty()) vecListas.clear();
-    Lista lista1("FPV 2011",vecElecciones[0]);
-    Lista lista2("UDESO 2011",vecElecciones[0]);
-    Lista lista3("FAP 2011",vecElecciones[0]);
-    Lista lista4("PRO 2009",vecElecciones[1]);
-    Lista lista5("Coalicion Civica 2009",vecElecciones[1]);
-    Lista lista6("Frente de Izquierda 2007", vecElecciones[2]);
+    Lista lista1("FPV",vecElecciones[0]);
+    Lista lista2("UDESO",vecElecciones[0]);
+    Lista lista3("UDESO",vecElecciones[1]);
+    Lista lista4("FAP",vecElecciones[0]);
+    Lista lista5("FAP",vecElecciones[1]);
+    Lista lista6("FAP",vecElecciones[2]);
+    Lista lista7("PRO",vecElecciones[0]);
+    Lista lista8("PRO",vecElecciones[1]);
+    Lista lista9("PRO",vecElecciones[2]);
+    Lista lista10("PRO",vecElecciones[3]);
+    Lista lista11("Coalicion Civica",vecElecciones[0]);
+    Lista lista12("Coalicion Civica",vecElecciones[1]);
+    Lista lista13("Coalicion Civica",vecElecciones[2]);
+    Lista lista14("Coalicion Civica",vecElecciones[3]);
+    Lista lista15("Coalicion Civica",vecElecciones[4]);
+    Lista lista16("Frente de Izquierda", vecElecciones[0]);
+    Lista lista17("Frente de Izquierda", vecElecciones[1]);
+    Lista lista18("Frente de Izquierda", vecElecciones[2]);
+    Lista lista19("Frente de Izquierda", vecElecciones[3]);
+    Lista lista20("Frente de Izquierda", vecElecciones[4]);
+    Lista lista21("Frente de Izquierda", vecElecciones[5]);
 
     vecListas.push_back(lista1);
     vecListas.push_back(lista2);
@@ -117,6 +132,21 @@ void UtilidadesTests::cargarListas(vector<Lista> &vecListas, vector<Eleccion> &v
     vecListas.push_back(lista4);
     vecListas.push_back(lista5);
     vecListas.push_back(lista6);
+    vecListas.push_back(lista7);
+    vecListas.push_back(lista8);
+    vecListas.push_back(lista9);
+    vecListas.push_back(lista10);
+    vecListas.push_back(lista11);
+    vecListas.push_back(lista12);
+    vecListas.push_back(lista13);
+    vecListas.push_back(lista14);
+    vecListas.push_back(lista15);
+    vecListas.push_back(lista16);
+    vecListas.push_back(lista17);
+    vecListas.push_back(lista18);
+    vecListas.push_back(lista19);
+    vecListas.push_back(lista20);
+    vecListas.push_back(lista21);
 
     return;
 }
@@ -210,8 +240,23 @@ void UtilidadesTests::cargarVotantes(vector<Votante> &vecVotantes, vector<Distri
 }
 
 
-void UtilidadesTests::cargarCandidatos(vector<Candidato> &vecCandidatos) {
+void UtilidadesTests::cargarCandidatos(vector<Candidato> &vecCandidatos, vector<Lista> &vecListas, vector<Votante> &vecVotantes) {
+	if (!vecCandidatos.empty()) vecCandidatos.clear();
+	Candidato candidato1(vecVotantes[0],vecListas[0]);
+	Candidato candidato2(vecVotantes[1],vecListas[1]);
+	Candidato candidato3(vecVotantes[2],vecListas[3]);
+	Candidato candidato4(vecVotantes[3],vecListas[6]);
+	Candidato candidato5(vecVotantes[4],vecListas[10]);
+	Candidato candidato6(vecVotantes[5],vecListas[15]);
 
+	vecCandidatos.push_back(candidato1);
+	vecCandidatos.push_back(candidato2);
+	vecCandidatos.push_back(candidato3);
+	vecCandidatos.push_back(candidato4);
+	vecCandidatos.push_back(candidato5);
+	vecCandidatos.push_back(candidato6);
+
+	return;
 }
 
 void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones){
