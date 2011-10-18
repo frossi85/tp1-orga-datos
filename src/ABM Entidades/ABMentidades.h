@@ -44,7 +44,8 @@ public:
 	bool modificacionAdministrador(Administrador &administrador);
 
     bool bajaEleccion(Eleccion &eleccion);
-	bool bajaDistrito(Distrito &distrito);
+    bool bajaDistrito(Distrito &distrito);
+	bool bajaDistrito(string claveDistrito);
 	bool bajaCargo(Cargo &cargo);
 	bool bajaVotante(Votante &votante);
 	bool bajaLista(Lista &lista);

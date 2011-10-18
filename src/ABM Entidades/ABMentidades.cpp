@@ -268,6 +268,44 @@ bool ABMentidades::bajaDistrito(Distrito &distrito)
     return true;
 }
 
+bool ABMentidades::bajaDistrito(string claveDistrito)
+{
+    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
+    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_REGS));
+    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_BLOQ_LIB));
+    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_TABLA));
+    hash_extensible *hashDistrito = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
+    //(baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveDistrito, 0);
+    RegistroIndice *registroObtenido = hashDistrito->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+        int IDDistrito = registroObtenido->getOffset();
+        hashDistrito->borrar(registroObtenido);
+        delete hashDistrito;
+
+        string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_REGS));
+        string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_BLOQ_LIB));
+        string arch_id_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_TABLA));
+        hash_extensible *hashIDDistrito = new hash_extensible(arch_id_registros,arch_id_bloq_libres,arch_id_tabla);
+
+        string IDaux = Utilidades::toString(IDDistrito);
+        RegistroIndice registroABorrar(IDaux, 0);
+        hashIDDistrito->borrar(&registroABorrar);
+        delete hashIDDistrito;
+
+        return true;
+    }
+    //devuelve false si el Distrito no existía
+    delete hashDistrito;
+    return false;
+     /* En realidad se necesitan borrar tb las cosas que tenian referencias a ese
+      * distrito, pero eso desp lo agregamos.
+      */
+}
+
 bool ABMentidades::bajaCargo(Cargo &cargo)
 {
     return true;
