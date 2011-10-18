@@ -30,6 +30,7 @@ public:
 	//Setters
 	void setId(long id) {this->_id=id;}
 	void agregarCargoSecundario(string cargo);
+	void modificarCargoPrincipal(string nuevo_cargo){this->cargoPrincipal=nuevo_cargo;}
 
 	//Metodos de la interfaz Guardable
 	unsigned long int Guardar(ofstream & ofs);
