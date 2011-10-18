@@ -47,6 +47,7 @@ public:
     bool bajaDistrito(Distrito &distrito);
 	bool bajaDistrito(string claveDistrito);
 	bool bajaCargo(Cargo &cargo);
+        bool bajaCargo(string claveCargo);
 	bool bajaVotante(Votante &votante);
 	bool bajaLista(Lista &lista);
 	bool bajaCandidato(Candidato &candidato);

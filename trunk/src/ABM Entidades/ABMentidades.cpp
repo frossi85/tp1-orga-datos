@@ -311,6 +311,41 @@ bool ABMentidades::bajaCargo(Cargo &cargo)
     return true;
 }
 
+bool ABMentidades::bajaCargo(string claveCargo)
+{
+    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
+    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CARGO_REGS));
+    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CARGO_BLOQ_LIB));
+    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CARGO_TABLA));
+    hash_extensible *hashCargo = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
+    //(baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveCargo, 0);
+    RegistroIndice *registroObtenido = hashCargo->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+        int IDCargo = registroObtenido->getOffset();
+        hashCargo->borrar(registroObtenido);
+        delete hashCargo;
+
+        string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCARGO_REGS));
+        string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCARGO_BLOQ_LIB));
+        string arch_id_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCARGO_TABLA));
+        hash_extensible *hashIDCargo = new hash_extensible(arch_id_registros,arch_id_bloq_libres,arch_id_tabla);
+
+        string IDaux = Utilidades::toString(IDCargo);
+        RegistroIndice registroABorrar(IDaux, 0);
+        hashIDCargo->borrar(&registroABorrar);
+        delete hashIDCargo;
+
+        return true;
+    }
+    //devuelve false si el Cargo no existía
+    delete hashCargo;
+    return false;
+}
+
 bool ABMentidades::bajaVotante(Votante &votante)
 {
     return true;
