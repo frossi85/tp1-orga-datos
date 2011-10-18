@@ -227,3 +227,14 @@ void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
     conteoExistente->Guardar(ofs);
     ofs.close();
 }
+
+void Conteo::Imprimir(){
+
+    cout << "Cantidad de votos: " << this->_cantidad << endl;
+    cout << "Lista: " << endl;
+    this->_lista->Imprimir();
+    cout << "Distrito: " << endl;
+    this->_distrito->Imprimir();
+    cout << "Eleccion: " << endl;
+    this->_eleccion->Imprimir();
+}
