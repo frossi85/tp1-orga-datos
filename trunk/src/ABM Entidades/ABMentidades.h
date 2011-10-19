@@ -44,13 +44,17 @@ public:
 	bool modificacionAdministrador(Administrador &administrador);
 
     bool bajaEleccion(Eleccion &eleccion);
+    bool bajaEleccion(string claveEleccion);
     bool bajaDistrito(Distrito &distrito);
 	bool bajaDistrito(string claveDistrito);
 	bool bajaCargo(Cargo &cargo);
         bool bajaCargo(string claveCargo);
 	bool bajaVotante(Votante &votante);
+        bool bajaVotante(string claveVotante);
 	bool bajaLista(Lista &lista);
+        bool bajaLista(string claveLista);
 	bool bajaCandidato(Candidato &candidato);
+        bool bajaCandidato(string claveCandidato);
 	bool bajaAdministrador(Administrador &administrador);
 
 private:
