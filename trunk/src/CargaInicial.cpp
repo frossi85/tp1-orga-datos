@@ -25,36 +25,33 @@ void CargaInicial::ejecutar()
 	int cantidadDistritos;
 	int cantidadVotantes = 100;
 	int cantidadVotantePorDistrito;
+	ABMentidades abm;
 
 	UtilidadesTests::cargarDistritos(distritos);
+	for(unsigned int i = 0; i < distritos.size(); i++)
+		abm.altaDistrito(distritos[i]);
+
 	UtilidadesTests::cargarCargos(cargos);
+	for(unsigned int i = 0; i < cargos.size(); i++)
+		abm.altaCargo(cargos[i]);
+
 	UtilidadesTests::cargarElecciones(elecciones, cargos, distritos);
+	for(unsigned int i = 0; i < elecciones.size(); i++)
+		abm.altaEleccion(elecciones[i]);
+
 	UtilidadesTests::cargarListas(listas, elecciones);
+	for(unsigned int i = 0; i < listas.size(); i++)
+		abm.altaLista(listas[i]);
 
 	cantidadDistritos = distritos.size();
 	cantidadVotantePorDistrito = cantidadVotantes/cantidadDistritos;
 
 	CargaInicial::getVotantes(votantes, distritos);
+	for(unsigned int i = 0; i < votantes.size(); i++)
+		abm.altaVotante(*votantes[i]);
 
 	for(unsigned int i = 0; i < listas.size(); i++)
 		candidatos.push_back(new Candidato(*votantes[i], listas[i]));
-
-	ABMentidades abm;
-
-	for(unsigned int i = 0; i < distritos.size(); i++)
-		abm.altaDistrito(distritos[i]);
-
-	for(unsigned int i = 0; i < cargos.size(); i++)
-		abm.altaCargo(cargos[i]);
-
-	for(unsigned int i = 0; i < elecciones.size(); i++)
-		abm.altaEleccion(elecciones[i]);
-
-	for(unsigned int i = 0; i < listas.size(); i++)
-		abm.altaLista(listas[i]);
-
-	for(unsigned int i = 0; i < votantes.size(); i++)
-		abm.altaVotante(*votantes[i]);
 
 	for(unsigned int i = 0; i < candidatos.size(); i++)
 		abm.altaCandidato(*candidatos[i]);
