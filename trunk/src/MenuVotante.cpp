@@ -25,6 +25,9 @@ void MenuVotante::opciones(){
 		system("clear");
 		cout<<"***********************"<<endl;
 		cout<<"Menu Votante"<<endl<<endl;
+		cout<<"Usuario: "<<this->votante->getNombreYApellido()<<endl;
+
+
 		cout<<"V - Votar en Eleccion"<<endl;
 		cout<<"O - Cambiar Datos personales"<<endl;
 		cout<<"S - Salir"<<endl<<endl;
