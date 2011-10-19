@@ -34,7 +34,7 @@ bool ABMentidades::altaEleccion(Eleccion &eleccion) {
 
 	/* Guardo en el arbol eleccion/id_eleccion */
 	if (!this->arbol->agregar(clave,eleccion.getId()))
-		throw VotoElectronicoExcepcion("No se pudo dar de alta la eleccion por fallos en el insetar del arbol");
+		throw VotoElectronicoExcepcion("No se pudo dar de alta la eleccion por fallos en el insertar del arbol");
 	this->arbol->cerrar();
 	delete this->arbol;
 	this->arbol = NULL;
@@ -74,6 +74,7 @@ bool ABMentidades::altaDistrito(Distrito &distrito) {
 	/* Guardo en el hash distrito/id_distrito */
 	aAgregar.setOffset(distrito.getId());
 	this->hash->guardar(&aAgregar);
+	this->hash->imprimir("./archivos/Otros/hash_distrito");
 	delete this->hash;
 
 	/* Guardo en el hash id_distrito/offset */
@@ -83,6 +84,7 @@ bool ABMentidades::altaDistrito(Distrito &distrito) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregarID(Utilidades::toString(distrito.getId()), offset);
 	this->hash->guardar(&aAgregarID);
+	this->hash->imprimir("./archivos/Otros/hash_iddistrito");
 	delete this->hash;
 	this->hash = NULL;
 	return true;
@@ -111,6 +113,7 @@ bool ABMentidades::altaCargo(Cargo &cargo) {
 	/* Guardo en el hash cargo/id_cargo */
 	aAgregar.setOffset(cargo.getId());
 	this->hash->guardar(&aAgregar);
+	this->hash->imprimir("./archivos/Otros/hash_cargo");
 	delete this->hash;
 
 	/* Guardo en el hash id_cargo/offset */
@@ -120,6 +123,7 @@ bool ABMentidades::altaCargo(Cargo &cargo) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregarID(Utilidades::toString(cargo.getId()), offset);
 	this->hash->guardar(&aAgregarID);
+	this->hash->imprimir("./archivos/Otros/hash_idcargo");
 	delete this->hash;
 	this->hash = NULL;
 	return true;
@@ -146,6 +150,7 @@ bool ABMentidades::altaVotante(Votante &votante) {
 	/* Guardo en el hash votante/id_votante */
 	aAgregar.setOffset(votante.getId());
 	this->hash->guardar(&aAgregar);
+	this->hash->imprimir("./archivos/Otros/hash_votante");
 	delete this->hash;
 
 	/* Guardo en el hash id_votante/offset */
@@ -155,6 +160,7 @@ bool ABMentidades::altaVotante(Votante &votante) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregarID(Utilidades::toString(votante.getId()), offset);
 	this->hash->guardar(&aAgregarID);
+	this->hash->imprimir("./archivos/Otros/hash_idvotante");
 	delete this->hash;
 	this->hash = NULL;
 	return true;
@@ -185,7 +191,7 @@ bool ABMentidades::altaLista(Lista &lista) {
 
 	/* Guardo en el arbol lista/id_lista */
 	if (!this->arbol->agregar(clave,lista.getId()))
-		throw VotoElectronicoExcepcion("No se pudo dar de alta la lista por fallos en el insetar del arbol");
+		throw VotoElectronicoExcepcion("No se pudo dar de alta la lista por fallos en el insertar del arbol");
 	this->arbol->cerrar();
 	delete this->arbol;
 	this->arbol = NULL;
@@ -232,7 +238,7 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 
 	/* Guardo en el arbol candidato/id_candidato */
 	if (!this->arbol->agregar(clave,candidato.getId()))
-		throw VotoElectronicoExcepcion("No se pudo dar de alta el candidato por fallos en el insetar del arbol");
+		throw VotoElectronicoExcepcion("No se pudo dar de alta el candidato por fallos en el insertar del arbol");
 	this->arbol->cerrar();
 	delete this->arbol;
 	this->arbol = NULL;
