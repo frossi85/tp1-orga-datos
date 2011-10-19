@@ -23,21 +23,18 @@
 #define RUTA_CARGO "<ruta_cargo>"
 #define RUTA_ADMINISTRADOR "<ruta_administrador>"
 #define RUTA_IDs "<ruta_IDs>"
-#define RUTA_HASH_ELECCION_REGS "<ruta_hash_eleccion_regs>"
-#define RUTA_HASH_ELECCION_BLOQ_LIB "<ruta_hash_eleccion_bloq_lib>"
-#define RUTA_HASH_ELECCION_TABLA "<ruta_hash_eleccion_tabla>"
+#define RUTA_HASH_ADMINISTRADOR_REGS "<ruta_hash_administrador_regs>"
+#define RUTA_HASH_ADMINISTRADOR_BLOQ_LIB "<ruta_hash_administrador_bloq_lib>"
+#define RUTA_HASH_ADMINISTRADOR_TABLA "<ruta_hash_administrador_tabla>"
+#define RUTA_ARBOL_ELECCION "<ruta_arbol_eleccion>"
+#define RUTA_ARBOL_LISTA "<ruta_arbol_lista>"
+#define RUTA_ARBOL_CANDIDATO "<ruta_arbol_candidato>"
 #define RUTA_HASH_DISTRITO_REGS "<ruta_hash_distrito_regs>"
 #define RUTA_HASH_DISTRITO_BLOQ_LIB "<ruta_hash_distrito_bloq_lib>"
 #define RUTA_HASH_DISTRITO_TABLA "<ruta_hash_distrito_tabla>"
 #define RUTA_HASH_CARGO_REGS "<ruta_hash_cargo_regs>"
 #define RUTA_HASH_CARGO_BLOQ_LIB "<ruta_hash_cargo_bloq_lib>"
 #define RUTA_HASH_CARGO_TABLA "<ruta_hash_cargo_tabla>"
-#define RUTA_HASH_LISTA_REGS "<ruta_hash_lista_regs>"
-#define RUTA_HASH_LISTA_BLOQ_LIB "<ruta_hash_lista_bloq_lib>"
-#define RUTA_HASH_LISTA_TABLA "<ruta_hash_lista_tabla>"
-#define RUTA_HASH_CANDIDATO_REGS "<ruta_hash_candidato_regs>"
-#define RUTA_HASH_CANDIDATO_BLOQ_LIB "<ruta_hash_candidato_bloq_lib>"
-#define RUTA_HASH_CANDIDATO_TABLA "<ruta_hash_candidato_tabla>"
 #define RUTA_HASH_VOTANTE_REGS "<ruta_hash_votante_regs>"
 #define RUTA_HASH_VOTANTE_BLOQ_LIB "<ruta_hash_votante_bloq_lib>"
 #define RUTA_HASH_VOTANTE_TABLA "<ruta_hash_votante_tabla>"
@@ -63,7 +60,7 @@
 #define RUTA_ARBOL_REPORTE_ELECCION "<ruta_arbol_reporte_eleccion>"
 #define RUTA_ARBOL_REPORTE_LISTA "<ruta_arbol_reporte_lista>"
 
-#define CANT_CONF 48
+#define CANT_CONF 45
 
 #include <string>
 
