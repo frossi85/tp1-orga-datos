@@ -75,7 +75,7 @@ Configuracion::Configuracion() {
 	char *c,*conv;
 	int i,j;
 	bool seguir;
-	fp = fopen("/./config.ini", "r");
+	fp = fopen("./config.ini", "r");
 
         if(fp == NULL)
             cout<<"No se pudo abrir el archivo de configuracion.";
