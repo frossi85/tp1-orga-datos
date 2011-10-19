@@ -17,10 +17,7 @@ class Logueable {
 private:
 	string className;
 	string description;
-
 public:
-	//Logueable();
-	//virtual ~Logueable();
 	virtual string getClassName() = 0;
 };
 

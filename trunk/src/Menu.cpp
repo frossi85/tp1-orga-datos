@@ -466,6 +466,8 @@ void Menu::adminVotante() {
                     else
                         cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
 
+					//TODO: Faltan set de los atributos basicos del votante, ver en la modificacion y baja
+
                     //Se crea el votante, verificando si no existia
                     if(abm.altaVotante(votante))
                         cout << "Se creo el Votante \"" << nombre << "\"." << endl;

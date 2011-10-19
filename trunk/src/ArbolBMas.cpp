@@ -299,11 +299,11 @@ bool ArbolBMas::getTodosLosRegistros( list<RegistroArbol *> &listaRetornada )
 }
 
 //==============================================================================
-void ArbolBMas::cambiarOffset( const string &clave, const long &nuevoOffset )
+bool ArbolBMas::cambiarOffset( const string &clave, const long &nuevoOffset )
 {
     if ( !_raiz )
     {
-        return;
+        return false;
     }
 
     int indice = 0, indicePadre = 0;
@@ -313,7 +313,7 @@ void ArbolBMas::cambiarOffset( const string &clave, const long &nuevoOffset )
     if ( !nodo || indice < 0 )
     {
         liberarCache();
-        return;
+        return false;
     }
 
     if ( econtrado )
@@ -322,20 +322,24 @@ void ArbolBMas::cambiarOffset( const string &clave, const long &nuevoOffset )
         nodo->_registros[ indice ]->_offset = nuevoOffset;
         nodo->_flags = Nodo::NodoCambiado;
         liberarCache();
-        return;
+        return true;
     }
 
     liberarCache();
+    return false;
 }
 
 //==============================================================================
-void ArbolBMas::cambiarClave( const string &clave, const string &nuevaClave )
+bool ArbolBMas::cambiarClave( const string &clave, const string &nuevaClave )
 {
     long offset = -1;
 
     if(buscar(clave, offset))
         if(eliminar(clave))
-            agregar(nuevaClave, offset);
+            if(agregar(nuevaClave, offset))
+                return true;
+        
+    return false;
 }
 
 //==============================================================================
