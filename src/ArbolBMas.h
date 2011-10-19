@@ -78,11 +78,12 @@ public:
     bool getTodosLosRegistros(list<RegistroArbol *> &retList );
 
     /// Pre: el arbol fue creado. Post: cambia el offset del registro que tiene la clave pasada como parametro*/
-    void cambiarOffset( const string &clave, const long &nuevoOffset );
+    /**Se verifica que el registro exista, si el cambio se realiza con exito se retorna true*/
+    bool cambiarOffset( const string &clave, const long &nuevoOffset );
 
     /// Pre: el arbol fue creado. Post: cambia la clave del registro que tiene la clave pasada como parametro*/
-    /**Se verifica que el registro exista y se reoragniza el arbol si es necesario*/
-    void cambiarClave( const string &clave, const string &nuevaClave );
+    /**Se verifica que el registro exista y se reoragniza el arbol si es necesario, si el cambio se realiza con exito se retorna true*/
+    bool cambiarClave( const string &clave, const string &nuevaClave );
 
     /// Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/
     void cerrar();

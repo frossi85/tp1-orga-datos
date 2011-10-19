@@ -7,15 +7,6 @@
 
 #include "Logueable.h"
 
-//Logueable::Logueable() {
-//	// TODO Auto-generated constructor stub
-//	this->className = "";
-//}
-//
-//Logueable::~Logueable() {
-//	// TODO Auto-generated destructor stub
-//}
-
 string Logueable::getClassName()
 {
 	return this->className;

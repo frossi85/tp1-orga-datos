@@ -20,9 +20,9 @@ using namespace std;
 class Logger {
 private:
 	static void logAccion(Logueable & obj, string accion);
+	Logger();
+	virtual ~Logger();
 public:
-	//Logger();
-	//virtual ~Logger();
 	static void Alta(Logueable & obj);
 	static void Modificacion(Logueable & obj);
 	static void Eliminar(Logueable & obj);
