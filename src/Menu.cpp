@@ -71,15 +71,17 @@ bool Menu::accesoAdmin() {
 
 bool Menu::accesoUsuario() {
 	DataAccess data_access;
-	Votante *votante= DataGetter::getVotante(user);
+	Votante votante;//= DataGetter::getVotante(user);
+	ConsultaEntidades consulta;
 
-	if ((votante!=NULL) && (votante->getClave() == pass))
+
+	if(consulta.ObtenerRegistro(this->user,votante) && votante.getClave()== pass)
 	{
 		cout<< "Accedio al sistema." << endl;
 
 		//Se LLama al menu del Votante
 
-		MenuVotante menuVotante(votante);
+		MenuVotante menuVotante(&votante);
 
 		return true;
 	} else {
@@ -184,7 +186,7 @@ void Menu::adminDistrito() {
 			distrito=new Distrito(nombre_distrito);
 
 			if(abm.altaDistrito(*distrito))
-				cout << "Se creo el Distrito \"" << nombre << "\"." << endl;
+				cout << "Se creo el Distrito \"" << nombre_distrito << "\"." << endl;
 			else
 				cout << "El Distrito ya existe o se produjo un error al crearlo." << endl;
 
@@ -413,9 +415,8 @@ void Menu::adminVotante() {
     char opcion;
     bool invalida=false;
     bool retorno=false;
-    char nombre[50], direccion[50], dni[50];
-    string nombreDistrito;
-    Votante votante;
+    char nombre[50], direccion[50], dni[50],clave_votante[30],nombreDistrito[50];
+    Votante votante,*vot=NULL;
     Distrito distrito;
     ConsultaEntidades consulta;
     ABMentidades abm;
@@ -445,31 +446,56 @@ void Menu::adminVotante() {
                     int dniN;
                     dniN= -2;
                     do {
-                            if (dniN!=-2) {
-                                    cout << "El DNI ingresado es invalido." << endl;
-                            }
+							if (dniN!=-2) {
+								cout << "El DNI ingresado es invalido." << endl;
+							}
+
                             cout << "Ingrese el DNI: ";
-                            cin >> dni;
+                            //cin >> dni;
+                            //cin.clear();
+                            cin.getline(dni,50);
                             dniN = atoi(dni);
+
+
                     } while ( (dniN<5000000) || (dniN>100000000) );
 
+                    cout<<"ingrese una clave para el Votante:";
+                    //cin>>clave_votante;
+                    cin.getline(clave_votante,50);
+                    //scanf("%s",clave_votante.c_str());
+
                     cout << "Ingrese el nombre y apellido del nuevo Votante: ";
-                    cin >> nombre;
+                    //cin >> nombre;
+                    cin.getline(nombre,50);
+                    //scanf("%s",nombre);
+
                     cout << "Ingrese el domicilio: ";
-                    cin >> direccion;
+                    //cin >> direccion;
+                    cin.getline(direccion,30);
+                    //scanf("%s",direccion);
+
                     cout << "ingrese el nombre del distrito del Votante: ";
-                    cin >> nombreDistrito;
+                    //cin >> nombreDistrito;
+                    cin.getline(nombreDistrito,50);
+
+                    cout<<"Distro es: "<<nombreDistrito<<"."<<endl;
 
                     //Se verifica si existe el distrito
                     if(consulta.ObtenerRegistro(nombreDistrito, distrito))
-                        votante.setDistrito(distrito);
+                        //votante.setDistrito(distrito);
+                    	vot=new Votante(dniN,nombre,clave_votante,direccion,distrito);
                     else
-                        cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
+                        cout << "No existe el distrito " <<nombreDistrito<< endl; // no se encontro distrito
 
 					//TODO: Faltan set de los atributos basicos del votante, ver en la modificacion y baja
 
                     //Se crea el votante, verificando si no existia
-                    if(abm.altaVotante(votante))
+
+
+
+
+                    //if(abm.altaVotante(votante))
+                    if(vot!=NULL && abm.altaVotante(*vot))
                         cout << "Se creo el Votante \"" << nombre << "\"." << endl;
                     else
                         cout << "El votante ya existe o se produjo un error al crearlo." << endl;
@@ -546,7 +572,6 @@ void Menu::adminVotante() {
                         cout << "V => Volver." << endl << "Opcion: ";
                         cin >> opcion;
 
-                        int resultado_v;
                         invalida_v=false;
                         switch ((char)toupper(opcion)) {
                         case 'o':

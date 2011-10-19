@@ -1,12 +1,13 @@
 /*
- * Menu_votante.h
+ * MenuVotante.h
  *
  *  Created on: 07/10/2011
  *      Author: Miguel Torres
  */
 
-#ifndef MENU_VOTANTE_H_
-#define MENU_VOTANTE_H_
+#ifndef MENUVOTANTE_H_
+#define MENUVOTANTE_H_
+
 #include <iostream>
 #include <cstdlib>
 #include "Votante.h"
@@ -58,4 +59,4 @@ public:
 	virtual ~MenuVotante();
 };
 
-#endif /* MENU_VOTANTE_H_ */
+#endif /* MENUVOTANTE_H_ */
