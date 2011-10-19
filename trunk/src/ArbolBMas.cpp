@@ -488,12 +488,12 @@ bool ArbolBMas::registrosDesdeNodo(Nodo *nodo, list<RegistroArbol *> &listaRetor
 void ArbolBMas::cerrar()
 {
     _tamanioMaximoCache = 0;
-    liberarCache();
+    limpiarCache();
     if(_raiz != NULL)
         delete _raiz;
     _raiz = 0;
-    cerrarControlador();
     _estaAbierto = false;
+    cerrarControlador();
 }
 
 //==============================================================================
@@ -1249,13 +1249,7 @@ Nodo * ArbolBMas::getRaiz()
 //==============================================================================
 void ArbolBMas::cerrarControlador()
 {
-    //Usaba cache_.clear() pero tengo q eliminar los Nodos q tienen los punteros
-    for(unsigned int i = 0; _cache.size(); i++)
-    {
-        //No deberia eleminar tambien los registros del nodo, o eso lo hace
-        //cuando llama al destructor el delete del nodo??
-        delete _cache[i];
-    }
+    _cache.clear();
 
     //Esto es lo ultimo que debo hacer
     if(_storage.is_open())
