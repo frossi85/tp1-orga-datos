@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <cstdlib>
+#include <cstdio>
 #include <cctype>
 #include "DataAccess.h"
 #include "DataGetter.h"
@@ -432,7 +433,10 @@ void Menu::adminVotante() {
         cout << "B => Borrar un Votante." << endl;
         cout << "M => Modificar un Votante." << endl;
         cout << "V => Volver." << endl << "Opcion: ";
-        cin >> opcion;
+        //cin >> opcion;
+        //fgets(&opcion,1,stdin);
+        //cin.getline(&opcion,1);
+        scanf("%c",&opcion);
 
         retorno=false;
         invalida=false;
@@ -442,7 +446,7 @@ void Menu::adminVotante() {
 					 * Crear un Votante
 					 */
             case 'A':
-                    cout << endl <<endl; //((DNI)i, NombreyApellido, clave, domicilio, (distrito)ie, ((eleccion)ie)*)
+                    cout <<endl; //((DNI)i, NombreyApellido, clave, domicilio, (distrito)ie, ((eleccion)ie)*)
                     int dniN;
                     dniN= -2;
                     do {
@@ -451,9 +455,12 @@ void Menu::adminVotante() {
 							}
 
                             cout << "Ingrese el DNI: ";
-                            //cin >> dni;
+
                             //cin.clear();
-                            cin.getline(dni,50);
+                            //cin >> dni;
+
+                            //cin.getline(dni,50);
+                            fgets(dni,50,stdin);
                             dniN = atoi(dni);
 
 
@@ -461,22 +468,23 @@ void Menu::adminVotante() {
 
                     cout<<"ingrese una clave para el Votante:";
                     //cin>>clave_votante;
-                    cin.getline(clave_votante,50);
-                    //scanf("%s",clave_votante.c_str());
+                    //cin.getline(clave_votante,50);
+                    fgets(clave_votante,50,stdin);
 
                     cout << "Ingrese el nombre y apellido del nuevo Votante: ";
                     //cin >> nombre;
-                    cin.getline(nombre,50);
-                    //scanf("%s",nombre);
+                    //cin.getline(nombre,50);
+                    fgets(nombre,50,stdin);
 
                     cout << "Ingrese el domicilio: ";
                     //cin >> direccion;
-                    cin.getline(direccion,30);
-                    //scanf("%s",direccion);
+                    //cin.getline(direccion,30);
+                    fgets(direccion,30,stdin);
 
                     cout << "ingrese el nombre del distrito del Votante: ";
                     //cin >> nombreDistrito;
-                    cin.getline(nombreDistrito,50);
+                    //cin.getline(nombreDistrito,50);
+                    fgets(nombreDistrito,50,stdin);
 
                     cout<<"Distro es: "<<nombreDistrito<<"."<<endl;
 
@@ -490,9 +498,6 @@ void Menu::adminVotante() {
 					//TODO: Faltan set de los atributos basicos del votante, ver en la modificacion y baja
 
                     //Se crea el votante, verificando si no existia
-
-
-
 
                     //if(abm.altaVotante(votante))
                     if(vot!=NULL && abm.altaVotante(*vot))
@@ -526,8 +531,9 @@ void Menu::adminVotante() {
                         resultado = -1;
                         break;
                     }
+
                     if(abm.bajaVotante(votante))
-                        cout << "Se borro el Votante \"" << nombre << "\"." << endl;
+                        cout << "Se borro el Votante \"" << votante.getNombreYApellido() << "\"." << endl;
                     else
                         cout<< "No se ha podido borrar al votante." << endl;
                     

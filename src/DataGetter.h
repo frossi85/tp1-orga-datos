@@ -18,18 +18,9 @@
 class DataGetter {
 public:
 	DataGetter();
-	//Falta Implemetar
-	static vector<Conteo*> getConteos_por_Eleccion_y_Distrito(Eleccion &eleccion,Distrito& distrito);
-
-	//Falta Implementar
-	static vector<Conteo*> getConteos_por_Lista_y_Eleccion(Lista &lista,Eleccion &eleccion);
-
-
-	static vector<Eleccion *> getElecciones_por_Distrito(Distrito& distrito);
+	virtual ~DataGetter();
 
 	static vector<Lista* > getListas_por_Eleccion(Eleccion& eleccion);
-
-	static Conteo* getConteo(Eleccion& eleccion,Lista& lista, Distrito& distrito);
 
 	//Devuelve el puntero a un votante
 	//Devuelve NULL si no encontro al votante con ese dni
@@ -38,13 +29,15 @@ public:
 
 
 	static vector<Eleccion *> getElecciones_por_Votante(Votante &votante);
-	virtual ~DataGetter();
 
-        static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
 
-        static vector<Conteo *> getConteosPorLista(Lista& lista);
+	//Metodos para Informes
 
-        static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
+	static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
+
+	static vector<Conteo *> getConteosPorLista(Lista& lista);
+
+	static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
 
 };
 

@@ -7,6 +7,7 @@
 
 #include "MenuVotante.h"
 #include "DataGetter.h"
+#include "ABM Entidades/ABMentidades.h"
 #include <vector>
 
 MenuVotante::MenuVotante(Votante *votante) {
@@ -346,11 +347,11 @@ void MenuVotante::cambiarDomicilio(){
 
 void MenuVotante::guardarCambios(){
 	//TODO: guardar votante
-
+	ABMentidades abm;
+	abm.modificacionVotante(*this->votante);
 
 }
 
 MenuVotante::~MenuVotante() {
 
-	delete this->votante;
 }
