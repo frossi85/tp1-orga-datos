@@ -8,8 +8,11 @@
 #include "Conteo.h"
 #include "ArbolBMas.h"
 
-Conteo::Conteo(Lista& lista, Distrito& distrito) : _distrito(&distrito), _lista(&lista), _eleccion(&(lista.getEleccion())){
-	this->_cantidad = 1;
+Conteo::Conteo(Lista lista, Distrito distrito) {
+	this->_cantidad = 0;
+	this->_distrito = new Distrito(distrito);
+	this->_lista = new Lista(lista);
+	this->_eleccion = new Eleccion(lista.getEleccion());
 }
 
 Conteo::Conteo(const Conteo &conteo){
@@ -170,90 +173,12 @@ inline string Conteo::getURLArchivoDatos(){
 
 string Conteo::getClassName(){return "Conteo";}
 
-void Conteo::AgregarVoto(Lista& lista, Distrito& distrito){
-    //Usando los datos recibidos por parámetro busca el objeto conteo
-    //en el árbol de reporte por distrito.
-    ArbolBMas *arbolDistrito = new ArbolBMas();
-    arbolDistrito->abrir(RUTA_ARBOL_REPORTE_DISTRITO);
-
-    //obtiene la clave concatenada para buscar
-    string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
-    string nombreCargo = lista.getEleccion().getCargo().getCargoPrincipal();
-
-    string claveConcatenada = distrito.getNombre() +"$" +fecha +"$" +nombreCargo +"$" +lista.getNombre();
-    Utilidades::formatearClave(claveConcatenada);
-    long int offsetConteo;
-
-    //Si el conteo no existe, le da de alta con cantidad = 1 y
-    //lo indexa en los 3 árboles de índices para reportes, y termina
-    if(!arbolDistrito->buscar(claveConcatenada, offsetConteo)){
-
-       Conteo conteoNuevo(lista, distrito);
-       DataAccess dataAccess;
-       offsetConteo = dataAccess.Guardar(conteoNuevo);
-
-       //indexa en árbol de reporte por distrito:
-       arbolDistrito->agregar(claveConcatenada, offsetConteo);
-       arbolDistrito->cerrar();
-       delete arbolDistrito;
-
-       //indexa en árbol de reporte por lista:
-       ArbolBMas *arbolLista = new ArbolBMas();
-       arbolLista->abrir(RUTA_ARBOL_REPORTE_LISTA);
-
-       string claveArbolLista = fecha +"$" +nombreCargo +"$" +lista.getNombre() +"$" +distrito.getNombre();
-       Utilidades::formatearClave(claveArbolLista);
-
-       arbolLista->agregar(claveArbolLista, offsetConteo);
-       arbolLista->cerrar();
-       delete arbolLista;
-
-       //indexa en árbol de reporte por eleccion:
-       ArbolBMas *arbolEleccion = new ArbolBMas();
-       arbolEleccion->abrir(RUTA_ARBOL_REPORTE_ELECCION);
-
-
-       string claveArbolEleccion =  fecha +"$" +nombreCargo +"$" +distrito.getNombre() +"$" +lista.getNombre();
-       Utilidades::formatearClave(claveArbolEleccion);
-
-       arbolEleccion->agregar(claveArbolEleccion, offsetConteo);
-       arbolEleccion->cerrar();
-       delete arbolEleccion;
-
-       return;
-    }
-
-    arbolDistrito->cerrar();
-    delete arbolDistrito;
-
-    //Si ya existía, lo lee, incrementa en 1 su cantidad, y guarda
-    //el cambio (en el archivo de registros variables)
-    
-    //(en este caso no puedo usar el Guardar de DataAccess, porque solo
-    //guarda al final, en vez de sobreescribirlo, así que eso lo hago a mano).
-    DataAccess dataAccess;
-    Conteo *conteoExistente = NULL;
-
-    dataAccess.Leer(*conteoExistente, offsetConteo);
-    conteoExistente->incrementar();
-
-    //sobreescribe el registro
-    string rutaArchivo = conteoExistente->getURLArchivoDatos();
-    ofstream ofs(rutaArchivo.c_str(), ios::out | ios::binary);
-    if(!ofs.is_open())
-	throw VotoElectronicoExcepcion("No se pudo abrir el archivo de Conteo");
-    ofs.seekp(offsetConteo);
-    conteoExistente->Guardar(ofs);
-    ofs.close();
-}
 
 void Conteo::Imprimir(){
-
-    cout << "Cantidad de votos: " << this->_cantidad << endl;
+	cout << "Conteo:" << endl;
     cout << "Lista: " << endl;
     this->_lista->Imprimir();
     cout << "Distrito: " << endl;
     this->_distrito->Imprimir();
-    cout << "Eleccion: " << endl;
-    this->_eleccion->Imprimir();
+    cout << "Cantidad de votos: " << this->_cantidad << endl;
 }

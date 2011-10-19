@@ -35,7 +35,6 @@ public:
 	void TestVotante();
 	void TestLista();
 	void TestCandidato();
-    void TestConteo();
 
 private:
 	DataAccess dataAccess;

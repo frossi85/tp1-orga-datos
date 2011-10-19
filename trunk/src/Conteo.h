@@ -30,11 +30,9 @@ private:
 	long int _cantidad;
 
 public:
-	//Las referencias deben ser inicializadas si o si en el constructor mediante listas de
-	//inicializacion como en el ejemplo de abajo
-	Conteo(Lista& lista, Distrito& distrito);
+	Conteo(Lista lista, Distrito distrito);
 	Conteo(const Conteo &conteo);
-        Conteo();
+    Conteo();
 	virtual ~Conteo();
 	void incrementar();
 	long getVotos();
@@ -51,9 +49,7 @@ public:
 
 	string getClassName();
 
-	static void AgregarVoto(Lista& lista, Distrito& distrito);
-
-        void Imprimir();
+    void Imprimir();
 };
 
 #endif /* CONTEO_H_ */

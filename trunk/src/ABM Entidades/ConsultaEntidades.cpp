@@ -48,88 +48,106 @@ ConsultaEntidades::~ConsultaEntidades() {}
  */
 
 
+
+/* No usar este metodo para recuperar Conteos */
 bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aSobreescribir) {
+	long int offsetArbol = 0;
+	unsigned long int IDobtenido;
+
 	/* Formatea la clave (no indexa fecha!) */
 	Utilidades::formatearClave(clave);
 
-	/* Obtiene las rutas de los hash */
-	this->getURLs(aSobreescribir.getClassName());
+	/* Obtiene las rutas de los hash o arboles */
+	bool esHash = this->getURLs(aSobreescribir.getClassName());
 
-	/* Busco el id del registro en el primer hash */
-	this->hash = new hash_extensible(this->URL_hash_regs,this->URL_hash_bloq_lib,this->URL_hash_tabla);
-	RegistroIndice aBuscar(clave,0);
-	RegistroIndice *returnReg = this->hash->buscar(&aBuscar);
-	delete this->hash;
-	if (returnReg == NULL) return false;			// No se encontro el registro
+
+	/* Busco el id del registro en el primer hash (si es hash) */
+	if(esHash) {
+		this->hash = new hash_extensible(this->URL_hash_regs,this->URL_hash_bloq_lib,this->URL_hash_tabla);
+		RegistroIndice aBuscar(clave,0);
+		RegistroIndice *returnReg = this->hash->buscar(&aBuscar);
+		delete this->hash;
+		this->hash = NULL;
+		if (returnReg == NULL) return false;					// No se encontro el registro
+		else IDobtenido = returnReg->getOffset();
+	}
+
+	/* Busco el id del registro en el arbol (si no es hash) */
+	else {
+		this->arbol = new ArbolBMas();
+		this->arbol->abrir(this->URL_arbol);
+		bool encontrado = this->arbol->buscar(clave,offsetArbol);
+		this->arbol->cerrar();
+		delete this->arbol;
+		this->arbol = NULL;
+		if (!encontrado) return false;		// No se encontro el registro
+		else IDobtenido = offsetArbol;
+	}
 
 	/* Busco el offset del id obtenido */
 	this->hash = new hash_extensible(this->URL_idhash_regs,this->URL_idhash_bloq_lib,this->URL_idhash_tabla);
-	RegistroIndice aBuscarID(Utilidades::toString(returnReg->getOffset()),0);
-	returnReg = this->hash->buscar(&aBuscarID);
+	RegistroIndice aBuscarID(Utilidades::toString(IDobtenido),0);
+	RegistroIndice *returnRegID = this->hash->buscar(&aBuscarID);
 	delete this->hash;
-	if (returnReg == NULL) return false;			// No se encontro el id...lo que seria un problema..
-	unsigned long int offset = returnReg->getOffset();
+	if (returnRegID == NULL) return false;					// No se encontro el id..lo que seria un problema..
+	unsigned long int offset = returnRegID->getOffset();
 
 	/* Recupero el registro del archivo de datos */
 	this->dataAccess.Leer(aSobreescribir,offset);
 	return true;
 }
 
-void ConsultaEntidades::getURLs(string classname) {
+
+/* Devuelve un booleano de control. Si devuelve true, es un hash, si devuelve false, es un arbol */
+bool ConsultaEntidades::getURLs(string classname) {
 	if (classname == "Distrito") {
-		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_distrito_regs>");
-		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_distrito_bloq_lib>");
-		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_distrito_tabla>");
-		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_iddistrito_regs>");
-		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_iddistrito_bloq_lib>");
-		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_iddistrito_tabla>");
-		return;
+		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_DISTRITO_REGS);
+		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_DISTRITO_BLOQ_LIB);
+		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_DISTRITO_TABLA);
+		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDDISTRITO_REGS);
+		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDDISTRITO_BLOQ_LIB);
+		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDDISTRITO_TABLA);
+		return true;
 	}
 	if (classname == "Cargo") {
 
-		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_cargo_regs>");
-		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_cargo_bloq_lib>");
-		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_cargo_tabla>");
-		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idcargo_regs>");
-		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idcargo_bloq_lib>");
-		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idcargo_tabla>");
-		return;
+		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_CARGO_REGS);
+		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_CARGO_BLOQ_LIB);
+		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_CARGO_TABLA);
+		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCARGO_REGS);
+		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCARGO_BLOQ_LIB);
+		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCARGO_TABLA);
+		return true;
 	}
 	if (classname == "Votante") {
-		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_votante_regs>");
-		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_votante_bloq_lib>");
-		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_votante_tabla>");
-		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idvotante_regs>");
-		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idvotante_bloq_lib>");
-		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idvotante_tabla>");
-		return;
+		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_VOTANTE_REGS);
+		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_VOTANTE_BLOQ_LIB);
+		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_VOTANTE_TABLA);
+		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDVOTANTE_REGS);
+		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDVOTANTE_BLOQ_LIB);
+		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDVOTANTE_TABLA);
+		return true;
 	}
 	if (classname == "Eleccion") {
-		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_eleccion_regs>");
-		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_eleccion_bloq_lib>");
-		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_eleccion_tabla>");
-		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_ideleccion_regs>");
-		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_ideleccion_bloq_lib>");
-		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_ideleccion_tabla>");
-		return;
+		this->URL_arbol = Configuracion::getConfig()->getValorPorPrefijo(RUTA_ARBOL_ELECCION);
+		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDELECCION_REGS);
+		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDELECCION_BLOQ_LIB);
+		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDELECCION_TABLA);
+		return false;
 	}
 	if (classname == "Lista") {
-		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_lista_regs>");
-		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_lista_bloq_lib>");
-		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_lista_tabla>");
-		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idlista_regs>");
-		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idlista_bloq_lib>");
-		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idlista_tabla>");
-		return;
+		this->URL_arbol = Configuracion::getConfig()->getValorPorPrefijo(RUTA_ARBOL_LISTA);
+		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS);
+		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB);
+		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDLISTA_TABLA);
+		return false;
 	}
 	if (classname == "Candidato") {
-		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_candidato_regs>");
-		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_candidato_bloq_lib>");
-		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_candidato_tabla>");
-		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idcandidato_regs>");
-		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idcandidato_bloq_lib>");
-		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo("<ruta_hash_idcandidato_tabla>");
-		return;
+		this->URL_arbol = Configuracion::getConfig()->getValorPorPrefijo(RUTA_ARBOL_CANDIDATO);
+		this->URL_idhash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_REGS);
+		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_BLOQ_LIB);
+		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_TABLA);
+		return false;
 	}
-	return;
+	throw VotoElectronicoExcepcion("El registro pasado no pertenece a ninguna entidad (no usar este metodo para buscar Conteos)");
 }

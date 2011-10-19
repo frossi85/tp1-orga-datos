@@ -12,6 +12,7 @@
 #include "../hash_extensible.h"
 #include "../DataAccess.h"
 #include "../RegistroIndice.h"
+#include "../ArbolBMas.h"
 
 using namespace std;
 
@@ -29,11 +30,13 @@ private:
 	string URL_idhash_regs;
 	string URL_idhash_bloq_lib;
 	string URL_idhash_tabla;
+	string URL_arbol;
 
 	DataAccess dataAccess;
 	hash_extensible *hash;
+	ArbolBMas *arbol;
 
-	void getURLs(string classname);
+	bool getURLs(string classname);
 };
 
 #endif /* CONSULTAENTIDADES_H_ */
