@@ -417,6 +417,8 @@ void Menu::adminVotante() {
     bool invalida=false;
     bool retorno=false;
     char nombre[50], direccion[50], dni[50],clave_votante[30],nombreDistrito[50];
+    string dniM;
+
     Votante votante,*vot=NULL;
     Distrito distrito;
     ConsultaEntidades consulta;
@@ -521,6 +523,7 @@ void Menu::adminVotante() {
                             }
                             cout << "Ingrese el DNI del Votante a borrar: ";
                             cin >> dni;
+
                             dniN = atoi(dni);
 
                     } while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
@@ -529,6 +532,7 @@ void Menu::adminVotante() {
                     {
                         cout<<"El votante no existe"<<endl;
                         resultado = -1;
+                        getchar();
                         break;
                     }
 
@@ -549,19 +553,24 @@ void Menu::adminVotante() {
 
             case 'M':
                 dniN= -2;
-                do {
+               // do {
                     if (dniN!=-2) {
                         cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
                     }
                     cout << "Ingrese el DNI del Votante a modificar: ";
-                    cin >> dni;
-                    dniN = atoi(dni);
-                } while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
+                    //cin >> dni;
+                    cin >> dniM;
+                    //dniN = atoi(dni);
+                //} while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
 
-                if(!(consulta.ObtenerRegistro(dni, votante)))
+                //string dniAux(dni);
+
+                if(!(consulta.ObtenerRegistro(dniM, votante)))
                 {
                     cout<<"El votante no existe"<<endl;
                     resultado = -1;
+                    cout<<"Presione una tecla para continuar.";
+                    getchar();
                     break;
                 }
                 resultado= 1;
