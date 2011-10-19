@@ -28,7 +28,7 @@ public:
 	static void cargarListas(vector<Lista> &vecListas, vector<Eleccion> &vecElecciones);
 	static void cargarVotantes(vector<Votante> &vecVotantes, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones);
 	static void cargarCandidatos(vector<Candidato> &vecCandidatos, vector<Lista> &vecListas, vector<Votante> &vecVotantes);
-    static void cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones);
+    static void cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos);
 };
 
 #endif /* UTILIDADESTESTS_H_ */

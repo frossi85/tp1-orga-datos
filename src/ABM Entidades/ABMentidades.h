@@ -10,12 +10,14 @@
 #include "../DataAccess.h"
 #include "../Configuracion.h"
 #include "../hash_extensible.h"
+#include "../ArbolBMas.h"
 #include "../Eleccion.h"
 #include "../Distrito.h"
 #include "../Cargo.h"
 #include "../Votante.h"
 #include "../Lista.h"
 #include "../Candidato.h"
+#include "../Conteo.h"
 #include "../RegistroIndice.h"
 #include "../ManejoIDs.h"
 #include "../Utilidades.h"
@@ -34,6 +36,7 @@ public:
 	bool altaLista(Lista &lista);
 	bool altaCandidato(Candidato &candidato);
 	bool altaAdministrador(Administrador &administrador);
+	void agregarVoto(Lista &lista, Distrito &distrito);
 
     bool modificacionEleccion(Eleccion &eleccion);
 	bool modificacionDistrito(Distrito &distrito);
@@ -48,18 +51,21 @@ public:
     bool bajaDistrito(Distrito &distrito);
 	bool bajaDistrito(string claveDistrito);
 	bool bajaCargo(Cargo &cargo);
-        bool bajaCargo(string claveCargo);
+    bool bajaCargo(string claveCargo);
 	bool bajaVotante(Votante &votante);
-        bool bajaVotante(string claveVotante);
+    bool bajaVotante(string claveVotante);
 	bool bajaLista(Lista &lista);
-        bool bajaLista(string claveLista);
+    bool bajaLista(string claveLista);
 	bool bajaCandidato(Candidato &candidato);
-        bool bajaCandidato(string claveCandidato);
+    bool bajaCandidato(string claveCandidato);
 	bool bajaAdministrador(Administrador &administrador);
 
 private:
 	DataAccess dataAccess;
 	hash_extensible* hash;
+	ArbolBMas* arbol;
+
+	void crearConteo(Lista &lista);
 
 };
 

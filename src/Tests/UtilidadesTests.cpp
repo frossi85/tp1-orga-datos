@@ -259,22 +259,90 @@ void UtilidadesTests::cargarCandidatos(vector<Candidato> &vecCandidatos, vector<
 	return;
 }
 
-void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos, vector<Eleccion> &vecElecciones){
+void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &vecListas, vector<Distrito> &vecDistritos){
 
     if (!vecConteos.empty()) vecConteos.clear();
-	Conteo conteo1(vecListas[0], vecDistritos[0]);
-	Conteo conteo2(vecListas[1], vecDistritos[1]);
-	Conteo conteo3(vecListas[2], vecDistritos[2]);
-	Conteo conteo4(vecListas[3], vecDistritos[3]);
-	Conteo conteo5(vecListas[4], vecDistritos[4]);
-	Conteo conteo6(vecListas[5], vecDistritos[5]);
+    Conteo *conteo = NULL;
+    int cantidadListas = vecListas.size();
+    int cantidadDistritos = 0;
+    int votos = 0;
+    bool seguir = false;
 
-	vecConteos.push_back(conteo1);
-	vecConteos.push_back(conteo2);
-    vecConteos.push_back(conteo3);
-    vecConteos.push_back(conteo4);
-    vecConteos.push_back(conteo5);
-    vecConteos.push_back(conteo6);
+    for(int i=0;i<cantidadListas;i++) {
+      	cantidadDistritos = vecListas[i].getEleccion().getDistritos().size();
+       	for(int j=0;j<cantidadDistritos;j++) {
+           	conteo = new Conteo(vecListas[i],*(vecListas[i].getEleccion().getDistritos()[j]));
+           	for(int k=0;k<votos;k++)	vecConteos.push_back(*conteo);
+           	delete conteo;
+           	votos++;
+       	}
+    }
+
+	/* Cantidad de votos para cada Lista:
+	 *
+	 * Lista FPV - 01/01/2001 - Lanus : 0
+	 *
+	 * Lista UDESO - 01/01/2001 - Lanus: 1
+	 * Lista UDESO - 02/02/2002 - Lanus: 2
+	 * Lista UDESO - 02/02/2002 - Cordoba: 3
+	 *
+	 * Lista FAP - 01/01/2001 - Lanus: 4
+	 * Lista FAP - 02/02/2002 - Lanus: 5
+	 * Lista FAP - 02/02/2002 - Cordoba: 6
+	 * Lista FAP - 03/03/2003 - Lanus: 7
+	 * Lista FAP - 03/03/2003 - Cordoba: 8
+	 * Lista FAP - 03/03/2003 - Santa Fe: 9
+	 *
+	 * Lista PRO - 01/01/2001 - Lanus: 10
+	 * Lista PRO - 02/02/2002 - Lanus: 11
+	 * Lista PRO - 02/02/2002 - Cordoba: 12
+	 * Lista PRO - 03/03/2003 - Lanus: 13
+	 * Lista PRO - 03/03/2003 - Cordoba: 14
+	 * Lista PRO - 03/03/2003 - Santa Fe: 15
+	 * Lista PRO - 04/04/2004 - Lanus: 16
+	 * Lista PRO - 04/04/2004 - Cordoba: 17
+	 * Lista PRO - 04/04/2004 - Santa Fe: 18
+	 * Lista PRO - 04/04/2004 - Pehuajo: 19
+	 *
+	 * Lista Coalicion Civica - 01/01/2001 - Lanus: 20
+	 * Lista Coalicion Civica - 02/02/2002 - Lanus: 21
+	 * Lista Coalicion Civica - 02/02/2002 - Cordoba: 22
+	 * Lista Coalicion Civica - 03/03/2003 - Lanus: 23
+	 * Lista Coalicion Civica - 03/03/2003 - Cordoba: 24
+	 * Lista Coalicion Civica - 03/03/2003 - Santa Fe: 25
+	 * Lista Coalicion Civica - 04/04/2004 - Lanus: 26
+	 * Lista Coalicion Civica - 04/04/2004 - Cordoba: 27
+	 * Lista Coalicion Civica - 04/04/2004 - Santa Fe: 28
+	 * Lista Coalicion Civica - 04/04/2004 - Pehuajo: 29
+	 * Lista Coalicion Civica - 05/05/2005 - Lanus: 30
+	 * Lista Coalicion Civica - 05/05/2005 - Cordoba: 31
+	 * Lista Coalicion Civica - 05/05/2005 - Santa Fe: 32
+	 * Lista Coalicion Civica - 05/05/2005 - Pehuajo: 33
+	 * Lista Coalicion Civica - 05/05/2005 - Olivos: 34
+	 *
+	 * Lista Frente de Izquierda - 01/01/2001 - Lanus: 35
+	 * Lista Frente de Izquierda - 02/02/2002 - Lanus: 36
+	 * Lista Frente de Izquierda - 02/02/2002 - Cordoba: 37
+	 * Lista Frente de Izquierda - 03/03/2003 - Lanus: 38
+	 * Lista Frente de Izquierda - 03/03/2003 - Cordoba: 39
+	 * Lista Frente de Izquierda - 03/03/2003 - Santa Fe: 40
+	 * Lista Frente de Izquierda - 04/04/2004 - Lanus: 41
+	 * Lista Frente de Izquierda - 04/04/2004 - Cordoba: 41
+	 * Lista Frente de Izquierda - 04/04/2004 - Santa Fe: 42
+	 * Lista Frente de Izquierda - 04/04/2004 - Pehuajo: 43
+	 * Lista Frente de Izquierda - 05/05/2005 - Lanus: 44
+	 * Lista Frente de Izquierda - 05/05/2005 - Cordoba: 45
+	 * Lista Frente de Izquierda - 05/05/2005 - Santa Fe: 46
+	 * Lista Frente de Izquierda - 05/05/2005 - Pehuajo: 47
+	 * Lista Frente de Izquierda - 05/05/2005 - Olivos: 48
+	 * Lista Frente de Izquierda - 06/06/2006 - Lanus: 49
+	 * Lista Frente de Izquierda - 06/06/2006 - Cordoba: 50
+	 * Lista Frente de Izquierda - 06/06/2006 - Santa Fe: 51
+	 * Lista Frente de Izquierda - 06/06/2006 - Pehuajo: 52
+	 * Lista Frente de Izquierda - 06/06/2006 - Olivos: 53
+	 * Lista Frente de Izquierda - 06/06/2006 - Springfield: 54
+	 *
+	 */
 
 	return;
 }

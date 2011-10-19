@@ -28,6 +28,7 @@ public:
 	void testAltaVotante();
 	void testAltaLista();
 	void testAltaCandidato();
+	void testAltaConteo();
 
 
 private:
