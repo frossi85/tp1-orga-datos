@@ -263,6 +263,41 @@ bool ABMentidades::bajaEleccion(Eleccion &eleccion)
     return true;
 }
 
+bool ABMentidades::bajaEleccion(string claveEleccion)
+{
+    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
+    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ELECCION_REGS));
+    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ELECCION_BLOQ_LIB));
+    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ELECCION_TABLA));
+    hash_extensible *hashEleccion = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
+    //(baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveEleccion, 0);
+    RegistroIndice *registroObtenido = hashEleccion->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+        int IDEleccion = registroObtenido->getOffset();
+        hashEleccion->borrar(registroObtenido);
+        delete hashEleccion;
+
+        string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_REGS));
+        string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_BLOQ_LIB));
+        string arch_id_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_TABLA));
+        hash_extensible *hashIDEleccion = new hash_extensible(arch_id_registros,arch_id_bloq_libres,arch_id_tabla);
+
+        string IDaux = Utilidades::toString(IDEleccion);
+        RegistroIndice registroABorrar(IDaux, 0);
+        hashIDEleccion->borrar(&registroABorrar);
+        delete hashIDEleccion;
+
+        return true;
+    }
+    //devuelve false si la Elección no existía
+    delete hashEleccion;
+    return false;
+}
+
 bool ABMentidades::bajaDistrito(Distrito &distrito)
 {
     return true;
@@ -351,9 +386,79 @@ bool ABMentidades::bajaVotante(Votante &votante)
     return true;
 }
 
+bool ABMentidades::bajaVotante(string claveVotante)
+{
+    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
+    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_VOTANTE_REGS));
+    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_VOTANTE_BLOQ_LIB));
+    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_VOTANTE_TABLA));
+    hash_extensible *hashVotante = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
+    //(baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveVotante, 0);
+    RegistroIndice *registroObtenido = hashVotante->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+        int IDVotante = registroObtenido->getOffset();
+        hashVotante->borrar(registroObtenido);
+        delete hashVotante;
+
+        string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_REGS));
+        string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_BLOQ_LIB));
+        string arch_id_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_TABLA));
+        hash_extensible *hashIDVotante = new hash_extensible(arch_id_registros,arch_id_bloq_libres,arch_id_tabla);
+
+        string IDaux = Utilidades::toString(IDVotante);
+        RegistroIndice registroABorrar(IDaux, 0);
+        hashIDVotante->borrar(&registroABorrar);
+        delete hashIDVotante;
+
+        return true;
+    }
+    //devuelve false si el Votante no existía
+    delete hashVotante;
+    return false;
+}
+
 bool ABMentidades::bajaLista(Lista &lista)
 {
     return true;
+}
+
+bool ABMentidades::bajaLista(string claveLista)
+{
+    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
+    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_LISTA_REGS));
+    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_LISTA_BLOQ_LIB));
+    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_LISTA_TABLA));
+    hash_extensible *hashLista = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
+    //(baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveLista, 0);
+    RegistroIndice *registroObtenido = hashLista->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+        int IDLista = registroObtenido->getOffset();
+        hashLista->borrar(registroObtenido);
+        delete hashLista;
+
+        string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
+        string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB));
+        string arch_id_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_TABLA));
+        hash_extensible *hashIDLista = new hash_extensible(arch_id_registros,arch_id_bloq_libres,arch_id_tabla);
+
+        string IDaux = Utilidades::toString(IDLista);
+        RegistroIndice registroABorrar(IDaux, 0);
+        hashIDLista->borrar(&registroABorrar);
+        delete hashIDLista;
+
+        return true;
+    }
+    //devuelve false si la Lista no existía
+    delete hashLista;
+    return false;
 }
 
 bool ABMentidades::bajaCandidato(Candidato &candidato)
@@ -361,6 +466,40 @@ bool ABMentidades::bajaCandidato(Candidato &candidato)
     return true;
 }
 
+bool ABMentidades::bajaCandidato(string claveCandidato)
+{
+    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
+    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CANDIDATO_REGS));
+    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CANDIDATO_BLOQ_LIB));
+    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CANDIDATO_TABLA));
+    hash_extensible *hashCandidato = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
+    //(baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveCandidato, 0);
+    RegistroIndice *registroObtenido = hashCandidato->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+        int IDCandidato = registroObtenido->getOffset();
+        hashCandidato->borrar(registroObtenido);
+        delete hashCandidato;
+
+        string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_REGS));
+        string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_BLOQ_LIB));
+        string arch_id_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_TABLA));
+        hash_extensible *hashIDCandidato = new hash_extensible(arch_id_registros,arch_id_bloq_libres,arch_id_tabla);
+
+        string IDaux = Utilidades::toString(IDCandidato);
+        RegistroIndice registroABorrar(IDaux, 0);
+        hashIDCandidato->borrar(&registroABorrar);
+        delete hashIDCandidato;
+
+        return true;
+    }
+    //devuelve false si el Candidato no existía
+    delete hashCandidato;
+    return false;
+}
 
 bool ABMentidades::altaAdministrador(Administrador &administrador)
 {
