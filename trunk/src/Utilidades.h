@@ -48,6 +48,13 @@ public:
 
 	static void sleep(unsigned int mseconds);
 
+	static string obtenerClaveDistrito(const string &nombreDistrito);
+	static string obtenerClaveCargo(const string &cargoPrincipal);
+	static string obtenerClaveEleccion(const string &fecha, const string &cargoPrincipal);
+	static string obtenerClaveLista(const string &fecha, const string &cargoPrincipal, const string &nombreLista);
+	static string obtenerClaveVotante(const int &DNI);
+	static string obtenerClaveCandidato(const string &fecha, const string &cargoPrincipal, const string &nombreLista, const int &DNI);
+
 
 };
 

@@ -132,8 +132,49 @@ string Utilidades::stringFromFile(std::fstream & ifs)
     return nombre;
 }
 
+
 void Utilidades::sleep(unsigned int mseconds)
 {
     clock_t goal = mseconds + clock();
     while (goal > clock());
+}
+
+
+string Utilidades::obtenerClaveDistrito(const string &nombreDistrito) {
+	string clave = nombreDistrito;
+	Utilidades::formatearClave(clave);
+	return clave;
+}
+
+
+string Utilidades::obtenerClaveCargo(const string &cargoPrincipal) {
+	string clave = cargoPrincipal;
+	Utilidades::formatearClave(clave);
+	return clave;
+}
+
+
+string Utilidades::obtenerClaveEleccion(const string &fecha, const string &cargoPrincipal) {
+	string clave = Utilidades::indexarFecha(fecha) + "$" + cargoPrincipal;
+	Utilidades::formatearClave(clave);
+	return clave;
+}
+string Utilidades::obtenerClaveLista(const string &fecha, const string &cargoPrincipal, const string &nombreLista) {
+	string clave = Utilidades::indexarFecha(fecha) + "$" + cargoPrincipal + "$" + nombreLista;
+	Utilidades::formatearClave(clave);
+	return clave;
+}
+
+
+string Utilidades::obtenerClaveVotante(const int &DNI) {
+	string clave = Utilidades::toString(DNI);
+	Utilidades::formatearClave(clave);
+	return clave;
+}
+
+
+string Utilidades::obtenerClaveCandidato(const string &fecha, const string &cargoPrincipal, const string &nombreLista, const int &DNI) {
+	string clave = Utilidades::indexarFecha(fecha) + "$" + cargoPrincipal + "$" + nombreLista + "$" + Utilidades::toString(DNI);
+	Utilidades::formatearClave(clave);
+	return clave;
 }
