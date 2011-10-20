@@ -26,6 +26,9 @@ public:
 	static void Alta(Logueable & obj);
 	static void Modificacion(Logueable & obj);
 	static void Eliminar(Logueable & obj);
+//	static void CambioDeVoto(Votante &votante);
+//	static void ConfirmacionDeVoto(Votante &votante);
+//	static void Voto(Votante &votante);
 
 	//Configuracion::getValorPorPrefijo(RUTA_ARCHIVO_VOTAR);
 };

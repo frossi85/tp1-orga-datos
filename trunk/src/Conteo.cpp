@@ -182,3 +182,11 @@ void Conteo::Imprimir(){
     this->_distrito->Imprimir();
     cout << "Cantidad de votos: " << this->_cantidad << endl;
 }
+
+void Conteo::Imprimir(ofstream ofs)
+{
+	ofs << "Conteo:" << endl;
+	ofs << "--Lista: " << this->_lista->getNombre()<<endl;
+    ofs << "--Distrito: " << this->_distrito->getNombre()<<endl;
+    ofs << "--Cantidad de votos: " << this->_cantidad << endl;
+}

@@ -25,11 +25,19 @@
 #include "../Utilidades.h"
 #include "../Distrito.h"
 #include "../Eleccion.h"
+#include "../Lista.h"
+#include "../Conteo.h"
+#include "../Logger.h"
+#include "../CargaInicial.h"
 #include <stdlib.h>
 #include <time.h>
 #include <string>
 #include <stdio.h>
 #include <vector>
+#include "../DataGetter.h"
+#include "../ABM Entidades/ABMentidades.h"
+
+using namespace std;
 
 class VotanteAleatorio {
 public:
@@ -40,6 +48,8 @@ public:
 	unsigned int getVotos() {return this->votos;}
 	int hacerlosAccederAlSistema();
 	int hacerlosVotar();
+
+	static void ejecutar();
 
 private:
 	Votante **vectorVotantes;

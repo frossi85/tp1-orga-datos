@@ -38,7 +38,9 @@ int main(int argc, char *argv[]){
 	// TODAVIA NO ANDAN LOS TESTS DE TESTABMentidades Y TESTPERSISTENCIA..SI QUIEREN PROBAR LOS OTROS
 	// SAQUENLOS DEL TESTER.CPP (MARTIN)
 
-	CargaInicial::ejecutar();
+	//CargaInicial::ejecutar();
+
+	//VotanteAleatorio::ejecutar;
 
 
 	Menu *menu = Menu::getMenu();

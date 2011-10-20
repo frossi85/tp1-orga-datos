@@ -11,17 +11,22 @@
 #include "Utilidades.h"
 #include "./Tests/UtilidadesTests.h"
 #include "./ABM Entidades/ABMentidades.h"
+#include "./ABM Entidades/ConsultaEntidades.h"
 #include "Votante.h"
 
 using namespace std;
 
 class CargaInicial {
 private:
+	static const int cantidadVotantes = 100;
+	static const int dniInicial = 33000000;
+
 	CargaInicial();
 	virtual ~CargaInicial();
+	static void getVotantes(vector<Votante *> &votantes, vector<Distrito> &distritos);
 public:
 	static void ejecutar();
-	static void getVotantes(vector<Votante *> &votantes, vector<Distrito> &distritos);
+	static void getVotantes(vector<Votante *> &votantes);
 	vector<string> getFechasElecciones();
 };
 
