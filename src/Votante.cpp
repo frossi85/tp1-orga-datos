@@ -79,25 +79,12 @@ void Votante::vaciarVectorElecciones() {
 }
 
 
-void Votante::votarEnEleccionALista(Eleccion& eleccion, Lista& lista)
-{
-	//TODO: Implementar el metodo votar
-}
-
-
 void Votante::agregarEleccion(Eleccion eleccion) {
 	this->_elecciones.push_back(new Eleccion(eleccion));
 }
 
 
 vector<Eleccion *> Votante::getElecciones() { return this->_elecciones;}
-/*	int cantidad = this->_elecciones.size();
-	vector<Eleccion *> retorno;
-	for(int i=0;i<cantidad;i++){
-		retorno.push_back(new Eleccion(*(this->_elecciones[i])));
-	}
-	return retorno;
-}*/
 
 
 bool Votante::cambiarClave(string claveAnterior, string claveNueva)
