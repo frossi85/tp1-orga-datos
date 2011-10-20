@@ -21,6 +21,7 @@
 #include "../RegistroIndice.h"
 #include "../ManejoIDs.h"
 #include "../Utilidades.h"
+#include "../Logger.h"
 #include "../Administrador.h"
 using namespace std;
 
@@ -36,6 +37,7 @@ public:
 	bool altaLista(Lista &lista);
 	bool altaCandidato(Candidato &candidato);
 	bool altaAdministrador(Administrador &administrador);
+	//void agregarVoto(Votante &votante, Lista &lista, Distrito &distrito);
 	void agregarVoto(Lista &lista, Distrito &distrito);
 
     bool modificacionEleccion(Eleccion &eleccion);

@@ -18,7 +18,7 @@ void Logger::logAccion(Logueable & obj, string accion) {
 	if(!archivoLog.is_open())
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de log" + urlArchivoLog);
 
-	log =  "[" + Utilidades::getFechaYHora() + "]"+ ": " + accion + " - " + obj.getClassName();
+	log =  "[" + Utilidades::getFechaYHora() + "]"+ ": " + obj.getClassName() + " - " + accion;
 
 	archivoLog<<log;
 	archivoLog<<endl;
@@ -36,4 +36,18 @@ void Logger::Modificacion(Logueable & obj) {
 	logAccion(obj, "Modificación");
 }
 
+//void Logger::CambioDeVoto(Votante &votante)
+//{
+//	logAccion(votante, "El votante de dni " + votante.getDNI() + " cambio su voto");
+//}
+//
+//void Logger::ConfirmacionDeVoto(Votante &votante)
+//{
+//	logAccion(votante, "El votante de dni " + votante.getDNI() + " confirmo su voto");
+//}
+//
+//void Logger::Voto(Votante &votante)
+//{
+//	logAccion(votante, "El votante de dni " + votante.getDNI() + "  voto");
+//}
 

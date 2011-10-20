@@ -88,8 +88,9 @@ Eleccion* MenuVotante::elegirEleccion(){
 	}while(1);
 
 	//TODO: la que va es la q esta comentada
-	//vector<Eleccion *> elecciones=DataGetter::getEleccionesPorFechaYDistrito(fecha, (*this->votante).getDistrito());
-	//vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante); //ESTE METODO NO EXISTE
+	vector<Eleccion *> elecciones;
+
+	DataGetter::getEleccionesPorFechayDistrito(elecciones, fecha, *(this->votante));
 	unsigned int cantidad_elecciones=elecciones.size();
 
 	system("clear");
@@ -156,7 +157,9 @@ Lista* MenuVotante::elegirLista(Eleccion *eleccion){
 
 	Lista *lista_resultado;
 	bool listaElegida=false;
-	vector<Lista *> listas=DataGetter::getListas_por_Eleccion(*eleccion); //TODO: traer listas por eleccion
+	vector<Lista *> listas;
+
+	DataGetter::getListasPorEleccion(listas, *eleccion);
 	unsigned int cantidad_listas=listas.size();
 	unsigned int opcion;
 

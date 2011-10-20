@@ -243,8 +243,8 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	return true;
 }
 
-
 void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
+//void ABMentidades::agregarVoto(Votante &votante, Lista &lista, Distrito &distrito) {
 
 	 //Usando los datos recibidos por parámetro busca el objeto conteo
     //en el árbol de reporte por distrito.
@@ -281,6 +281,12 @@ void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
     ofs.seekp(offsetConteo,ios::beg);	// ESTE SEEK A MI NO ME FUNCIONABA EN OTRA CLASE. REVISAR SI ANDA. URGENTE!!!
     conteoExistente.Guardar(ofs);
     ofs.close();
+
+    //TODO:Guardar una modificacion de votante para q se guarden la eleccion agregada a las
+    //votadas por el votante
+
+    //LOG de la confirmacion de la votacion
+    //Logger::ConfirmacionDeVoto(votante);
 }
 
 

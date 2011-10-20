@@ -63,16 +63,29 @@ void CargaInicial::ejecutar()
 		//delete votantes[i];
 }
 
+void CargaInicial::getVotantes(vector<Votante *> &votantes)
+{
+	int dni = dniInicial;
+	ConsultaEntidades consulta;
+	Distrito distrito;
+	Votante * votante;
+
+	for(int i = 0; i < cantidadVotantes; i++, dni++){
+		votante = new Votante(dni, "", "", "", distrito);
+		consulta.ObtenerRegistro(Utilidades::toString(dni), *votante);
+		votantes.push_back(votante);
+	}
+}
+
 void CargaInicial::getVotantes(vector<Votante *> &votantes, vector<Distrito> &distritos)
 {
 	int cantidadDistritos;
-	int cantidadVotantes = 100;
 	int cantidadVotantePorDistrito;
 
 	cantidadDistritos = distritos.size();
 	cantidadVotantePorDistrito = cantidadVotantes/cantidadDistritos;
 
-	int h = 33000000;
+	int h = dniInicial;
 	string direccion = "saraza";
 	string nombre;
 	Votante * votante;
@@ -104,8 +117,6 @@ vector<string> CargaInicial::getFechasElecciones()
 		fechas.push_back(Utilidades::indexarFecha(elecciones[i].getFecha()));
 		cout<<Utilidades::indexarFecha(elecciones[i].getFecha());
 	}
-
-	getchar();
 
 	return fechas;
 }

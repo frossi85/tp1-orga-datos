@@ -6,6 +6,7 @@
  */
 
 #include "VotanteAleatorio.h"
+
 using namespace std;
 
 VotanteAleatorio::VotanteAleatorio(unsigned int cantidad) {
@@ -51,6 +52,118 @@ int VotanteAleatorio::hacerlosAccederAlSistema() {
 			else simularAcceso(this->vectorVotantes[i]->getDNI(),this->vectorVotantes[i]->getClave(),true);
 	}
 	return contadorFallidos;
+}
+
+
+void VotanteAleatorio::ejecutar()
+{
+	vector<Votante *> votantes;
+	vector<string> fechas;
+	vector<Eleccion *> elecciones;
+	vector<Lista *> listas;
+	string urlArchivoResultados = "./resultados_votante_aleatorio.txt";
+	int numeroAleatorio;
+	srand(time(NULL));
+	int porcentajeCambioVoto = 30;
+	Lista * listaElegida;
+	ABMentidades * abm = new ABMentidades();
+	bool conteoEcontrado = false;
+
+	//Por cada eleccion y por cada lista de la eleccion un conteo
+	vector<Conteo *> conteos;
+
+	//CargaInicial::getFechasElecciones();
+
+	ofstream archivoResultados(urlArchivoResultados.c_str(), ios::trunc);
+
+	if(archivoResultados.is_open())
+	{
+		//Votantes que van a participar de todas la elecciones de la carga inicial
+		//si les corresponde
+		CargaInicial::getVotantes(votantes);
+
+		//Hago votar a cada votante en cada eleccion que tiene asignada
+		for(unsigned int i = 0; i < votantes.size(); i++)
+		{
+			//Votacion por cada eleccion
+			for(unsigned int j = 0; j < fechas.size(); j++)
+			{
+				DataGetter::getEleccionesPorFechayDistrito(elecciones, fechas[j], *votantes[i]);
+
+				//1.-Si el votante puede votar en la elcccion, continuo en 2.- sino en 6.-
+				for(unsigned int h = 0; h < elecciones.size(); h++)
+				{
+					//2.-Obtenga las listas de la eleccion
+					DataGetter::getListasPorEleccion(listas, *(elecciones[h]));
+					//3.-Elijo una lista aleatoria
+					numeroAleatorio = (rand() % listas.size());	// Numero entre 0 y tamanio-1 del vetor listas
+					listaElegida = listas[numeroAleatorio];
+
+					//Logger::Voto(*votantes[i]);
+
+					//4.-Confirmo o no la votacion aleatoriamente, lo logueo
+					//	4.1.-Si NO se confirmo, eligo otra vez a la azar y continuo, logueo lista elegida
+					if((rand() % 100) <= porcentajeCambioVoto)
+					{
+						//Cambio voto
+						numeroAleatorio = (rand() % listas.size());	// Numero entre 0 y tamanio-1 del vetor listas
+						listaElegida = listas[numeroAleatorio];
+
+						//Logger::CambioDeVoto(*votante[i]);
+					}
+					//5.- Incremento la cuenta de votos para esa eleccion-lista
+					//abm->agregarVoto(*listaElegida, votantes[i]->getDistrito());
+
+					conteoEcontrado = false;
+
+					for(unsigned int x = 0; x < conteos.size(); x++)
+					{
+						if((conteos[x]->getLista().getId() == listaElegida->getId()) &&
+							(conteos[x]->getDistrito().getId() == votantes[i]->getDistrito().getId()) &&
+							(conteos[x]->getLista().getEleccion().getId() == elecciones[h]->getId()))
+						{
+							conteos[x]->incrementar();
+							conteoEcontrado = true;
+							break;
+						}
+					}
+
+					//Si no encontre el conteo, creo uno nuevo
+					if(conteoEcontrado == false)
+						conteos.push_back(new Conteo(*listaElegida, votantes[i]->getDistrito()));
+					//6.-Seguir con otra eleccion
+
+					//Eliminar listas, delete
+					for(unsigned int x = 0; x < listas.size(); x++)
+					{
+						delete listas[x];
+						listas[x] = 0;
+					}
+
+					listas.clear();
+
+					//Eliminar elecciones, delete
+					delete elecciones[h];
+					elecciones[h] = 0;
+				}
+				elecciones.clear();
+			}
+			//Eliminar votantes, delete
+			delete votantes[i];
+			votantes[i] = 0;
+		}
+
+		//Impresion de los conteos
+		for(unsigned int y = 0; y < conteos.size(); y++)
+		{
+			//conteos[y]->Imprimir(archivoResultados);
+		}
+	}
+	else
+		cout<<"No se puede abrir el archivo de informe de resultados";
+
+	//delete amb;
+	abm = 0;
 }
 
 

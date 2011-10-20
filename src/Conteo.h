@@ -50,6 +50,8 @@ public:
 	string getClassName();
 
     void Imprimir();
+
+    void Imprimir(ofstream ofs);
 };
 
 #endif /* CONTEO_H_ */

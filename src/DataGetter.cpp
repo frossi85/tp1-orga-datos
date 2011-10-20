@@ -37,10 +37,10 @@ bool DataGetter::getListasPorEleccion(vector<Lista*> vecListas, Eleccion &elecci
 
 	/* Busco en el arbol todos los ids de listas con la fecha y cargo pedidos */
 	list<RegistroArbol *> IDsListas;
-	if (!arbolListas->buscar(IDsListas, claveInicial, claveFinal)) return false;		// Si no habia ninguna coincidencia, se devuelve false
-	arbolListas->cerrar();
-	delete arbolListas;
-	arbolListas = NULL;
+	if (!arbolLista->buscar(IDsListas, claveInicial, claveFinal)) return false;		// Si no habia ninguna coincidencia, se devuelve false
+	arbolLista->cerrar();
+	delete arbolLista;
+	arbolLista = 0;
 
 	/* Busco en el hash de id_lista/offset todas las listas obtenidas */
     string arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
