@@ -379,28 +379,26 @@ bool ABMentidades::modificacionCandidato(Candidato &candidato)
 
 bool ABMentidades::bajaEleccion(Eleccion &eleccion)
 {
-    return true;
+    string clave = Utilidades::obtenerClaveEleccion(eleccion.getFecha(),eleccion.getCargo().getCargoPrincipal());
+    return bajaEleccion(clave);
 }
 
 bool ABMentidades::bajaEleccion(string claveEleccion)
-{	// CAMBIAR A ARBOL (AHORA ELECCION SE GUARDA EN UN ARBOL, VER ALTAELECCION)
+{	
+    //busca la clave en el arbol (supongo que ya recibí la clave concatenada y formateada)
+    string archivo((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_ELECCION));
+    this->arbol = new ArbolBMas();
+    if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de eleccion");
 
 
- /*   //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
-    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ELECCION_REGS));
-    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ELECCION_BLOQ_LIB));
-    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ELECCION_TABLA));
-    hash_extensible *hashEleccion = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+    long int IDEleccion = 0;
+    if (this->arbol->buscar(claveEleccion,IDEleccion)){
+        //Si existe, la borra del arbol de clave/Id y del hash de Id/offset
+        //(baja lógica) y devuelve true
+        this->arbol->eliminar(claveEleccion);
+        this->arbol->cerrar();
+        delete this->arbol;
 
-    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
-    //(baja lógica) y devuelve true
-    RegistroIndice registroABuscar(claveEleccion, 0);
-    RegistroIndice *registroObtenido = hashEleccion->buscar(&registroABuscar);
-    if(registroObtenido != NULL){
-
-        int IDEleccion = registroObtenido->getOffset();
-        hashEleccion->borrar(registroObtenido);
-        delete hashEleccion;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_REGS));
         string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_BLOQ_LIB));
@@ -415,13 +413,15 @@ bool ABMentidades::bajaEleccion(string claveEleccion)
         return true;
     }
     //devuelve false si la Elección no existía
-    delete hashEleccion;
-    return false;*/
+    this->arbol->cerrar();
+    delete this->arbol;
+    return false;
 }
 
 bool ABMentidades::bajaDistrito(Distrito &distrito)
 {
-    return true;
+    string clave = Utilidades::obtenerClaveDistrito(distrito.getNombre());
+    return bajaDistrito(clave);
 }
 
 bool ABMentidades::bajaDistrito(string claveDistrito)
@@ -457,14 +457,12 @@ bool ABMentidades::bajaDistrito(string claveDistrito)
     //devuelve false si el Distrito no existía
     delete hashDistrito;
     return false;
-     /* En realidad se necesitan borrar tb las cosas que tenian referencias a ese
-      * distrito, pero eso desp lo agregamos.
-      */
 }
 
 bool ABMentidades::bajaCargo(Cargo &cargo)
 {
-    return true;
+    string clave = Utilidades::obtenerClaveCargo(cargo.getCargoPrincipal());
+    return bajaCargo(clave);
 }
 
 bool ABMentidades::bajaCargo(string claveCargo)
@@ -504,7 +502,8 @@ bool ABMentidades::bajaCargo(string claveCargo)
 
 bool ABMentidades::bajaVotante(Votante &votante)
 {
-    return true;
+    string clave = Utilidades::obtenerClaveVotante(votante.getDNI());
+    return bajaVotante(clave);
 }
 
 bool ABMentidades::bajaVotante(string claveVotante)
@@ -544,28 +543,26 @@ bool ABMentidades::bajaVotante(string claveVotante)
 
 bool ABMentidades::bajaLista(Lista &lista)
 {
-    return true;
+    string clave = Utilidades::obtenerClaveLista(lista.getEleccion().getFecha(),lista.getEleccion().getCargo().getCargoPrincipal(),lista.getNombre());
+    return bajaLista(clave);
 }
 
 bool ABMentidades::bajaLista(string claveLista)
 {
-	// CAMBIAR A ARBOL (AHORA ELECCION SE GUARDA EN UN ARBOL, VER ALTAELECCION)
+    //busca la clave en el arbol (supongo que ya recibí la clave concatenada y formateada)
+    string archivo((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_LISTA));
+    this->arbol = new ArbolBMas();
+    if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de lista");
 
-/*    //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
-    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_LISTA_REGS));
-    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_LISTA_BLOQ_LIB));
-    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_LISTA_TABLA));
-    hash_extensible *hashLista = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
-    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
-    //(baja lógica) y devuelve true
-    RegistroIndice registroABuscar(claveLista, 0);
-    RegistroIndice *registroObtenido = hashLista->buscar(&registroABuscar);
-    if(registroObtenido != NULL){
+    long int IDLista = 0;
+    if (this->arbol->buscar(claveLista,IDLista)){
+        //Si existe, la borra del arbol de clave/Id y del hash de Id/offset
+        //(baja lógica) y devuelve true
+        this->arbol->eliminar(claveLista);
+        this->arbol->cerrar();
+        delete this->arbol;
 
-        int IDLista = registroObtenido->getOffset();
-        hashLista->borrar(registroObtenido);
-        delete hashLista;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
         string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB));
@@ -580,34 +577,33 @@ bool ABMentidades::bajaLista(string claveLista)
         return true;
     }
     //devuelve false si la Lista no existía
-    delete hashLista;
-    return false;*/
+    this->arbol->cerrar();
+    delete this->arbol;
+    return false;
 }
 
 bool ABMentidades::bajaCandidato(Candidato &candidato)
 {
-    return true;
+    string clave = Utilidades::obtenerClaveCandidato(candidato.getLista().getEleccion().getFecha(),candidato.getLista().getEleccion().getCargo().getCargoPrincipal(),candidato.getLista().getNombre(),candidato.getDNI());
+    return bajaCandidato(clave);
 }
 
 bool ABMentidades::bajaCandidato(string claveCandidato)
 {
-	// CAMBIAR A ARBOL (AHORA ELECCION SE GUARDA EN UN ARBOL, VER ALTAELECCION)
+    //busca la clave en el arbol (supongo que ya recibí la clave concatenada y formateada)
+    string archivo((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_CANDIDATO));
+    this->arbol = new ArbolBMas();
+    if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de candidato");
 
- /*   //busca la clave en el hash (supongo que ya recibí la clave concatenada y formateada)
-    string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CANDIDATO_REGS));
-    string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CANDIDATO_BLOQ_LIB));
-    string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CANDIDATO_TABLA));
-    hash_extensible *hashCandidato = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
-    //Si existe, la borra del hash de clave/Id y del hash de Id/offset
-    //(baja lógica) y devuelve true
-    RegistroIndice registroABuscar(claveCandidato, 0);
-    RegistroIndice *registroObtenido = hashCandidato->buscar(&registroABuscar);
-    if(registroObtenido != NULL){
+    long int IDCandidato = 0;
+    if (this->arbol->buscar(claveCandidato,IDCandidato)){
+        //Si existe, la borra del arbol de clave/Id y del hash de Id/offset
+        //(baja lógica) y devuelve true
+        this->arbol->eliminar(claveCandidato);
+        this->arbol->cerrar();
+        delete this->arbol;
 
-        int IDCandidato = registroObtenido->getOffset();
-        hashCandidato->borrar(registroObtenido);
-        delete hashCandidato;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_REGS));
         string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_BLOQ_LIB));
@@ -621,9 +617,10 @@ bool ABMentidades::bajaCandidato(string claveCandidato)
 
         return true;
     }
-    //devuelve false si el Candidato no existía
-    delete hashCandidato;
-    return false;*/
+    //devuelve false si el candidato no existía
+    this->arbol->cerrar();
+    delete this->arbol;
+    return false;
 }
 
 bool ABMentidades::altaAdministrador(Administrador &administrador)
