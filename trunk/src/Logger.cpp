@@ -36,18 +36,18 @@ void Logger::Modificacion(Logueable & obj) {
 	logAccion(obj, "Modificación");
 }
 
-//void Logger::CambioDeVoto(Votante &votante)
-//{
-//	logAccion(votante, "El votante de dni " + votante.getDNI() + " cambio su voto");
-//}
-//
-//void Logger::ConfirmacionDeVoto(Votante &votante)
-//{
-//	logAccion(votante, "El votante de dni " + votante.getDNI() + " confirmo su voto");
-//}
-//
-//void Logger::Voto(Votante &votante)
-//{
-//	logAccion(votante, "El votante de dni " + votante.getDNI() + "  voto");
-//}
+void Logger::CambioDeVoto(Logueable &votante, int dni)
+{
+	logAccion(votante, "El votante de dni " + Utilidades::toString(dni) + " cambio su voto");
+}
+
+void Logger::ConfirmacionDeVoto(Logueable &votante, int dni)
+{
+	logAccion(votante, "El votante de dni " + Utilidades::toString(dni) + " confirmo su voto");
+}
+
+void Logger::Voto(Logueable &votante, int dni)
+{
+	logAccion(votante, "El votante de dni " + Utilidades::toString(dni) + "  voto");
+}
 

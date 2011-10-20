@@ -284,9 +284,6 @@ void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
 
     //TODO:Guardar una modificacion de votante para q se guarden la eleccion agregada a las
     //votadas por el votante
-
-    //LOG de la confirmacion de la votacion
-    //Logger::ConfirmacionDeVoto(votante);
 }
 
 

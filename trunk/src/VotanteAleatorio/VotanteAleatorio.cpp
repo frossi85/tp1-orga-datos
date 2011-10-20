@@ -58,7 +58,7 @@ int VotanteAleatorio::hacerlosAccederAlSistema() {
 void VotanteAleatorio::ejecutar()
 {
 	vector<Votante *> votantes;
-	vector<string> fechas;
+	vector<string> fechas = CargaInicial::getFechasElecciones();
 	vector<Eleccion *> elecciones;
 	vector<Lista *> listas;
 	string urlArchivoResultados = "./resultados_votante_aleatorio.txt";
@@ -71,8 +71,6 @@ void VotanteAleatorio::ejecutar()
 
 	//Por cada eleccion y por cada lista de la eleccion un conteo
 	vector<Conteo *> conteos;
-
-	//CargaInicial::getFechasElecciones();
 
 	ofstream archivoResultados(urlArchivoResultados.c_str(), ios::trunc);
 
@@ -99,7 +97,7 @@ void VotanteAleatorio::ejecutar()
 					numeroAleatorio = (rand() % listas.size());	// Numero entre 0 y tamanio-1 del vetor listas
 					listaElegida = listas[numeroAleatorio];
 
-					//Logger::Voto(*votantes[i]);
+					Logger::Voto(*votantes[i], votantes[i]->getDNI());
 
 					//4.-Confirmo o no la votacion aleatoriamente, lo logueo
 					//	4.1.-Si NO se confirmo, eligo otra vez a la azar y continuo, logueo lista elegida
@@ -109,10 +107,12 @@ void VotanteAleatorio::ejecutar()
 						numeroAleatorio = (rand() % listas.size());	// Numero entre 0 y tamanio-1 del vetor listas
 						listaElegida = listas[numeroAleatorio];
 
-						//Logger::CambioDeVoto(*votante[i]);
+						Logger::CambioDeVoto(*votantes[i], votantes[i]->getDNI());
 					}
 					//5.- Incremento la cuenta de votos para esa eleccion-lista
-					//abm->agregarVoto(*listaElegida, votantes[i]->getDistrito());
+					abm->agregarVoto(*listaElegida, votantes[i]->getDistrito());
+				    //LOG de la confirmacion de la votacion
+				    Logger::ConfirmacionDeVoto(*votantes[i], votantes[i]->getDNI());
 
 					conteoEcontrado = false;
 
@@ -156,13 +156,13 @@ void VotanteAleatorio::ejecutar()
 		//Impresion de los conteos
 		for(unsigned int y = 0; y < conteos.size(); y++)
 		{
-			//conteos[y]->Imprimir(archivoResultados);
+			conteos[y]->Imprimir(archivoResultados);
 		}
 	}
 	else
 		cout<<"No se puede abrir el archivo de informe de resultados";
 
-	//delete amb;
+	delete abm;
 	abm = 0;
 }
 
