@@ -12,47 +12,60 @@ DataGetter::DataGetter() {}
 DataGetter::~DataGetter() {}
 
 
-vector<Lista *> DataGetter::getListas_por_Eleccion(Eleccion& eleccion){
+bool DataGetter::getListasPorEleccion(vector<Lista*> vecListas, Eleccion &eleccion){
+	/* Chequeo si el vector de Listas esta vacio, si no lo vacio */
+	if(vecListas.size() != 0) {
+		int cantidad = vecListas.size();
+		for(int i=0;i<cantidad;i++){
+			if(vecListas[i] != NULL) {
+				delete vecListas[i];
+				vecListas[i] = NULL;
+			}
+		}
+		vecListas.clear();
+	}
 
-	vector<Lista *> resultado;
+	/* Obtengo la clave que quiero buscar */
+	string claveInicial = Utilidades::obtenerClaveEleccion(eleccion.getFecha(),eleccion.getCargo().getCargoPrincipal());
 
+	/* Pongo la clave hasta la que quiero buscar */
+	string claveFinal = claveInicial + "&";
 
-	//Para probar
+	/* Abro el arbol de Lista */
+	ArbolBMas *arbolLista = new ArbolBMas();
+	arbolLista->abrir((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_LISTA));
 
-	Lista *l1,*l2,*l3;
-	l1= new Lista("Proyecto Sur",eleccion);
-	l2= new Lista("Pro",eleccion);
-	l3= new Lista("Frente Amplio Progresista",eleccion);
+	/* Busco en el arbol todos los ids de listas con la fecha y cargo pedidos */
+	list<RegistroArbol *> IDsListas;
+	if (!arbolListas->buscar(IDsListas, claveInicial, claveFinal)) return false;		// Si no habia ninguna coincidencia, se devuelve false
+	arbolListas->cerrar();
+	delete arbolListas;
+	arbolListas = NULL;
 
-	resultado.push_back(l1);
-	resultado.push_back(l2);
-	resultado.push_back(l3);
+	/* Busco en el hash de id_lista/offset todas las listas obtenidas */
+    string arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
+    string arch_bloq_libres = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB));
+    string arch_tabla = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_TABLA));
+    hash_extensible *hash_lista = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
-	return resultado;
-
-}
-
-vector<Eleccion *> DataGetter::getElecciones_por_Votante(Votante &votante){
-
-	vector<Eleccion *> elecciones_resultado;
-
-
-
-	//Para Probar Metodo
-	Cargo cargo1("Presidente"),cargo2("Gobernador");
-	Distrito distrito("Lanus");
-
-	Eleccion *e1,*e2;
-
-	e1= new Eleccion("20111023",cargo1,distrito);
-	e2= new Eleccion("20111023",cargo2,distrito);
-
-	elecciones_resultado.push_back(e1);
-	elecciones_resultado.push_back(e2);
-
-	return elecciones_resultado;
-
-
+    Lista aAgregar;
+    DataAccess dataAccess;
+    RegistroArbol *registroEnLista = NULL;
+    RegistroIndice aBuscarID(" ",0);
+   	RegistroIndice *returnRegID = NULL;
+    list<RegistroArbol *>::iterator it;
+    for (it = IDsListas.begin(); it != IDsListas.end(); it++){
+     	registroEnLista = *it;
+     	aBuscarID.setClave(Utilidades::toString(registroEnLista->getOffset()));
+     	returnRegID = hash_lista->buscar(&aBuscarID);
+     	if (returnRegID == NULL) throw VotoElectronicoExcepcion("No se encontro el id de la lista");
+     	dataAccess.Leer(aAgregar,returnRegID->getOffset());
+     	vecListas.push_back(new Lista(aAgregar));
+    }
+    delete hash_lista;
+    hash_lista = NULL;
+    if (vecListas.size() == 0) return false;
+    return true;
 }
 
 
