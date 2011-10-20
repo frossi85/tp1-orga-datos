@@ -22,12 +22,12 @@ public:
 	DataGetter();
 	virtual ~DataGetter();
 
-	static vector<Lista* > getListas_por_Eleccion(Eleccion& eleccion);
+	/* Se le pasa una eleccion, y un vector vacio de punteros a listas (vecListas) donde se retornaran las listas de esa eleccion */
+	/* Retorna TRUE si se encontro por lo menos una lista, retorna FALSE si no se encontro ninguna */
+	static bool getListasPorEleccion(vector<Lista*> vecListas, Eleccion &eleccion);
 
-	static vector<Eleccion *> getElecciones_por_Votante(Votante &votante);
-
-	/* Se le pasa un vector vacio de punteros a elecciones (vecElecciones), una fecha en formato normal (dd/mm/aaaa o ddmmaaaa)
-	 * y el votante que pide las elecciones. */
+	/* Se le pasa un vector vacio de punteros a elecciones (vecElecciones) donde se devolveran los resultados,
+	 * una fecha en formato normal (dd/mm/aaaa o ddmmaaaa) y el votante que pide las elecciones. */
 	/* Retorna TRUE si se encontro por lo menos una eleccion, retorna FALSE si no se encontro ninguna */
 	static bool getEleccionesPorFechayDistrito(vector<Eleccion*> vecElecciones,string fecha, Votante &votante);
 

@@ -89,7 +89,7 @@ Eleccion* MenuVotante::elegirEleccion(){
 
 	//TODO: la que va es la q esta comentada
 	//vector<Eleccion *> elecciones=DataGetter::getEleccionesPorFechaYDistrito(fecha, (*this->votante).getDistrito());
-	vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante);
+	//vector<Eleccion *> elecciones=DataGetter::getElecciones_por_Votante(*this->votante); //ESTE METODO NO EXISTE
 	unsigned int cantidad_elecciones=elecciones.size();
 
 	system("clear");
