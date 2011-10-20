@@ -27,7 +27,7 @@ private:
 public:
 	static void ejecutar();
 	static void getVotantes(vector<Votante *> &votantes);
-	vector<string> getFechasElecciones();
+	static vector<string> getFechasElecciones();
 };
 
 #endif /* CARGAINICIAL_H_ */

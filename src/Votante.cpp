@@ -64,7 +64,7 @@ string Votante::getNombreYApellido() {return this->_nombreYApellido;}
 string Votante::getDomicilio() {return this->_domicilio;}
 
 
-Distrito Votante::getDistrito() {return *(this->_distrito);}
+Distrito & Votante::getDistrito() {return *(this->_distrito);}
 
 
 void Votante::vaciarVectorElecciones() {

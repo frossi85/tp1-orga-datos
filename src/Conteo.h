@@ -51,7 +51,7 @@ public:
 
     void Imprimir();
 
-    void Imprimir(ofstream ofs);
+    void Imprimir(ofstream &ofs);
 };
 
 #endif /* CONTEO_H_ */
