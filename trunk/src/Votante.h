@@ -53,11 +53,6 @@ public:
 	void setDistrito(Distrito distrito);
 	void setDomicilio(string nuevo_domicilio);
 
-	//Vota para una determinada eleccion a una lista, se registra
-	//q voto en la elecccion, por eso el vector eleccion pero solo
-	//se incrementa el contador en el Conteo asociado a una eleccion
-	//en esa Lista en el Distrito q vota
-	void votarEnEleccionALista(Eleccion& eleccion, Lista& lista);
 	void agregarEleccion(Eleccion eleccion);
 	void vaciarVectorElecciones();
 

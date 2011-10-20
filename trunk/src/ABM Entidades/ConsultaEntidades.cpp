@@ -89,7 +89,7 @@ bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aSobreescribir) 
 	RegistroIndice aBuscarID(Utilidades::toString(IDobtenido),0);
 	RegistroIndice *returnRegID = this->hash->buscar(&aBuscarID);
 	delete this->hash;
-	if (returnRegID == NULL) return false;					// No se encontro el id..lo que seria un problema..
+	if (returnRegID == NULL) throw VotoElectronicoExcepcion("No se encontro el id de " + aSobreescribir.getClassName());
 	unsigned long int offset = returnRegID->getOffset();
 
 	/* Recupero el registro del archivo de datos */

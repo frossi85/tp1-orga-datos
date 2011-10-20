@@ -46,6 +46,7 @@ bool ABMentidades::altaEleccion(Eleccion &eleccion) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregarID(Utilidades::toString(eleccion.getId()), offset);
 	this->hash->guardar(&aAgregarID);
+	this->hash->imprimir("./archivos/Otros/hash_ideleccion");
 	delete this->hash;
 	this->hash = NULL;
 	return true;
@@ -203,6 +204,7 @@ bool ABMentidades::altaLista(Lista &lista) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregarID(Utilidades::toString(lista.getId()), offset);
 	this->hash->guardar(&aAgregarID);
+	this->hash->imprimir("./archivos/Otros/hash_idlista");
 	delete this->hash;
 	this->hash = NULL;
 
@@ -250,6 +252,7 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice aAgregarID(Utilidades::toString(candidato.getId()), offset);
 	this->hash->guardar(&aAgregarID);
+	this->hash->imprimir("./archivos/Otros/hash_idcandidato");
 	delete this->hash;
 	this->hash = NULL;
 	return true;
