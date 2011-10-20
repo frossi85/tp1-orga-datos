@@ -22,10 +22,7 @@ bool ABMentidades::altaEleccion(Eleccion &eleccion) {
 	if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de eleccion");
 	
 	/* Busco en el arbol si ya existe la eleccion */
-	string fecha = Utilidades::indexarFecha(eleccion.getFecha());
-	string cargo = eleccion.getCargo().getCargoPrincipal();
-	Utilidades::formatearClave(cargo);
-	string clave = fecha + "$" + cargo;
+	string clave = Utilidades::obtenerClaveEleccion(eleccion.getFecha(),eleccion.getCargo().getCargoPrincipal());
 	if (this->arbol->buscar(clave,offsetArbol)) return false;		// Caso de que ya existia.
 
 	/* Le seteo un id y lo guardo en el archivo de datos */
@@ -62,8 +59,7 @@ bool ABMentidades::altaDistrito(Distrito &distrito) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe el distrito */
-	string clave = distrito.getNombre();
-	Utilidades::formatearClave(clave);
+	string clave = Utilidades::obtenerClaveDistrito(distrito.getNombre());
 	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;							// Ya existia en el hash, no se agrega
@@ -101,8 +97,7 @@ bool ABMentidades::altaCargo(Cargo &cargo) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe el cargo */
-	string clave = cargo.getCargoPrincipal();
-	Utilidades::formatearClave(clave);
+	string clave = Utilidades::obtenerClaveCargo(cargo.getCargoPrincipal());
 	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;							// Ya existia en el hash, no se agrega
@@ -140,7 +135,8 @@ bool ABMentidades::altaVotante(Votante &votante) {
 	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 	/* Busco en el hash si ya existe el votante */
-	RegistroIndice aAgregar(Utilidades::toString(votante.getDNI()),0);
+	string clave = Utilidades::obtenerClaveVotante(votante.getDNI());
+	RegistroIndice aAgregar(clave,0);
 	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
 	if (returnReg != NULL) return false;								// Ya existia en el hash, no se agrega
 
@@ -178,12 +174,7 @@ bool ABMentidades::altaLista(Lista &lista) {
 	if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de lista");
 
 	/* Busco en el arbol si ya existe la lista */
-	string fecha = Utilidades::indexarFecha(lista.getEleccion().getFecha());
-	string cargo = lista.getEleccion().getCargo().getCargoPrincipal();
-	string nombreLista = lista.getNombre();
-	Utilidades::formatearClave(cargo);
-	Utilidades::formatearClave(nombreLista);
-	string clave = fecha + "$" + cargo + "$" + nombreLista;
+	string clave = Utilidades::obtenerClaveLista(lista.getEleccion().getFecha(),lista.getEleccion().getCargo().getCargoPrincipal(),lista.getNombre());
 	if (this->arbol->buscar(clave,offsetArbol)) return false;				// Caso de que ya existia.
 
 	/* Le seteo un id y lo guardo en el archivo de datos */
@@ -225,13 +216,7 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de candidato");
 
 	/* Busco en el arbol si ya existe el candidato */
-	string fecha = Utilidades::indexarFecha(candidato.getLista().getEleccion().getFecha());
-	string cargo = candidato.getLista().getEleccion().getCargo().getCargoPrincipal();
-	string lista = candidato.getLista().getNombre();
-	string DNI = Utilidades::toString(candidato.getDNI());
-	Utilidades::formatearClave(cargo);
-	Utilidades::formatearClave(lista);
-	string clave = fecha + "$" + cargo + "$" + lista + "$" + DNI;
+	string clave = Utilidades::obtenerClaveCandidato(candidato.getLista().getEleccion().getFecha(),candidato.getLista().getEleccion().getCargo().getCargoPrincipal(),candidato.getLista().getNombre(),candidato.getDNI());
 	if (this->arbol->buscar(clave,offsetArbol)) return false;					// Caso de que ya existia.
 
 	/* Le seteo un id y lo guardo en el archivo de datos */
