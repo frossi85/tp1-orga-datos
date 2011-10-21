@@ -53,9 +53,6 @@ private:
 	void cambiarClave();
 	void cambiarDomicilio();
 
-	//TODO: pasarlo al lugar correspondiente
-	vector<Candidato *> getCandidatosPorLista(Lista &lista);
-
 public:
 	MenuVotante(Votante *votante);
 

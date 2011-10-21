@@ -79,8 +79,6 @@ Informe::Informe(Distrito& distrito) {
 
 	int cantidad_Conteos=conteos.size();
 
-
-
 	string primer_fecha_Eleccion,fecha_actual_Eleccion=" ";
 	if (cantidad_Conteos>0){
 		primer_fecha_Eleccion=conteos[0]->getEleccion().getFecha();

@@ -84,7 +84,6 @@ Eleccion* MenuVotante::elegirEleccion(){
 			break;
 	}while(1);
 
-	//TODO: la que va es la q esta comentada
 	vector<Eleccion *> elecciones;
 
 	DataGetter::getEleccionesPorFechayDistrito(elecciones, fecha, *(this->votante));
@@ -181,27 +180,13 @@ Lista* MenuVotante::elegirLista(Eleccion *eleccion){
 		lista_resultado=NULL;
 	}else{
 		lista_resultado=listas[opcion-1];
+		Logger::Voto(*(this->votante), this->votante->getDNI());
+
 	}
 
 	return lista_resultado;
 
 
-}
-
-vector<Candidato *> MenuVotante::getCandidatosPorLista(Lista &lista)
-{
-	vector<Candidato *> candidatos;
-
-	Distrito distrito;
-	Votante v1(1, "Facundo", "tp", "saraza", distrito);
-	Votante v2(1, "Leandro", "tp", "saraza", distrito);
-	Votante v3(1, "Martin", "tp", "saraza", distrito);
-
-	candidatos.push_back(new Candidato(v1, lista));
-	candidatos.push_back(new Candidato(v2, lista));
-	candidatos.push_back(new Candidato(v3, lista));
-
-	return candidatos;
 }
 
 bool MenuVotante::confirmarVotacion(Eleccion *eleccion,Lista *lista){
@@ -210,7 +195,7 @@ bool MenuVotante::confirmarVotacion(Eleccion *eleccion,Lista *lista){
 	char opcion;
 	bool opcion_elegida=false;
 	bool confirmacion=false;
-	vector<Candidato *> candidatosListaElegida = getCandidatosPorLista(*lista);
+	vector<Candidato *> candidatosListaElegida; // = getCandidatosPorLista(*lista);
 
 	do{
 		system("clear");
@@ -238,9 +223,28 @@ bool MenuVotante::confirmarVotacion(Eleccion *eleccion,Lista *lista){
 	}while(!opcion_elegida);
 
 	if (opcion=='C'){
-
-		//TODO: Pedir conteo por Eleccion, lista y distrito e incrementarlos
 		confirmacion=true;
+		ABMentidades * abm = new ABMentidades();
+
+		cout<<endl<<"*************FACUNDO*************"<<endl;
+
+		cout<<"Eleccion "<<lista->getEleccion().getFecha()<<" - "<<lista->getEleccion().getCargo().getCargoPrincipal()<<endl;
+		cout<<"Lista Elegida: "<<lista->getNombre()<<endl;
+		cout<<"Distrito: "<<votante->getDistrito().getNombre()<<endl;
+
+		cout<<"******************************"<<endl;
+
+		getchar();
+
+		abm->agregarVoto(*lista, this->votante->getDistrito());
+		//LOG de la confirmacion de la votacion
+		Logger::ConfirmacionDeVoto(*(this->votante), this->votante->getDNI());
+		delete abm;
+	}
+
+	if(opcion=='R')
+	{
+		Logger::CambioDeVoto(*(this->votante), this->votante->getDNI());
 	}
 
 	//Limpio el vector de candidatos
