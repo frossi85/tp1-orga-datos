@@ -76,9 +76,7 @@ Implementación</h2>
 <p>Tanto el ID que agregamos nosotros, como el identificador de la clase (x ej en votante el DNI), no podrán tener duplicados. Por eso al realizar cualquier alta o modificación, se deberá comprobar que sean únicos. <br/>
 <br/>
 </p>
-<p>Las bajas serán físicas y se deberán borrar todas las referencias hacia la instancia que estemos eliminando.<br/>
- Si se cambia el identificador (o parte de él) de una instancia particular de cualquier tipo de entidad, antes de eso se deberán actualizar los índices que relacionen la clave autonumerica con el identificador de la instancia, modificando este ultimo con el nuevo valor. Lo mismo si se borra una entidad, primero se actualizan los índices y luego se elimina.</p>
-<p>Como claves autonuméricas, usaremos los offsets de cada entidad en su correspondiente archivo.</p>
+<p>Si se cambia el identificador (o parte de él) de una instancia particular de cualquier tipo de entidad, antes de eso se deberán actualizar los índices que relacionen la clave autonumerica con el identificador de la instancia, modificando este ultimo con el nuevo valor. Lo mismo si se borra una entidad, primero se actualizan los índices y luego se elimina.</p>
 <h2><a class="anchor" id="orga"></a>
 Organización</h2>
 <p>Nueva definición de las entidades:<br/>
@@ -89,46 +87,27 @@ Organización</h2>
 <li><a class="el" href="classVotante.html">Votante</a> (id, (DNI)i, NombreyApellido, clave, domicilio, (idDistrito)ie, ((idEleccion)ie)*)</li>
 <li><a class="el" href="classEleccion.html">Eleccion</a> (id, (fecha, (idCargo)ie)i, ((idDistrito)ie)+)</li>
 <li><a class="el" href="classLista.html">Lista</a> (id, ((idEleccion)ie, nombre)i)</li>
-<li><a class="el" href="classConteo.html">Conteo</a> (id, ((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad)</li>
 <li><a class="el" href="classCandidato.html">Candidato</a> (id, ((idLista)ie, (idVotante)ie, (idCargo)ie)i)</li>
 <li><a class="el" href="classCargo.html">Cargo</a> (id, (cargo)i, (cargo)*)</li>
-<li>Administrador (id, (usuario)i, clave)</li>
+<li><a class="el" href="classAdministrador.html">Administrador</a> (id, (usuario)i, clave)</li>
+<li><a class="el" href="classConteo.html">Conteo</a> (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) <br/>
+ (<a class="el" href="classConteo.html">Conteo</a> no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos)</li>
 </ul>
-<p>Del analisis de las anteriores entidades, llegamos a la conclucion de que existen dos grupos que utilizaran organizaciones de archivo diferentes. <br/>
+<p>Todas las entidades se almacenan en archivos de registros de tamaño variable.<br/>
+ En el caso de aquellas que implementan id numérico, se utiliza un hash para relacionar ese id con su correspondiente clave.<br/>
+ Es decir que primero se le pasa su id a dicho hash para obtener la clave, y luego se le pasa esa clave al hash/árbol índice de esa entidad, para finalmente obtener el offset del registro en su archivo de registros variables. <br/>
 <br/>
 </p>
-<p>A continuación se enumeran las entidades separadas por grupo, y se caracterizan las organizaciones que usaran cada uno. <br/>
-<br/>
-</p>
-<p>Entidades que usaran Archivos con Registros de Tamaño Fijos: <a class="el" href="classLista.html">Lista</a>, <a class="el" href="classDistrito.html">Distrito</a>, <a class="el" href="classConteo.html">Conteo</a>, <a class="el" href="classCandidato.html">Candidato</a> y Administrador <br/>
-<br/>
-</p>
-<p>Los registros tendrán tamaño fijo, este tamaño fijo estará dado por la suma del tamaño de los campos fijos mas la de los máximos estipulados para los campos variables. Por ende el tamaño de registro será fijo pero dependerá del tipo de entidad. <br/>
-<br/>
-</p>
-<p>En este archivo se guardarán las entidades propiamente dichas, mientras que las búsquedas para altas, bajas y modificación estarán organizadas mediante un hash extensible como índice, en el que estarán almacenados las claves y los offsets de los registros.</p>
+<p>Para las entidades que tienen más de un campo como identificador (Elección, <a class="el" href="classLista.html">Lista</a> y <a class="el" href="classCandidato.html">Candidato</a>), se utilizan índices B+, para aprovechar la posibilidad de hacer búsquedas aproximadas que brinda esa estructura. <a class="el" href="classDistrito.html">Distrito</a>, <a class="el" href="classVotante.html">Votante</a>, <a class="el" href="classCargo.html">Cargo</a> y <a class="el" href="classAdministrador.html">Administrador</a> usan índices de dispersión extensible modular.</p>
+<p>En el caso particular de <a class="el" href="classConteo.html">Conteo</a>, tiene tres índices B+, para posibilitar la recuperación de conteos por lista, distrito o elección, y usarlos para imprimir el reporte de resultados en base a alguno de esos tres criterios.</p>
 <hr/>
-<p>Entidades que usaran Archivos con Registros de Tamaño Variable: <a class="el" href="classCargo.html">Cargo</a> <br/>
-<br/>
-</p>
-<p>En este archivo se guardarán las entidades propiamente dichas, mientras que las búsquedas para altas, bajas y modificación estarán organizadas mediante un árbol B+ como índice, en el que estarán almacenados los offsets de los registros.</p>
-<hr/>
- Solo queda analizar las entidades <a class="el" href="classVotante.html">Votante</a> y Elección. Para estos se guardará una referencia a una posición dentro de un Archivo de VotanteEleccion/EleccionDistrito que tenga registros variables de elecciones/distritos. De esta manera <a class="el" href="classVotante.html">Votante</a> y <a class="el" href="classEleccion.html">Eleccion</a> pasarían a ser guardados en archivo con registros de tamaño fijo usando Hash Extensible y VotanteEleccion/EleccionDistrito utilizarían Archivo de Registros con tamaño variables, usando índices B+. <br/>
-<br/>
-</p>
-<p><a class="el" href="classVotante.html">Votante</a> (id, (DNI)i, NombreyApellido, clave, domicilio, (idDistrito)ie, ((idVotanteEleccion)ie)) <br/>
- VotanteEleccion (id, ((idEleccion)ie)*) <br/>
-<br/>
-</p>
-<p><a class="el" href="classEleccion.html">Eleccion</a> (id, (fecha, (idCargo)ie)i, ((idEleccionDistrito)ie)+) <br/>
- EleccionDistrito (id, ((idDistrito)ie)+) <hr/>
 <h2><a class="anchor" id="res"></a>
 Resumen:</h2>
 <ul>
 <li>Los datos (las entidades propiamente dichas) se guardaran en archivos de registros variables o fijos (según de qué entidad se trate).</li>
-<li>La búsqueda de estos datos se realizará mediante índices implementados con un hash extensible y un árbol B+, que van a guardar un par (clave autonumerica, offset en archivo).</li>
+<li>La búsqueda de estos datos se realizará mediante índices implementados con un hash extensible y un árbol B+, que van a guardar un par (clave, offset en archivo).</li>
 <li>El flujo del programa tendría esta forma:<br/>
- 1- el administrador ingresa un id.<br/>
+ 1- el administrador ingresa una clave.<br/>
  2- el hash/árbol usado cómo índice recibe ese id, y devuelve un offset.<br/>
  3- se accede a ese offset para obtener el registro deseado.<br/>
  4- el administrador modifica el registro.<br/>
@@ -201,7 +180,7 @@ Bugs conocidos</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:53 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

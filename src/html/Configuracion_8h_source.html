@@ -82,35 +82,73 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00022"></a>00022 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CANDIDATO &quot;&lt;ruta_candidato&gt;&quot;</span>
 <a name="l00023"></a>00023 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CARGO &quot;&lt;ruta_cargo&gt;&quot;</span>
 <a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ADMINISTRADOR &quot;&lt;ruta_administrador&gt;&quot;</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span>
-<a name="l00026"></a>00026 <span class="preprocessor">#define CANT_CONF 8</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span>
-<a name="l00028"></a>00028 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="keyword">using namespace </span>std;
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classConfiguracion.html">00032</a> <span class="keyword">class </span><a class="code" href="classConfiguracion.html">Configuracion</a> {
-<a name="l00033"></a>00033 <span class="keyword">private</span>:
-<a name="l00034"></a>00034                 <span class="keywordtype">string</span> constantes[CANT_CONF];
-<a name="l00035"></a>00035                 <span class="keywordtype">string</span> valores[CANT_CONF];
-<a name="l00036"></a>00036                 <a class="code" href="classConfiguracion.html">Configuracion</a>();
-<a name="l00037"></a>00037 <span class="keyword">public</span>:
-<a name="l00038"></a>00038                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_VOTANTES;
-<a name="l00039"></a>00039                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_DISTRITOS;
-<a name="l00040"></a>00040                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_ELECCION;
-<a name="l00041"></a>00041                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_LISTA;
-<a name="l00042"></a>00042                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CONTEO;
-<a name="l00043"></a>00043                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CANDIDATO;
-<a name="l00044"></a>00044                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CARGO;
-<a name="l00045"></a>00045                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_ADMINISTRADOR;
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047                 <span class="keyword">static</span> <a class="code" href="classConfiguracion.html">Configuracion</a> *getConfig();
-<a name="l00048"></a>00048         ~<a class="code" href="classConfiguracion.html">Configuracion</a>();
-<a name="l00049"></a>00049         <span class="keywordtype">string</span> getValorPorPrefijo(<span class="keywordtype">string</span> prefijo);
-<a name="l00050"></a>00050 };
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="preprocessor">#endif </span><span class="comment">/* CONFIGURACION_H_ */</span>
-<a name="l00053"></a>00053 
+<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_IDs &quot;&lt;ruta_IDs&gt;&quot;</span>
+<a name="l00026"></a>00026 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_REGS &quot;&lt;ruta_hash_administrador_regs&gt;&quot;</span>
+<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_BLOQ_LIB &quot;&lt;ruta_hash_administrador_bloq_lib&gt;&quot;</span>
+<a name="l00028"></a>00028 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_TABLA &quot;&lt;ruta_hash_administrador_tabla&gt;&quot;</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_ELECCION &quot;&lt;ruta_arbol_eleccion&gt;&quot;</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_LISTA &quot;&lt;ruta_arbol_lista&gt;&quot;</span>
+<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_CANDIDATO &quot;&lt;ruta_arbol_candidato&gt;&quot;</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_REGS &quot;&lt;ruta_hash_distrito_regs&gt;&quot;</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_BLOQ_LIB &quot;&lt;ruta_hash_distrito_bloq_lib&gt;&quot;</span>
+<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_TABLA &quot;&lt;ruta_hash_distrito_tabla&gt;&quot;</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_REGS &quot;&lt;ruta_hash_cargo_regs&gt;&quot;</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_BLOQ_LIB &quot;&lt;ruta_hash_cargo_bloq_lib&gt;&quot;</span>
+<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_TABLA &quot;&lt;ruta_hash_cargo_tabla&gt;&quot;</span>
+<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_REGS &quot;&lt;ruta_hash_votante_regs&gt;&quot;</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_BLOQ_LIB &quot;&lt;ruta_hash_votante_bloq_lib&gt;&quot;</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_TABLA &quot;&lt;ruta_hash_votante_tabla&gt;&quot;</span>
+<a name="l00041"></a>00041 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_REGS &quot;&lt;ruta_hash_ideleccion_regs&gt;&quot;</span>
+<a name="l00042"></a>00042 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_BLOQ_LIB &quot;&lt;ruta_hash_ideleccion_bloq_lib&gt;&quot;</span>
+<a name="l00043"></a>00043 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_TABLA &quot;&lt;ruta_hash_ideleccion_tabla&gt;&quot;</span>
+<a name="l00044"></a>00044 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_REGS &quot;&lt;ruta_hash_iddistrito_regs&gt;&quot;</span>
+<a name="l00045"></a>00045 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_BLOQ_LIB &quot;&lt;ruta_hash_iddistrito_bloq_lib&gt;&quot;</span>
+<a name="l00046"></a>00046 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_TABLA &quot;&lt;ruta_hash_iddistrito_tabla&gt;&quot;</span>
+<a name="l00047"></a>00047 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_REGS &quot;&lt;ruta_hash_idcargo_regs&gt;&quot;</span>
+<a name="l00048"></a>00048 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_BLOQ_LIB &quot;&lt;ruta_hash_idcargo_bloq_lib&gt;&quot;</span>
+<a name="l00049"></a>00049 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_TABLA &quot;&lt;ruta_hash_idcargo_tabla&gt;&quot;</span>
+<a name="l00050"></a>00050 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_REGS &quot;&lt;ruta_hash_idvotante_regs&gt;&quot;</span>
+<a name="l00051"></a>00051 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_BLOQ_LIB &quot;&lt;ruta_hash_idvotante_bloq_lib&gt;&quot;</span>
+<a name="l00052"></a>00052 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_TABLA &quot;&lt;ruta_hash_idvotante_tabla&gt;&quot;</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_REGS &quot;&lt;ruta_hash_idcandidato_regs&gt;&quot;</span>
+<a name="l00054"></a>00054 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_BLOQ_LIB &quot;&lt;ruta_hash_idcandidato_bloq_lib&gt;&quot;</span>
+<a name="l00055"></a>00055 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_TABLA &quot;&lt;ruta_hash_idcandidato_tabla&gt;&quot;</span>
+<a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_REGS &quot;&lt;ruta_hash_idlista_regs&gt;&quot;</span>
+<a name="l00057"></a>00057 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_BLOQ_LIB &quot;&lt;ruta_hash_idlista_bloq_lib&gt;&quot;</span>
+<a name="l00058"></a>00058 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_TABLA &quot;&lt;ruta_hash_idlista_tabla&gt;&quot;</span>
+<a name="l00059"></a>00059 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_DISTRITO &quot;&lt;ruta_arbol_reporte_distrito&gt;&quot;</span>
+<a name="l00060"></a>00060 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_ELECCION &quot;&lt;ruta_arbol_reporte_eleccion&gt;&quot;</span>
+<a name="l00061"></a>00061 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_LISTA &quot;&lt;ruta_arbol_reporte_lista&gt;&quot;</span>
+<a name="l00062"></a>00062 <span class="preprocessor"></span>
+<a name="l00063"></a>00063 <span class="preprocessor">#define CANT_CONF 45</span>
+<a name="l00064"></a>00064 <span class="preprocessor"></span>
+<a name="l00065"></a>00065 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067 <span class="keyword">using namespace </span>std;
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="classConfiguracion.html">00069</a> <span class="keyword">class </span><a class="code" href="classConfiguracion.html">Configuracion</a> {
+<a name="l00070"></a>00070 <span class="keyword">private</span>:
+<a name="l00071"></a>00071                 <span class="keywordtype">string</span> constantes[CANT_CONF];
+<a name="l00072"></a>00072                 <span class="keywordtype">string</span> valores[CANT_CONF];
+<a name="l00073"></a>00073                 <a class="code" href="classConfiguracion.html">Configuracion</a>();
+<a name="l00074"></a>00074 <span class="keyword">public</span>:
+<a name="l00075"></a>00075                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_VOTANTES;
+<a name="l00076"></a>00076                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_DISTRITOS;
+<a name="l00077"></a>00077                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_ELECCION;
+<a name="l00078"></a>00078                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_LISTA;
+<a name="l00079"></a>00079                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CONTEO;
+<a name="l00080"></a>00080                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CANDIDATO;
+<a name="l00081"></a>00081                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CARGO;
+<a name="l00082"></a>00082                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_ADMINISTRADOR;
+<a name="l00083"></a>00083                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_IDs;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085                 <span class="keyword">static</span> <a class="code" href="classConfiguracion.html">Configuracion</a> *getConfig();
+<a name="l00086"></a>00086         ~<a class="code" href="classConfiguracion.html">Configuracion</a>();
+<a name="l00087"></a>00087         <span class="keywordtype">string</span> getValorPorPrefijo(<span class="keywordtype">string</span> prefijo);
+<a name="l00088"></a>00088 };
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090 <span class="preprocessor">#endif </span><span class="comment">/* CONFIGURACION_H_ */</span>
+<a name="l00091"></a>00091 
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -127,7 +165,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:53 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

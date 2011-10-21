@@ -101,22 +101,28 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>getDomicilio</b> ()
 <a class="el" href="classDistrito.html">Distrito</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getDistrito</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad77c6ec172660cff741668e60aec47aa"></a><!-- doxytag: member="Votante::getElecciones" ref="ad77c6ec172660cff741668e60aec47aa" args="()" -->
 vector&lt; <a class="el" href="classEleccion.html">Eleccion</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getElecciones</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad39d33c4c5fb235e666b1f4c1eb333a5"></a><!-- doxytag: member="Votante::cambiarClave" ref="ad39d33c4c5fb235e666b1f4c1eb333a5" args="(string claveAnterior, string claveNueva)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cambiarClave</b> (string claveAnterior, string claveNueva)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21ee00acb7c10d8e103cafffc33a6cc2"></a><!-- doxytag: member="Votante::setDistrito" ref="a21ee00acb7c10d8e103cafffc33a6cc2" args="(Distrito &amp;distrito)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDistrito</b> (<a class="el" href="classDistrito.html">Distrito</a> &amp;distrito)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a137f76e90c30dece63e76fb25bae2d60"></a><!-- doxytag: member="Votante::votarEnEleccionALista" ref="a137f76e90c30dece63e76fb25bae2d60" args="(Eleccion &amp;eleccion, Lista &amp;lista)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>votarEnEleccionALista</b> (<a class="el" href="classEleccion.html">Eleccion</a> &amp;eleccion, <a class="el" href="classLista.html">Lista</a> &amp;lista)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29aa16c35b968709d0a276964a8ba483"></a><!-- doxytag: member="Votante::Guardar" ref="a29aa16c35b968709d0a276964a8ba483" args="(ofstream &amp;ofs)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Guardar</b> (ofstream &amp;ofs)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96fa101569ee4e5a0b05d7aa8be6c719"></a><!-- doxytag: member="Votante::Leer" ref="a96fa101569ee4e5a0b05d7aa8be6c719" args="(ifstream &amp;ifs)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Leer</b> (ifstream &amp;ifs)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6319defd73636545fa95cb54394ca6d4"></a><!-- doxytag: member="Votante::setId" ref="a6319defd73636545fa95cb54394ca6d4" args="(long id)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setId</b> (long id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9352b6a84fbd70ca31f3c5b51f100b84"></a><!-- doxytag: member="Votante::cambiarClave" ref="a9352b6a84fbd70ca31f3c5b51f100b84" args="(string claveAnterior, string claveNueva)" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>cambiarClave</b> (string claveAnterior, string claveNueva)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae383e0253753ee3d1cf9210f0d37bb51"></a><!-- doxytag: member="Votante::setDistrito" ref="ae383e0253753ee3d1cf9210f0d37bb51" args="(Distrito distrito)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDistrito</b> (<a class="el" href="classDistrito.html">Distrito</a> distrito)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa18919e71282f1a11cad2912a0ef40b0"></a><!-- doxytag: member="Votante::setDomicilio" ref="aa18919e71282f1a11cad2912a0ef40b0" args="(string nuevo_domicilio)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDomicilio</b> (string nuevo_domicilio)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a571be7714760c7e52d2ce8bdce1ab758"></a><!-- doxytag: member="Votante::agregarEleccion" ref="a571be7714760c7e52d2ce8bdce1ab758" args="(Eleccion eleccion)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>agregarEleccion</b> (<a class="el" href="classEleccion.html">Eleccion</a> eleccion)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8860faab1bc885f976114f5b4066973d"></a><!-- doxytag: member="Votante::vaciarVectorElecciones" ref="a8860faab1bc885f976114f5b4066973d" args="()" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>vaciarVectorElecciones</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d96451ebf6aeef3389745f7f6f0f944"></a><!-- doxytag: member="Votante::Guardar" ref="a6d96451ebf6aeef3389745f7f6f0f944" args="(ofstream &amp;ofs)" -->
+unsigned long int&#160;</td><td class="memItemRight" valign="bottom"><b>Guardar</b> (ofstream &amp;ofs)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52bd4fc4a77f423b29ac4f006aaabe29"></a><!-- doxytag: member="Votante::Leer" ref="a52bd4fc4a77f423b29ac4f006aaabe29" args="(ifstream &amp;ifs, unsigned long int offset)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Leer</b> (ifstream &amp;ifs, unsigned long int offset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6e3000445744119e087ed8476436bcb"></a><!-- doxytag: member="Votante::getTamanioEnDisco" ref="ab6e3000445744119e087ed8476436bcb" args="()" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getTamanioEnDisco</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a93a3e16568870db86837493ab613fb11"></a><!-- doxytag: member="Votante::Imprimir" ref="a93a3e16568870db86837493ab613fb11" args="()" -->
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Imprimir</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4b8c93345c4ef690031085b49f4491b"></a><!-- doxytag: member="Votante::getURLArchivoDatos" ref="ab4b8c93345c4ef690031085b49f4491b" args="()" -->
 string&#160;</td><td class="memItemRight" valign="bottom"><b>getURLArchivoDatos</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6319defd73636545fa95cb54394ca6d4"></a><!-- doxytag: member="Votante::setId" ref="a6319defd73636545fa95cb54394ca6d4" args="(long id)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setId</b> (long id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a25f7bd4dafceddca641a952358efe922"></a><!-- doxytag: member="Votante::getClassName" ref="a25f7bd4dafceddca641a952358efe922" args="()" -->
 string&#160;</td><td class="memItemRight" valign="bottom"><b>getClassName</b> ()</td></tr>
 </table>
@@ -139,7 +145,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>getClassName</b> ()
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:54 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
