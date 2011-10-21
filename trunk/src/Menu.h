@@ -23,6 +23,9 @@
 #include "DataAccess.h"
 #include "DataGetter.h"
 #include "Informe.h"
+#include "./Eleccion.h"
+#include "./Distrito.h"
+#include "./Lista.h"
 
 using namespace std;
 

@@ -1511,11 +1511,11 @@ void Menu::adminInformes(){
 
 				cout<<"Ingrese fecha Eleccion:";
 				cin>>fechaEleccion;
-				fechaEleccionIndex=Utilidades::indexarFecha(fechaEleccion);
 				cout<<"Ingrese Cargo:";
-				cin>>cargoEleccion;
+				cin.ignore();
+				getline(cin, cargoEleccion);
 
-				clave=fechaEleccionIndex + "$" + cargoEleccion;
+				clave=Utilidades::obtenerClaveEleccion(fechaEleccion,cargoEleccion);
 				if(consulta.ObtenerRegistro(clave,eleccion)){
 
 					informe=new Informe(eleccion);
@@ -1533,11 +1533,16 @@ void Menu::adminInformes(){
 
             case 'D':
 				cout<<"Ingrese Nombre de Distrito:";
-				cin>> nombreDistrito;
+				cin.ignore();
+				getline(cin, nombreDistrito);
 
-				clave=nombreDistrito;
+				clave=Utilidades::obtenerClaveDistrito(nombreDistrito);
 
 				if(consulta.ObtenerRegistro(clave,distrito)){
+
+					vector<Conteo *> conteos;
+
+					DataGetter::getConteosPorDistrito(conteos, distrito);
 
 					informe=new Informe(distrito);
 					delete informe;
@@ -1548,26 +1553,27 @@ void Menu::adminInformes(){
 
 				}
 
-
 				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
+				getchar();
 				retorno=true;
 				break;
 
             case 'L':
 
             	cout<<"Ingrese Nombre de Lista:";
-            	cin>>nombreLista;
+				cin.ignore();
+				getline(cin, nombreLista);
 
             	cout<<"Ingrese Cargo que se postula en la Lista:";
-            	cin>>nombreCargo;
+				//cin.ignore();
+				getline(cin, nombreCargo);
 
             	cout<<"Ingrese fecha de eleccion para la lista:";
-            	cin>>fechaEleccion;
+				cin>>fechaEleccion;
 
-            	fechaEleccionIndex=Utilidades::indexarFecha(fechaEleccion);
+            	clave= Utilidades::obtenerClaveLista(fechaEleccion, nombreCargo, nombreLista);
 
-            	clave=fechaEleccionIndex + "$" + nombreCargo + "$" + nombreLista;
+            	cout<<endl<<clave<<endl;
 
             	if(consulta.ObtenerRegistro(clave,lista)){
 
@@ -1580,7 +1586,7 @@ void Menu::adminInformes(){
             	}
 
                 cout << "Ingrese cualquier letra para continuar: ";
-                cin >> opcion;
+            	getchar();
                 retorno=true;
                 break;
             case 'V':
