@@ -148,7 +148,6 @@ void Menu::adminMain() {
 void Menu::adminCandidato(){
 
 	char opcion;
-	char opcionSiNo;
 	bool invalida=false;
 	bool retorno=false;
 
@@ -687,7 +686,6 @@ void Menu::adminDistrito() {
 	char opcion;
 	bool invalida=false;
 	bool retorno=false;
-	char nombre[50];
 	std::string nombreDistrito;
 	ABMentidades abm;
 	ConsultaEntidades consulta;
@@ -741,7 +739,7 @@ void Menu::adminDistrito() {
 
 			if (!consulta.ObtenerRegistro(nombreDistrito,*distrito))
 			{
-				cout << "No existe el Distrito \"" << nombre << "\"." << endl;
+				cout << "No existe el Distrito \"" << nombreDistrito << "\"." << endl;
 			}else{
 				abm.bajaDistrito(*distrito);
 			}
@@ -794,10 +792,10 @@ void Menu::adminDistrito() {
 }
 
 void Menu::adminCargo() {
-	char opcion;
+		char opcion;
 		bool invalida=false;
 		bool retorno=false;
-		char nombre[50];
+		string nombreCargo;
 		Cargo cargo;
 		int resultado;
 	    ConsultaEntidades consulta;
@@ -822,9 +820,10 @@ void Menu::adminCargo() {
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del Cargo: ";
 				cin.ignore();
-				fgets(nombre,50,stdin);
+				//fgets(nombre,50,stdin);
+				getline(cin,nombreCargo);
 
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				if(!(consulta.ObtenerRegistro(nombreCargo, cargo)))
 				{
 					cout<<"El cargo no existe"<<endl;
 					resultado = -1;
@@ -855,10 +854,10 @@ void Menu::adminCargo() {
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del nuevo Cargo: ";
 				cin.ignore();
-				fgets(nombre,50,stdin);
+				getline(cin,nombreCargo);
 
-				string cad(nombre);
-				Cargo nuevo(cad);
+
+				Cargo nuevo(nombreCargo);
 
 				bool seguirCargando=false;
 				string cargoSec;
@@ -880,7 +879,7 @@ void Menu::adminCargo() {
 
 				//Se crea el cargo, verificando si no existia
 				if(abm.altaCargo(nuevo))
-					cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
+					cout << "Se creo el Cargo \"" << nombreCargo << "\"." << endl;
 				else
 					cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
 
@@ -892,17 +891,19 @@ void Menu::adminCargo() {
 			case 'B':
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del Cargo a borrar: ";
-				cin >> nombre;
+
+				cin.ignore();
+				getline(cin,nombreCargo);
 
 
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				if(!(consulta.ObtenerRegistro(nombreCargo, cargo)))
 				{
 					cout<<"El cargo no existe"<<endl;
 					resultado = -1;
 					break;
 				}
 				if(abm.bajaCargo(cargo))
-					cout << "Se borro el cargo \"" << nombre << "\"." << endl;
+					cout << "Se borro el cargo \"" << nombreCargo << "\"." << endl;
 				else
 					cout<< "No se ha podido borrar al cargo." << endl;
 
@@ -914,9 +915,9 @@ void Menu::adminCargo() {
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del Cargo a modificar: ";
 				cin.ignore();
-				fgets(nombre,50,stdin);
+				getline(cin,nombreCargo);
 
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
+				if(!(consulta.ObtenerRegistro(nombreCargo, cargo)))
 				{
 					cout<<"El cargo no existe"<<endl;
 					resultado = -1;
@@ -1216,8 +1217,7 @@ void Menu::adminVotante() {
     char opcion;
     bool invalida=false;
     bool retorno=false;
-    char nombre[50], direccion[50], dni[50],claveVotante[30],nombreDistrito[50];
-    string dniM;
+    string dniM,nombreVotante,direccionVotante,claveVotante,nombreDistrito,direccion;
     int dniN;
 
     Votante votante,*vot=NULL;
@@ -1258,7 +1258,7 @@ void Menu::adminVotante() {
 					cin.ignore();
 					getline(cin,dniM);
 					dniN = atoi(dniM.c_str());
-				} while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
+				} while (( (dniN<5000000) || (dniN>100000000) ) && dniM != salir);
 
 				//string dniAux(dni);
 
@@ -1291,49 +1291,46 @@ void Menu::adminVotante() {
                             cout << "Ingrese el DNI: ";
 
                             cin.ignore();
-                            fgets(dni,50,stdin);
-
-                            dniN = atoi(dni);
+							getline(cin,dniM);
+							dniN = atoi(dniM.c_str());
 
 
                     } while ( (dniN<5000000) || (dniN>100000000) );
 
                     cout<<"ingrese una clave para el Votante:";
-                    //cin>>clave_votante;
-                    //cin.getline(clave_votante,50);
-                    fgets(claveVotante,50,stdin);
+
+                    //fgets(claveVotante,50,stdin);
+                    getline(cin,claveVotante);
 
                     cout << "Ingrese el nombre y apellido del nuevo Votante: ";
-                    //cin >> nombre;
-                    //cin.getline(nombre,50);
-                    fgets(nombre,50,stdin);
+                    //fgets(nombre,50,stdin);
+                    getline(cin,nombreVotante);
 
                     cout << "Ingrese el domicilio: ";
-                    //cin >> direccion;
-                    //cin.getline(direccion,30);
-                    fgets(direccion,30,stdin);
+                    //fgets(direccion,30,stdin);
+                    getline(cin,direccion);
 
                     cout << "ingrese el nombre del distrito del Votante: ";
-                    //cin >> nombreDistrito;
-                    //cin.getline(nombreDistrito,50);
-                    fgets(nombreDistrito,50,stdin);
+                    //fgets(nombreDistrito,50,stdin);
+                    getline(cin,nombreDistrito);
 
-                    cout<<"Distro es: "<<nombreDistrito<<"."<<endl;
+                    cout<<"Distrito es: "<<nombreDistrito<<"."<<endl;
 
                     //Se verifica si existe el distrito
                     if(consulta.ObtenerRegistro(nombreDistrito, distrito))
                         //votante.setDistrito(distrito);
-                    	vot=new Votante(dniN,nombre,claveVotante,direccion,distrito);
+                    	vot=new Votante(dniN,nombreVotante,claveVotante,direccion,distrito);
                     else
                         cout << "No existe el distrito " <<nombreDistrito<< endl; // no se encontro distrito
 
 					//TODO: Faltan set de los atributos basicos del votante, ver en la modificacion y baja
+                    //Hecho...
 
                     //Se crea el votante, verificando si no existia
 
                     //if(abm.altaVotante(votante))
                     if(vot!=NULL && abm.altaVotante(*vot))
-                        cout << "Se creo el Votante \"" << nombre << "\"." << endl;
+                        cout << "Se creo el Votante \"" << nombreVotante << "\"." << endl;
                     else
                         cout << "El votante ya existe o se produjo un error al crearlo." << endl;
 
@@ -1352,13 +1349,14 @@ void Menu::adminVotante() {
                                     cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
                             }
                             cout << "Ingrese el DNI del Votante a borrar: ";
-                            cin >> dni;
 
-                            dniN = atoi(dni);
+                            cin.ignore();
+							getline(cin,dniM);
+							dniN = atoi(dniM.c_str());
 
-                    } while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
+                    } while (( (dniN<5000000) || (dniN>100000000) ) && dniM != salir);
 
-                    if(!(consulta.ObtenerRegistro(dni, votante)))
+                    if(!(consulta.ObtenerRegistro(dniM, votante)))
                     {
                         cout<<"El votante no existe"<<endl;
                         resultado = -1;
@@ -1383,15 +1381,16 @@ void Menu::adminVotante() {
 
             case 'M':
                 dniN= -2;
-               // do {
+               do {
                     if (dniN!=-2) {
                         cout << "El DNI ingresado es invalido. para salir ingrese salir" << endl;
                     }
                     cout << "Ingrese el DNI del Votante a modificar: ";
-                    //cin >> dni;
-                    cin >> dniM;
-                    //dniN = atoi(dni);
-                //} while (( (dniN<5000000) || (dniN>100000000) ) && dni != salir);
+
+                    cin.ignore();
+					getline(cin,dniM);
+					dniN = atoi(dniM.c_str());
+                } while (( (dniN<5000000) || (dniN>100000000) ) && dniM != salir);
 
                 //string dniAux(dni);
 
@@ -1417,24 +1416,31 @@ void Menu::adminVotante() {
                         cout << "V => Volver." << endl << "Opcion: ";
                         cin >> opcion;
 
-                        invalida_v=false;
+                        invalida_v=true;
                         switch ((char)toupper(opcion)) {
                         case 'o':
                         case 'O':
-                            cout << "ingrese el nuevo domicilio del Votante: ";
-                            cin >> nombre;
-
-                            votante.setDomicilio(nombre);
+                            cout << "ingrese el nuevo domicilio del Votante(0 para no cambiar): ";
+                            cin.ignore();
+                            getline(cin, direccion);
+                            if(direccion!="0"){
+                            	votante.setDomicilio(direccion);
+                            	invalida_v=false;
+                            }
                             break;
                         case 'd':
                         case 'D':
-                            cout << "ingrese el nombre del nuevo distrito del Votante: ";
-                            cin >> nombre;
-                            
-                            if(consulta.ObtenerRegistro(nombre, distrito))
-                                votante.setDistrito(distrito);
-                            else
-                                cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
+                            cout << "ingrese el nombre del nuevo distrito del Votante(0 para no cambiar): ";
+                            cin.ignore();
+                            getline(cin, nombreDistrito);
+                            if(nombreDistrito!="0"){
+								if(consulta.ObtenerRegistro(nombreDistrito, distrito)){
+									votante.setDistrito(distrito);
+									invalida_v=false;
+								}
+								else
+									cout << "No existe el distrito" << resultado << endl; // no se encontro distrito
+                            }
                             break;
                         case 'v':
                         case 'V':
@@ -1447,14 +1453,14 @@ void Menu::adminVotante() {
                         if(!invalida_v && (opcion != 'V'))
                         {
                             if((abm.modificacionVotante(votante)))
-                                cout << "Se modifico el Votante \"" << nombre << "\"." << endl;
+                                cout << "Se modifico el Votante \"" << nombreVotante << "\"." << endl;
                             else
                                 cout << "Error al modificar al Votante." << endl;
                         }
 
                     } while (invalida_v);
                 } else {
-                        cout << "No se encontro el Votante \"" << nombre << "\"." << endl;
+                        cout << "No se encontro el Votante \"" << nombreVotante << "\"." << endl;
                 }
                 
                 cout << "Ingrese cualquier letra para continuar: ";
