@@ -287,10 +287,14 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	return true;
 }
 
-void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
-//void ABMentidades::agregarVoto(Votante &votante, Lista &lista, Distrito &distrito) {
 
-	 //Usando los datos recibidos por parámetro busca el objeto conteo
+void ABMentidades::agregarVoto(Votante &votante, Lista &lista, Distrito &distrito) {
+
+    /* Le agrego la eleccion al votante como "ya votada" y guardo el votante en disco */
+    votante.agregarEleccion(lista.getEleccion());
+    this->modificacionVotante(votante);
+
+	//Usando los datos recibidos por parámetro busca el objeto conteo
     //en el árbol de reporte por distrito.
     this->arbol = new ArbolBMas();
     this->arbol->abrir((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_REPORTE_DISTRITO));
@@ -357,7 +361,6 @@ void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
     //sobreescribe el registro
     string rutaArchivo = conteoExistente.getURLArchivoDatos();
 
-
     ofstream ofs;
 
     ofs.open(rutaArchivo.c_str(), ios::binary | ios::in);
@@ -370,7 +373,6 @@ void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
 	else
 		ofs.close();
 
-
 	ofs.open(rutaArchivo.c_str(), ios::in | ios::out | ios::binary);
 
     if(!ofs.is_open())	throw VotoElectronicoExcepcion("No se pudo abrir el archivo de Conteo");
@@ -378,8 +380,7 @@ void ABMentidades::agregarVoto(Lista &lista, Distrito &distrito) {
     conteoExistente.Guardar(ofs);
     ofs.close();
 
-    //TODO:Guardar una modificacion de votante para q se guarden la eleccion agregada a las
-    //votadas por el votante
+    return;
 }
 
 
@@ -497,6 +498,8 @@ bool ABMentidades::modificacionEleccion(Eleccion &eleccion) {
 	delete this->hash;
 	this->hash = NULL;
 
+	Logger::Modificacion(eleccion);
+
 	return true;
 }
 
@@ -558,6 +561,8 @@ bool ABMentidades::modificacionDistrito(Distrito &distrito) {
 	}
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Modificacion(distrito);
 
 	/* Cambio la clave en el hash distrito/id_distrito */
 
@@ -668,6 +673,8 @@ bool ABMentidades::modificacionCargo(Cargo &cargo) {
 	delete this->hash;
 	this->hash = NULL;
 
+	Logger::Modificacion(cargo);
+
 	return true;
 }
 
@@ -724,6 +731,8 @@ bool ABMentidades::modificacionVotante(Votante &votante) {
 	}
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Modificacion(votante);
 
 	return true;
 }
@@ -785,6 +794,8 @@ bool ABMentidades::modificacionLista(Lista &lista) {
 	}
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Modificacion(lista);
 
 	/* Cambio la clave en el arbol lista/id_lista */
 
@@ -877,16 +888,15 @@ bool ABMentidades::modificacionLista(Lista &lista) {
     return true;
 }
 
-bool ABMentidades::modificacionCandidato(Candidato &candidato)
-{
-    return true;
-}
 
 bool ABMentidades::bajaEleccion(Eleccion &eleccion)
 {
     string clave = Utilidades::obtenerClaveEleccion(eleccion.getFecha(),eleccion.getCargo().getCargoPrincipal());
-    return bajaEleccion(clave);
+    bool bajaCorrecta = bajaEleccion(clave);
+    if (bajaCorrecta) Logger::Eliminar(eleccion);
+    return bajaCorrecta;
 }
+
 
 bool ABMentidades::bajaEleccion(string claveEleccion)
 {
@@ -903,6 +913,7 @@ bool ABMentidades::bajaEleccion(string claveEleccion)
         this->arbol->eliminar(claveEleccion);
         this->arbol->cerrar();
         delete this->arbol;
+        this->arbol = NULL;
 
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDELECCION_REGS));
@@ -920,14 +931,19 @@ bool ABMentidades::bajaEleccion(string claveEleccion)
     //devuelve false si la Elección no existía
     this->arbol->cerrar();
     delete this->arbol;
+    this->arbol = NULL;
     return false;
 }
+
 
 bool ABMentidades::bajaDistrito(Distrito &distrito)
 {
     string clave = Utilidades::obtenerClaveDistrito(distrito.getNombre());
-    return bajaDistrito(clave);
+    bool bajaCorrecta = bajaDistrito(clave);
+    if (bajaCorrecta) Logger::Eliminar(distrito);
+    return bajaCorrecta;
 }
+
 
 bool ABMentidades::bajaDistrito(string claveDistrito)
 {
@@ -964,11 +980,15 @@ bool ABMentidades::bajaDistrito(string claveDistrito)
     return false;
 }
 
+
 bool ABMentidades::bajaCargo(Cargo &cargo)
 {
     string clave = Utilidades::obtenerClaveCargo(cargo.getCargoPrincipal());
-    return bajaCargo(clave);
+    bool bajaCorrecta = bajaCargo(clave);
+    if (bajaCorrecta) Logger::Eliminar(cargo);
+    return bajaCorrecta;
 }
+
 
 bool ABMentidades::bajaCargo(string claveCargo)
 {
@@ -1005,11 +1025,15 @@ bool ABMentidades::bajaCargo(string claveCargo)
     return false;
 }
 
+
 bool ABMentidades::bajaVotante(Votante &votante)
 {
     string clave = Utilidades::obtenerClaveVotante(votante.getDNI());
-    return bajaVotante(clave);
+    bool bajaCorrecta = bajaVotante(clave);
+    if (bajaCorrecta) Logger::Eliminar(votante);
+    return bajaCorrecta;
 }
+
 
 bool ABMentidades::bajaVotante(string claveVotante)
 {
@@ -1046,11 +1070,15 @@ bool ABMentidades::bajaVotante(string claveVotante)
     return false;
 }
 
+
 bool ABMentidades::bajaLista(Lista &lista)
 {
     string clave = Utilidades::obtenerClaveLista(lista.getEleccion().getFecha(),lista.getEleccion().getCargo().getCargoPrincipal(),lista.getNombre());
-    return bajaLista(clave);
+    bool bajaCorrecta = bajaLista(clave);
+    if (bajaCorrecta) Logger::Eliminar(lista);
+    return bajaCorrecta;
 }
+
 
 bool ABMentidades::bajaLista(string claveLista)
 {
@@ -1067,7 +1095,7 @@ bool ABMentidades::bajaLista(string claveLista)
         this->arbol->eliminar(claveLista);
         this->arbol->cerrar();
         delete this->arbol;
-
+        this->arbol = NULL;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
         string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB));
@@ -1084,14 +1112,19 @@ bool ABMentidades::bajaLista(string claveLista)
     //devuelve false si la Lista no existía
     this->arbol->cerrar();
     delete this->arbol;
+    this->arbol = NULL;
     return false;
 }
+
 
 bool ABMentidades::bajaCandidato(Candidato &candidato)
 {
     string clave = Utilidades::obtenerClaveCandidato(candidato.getLista().getEleccion().getFecha(),candidato.getLista().getEleccion().getCargo().getCargoPrincipal(),candidato.getLista().getNombre(),candidato.getDNI());
-    return bajaCandidato(clave);
+    bool bajaCorrecta = bajaCandidato(clave);
+    if (bajaCorrecta) Logger::Eliminar(candidato);
+    return bajaCorrecta;
 }
+
 
 bool ABMentidades::bajaCandidato(string claveCandidato)
 {
@@ -1108,6 +1141,7 @@ bool ABMentidades::bajaCandidato(string claveCandidato)
         this->arbol->eliminar(claveCandidato);
         this->arbol->cerrar();
         delete this->arbol;
+        this->arbol = NULL;
 
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_REGS));
@@ -1125,20 +1159,6 @@ bool ABMentidades::bajaCandidato(string claveCandidato)
     //devuelve false si el candidato no existía
     this->arbol->cerrar();
     delete this->arbol;
+    this->arbol = NULL;
     return false;
-}
-
-bool ABMentidades::altaAdministrador(Administrador &administrador)
-{
-    return true;
-}
-
-bool ABMentidades::modificacionAdministrador(Administrador &administrador)
-{
-    return true;
-}
-
-bool ABMentidades::bajaAdministrador(Administrador &administrador)
-{
-    return true;
 }
