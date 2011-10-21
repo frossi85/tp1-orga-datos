@@ -114,8 +114,7 @@ vector<string> CargaInicial::getFechasElecciones()
 
 	for(unsigned int i = 0; i < elecciones.size(); i++)
 	{
-		fechas.push_back(Utilidades::indexarFecha(elecciones[i].getFecha()));
-		cout<<Utilidades::indexarFecha(elecciones[i].getFecha());
+		fechas.push_back(elecciones[i].getFecha());
 	}
 
 	return fechas;
