@@ -93,7 +93,8 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	}
 
 	// Me posiciono en el archivo
-	ifs.seekg(offset,ios::beg);
+	//ifs.seekg(offset,ios::beg);
+	ifs.seekg(offset);
 
 	//Comienzo lectura de atributos
 
@@ -186,6 +187,7 @@ void Conteo::Imprimir(){
 void Conteo::Imprimir(ofstream &ofs)
 {
 	ofs << "Conteo:" << endl;
+	ofs << "Eleccion: " << this->_eleccion->getFecha() << " - " << this->_eleccion->getCargo().getCargoPrincipal() << endl;
 	ofs << "--Lista: " << this->_lista->getNombre()<<endl;
     ofs << "--Distrito: " << this->_distrito->getNombre()<<endl;
     ofs << "--Cantidad de votos: " << this->_cantidad << endl;
