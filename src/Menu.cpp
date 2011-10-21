@@ -173,7 +173,7 @@ void Menu::adminCandidato(){
 	Lista lista;
 	string nombreLista;
 	string claveConsulta;
-	string dni;
+	int dni;
 
 
 	do {
@@ -212,17 +212,14 @@ void Menu::adminCandidato(){
 			cout<< "Cargo ingresado: " << cargo << endl;
 
 			cout<< endl<<"Ingrese DNI del candidato: "<<endl;
-			getline(cin, dni);
+			cin>>dni;
 
-			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo + "$" + nombreLista;
-			Utilidades::formatearClave(claveConsulta);
+			claveConsulta = Utilidades::obtenerClaveLista(fechaEleccion, cargo, nombreLista);
 
 			if(consulta.ObtenerRegistro(claveConsulta,lista))
 			{
+				string clave = Utilidades::obtenerClaveCandidato(fechaEleccion, cargo, nombreLista,dni);
 
-				string fechaIndex=Utilidades::indexarFecha(fechaEleccion);
-				string clave=fechaIndex + "$" + cargo + "$" + nombreLista + "$" + dni;
-				Utilidades::formatearClave(clave);
 				Candidato candidato;
 				if (consulta.ObtenerRegistro(clave,candidato)){
 
@@ -267,7 +264,7 @@ void Menu::adminCandidato(){
 			cout<< "Cargo ingresado: " << cargo << endl;
 
 			cout<< endl<<"Ingrese DNI del candidato: "<<endl;
-			getline(cin, dni);
+			cin>>dni;
 
 			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo + "$" + nombreLista;
 			Utilidades::formatearClave(claveConsulta);
@@ -275,9 +272,9 @@ void Menu::adminCandidato(){
 			if(consulta.ObtenerRegistro(claveConsulta,lista))
 			{
 
-				Utilidades::formatearClave(dni);
+				string dniAux = Utilidades::obtenerClaveVotante(dni);
 				Votante votante;
-				if (consulta.ObtenerRegistro(dni,votante)){
+				if (consulta.ObtenerRegistro(dniAux,votante)){
 					Candidato candidato(votante,lista);
 					if(abm.altaCandidato(candidato)){
 						cout<<"El Candidato se creo correctamente."<<endl;
@@ -317,7 +314,7 @@ void Menu::adminCandidato(){
 			cout<< "Cargo ingresado: " << cargo << endl;
 
 			cout<< endl<<"Ingrese DNI del candidato: "<<endl;
-			getline(cin, dni);
+			cin >> dni;
 
 			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo + "$" + nombreLista;
 			Utilidades::formatearClave(claveConsulta);
@@ -325,9 +322,7 @@ void Menu::adminCandidato(){
 			if(consulta.ObtenerRegistro(claveConsulta,lista))
 			{
 
-				string fechaIndex=Utilidades::indexarFecha(fechaEleccion);
-				string clave=fechaIndex + "$" + cargo + "$" + nombreLista + "$" + dni;
-				Utilidades::formatearClave(clave);
+				string clave = Utilidades::obtenerClaveCandidato(fechaEleccion, cargo, nombreLista,dni);
 				Candidato candidato;
 				if (consulta.ObtenerRegistro(clave,candidato)){
 
@@ -381,7 +376,7 @@ void Menu::adminCandidato(){
 			cout<< "Cargo ingresado: " << cargo << endl;
 
 			cout<< endl<<"Ingrese DNI del candidato: "<<endl;
-			getline(cin, dni);
+			cin>>dni;
 
 			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo + "$" + nombreLista;
 			Utilidades::formatearClave(claveConsulta);
@@ -389,9 +384,7 @@ void Menu::adminCandidato(){
 			if(consulta.ObtenerRegistro(claveConsulta,lista))
 			{
 
-				string fechaIndex=Utilidades::indexarFecha(fechaEleccion);
-				string clave=fechaIndex + "$" + cargo + "$" + nombreLista + "$" + dni;
-				Utilidades::formatearClave(clave);
+				string clave = Utilidades::obtenerClaveCandidato(fechaEleccion, cargo, nombreLista,dni);
 				Candidato candidato;
 				if (consulta.ObtenerRegistro(clave,candidato)){
 
