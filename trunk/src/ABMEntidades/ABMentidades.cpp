@@ -46,6 +46,9 @@ bool ABMentidades::altaEleccion(Eleccion &eleccion) {
 	this->hash->imprimir("./archivos/Otros/hash_ideleccion");
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Alta(eleccion);
+
 	return true;
 }
 
@@ -84,6 +87,9 @@ bool ABMentidades::altaDistrito(Distrito &distrito) {
 	this->hash->imprimir("./archivos/Otros/hash_iddistrito");
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Alta(distrito);
+
 	return true;
 }
 
@@ -122,6 +128,9 @@ bool ABMentidades::altaCargo(Cargo &cargo) {
 	this->hash->imprimir("./archivos/Otros/hash_idcargo");
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Alta(cargo);
+
 	return true;
 }
 
@@ -160,6 +169,9 @@ bool ABMentidades::altaVotante(Votante &votante) {
 	this->hash->imprimir("./archivos/Otros/hash_idvotante");
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Alta(votante);
+
 	return true;
 }
 
@@ -198,6 +210,8 @@ bool ABMentidades::altaLista(Lista &lista) {
 	this->hash->imprimir("./archivos/Otros/hash_idlista");
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Alta(lista);
 
 	/* Creo los conteos inicializados en 0 */
 	this->crearConteo(lista);
@@ -240,6 +254,9 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 	this->hash->imprimir("./archivos/Otros/hash_idcandidato");
 	delete this->hash;
 	this->hash = NULL;
+
+	Logger::Alta(candidato);
+
 	return true;
 }
 
