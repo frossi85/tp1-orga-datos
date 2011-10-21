@@ -37,6 +37,8 @@ public:
 
 	void adminMain();
 
+	void adminCandidato();
+
 	void adminDistrito();
 
 	void adminCargo();

@@ -154,6 +154,186 @@ void Menu::adminMain() {
 	} while ((invalida) || (retorno));
 }
 
+void Menu::adminCandidato(){
+
+	char opcion;
+	char opcionSiNo;
+	bool invalida=false;
+	bool retorno=false;
+
+	ABMentidades abm;
+	ConsultaEntidades consulta;
+
+	Candidato candidato;
+	Eleccion eleccion;
+	string fechaEleccion;
+	string cargo;
+
+	Lista lista;
+	string nombreLista;
+	string claveConsulta;
+	string dni;
+
+
+	do {
+		system("clear");
+		if (invalida) {
+			cout << "Opcion invalida, intente nuevamente." << endl;
+		}
+		cout << "********************************" << endl;
+		cout << "A => Crear una Candidato." << endl;
+		cout << "B => Borrar una Candidato." << endl;
+		cout << "M => Modificar una Candidato." << endl;
+		cout << "V => Volver." << endl << "Opcion: ";
+		cin >> opcion;
+
+		retorno=false;
+		invalida=false;
+		switch ((char)toupper(opcion)) {
+
+
+		case 'A':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre de la Lista del Candidato: ";
+			cin.ignore();
+			getline(cin, nombreLista);
+			cout << "Lista ingresada: " << nombreLista <<endl;
+			cout << endl <<endl;
+			cout << "Eleccion a la que se postula: "<<endl;
+			cout << "- Ingrese fecha: ";
+			cin >> fechaEleccion;
+			//cin.ignore() sirve para sacar el Enter del buffer y podes usar despues getline()
+
+			cout<< "Fecha ingresada: " << fechaEleccion << endl;
+			cin.ignore();
+			cout << "- Ingrese el Cargo del candidato: ";
+			getline(cin, cargo);
+
+			cout<< "Cargo ingresado: " << cargo << endl;
+
+			cout<< endl<<"Ingrese DNI del candidato: "<<endl;
+			getline(cin, dni);
+
+			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo;
+			Utilidades::formatearClave(claveConsulta);
+
+			if(consulta.ObtenerRegistro(claveConsulta, eleccion))
+			{
+				claveConsulta += ("$" + nombreLista);
+				Utilidades::formatearClave(claveConsulta);
+
+
+			}
+			else
+				cout<<endl<<"No existe la eleccion a la cual se quiere presentar."<<endl;
+
+			cout<<endl<<"Presione una tecla para continuar."<<endl;
+
+			getchar();
+			break;
+		case 'B':
+
+			cout << endl <<endl;
+			cout << "Ingrese el nombre de la Lista: ";
+			cin.ignore();
+			getline(cin, nombreLista);
+			cout << "Lista ingresada: " << nombreLista <<endl;
+			cout << endl;
+			cout << "Eleccion a la que pertenece: "<<endl;
+			cout << "- Ingrese fecha: ";
+			cin >> fechaEleccion;
+			//cin.ignore() sirve para sacar el Enter del buffer y podes usar despues getline()
+
+			cout<< "Fecha ingresada: " << fechaEleccion << endl;
+			cin.ignore();
+			cout << "- Ingrese el Cargo: ";
+			getline(cin, cargo);
+
+			cout<< "Cargo ingresado: " << cargo << endl;
+
+			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo;
+			Utilidades::formatearClave(claveConsulta);
+
+			if(consulta.ObtenerRegistro(claveConsulta, eleccion))
+			{
+				claveConsulta += ("$" + nombreLista);
+				Utilidades::formatearClave(claveConsulta);
+
+				if(consulta.ObtenerRegistro(claveConsulta,lista)){
+
+
+				}else{
+					cout<<"No existe la Lista."<<endl;
+				}
+
+
+			}
+			else
+				cout<<endl<<"No existe la eleccion que se ingreso."<<endl;
+
+			cout<<endl<<"Presione una tecla para continuar."<<endl;
+			getchar();
+			retorno=true;
+			break;
+
+		case 'M':
+
+			cout << endl <<endl;
+			cout << "Ingrese el nombre de la Lista: ";
+			cin.ignore();
+			getline(cin, nombreLista);
+			cout << "Lista ingresada: " << nombreLista <<endl;
+			cout << endl;
+			cout << "Eleccion a la que pertenece: "<<endl;
+			cout << "- Ingrese fecha: ";
+			cin >> fechaEleccion;
+			//cin.ignore() sirve para sacar el Enter del buffer y podes usar despues getline()
+
+			cout<< "Fecha ingresada: " << fechaEleccion << endl;
+			cin.ignore();
+			cout << "- Ingrese el Cargo: ";
+			getline(cin, cargo);
+
+			cout<< "Cargo ingresado: " << cargo << endl;
+
+			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo;
+			Utilidades::formatearClave(claveConsulta);
+
+			if(consulta.ObtenerRegistro(claveConsulta, eleccion))
+			{
+				claveConsulta += ("$" + nombreLista);
+				Utilidades::formatearClave(claveConsulta);
+
+
+
+
+
+			}
+			else
+				cout<<endl<<"No existe la eleccion que se ingreso."<<endl;
+
+			cout<<endl<<"Presione una tecla para continuar."<<endl;
+			getchar();
+			retorno=true;
+			break;
+
+		case 'V':
+			system("clear");
+			break;
+		default:
+			invalida=true;
+			break;
+		}
+
+	} while ((invalida) || (retorno));
+
+
+
+
+
+
+}
+
 void Menu::adminLista(){
 
 
@@ -266,11 +446,117 @@ void Menu::adminLista(){
 			break;
 		case 'B':
 
+			cout << endl <<endl;
+			cout << "Ingrese el nombre de la Lista: ";
+			cin.ignore();
+			getline(cin, nombreLista);
+			cout << "Lista ingresada: " << nombreLista <<endl;
+			cout << endl;
+			cout << "Eleccion a la que pertenece: "<<endl;
+			cout << "- Ingrese fecha: ";
+			cin >> fechaEleccion;
+			//cin.ignore() sirve para sacar el Enter del buffer y podes usar despues getline()
+
+			cout<< "Fecha ingresada: " << fechaEleccion << endl;
+			cin.ignore();
+			cout << "- Ingrese el Cargo: ";
+			getline(cin, cargo);
+
+			cout<< "Cargo ingresado: " << cargo << endl;
+
+			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo;
+			Utilidades::formatearClave(claveConsulta);
+
+			if(consulta.ObtenerRegistro(claveConsulta, eleccion))
+			{
+				claveConsulta += ("$" + nombreLista);
+				Utilidades::formatearClave(claveConsulta);
+
+				if(consulta.ObtenerRegistro(claveConsulta,lista)){
+
+					if(abm.bajaLista(lista)){
+						cout<<"Hubo un problema al dar de baja la Lista."<<endl;
+					}else{
+						cout<<"Se dio de baja correctamente."<<endl;
+					}
+
+				}else{
+					cout<<"No existe la Lista."<<endl;
+				}
+
+
+			}
+			else
+				cout<<endl<<"No existe la eleccion que se ingreso."<<endl;
+
+			cout<<endl<<"Presione una tecla para continuar."<<endl;
+			getchar();
 			retorno=true;
 			break;
 
 		case 'M':
 
+			cout << endl <<endl;
+			cout << "Ingrese el nombre de la Lista: ";
+			cin.ignore();
+			getline(cin, nombreLista);
+			cout << "Lista ingresada: " << nombreLista <<endl;
+			cout << endl;
+			cout << "Eleccion a la que pertenece: "<<endl;
+			cout << "- Ingrese fecha: ";
+			cin >> fechaEleccion;
+			//cin.ignore() sirve para sacar el Enter del buffer y podes usar despues getline()
+
+			cout<< "Fecha ingresada: " << fechaEleccion << endl;
+			cin.ignore();
+			cout << "- Ingrese el Cargo: ";
+			getline(cin, cargo);
+
+			cout<< "Cargo ingresado: " << cargo << endl;
+
+			claveConsulta = Utilidades::indexarFecha(fechaEleccion) + "$" + cargo;
+			Utilidades::formatearClave(claveConsulta);
+
+			if(consulta.ObtenerRegistro(claveConsulta, eleccion))
+			{
+				claveConsulta += ("$" + nombreLista);
+				Utilidades::formatearClave(claveConsulta);
+
+				if(consulta.ObtenerRegistro(claveConsulta,lista)){
+					bool hubo_cambios=false;
+					string nv_nombre;
+					cout<<"******Modificaciones******"<<endl;
+					cout<<"Nombre de la Lista: "<<lista.getNombre()<<endl;
+					cout<<"Ingrese Nuevo nombre para la Lista(0 para finalizar):";
+					cin.ignore();
+					getline(cin,nv_nombre);
+
+					if(nv_nombre!="0"){
+
+						hubo_cambios=true;
+						lista.setNombre(nv_nombre);
+					}
+
+
+					if(hubo_cambios){
+						if(abm.modificacionLista(lista)){
+							cout<<"Se modifico correctamente."<<endl;
+						}else{
+							cout<<"Hubo un error al Modificar la Lista."<<endl;
+						}
+					}
+
+				}else{
+					cout<<"No existe la Lista."<<endl;
+				}
+
+
+			}
+			else
+				cout<<endl<<"No existe la eleccion que se ingreso."<<endl;
+
+			cout<<endl<<"Presione una tecla para continuar."<<endl;
+			getchar();
 			retorno=true;
 			break;
 
