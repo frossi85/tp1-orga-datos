@@ -402,7 +402,6 @@ void Menu::adminLista(){
 
 
 	char opcion;
-	char opcionSiNo;
 	bool invalida=false;
 	bool retorno=false;
 
@@ -778,10 +777,30 @@ void Menu::adminCargo() {
 			{
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del nuevo Cargo: ";
-				cin >> nombre;
+				cin.ignore();
+				fgets(nombre,50,stdin);
 
 				string cad(nombre);
 				Cargo nuevo(cad);
+
+				bool seguirCargando=false;
+				string cargoSec;
+
+				do{
+					cout<<"Ingrese un Cargo Secundario(0 para no ingresar):";
+					cin.ignore();
+					getline(cin,cargoSec);
+
+					seguirCargando=cargoSec!="0";
+
+					if(seguirCargando){
+						nuevo.agregarCargoSecundario(cargoSec);
+					}
+
+
+				}while(seguirCargando);
+
+
 				//Se crea el cargo, verificando si no existia
 				if(abm.altaCargo(nuevo))
 					cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
@@ -789,7 +808,7 @@ void Menu::adminCargo() {
 					cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
 
 				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
+				getchar();
 				retorno=true;
 				break;
 			}
@@ -811,13 +830,14 @@ void Menu::adminCargo() {
 					cout<< "No se ha podido borrar al cargo." << endl;
 
 				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
+				getchar();
 				retorno=true;
 				break;
-			case 'D':
+			case 'G':
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del Cargo a modificar: ";
-				cin >> nombre;
+				cin.ignore();
+				fgets(nombre,50,stdin);
 
 				if(!(consulta.ObtenerRegistro(nombre, cargo)))
 				{
@@ -825,15 +845,35 @@ void Menu::adminCargo() {
 					resultado = -1;
 					break;
 				} else {
-					cout << endl <<endl;
-					cout << "Ingrese el nombre del Cargo secundario: ";
-					cin >> nombre;
+					string cargoSec;
+					bool seguirCargando=false;
+					bool huboCambios=false;
+					cout << endl;
+					do{
+						cout << "Ingrese el nombre del Cargo secundario(0 para finalizar): ";
+						cin.ignore();
+						getline(cin,cargoSec);
 
-					cargo.agregarCargoSecundario(nombre);
+						seguirCargando=cargoSec!="0";
+
+						if(seguirCargando){
+							cargo.agregarCargoSecundario(cargoSec);
+							huboCambios=true;
+						}
+
+					}while(seguirCargando);
+
+					if(huboCambios){
+						if(abm.modificacionCargo(cargo)){
+							cout<<"Se agregaron Correctamente los Cargos Sec."<<endl;
+						}else{
+							cout<<"Hubo Problemas al Intentar modificar el Cargo."<<endl;
+						}
+					}
 				}
 
-				cout << "Ingrese cualquier letra para continuar: ";
-				cin >> opcion;
+				cout << "Presione cualquier letra para continuar: ";
+				getchar();
 				retorno=true;
 				break;
 			}
@@ -1040,17 +1080,17 @@ void Menu::adminEleccion(){
 						}while(ingresando);
 
 						ingresando=false;
-						string nombre_distrito;
+						string nombreDistrito;
 
 						do{
 							cout<<"Ingrese nombre del Distrito a agregar(0 para finalizar):";
 							cin.ignore();
-							getline(cin,nombre_distrito);
+							getline(cin,nombreDistrito);
 							Distrito dist;
 
-							ingresando=nombre_distrito!="0";
+							ingresando=nombreDistrito!="0";
 							if(ingresando){
-								if(consulta.ObtenerRegistro(nombre_distrito,dist)){
+								if(consulta.ObtenerRegistro(nombreDistrito,dist)){
 									eleccion.agregarDistrito(dist);
 									hubo_cambios=true;
 								}else{
@@ -1099,7 +1139,7 @@ void Menu::adminVotante() {
     char opcion;
     bool invalida=false;
     bool retorno=false;
-    char nombre[50], direccion[50], dni[50],clave_votante[30],nombreDistrito[50];
+    char nombre[50], direccion[50], dni[50],claveVotante[30],nombreDistrito[50];
     string dniM;
 
     Votante votante,*vot=NULL;
@@ -1152,7 +1192,7 @@ void Menu::adminVotante() {
                     cout<<"ingrese una clave para el Votante:";
                     //cin>>clave_votante;
                     //cin.getline(clave_votante,50);
-                    fgets(clave_votante,50,stdin);
+                    fgets(claveVotante,50,stdin);
 
                     cout << "Ingrese el nombre y apellido del nuevo Votante: ";
                     //cin >> nombre;
@@ -1174,7 +1214,7 @@ void Menu::adminVotante() {
                     //Se verifica si existe el distrito
                     if(consulta.ObtenerRegistro(nombreDistrito, distrito))
                         //votante.setDistrito(distrito);
-                    	vot=new Votante(dniN,nombre,clave_votante,direccion,distrito);
+                    	vot=new Votante(dniN,nombre,claveVotante,direccion,distrito);
                     else
                         cout << "No existe el distrito " <<nombreDistrito<< endl; // no se encontro distrito
 
@@ -1328,11 +1368,11 @@ void Menu::adminInformes(){
     char opcion;
     bool invalida=false;
     bool retorno=false;
-    string nombre_distrito;
+    string nombreDistrito;
     Eleccion eleccion;
-    string fecha_eleccion,fecha_eleccion_index,cargo_eleccion;
+    string fechaEleccion,fechaEleccionIndex,cargoEleccion;
     string clave;
-    string nombre_cargo,nombre_lista;
+    string nombreCargo,nombreLista;
 
     Distrito distrito;
     Lista lista;
@@ -1361,12 +1401,12 @@ void Menu::adminInformes(){
             case 'E':
 
 				cout<<"Ingrese fecha Eleccion:";
-				cin>>fecha_eleccion;
-				fecha_eleccion_index=Utilidades::indexarFecha(fecha_eleccion);
+				cin>>fechaEleccion;
+				fechaEleccionIndex=Utilidades::indexarFecha(fechaEleccion);
 				cout<<"Ingrese Cargo:";
-				cin>>cargo_eleccion;
+				cin>>cargoEleccion;
 
-				clave=fecha_eleccion_index + "$" + cargo_eleccion;
+				clave=fechaEleccionIndex + "$" + cargoEleccion;
 				if(consulta.ObtenerRegistro(clave,eleccion)){
 
 					informe=new Informe(eleccion);
@@ -1384,9 +1424,9 @@ void Menu::adminInformes(){
 
             case 'D':
 				cout<<"Ingrese Nombre de Distrito:";
-				cin>> nombre_distrito;
+				cin>> nombreDistrito;
 
-				clave=nombre_distrito;
+				clave=nombreDistrito;
 
 				if(consulta.ObtenerRegistro(clave,distrito)){
 
@@ -1395,7 +1435,7 @@ void Menu::adminInformes(){
 
 				}else{
 
-					cout<<"No existe distrito "<<nombre_distrito<<"."<<endl;
+					cout<<"No existe distrito "<<nombreDistrito<<"."<<endl;
 
 				}
 
@@ -1408,17 +1448,17 @@ void Menu::adminInformes(){
             case 'L':
 
             	cout<<"Ingrese Nombre de Lista:";
-            	cin>>nombre_lista;
+            	cin>>nombreLista;
 
             	cout<<"Ingrese Cargo que se postula en la Lista:";
-            	cin>>nombre_cargo;
+            	cin>>nombreCargo;
 
             	cout<<"Ingrese fecha de eleccion para la lista:";
-            	cin>>fecha_eleccion;
+            	cin>>fechaEleccion;
 
-            	fecha_eleccion_index=Utilidades::indexarFecha(fecha_eleccion);
+            	fechaEleccionIndex=Utilidades::indexarFecha(fechaEleccion);
 
-            	clave=fecha_eleccion_index + "$" + nombre_cargo + "$" + nombre_lista;
+            	clave=fechaEleccionIndex + "$" + nombreCargo + "$" + nombreLista;
 
             	if(consulta.ObtenerRegistro(clave,lista)){
 
