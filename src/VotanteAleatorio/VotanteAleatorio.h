@@ -35,7 +35,7 @@
 #include <stdio.h>
 #include <vector>
 #include "../DataGetter.h"
-#include "../ABM Entidades/ABMentidades.h"
+#include "../ABMEntidades/ABMentidades.h"
 
 using namespace std;
 
