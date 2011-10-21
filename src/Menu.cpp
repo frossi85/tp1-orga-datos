@@ -41,10 +41,9 @@ void Menu::pedirContrasena() {
 }
 
 bool Menu::accesoAdmin() {
-	//Administrator admin = DataGet::getAdministrator();
 
-	string userOk="tp"; //admin.getUser();
-	string passOk="tp"; //admin.getPassword();
+	string userOk="tp";
+	string passOk="tp";
 
 	if ( user == userOk && pass == passOk ) {
 		cout<< "Accedio al sistema." << endl;
@@ -362,7 +361,9 @@ void Menu::adminCandidato(){
 		case 'M':
 
 			cout << endl;
-			cout << "Ingrese el nombre de la Lista del Candidato: ";
+			cout << "Puede modificar un candidato accediendo a Modificar Lista para cambiar el nombre de su lista asociada, "<<endl;
+			cout << "o puede modificar sus datos de votante accediendo al Modificar Votante con su DNI correspondiente" << endl;
+			/*cout << "Ingrese el nombre de la Lista del Candidato: ";
 			cin.ignore();
 			getline(cin, nombreLista);
 			cout << "Lista ingresada: " << nombreLista <<endl;
@@ -434,7 +435,7 @@ void Menu::adminCandidato(){
 
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
 			getchar();
-			retorno=true;
+			retorno=true;*/
 			break;
 
 		case 'V':
