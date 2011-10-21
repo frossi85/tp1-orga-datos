@@ -490,7 +490,7 @@ void Menu::adminCargo() {
 
 void Menu::adminEleccion(){
 
-	char opcion;
+
 	char opcionSiNo;
 	char opcion;
 	bool invalida=false;
@@ -508,6 +508,8 @@ void Menu::adminEleccion(){
 	Distrito distrito;
 	string nom_distrito;
 
+	string nombreCargo,claveConsulta;
+
 
 	do {
 		system("clear");
@@ -521,6 +523,7 @@ void Menu::adminEleccion(){
 		cout << "M => Modificar un Eleccion." << endl;
 		cout << "V => Volver." << endl << "Opcion: ";
 		cin >> opcion;
+
 
 		retorno=false;
 		invalida=false;
@@ -571,6 +574,7 @@ void Menu::adminEleccion(){
 				string fecha_index=Utilidades::indexarFecha(fecha_eleccion);
 
 				string clave= fecha_index + "$" + cargo_eleccion;
+				Utilidades::formatearClave(clave);
 
 				if(!consulta.ObtenerRegistro(clave,eleccion)){
 
@@ -605,8 +609,8 @@ void Menu::adminEleccion(){
 
 			}
 
-		cout<<"Ingrese una tecla para continuar:";
-		cin>>opcion;
+		cout<<"Presione una tecla para continuar:";
+		getchar();
 		break;
 		case 'B':
 
@@ -620,7 +624,7 @@ void Menu::adminEleccion(){
 
 				string fecha_index=Utilidades::indexarFecha(fecha_eleccion);
 				string clave= fecha_index + "$" + cargo_eleccion;
-
+				Utilidades::formatearClave(clave);
 				if(consulta.ObtenerRegistro(clave,eleccion)){
 
 
@@ -641,8 +645,8 @@ void Menu::adminEleccion(){
 			}
 
 
-			cout<<"Ingrese una tecla para continuar:";
-			cin >> opcion;
+			cout<<"Presione una tecla para continuar:";
+			getchar();
 			retorno=true;
 			break;
 
