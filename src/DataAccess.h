@@ -29,7 +29,7 @@ public:
 	virtual ~DataAccess();
 
 	unsigned long int Guardar(Grabable & obj);				// Retorna el offset de donde lo guardo.
-	void Eliminar(Grabable & obj);
+	//void Eliminar(Grabable & obj);
 	void Leer(Grabable & obj, unsigned long int offset);
 
 
