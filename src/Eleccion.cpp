@@ -58,7 +58,7 @@ int Eleccion::getTamanioEnDisco(){
 	if(cantDistritos>0){
 		tamanio+=sizeof(this->_distritos[0]->getId());
 	}
-
+	tamanio=sizeof(char)*this->_fecha.size();
 	tamanio+=sizeof(this->_cargo->getId());
 
 	return tamanio;

@@ -23,7 +23,7 @@ void Administrador::Imprimir()
 
 string Administrador::getClassName()
 {
-	return "";
+	return "Administrador";
 }
 
 

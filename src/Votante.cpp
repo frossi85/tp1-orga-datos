@@ -275,10 +275,14 @@ int Votante::getTamanioEnDisco(){
 	}
 
 	//No se si las sentencias de abajo estan bien..
+	tamanio+sizeof(this->_clave.size());
+	tamanio+=sizeof(char)*this->_clave.size();
 
-	tamanio+=sizeof(this->_clave);
-	tamanio+=sizeof(this->_domicilio);
-	tamanio+=sizeof(this->_nombreYApellido);
+	tamanio+=sizeof(this->_domicilio.size());
+	tamanio+=sizeof(char)*this->_domicilio.size();
+
+	tamanio+=sizeof(this->_nombreYApellido.size());
+	tamanio+=sizeof(char)*this->_nombreYApellido.size();
 
 
 
