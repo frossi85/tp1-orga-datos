@@ -12,8 +12,17 @@
 #include <iostream>
 #include <sstream>
 #include "MenuVotante.h"
-#include "ABM Entidades/ABMentidades.h"
-#include "ABM Entidades/ConsultaEntidades.h"
+#include "ABMEntidades/ABMentidades.h"
+#include "ABMEntidades/ConsultaEntidades.h"
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cctype>
+#include "DataAccess.h"
+#include "DataGetter.h"
+#include "Informe.h"
 
 using namespace std;
 

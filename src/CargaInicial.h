@@ -10,8 +10,8 @@
 
 #include "Utilidades.h"
 #include "./Tests/UtilidadesTests.h"
-#include "./ABM Entidades/ABMentidades.h"
-#include "./ABM Entidades/ConsultaEntidades.h"
+#include "./ABMEntidades/ABMentidades.h"
+#include "./ABMEntidades/ConsultaEntidades.h"
 #include "Votante.h"
 
 using namespace std;
