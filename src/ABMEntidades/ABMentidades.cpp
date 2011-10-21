@@ -413,15 +413,6 @@ bool ABMentidades::modificacionDistrito(Distrito &distrito) {
 	Distrito distritoRecuperado;
 	this->dataAccess.Leer(distritoRecuperado,offset);
 
-	/* Chequeo que no sean el mismo registro */
-	if (distrito.getNombre() == distritoRecuperado.getNombre()) {
-		delete hash_auxiliar;
-		hash_auxiliar = NULL;
-		delete this->hash;
-		this->hash = NULL;
-		return true;
-	}
-
 	/* Comparo el tamanio en disco de los registros. Si el modificado es menor o igual al original, se sobreescribe.
 	 * Si es mayor, se da de alta al final */
 	int tamanioOriginal = distritoRecuperado.getTamanioEnDisco();
@@ -429,7 +420,8 @@ bool ABMentidades::modificacionDistrito(Distrito &distrito) {
 	if (tamanioOriginal >= tamanioModificado) {
 		/* Sobreescribo el registro anterior */
 		string rutaArchivo = distrito.getURLArchivoDatos();
-		ofstream ofs(rutaArchivo.c_str(), ios::out | ios::binary);
+		ofstream ofs;
+		ofs.open(rutaArchivo.c_str(), ios::in | ios::out | ios::binary);
 		if(!ofs.is_open())	throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + distrito.getClassName());
 		ofs.seekp(offset,ios::beg);
 		distrito.Guardar(ofs);
@@ -437,8 +429,9 @@ bool ABMentidades::modificacionDistrito(Distrito &distrito) {
 	}
 	else {
 		/* Doy de alta al final del archivo y modifico el indice del hash id_distrito/offset */
-		unsigned long int nuevoOffset = this->dataAccess.Guardar(distrito);
+		unsigned int nuevoOffset = this->dataAccess.Guardar(distrito);
 		RegistroIndice aGuardar(Utilidades::toString(distrito.getId()),nuevoOffset);
+		this->hash->borrar(&aBuscarID);
 		this->hash->guardar(&aGuardar);
 		this->hash->imprimir("./archivos/Otros/hash_iddistrito");
 	}
@@ -450,14 +443,51 @@ bool ABMentidades::modificacionDistrito(Distrito &distrito) {
 	/* Elimino la clave con el nombre de distrito viejo */
 	string claveOriginal = Utilidades::obtenerClaveDistrito(distritoRecuperado.getNombre());
 	RegistroIndice aEliminar(claveOriginal,0);
-	if (!this->hash->borrar(&aEliminar)) throw VotoElectronicoExcepcion("Se quizo borrar una clave que no existia (modificacion distrito)");
+	if (!hash_auxiliar->borrar(&aEliminar)) throw VotoElectronicoExcepcion("Se quizo borrar una clave que no existia (modificacion distrito)");
 
 	/* Inserto la clave modificada */
 	RegistroIndice aModificar(claveModificada,distrito.getId());
-	this->hash->guardar(&aModificar);
+	hash_auxiliar->guardar(&aModificar);
+	hash_auxiliar->imprimir("./archivos/Otros/hash_distrito");
 
 	delete hash_auxiliar;
 	hash_auxiliar = NULL;
+
+	/* Debo cambiar las claves en el arbol de reporte por distrito */
+
+	/* Inicializo el arbol */
+	string archivo((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_REPORTE_DISTRITO));
+	this->arbol = new ArbolBMas();
+	if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de reporte por distrito");
+    string claveFinal = claveOriginal + "&";
+
+    /* Busco todas las claves que tengan mi nombre de distrito viejo */
+    list<RegistroArbol *> clavesEncontradas;
+    if (!this->arbol->buscar(clavesEncontradas, claveOriginal, claveFinal)) {
+    	this->arbol->cerrar();
+   	    delete this->arbol;
+   	    this->arbol = NULL;
+    	return true;	// Si no habia ninguna coincidencia, se retorna
+    }
+
+    /* Cambio los nombres por el nuevo nombre de distrito */
+    RegistroArbol *registroEnLista = NULL;
+    string claveDistrito;
+    list<RegistroArbol *>::iterator it;
+    for (it = clavesEncontradas.begin(); it != clavesEncontradas.end(); it++){
+    	registroEnLista = *it;
+       	claveDistrito = registroEnLista->getClave();
+       	size_t aux = claveDistrito.find_first_of("$");
+       	claveModificada.append(claveDistrito,aux,100);
+       	if(!this->arbol->cambiarClave(claveDistrito,claveModificada))
+       		throw VotoElectronicoExcepcion("No se pudo cambiar la clave en el arbol de reporte distrito");
+    }
+
+    /* Cierro el Arbol */
+	this->arbol->cerrar();
+    delete this->arbol;
+    this->arbol = NULL;
+
 	return true;
 }
 
