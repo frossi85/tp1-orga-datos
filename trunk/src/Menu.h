@@ -9,6 +9,8 @@
 #define MENU_H_
 
 #include <string.h>
+#include <iostream>
+#include <sstream>
 #include "MenuVotante.h"
 #include "ABM Entidades/ABMentidades.h"
 #include "ABM Entidades/ConsultaEntidades.h"
@@ -42,6 +44,8 @@ public:
 	void adminEleccion();
 
 	void adminVotante();
+
+	void adminLista();
 
 public:
 	static Menu *getMenu();

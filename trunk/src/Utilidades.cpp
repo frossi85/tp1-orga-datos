@@ -54,7 +54,6 @@ void Utilidades::formatearClave(string &clave) {
 	} while (posicion != -1);
 }
 
-
 string Utilidades::toString(long int a)
 {
 	stringstream ss;
