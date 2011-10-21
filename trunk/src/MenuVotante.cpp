@@ -236,7 +236,7 @@ bool MenuVotante::confirmarVotacion(Eleccion *eleccion,Lista *lista){
 
 		getchar();
 
-		abm->agregarVoto(*lista, this->votante->getDistrito());
+		abm->agregarVoto(*(this->votante), *lista, this->votante->getDistrito());
 		//LOG de la confirmacion de la votacion
 		Logger::ConfirmacionDeVoto(*(this->votante), this->votante->getDNI());
 		delete abm;
