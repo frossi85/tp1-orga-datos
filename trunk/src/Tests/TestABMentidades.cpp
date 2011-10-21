@@ -529,7 +529,7 @@ void TestABMentidades::testAltaConteo() {
 	UtilidadesTests::cargarConteos(vecConteos, vecListas, vecDistritos);
 	int cantidadConteos = vecConteos.size();
 
-	for(int i=0;i<cantidadConteos;i++)	this->ABMtest.agregarVoto(vecConteos[i].getLista(),vecConteos[i].getDistrito());
+	//for(int i=0;i<cantidadConteos;i++)	this->ABMtest.agregarVoto(vecConteos[i].getLista(),vecConteos[i].getDistrito());
 
 // ACA SE LLAMA A LOS IMPRIMIR_REPORTES PARA CHEQUEAR LA CANTIDAD DE VOTOS
 
