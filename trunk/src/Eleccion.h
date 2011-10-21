@@ -43,6 +43,7 @@ public:
 	void Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
 	void ImprimirDistritos();
+	int getTamanioEnDisco();
 
 	inline string getURLArchivoDatos();
 

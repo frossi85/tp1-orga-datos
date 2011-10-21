@@ -39,6 +39,7 @@ public:
 
 	unsigned long int Guardar(ofstream & ofs);
 	void Leer(ifstream & ifs, unsigned long int offset);
+	int getTamanioEnDisco();
 	void Imprimir();
 
 	inline string getURLArchivoDatos();
