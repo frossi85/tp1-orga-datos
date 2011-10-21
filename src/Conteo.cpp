@@ -168,6 +168,19 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	ifs.read(reinterpret_cast<char *>(&_cantidad), sizeof(_cantidad));
 }
 
+
+int Conteo::getTamanioEnDisco(){
+	int tamanio=0;
+
+	tamanio+=sizeof(this->_distrito->getId());
+	tamanio+=sizeof(this->_cantidad);
+	tamanio+=sizeof(this->_eleccion->getId());
+	tamanio+=sizeof(this->_lista->getId());
+
+	return tamanio;
+
+}
+
 inline string Conteo::getURLArchivoDatos(){
 	return ((*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_CONTEO));
 }
