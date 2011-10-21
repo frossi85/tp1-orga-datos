@@ -20,7 +20,7 @@
 #include "../hash_extensible.h"
 #include "../RegistroIndice.h"
 #include "../Configuracion.h"
-#include "../ABM Entidades/ABMentidades.h"
+#include "../ABMEntidades/ABMentidades.h"
 #include "UtilidadesTests.h"
 
 
