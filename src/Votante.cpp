@@ -261,6 +261,29 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	delete hashIDElecciones;
 }
 
+int Votante::getTamanioEnDisco(){
+
+	int tamanio=0;
+
+	tamanio+=sizeof(this->_dni);
+	tamanio+=sizeof(this->_id);
+	tamanio+=sizeof(this->_distrito->getId());
+	tamanio+=sizeof(this->_elecciones.size());
+
+	if(this->_elecciones.size()>0){
+		tamanio+=sizeof(this->_elecciones[0]->getId())*this->_elecciones.size();
+	}
+
+	//No se si las sentencias de abajo estan bien..
+
+	tamanio+=sizeof(this->_clave);
+	tamanio+=sizeof(this->_domicilio);
+	tamanio+=sizeof(this->_nombreYApellido);
+
+
+
+	return tamanio;
+}
 
 inline string Votante::getURLArchivoDatos()
 {
