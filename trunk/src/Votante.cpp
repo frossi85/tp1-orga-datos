@@ -145,13 +145,6 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 	long idDistrito = (*(_distrito)).getId();
 	ofs.write(reinterpret_cast<char *>(&idDistrito), sizeof(idDistrito));
 
-	//Aca se tendrian q guardar todos los ids(u offsets) de elecciones
-	//O el offset dentro del archivo VotanteEleccion
-	/* Leandro: por ahora voy a hacer lo primero, ya que todavía
-	 * no hay un archivo VotanteEleccion, así no la complico.
-	 * Si hace falta después lo cambiamos.
-	 */
-
 	//Grabo la cantidad de elecciones que tiene
 	string::size_type cantidadElecciones = this->_elecciones.size();
 	ofs.write(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
@@ -207,26 +200,6 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	dataAccess.Leer(distrito,offset);
 	_distrito = new Distrito(distrito);
 
-	/*Distrito distrito; //si no funciona probar con un puntero a distrito
-
-	string rutaArchivo = distrito.getURLArchivoDatos();
-	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
-	if(!ifsDatos.is_open())
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + distrito.getClassName());
-
-	distrito.Leer(ifsDatos, offset);
-	ifsDatos.close();
-	_distrito = new Distrito(distrito);
-	delete hashIDDistritos;
-*/															// BORRAR SI LO DE ARRIBA FUNCIONA (MARITN)
-
-	//Aca se tendrian q leer todos los ids(u offsets) de elecciones
-	//O el offset dentro del archivo VotanteEleccion y cargar los distritos al array
-	/* Leandro: lo mismo que puse en el guardar: por ahora voy a hacer lo primero, ya que todavía
-	 * no hay un archivo VotanteEleccion, así no la complico.
-	 * Si hace falta después lo cambiamos.
-	 */
-
 	// Leo la cantidad de elecciones
 	string::size_type cantidadElecciones = 0;
 	ifs.read(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
@@ -267,24 +240,25 @@ int Votante::getTamanioEnDisco(){
 
 	tamanio+=sizeof(this->_dni);
 	tamanio+=sizeof(this->_id);
-	tamanio+=sizeof(this->_distrito->getId());
-	tamanio+=sizeof(this->_elecciones.size());
 
-	if(this->_elecciones.size()>0){
-		tamanio+=sizeof(this->_elecciones[0]->getId())*this->_elecciones.size();
-	}
+	int size_nombre = this->_nombreYApellido.size();
+	int size_clave = this->_clave.size();
+	int size_domicilio = this->_domicilio.size();
 
-	//No se si las sentencias de abajo estan bien..
-	tamanio+sizeof(this->_clave.size());
-	tamanio+=sizeof(char)*this->_clave.size();
+	tamanio+=sizeof(size_nombre);
+	tamanio+=sizeof(char)*size_nombre;
+	tamanio+=sizeof(size_clave);
+	tamanio+=sizeof(char)*size_clave;
+	tamanio+=sizeof(size_domicilio);
+	tamanio+=sizeof(char)*size_domicilio;
 
-	tamanio+=sizeof(this->_domicilio.size());
-	tamanio+=sizeof(char)*this->_domicilio.size();
+	long idDistrito = (*(_distrito)).getId();
+	tamanio+=sizeof(idDistrito);
 
-	tamanio+=sizeof(this->_nombreYApellido.size());
-	tamanio+=sizeof(char)*this->_nombreYApellido.size();
-
-
+	string::size_type cantidadElecciones = this->_elecciones.size();
+	tamanio+=sizeof(cantidadElecciones);
+	long idEleccion = 0;
+	tamanio+=sizeof(idEleccion)*cantidadElecciones;
 
 	return tamanio;
 }
