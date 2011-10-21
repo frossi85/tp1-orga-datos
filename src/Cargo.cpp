@@ -32,6 +32,18 @@ Cargo::Cargo(const Cargo &cargo){
 }
 
 
+bool Cargo::operator==(const Cargo &cargo) {
+	if (this->_id != cargo._id) return false;
+	if (this->cargoPrincipal != cargo.cargoPrincipal) return false;
+	int cantidad = this->cargosSecundarios.size();
+	if (cantidad != cargo.cargosSecundarios.size()) return false;
+	for(int i=0;i<cantidad;i++) {
+		if (this->cargosSecundarios[i] != cargo.cargosSecundarios[i]) return false;
+	}
+	return true;
+}
+
+
 string Cargo::getCargoPrincipal() {return this->cargoPrincipal;}
 
 
@@ -108,22 +120,20 @@ int Cargo::getTamanioEnDisco(){
 
 	tamanio+=sizeof(this->_id);
 
-	tamanio+=sizeof(this->cargoPrincipal.size());
-	tamanio+=sizeof(char)*this->cargoPrincipal.size();
+	int size = this->cargoPrincipal.size();
 
-	int cantCargosSec=this->cargosSecundarios.size();
+	tamanio+=sizeof(size);
+	tamanio+=sizeof(char)*size;
 
-	tamanio+=sizeof(this->cargosSecundarios.size());
+	string::size_type cantidadCargosSecundarios = cargosSecundarios.size();
+	tamanio+=sizeof(cantidadCargosSecundarios);
 
-	if (cantCargosSec>0){
-		for(int i=0;i<cantCargosSec;i++){
-			tamanio+=sizeof(this->cargosSecundarios[i].size());
-			tamanio+=sizeof(char)*this->cargosSecundarios[i].size();
-		}
-
-
+	int aux;
+	for(int i=0;i<cantidadCargosSecundarios;i++){
+		aux = this->cargosSecundarios[i].size();
+		tamanio+=sizeof(aux);
+		tamanio+=sizeof(char)*aux;
 	}
-
 	return tamanio;
 }
 

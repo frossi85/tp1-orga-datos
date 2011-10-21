@@ -52,21 +52,21 @@ int Eleccion::getTamanioEnDisco(){
 	int tamanio=0;
 
 	tamanio+=sizeof(this->_id);
+
+	int size_fecha = this->_fecha.size();
+	tamanio+=sizeof(size_fecha);
+	tamanio+=sizeof(char)*size_fecha;
+
 	tamanio+=sizeof(this->_cargo->getId());
-	tamanio+=sizeof(this->_distritos.size());
-	int cantDistritos=this->_distritos.size();
-	if(cantDistritos>0){
-		tamanio+=sizeof(this->_distritos[0]->getId());
-	}
-	tamanio+=sizeof(this->_fecha.size());
-	tamanio+=sizeof(char)*this->_fecha.size();
-	tamanio+=sizeof(this->_cargo->getId());
+
+	string::size_type cantidadDistritos = this->_distritos.size();
+	tamanio+=sizeof(cantidadDistritos);
+	long idDistrito = this->_distritos[0]->getId();
+	tamanio+=sizeof(idDistrito)*cantidadDistritos;
 
 	return tamanio;
 
 }
-
-
 
 
 string Eleccion::getFecha() {return this->_fecha;}

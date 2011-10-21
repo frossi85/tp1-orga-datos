@@ -81,14 +81,6 @@ unsigned long int Lista::Guardar(ofstream & ofs)
 	long idEleccion = (*(_eleccion)).getId();
 	ofs.write(reinterpret_cast<char *>(&idEleccion), sizeof(idEleccion));
 
-	//No se si va lo de abajo por q tendria sentido si se modifico
-	//y se tendria q tener un flag q indique si se modifico algun atributo
-	//es un quilombo no hacer lo de abajo, solo actualizar la referencia.
-	//(*(_eleccion)).fueModificada();
-	//DataAccess dataAccess;
-	//dataAccess.Guardar(*(_eleccion));
-	// RTA: NO NOS PUSIMOS, O POR LO MENOS YO, A PENSAR TANTO EN MODIFICACIONES..ESTOY TRATANDO DE QUE ANDEN LOS INSERTAR Y ELIMINAR
-	// (MARTIN)
 	return offset;
 }
 
@@ -129,18 +121,6 @@ void Lista::Leer(ifstream & ifs, unsigned long int offset)
 	dataAccess.Leer(eleccion,offset);
 	_eleccion = new Eleccion(eleccion);
 	delete hashIDElecciones;
-
-/*
-	Eleccion eleccion; //si no funciona probar con un puntero a eleccion
-	string rutaArchivo = eleccion.getURLArchivoDatos();
-	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
-	if(!ifsDatos.is_open())
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + eleccion.getClassName());
-	eleccion.Leer(ifsDatos, offset);
-	ifsDatos.close();
-	_eleccion = new Eleccion(eleccion);
-	delete hashIDElecciones;
-*/                                            // BORRAR EL COMENTARIO SI ANDA COMO ESTA ARRIBA (MARTIN)
 }
 
 
@@ -154,10 +134,12 @@ int Lista::getTamanioEnDisco(){
 
 	tamanio+=sizeof(this->_id);
 
-	tamanio+=sizeof(this->_nombre.size());
-	tamanio+=sizeof(char)*this->_nombre.size();
+	int size_nombre = this->_nombre.size();
+	tamanio+=sizeof(size_nombre);
+	tamanio+=sizeof(char)*size_nombre;
 
-	tamanio+=sizeof(this->_eleccion->getId());
+	long idEleccion = (*(_eleccion)).getId();
+	tamanio+=sizeof(idEleccion);
 
 	return tamanio;
 }
