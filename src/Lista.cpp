@@ -48,6 +48,12 @@ Eleccion& Lista::getEleccion() {return *(this->_eleccion);}
 
 string Lista::getNombre() {return this->_nombre;}
 
+
+void Lista::setNombre(string &nombre)
+{
+	this->_nombre = nombre;
+}
+
 void Lista::setEleccion(Eleccion eleccion){
     if (this->_eleccion != NULL) delete this->_eleccion;
 	this->_eleccion = new Eleccion(eleccion);

@@ -13,6 +13,7 @@
 #include "Nodo.h"
 #include "ArbolBMas.h"
 #include "CargaInicial.h"
+#include "./VotanteAleatorio/VotanteAleatorio.h"
 
 #include <cctype>
 
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]){
 
 	//CargaInicial::ejecutar();
 
-	//VotanteAleatorio::ejecutar;
+	//VotanteAleatorio::ejecutar();
 
 
 	Menu *menu = Menu::getMenu();
