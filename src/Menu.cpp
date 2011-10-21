@@ -606,7 +606,8 @@ void Menu::adminDistrito() {
 			cout << endl <<endl;
 			cout << "Ingrese el nombre del ditrito: ";
 
-			cin >> nombre_distrito;
+			cin.ignore();
+			getline(cin,nombre_distrito);
 
 			//nombre_distrito.append(nombre);
 
