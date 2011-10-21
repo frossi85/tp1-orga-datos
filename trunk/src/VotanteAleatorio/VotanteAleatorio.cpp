@@ -110,7 +110,7 @@ void VotanteAleatorio::ejecutar()
 						Logger::CambioDeVoto(*votantes[i], votantes[i]->getDNI());
 					}
 					//5.- Incremento la cuenta de votos para esa eleccion-lista
-					abm->agregarVoto(*listaElegida, votantes[i]->getDistrito());
+					abm->agregarVoto(*votantes[i],*listaElegida, votantes[i]->getDistrito());
 				    //LOG de la confirmacion de la votacion
 				    Logger::ConfirmacionDeVoto(*votantes[i], votantes[i]->getDNI());
 
