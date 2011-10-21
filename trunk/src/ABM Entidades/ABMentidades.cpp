@@ -353,10 +353,99 @@ bool ABMentidades::modificacionEleccion(Eleccion &eleccion)
     return true;
 }
 
-bool ABMentidades::modificacionDistrito(Distrito &distrito)
-{
-    return true;
+/* Modificacion de Distrito:
+ * Modificaciones posibles: nombre_distrito
+ * El distrito que se le pasa por parametro debe tener el id correcto. Para esto la forma correcta para modificar un distrito es:
+ * 1- Se le pregunta al admin por un nombre de distrito que quiere modificar.
+ * 2- Se usa ObtenerRegistro(clave,aSobreescribir) para ver si existe el distrito pedido.
+ * 3- En caso de existir, se debe preguntar al admin por el nuevo nombre que quiere darle al distrito,
+ * y se le asigna el nuevo nombre al distrito "aSobreescribir", ya que ese distrito tiene el id correcto.
+ * Es decir se haria: aSobreescribir.setNombre(nuevoNombre).
+ * 4- Se llama a modificacionDistrito(aSobreescribir).
+ * 5- Listo.
+ */
+/* Retorna true si se hizo la modificacion, retorna false si no se logro modificar porque ya existia un registro igual
+ * a la modificacion que se intenta hacer */
+bool ABMentidades::modificacionDistrito(Distrito &distrito) {
+
+	/* Busco en el hash de distrito/id_distrito si existe la clave nueva del distrito */
+	string idarch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_REGS));
+	string idarch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_BLOQ_LIB));
+	string idarch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_TABLA));
+	hash_extensible *hash_auxiliar = new hash_extensible(idarch_registros,idarch_bloq_libres,idarch_tabla);
+	string claveModificada = Utilidades::obtenerClaveDistrito(distrito.getNombre());
+	RegistroIndice aBuscar(claveModificada,0);
+	RegistroIndice *returnReg = hash_auxiliar->buscar(&aBuscar);
+	if (returnReg != NULL) {
+		/* Retorno false ya que no se puede hacer la modificacion porque ya existia ese distrito */
+		delete hash_auxiliar;
+		hash_auxiliar = NULL;
+		return false;
+	}
+
+	/* Busco el offset del id del distrito */
+	string arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_REGS));
+	string arch_bloq_libres = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_BLOQ_LIB));
+	string arch_tabla = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_TABLA));
+	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+	RegistroIndice aBuscarID(Utilidades::toString(distrito.getId()),0);
+	RegistroIndice *returnRegID = this->hash->buscar(&aBuscarID);
+	if (returnRegID == NULL) throw VotoElectronicoExcepcion("No se encontro el id del distrito");
+	unsigned long int offset = returnRegID->getOffset();
+
+	/* Recupero el registro del archivo de datos */
+	Distrito distritoRecuperado;
+	this->dataAccess.Leer(distritoRecuperado,offset);
+
+	/* Chequeo que no sean el mismo registro */
+	if (distrito.getNombre() == distritoRecuperado.getNombre()) {
+		delete hash_auxiliar;
+		hash_auxiliar = NULL;
+		delete this->hash;
+		this->hash = NULL;
+		return true;
+	}
+
+	/* Comparo el tamanio en disco de los registros. Si el modificado es menor o igual al original, se sobreescribe.
+	 * Si es mayor, se da de alta al final */
+	int tamanioOriginal = distritoRecuperado.getTamanioEnDisco();
+	int tamanioModificado = distrito.getTamanioEnDisco();
+	if (tamanioOriginal >= tamanioModificado) {
+		/* Sobreescribo el registro anterior */
+		string rutaArchivo = distrito.getURLArchivoDatos();
+		ofstream ofs(rutaArchivo.c_str(), ios::out | ios::binary);
+		if(!ofs.is_open())	throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + distrito.getClassName());
+		ofs.seekp(offset,ios::beg);
+		distrito.Guardar(ofs);
+		ofs.close();
+	}
+	else {
+		/* Doy de alta al final del archivo y modifico el indice del hash id_distrito/offset */
+		unsigned long int nuevoOffset = this->dataAccess.Guardar(distrito);
+		RegistroIndice aGuardar(Utilidades::toString(distrito.getId()),nuevoOffset);
+		this->hash->guardar(&aGuardar);
+		this->hash->imprimir("./archivos/Otros/hash_iddistrito");
+	}
+	delete this->hash;
+	this->hash = NULL;
+
+	/* Cambio la clave en el hash distrito/id_distrito */
+
+	/* Elimino la clave con el nombre de distrito viejo */
+	string claveOriginal = Utilidades::obtenerClaveDistrito(distritoRecuperado.getNombre());
+	RegistroIndice aEliminar(claveOriginal,0);
+	if (!this->hash->borrar(&aEliminar)) throw VotoElectronicoExcepcion("Se quizo borrar una clave que no existia (modificacion distrito)");
+
+	/* Inserto la clave modificada */
+	RegistroIndice aModificar(claveModificada,distrito.getId());
+	this->hash->guardar(&aModificar);
+
+	delete hash_auxiliar;
+	hash_auxiliar = NULL;
+	return true;
 }
+
+
 bool ABMentidades::modificacionCargo(Cargo &cargo)
 {
     return true;
