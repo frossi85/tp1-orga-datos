@@ -77,14 +77,6 @@ unsigned int Utilidades::getDNIaleatorio(int semilla) {
 	return (unidad+decena+centena+u_de_mil+d_de_mil+c_de_mil+u_de_millon+d_de_millon);
 }
 
-//VER COMO HACER UNA FUCION TEMPLATE SIN Q LA CLASE LO SEA
-//template <class T>
-//inline std::string to_string (const T& t)
-//{
-//	std::stringstream ss;
-//	ss << t;
-//	return ss.str();
-//}
 
 void Utilidades::stringToFile(std::string & str, std::ofstream & ofs)
 {
