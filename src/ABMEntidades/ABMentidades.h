@@ -22,7 +22,6 @@
 #include "../ManejoIDs.h"
 #include "../Utilidades.h"
 #include "../Logger.h"
-#include "../Administrador.h"
 using namespace std;
 
 
@@ -36,31 +35,21 @@ public:
 	bool altaVotante(Votante &votante);
 	bool altaLista(Lista &lista);
 	bool altaCandidato(Candidato &candidato);
-	bool altaAdministrador(Administrador &administrador);
-	//void agregarVoto(Votante &votante, Lista &lista, Distrito &distrito);
-	void agregarVoto(Lista &lista, Distrito &distrito);
+	void agregarVoto(Votante &votante, Lista &lista, Distrito &distrito);
+
 
     bool modificacionEleccion(Eleccion &eleccion);
 	bool modificacionDistrito(Distrito &distrito);
 	bool modificacionCargo(Cargo &cargo);
 	bool modificacionVotante(Votante &votante);
 	bool modificacionLista(Lista &lista);
-	bool modificacionCandidato(Candidato &candidato);
-	bool modificacionAdministrador(Administrador &administrador);
 
     bool bajaEleccion(Eleccion &eleccion);
-    bool bajaEleccion(string claveEleccion);
     bool bajaDistrito(Distrito &distrito);
-	bool bajaDistrito(string claveDistrito);
-	bool bajaCargo(Cargo &cargo);
-    bool bajaCargo(string claveCargo);
+    bool bajaCargo(Cargo &cargo);
 	bool bajaVotante(Votante &votante);
-    bool bajaVotante(string claveVotante);
 	bool bajaLista(Lista &lista);
-    bool bajaLista(string claveLista);
 	bool bajaCandidato(Candidato &candidato);
-    bool bajaCandidato(string claveCandidato);
-	bool bajaAdministrador(Administrador &administrador);
 
 private:
 	DataAccess dataAccess;
@@ -68,7 +57,12 @@ private:
 	ArbolBMas* arbol;
 
 	void crearConteo(Lista &lista);
-
+	bool bajaEleccion(string claveEleccion);
+	bool bajaDistrito(string claveDistrito);
+	bool bajaCargo(string claveCargo);
+	bool bajaVotante(string claveVotante);
+	bool bajaLista(string claveLista);
+	bool bajaCandidato(string claveCandidato);
 };
 
 #endif /* ABMENTIDADES_H_ */
