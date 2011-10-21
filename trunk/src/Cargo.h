@@ -21,6 +21,7 @@ public:
 	Cargo(string cargoPrincipal);
 	virtual ~Cargo();
 	Cargo(const Cargo &cargo);
+	bool operator==(const Cargo &cargo);
 
 	//Getters
 	string getCargoPrincipal();

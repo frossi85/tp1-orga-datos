@@ -89,11 +89,7 @@ void Candidato::Imprimir()
 }
 
 
-unsigned long int Candidato::Guardar(ofstream & ofs)
-{
-	//TODO: capaz por cada puntero a una instancia de otra clase deberia tener el id(offset)
-	//y en leer cargar eso en vez de la instancia en si, y hacer metodos como getLista()
-	//y q si el puntero esta en NULL ahi cargarlo desde la BD y mantenerlo en memoria
+unsigned long int Candidato::Guardar(ofstream & ofs) {
 
 	unsigned long int offset = ofs.tellp();
 
@@ -151,19 +147,6 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	_listaPropia = new Lista(lista);
 	delete hashIDListas;
 
-	// Leo la lista del archivo de listas
-	/*Lista lista; //si no funciona probar con un puntero a distrito
-
-	string rutaArchivo = lista.getURLArchivoDatos();
-	ifstream ifsDatos(rutaArchivo.c_str(), ios::in | ios::binary);
-	if(!ifsDatos.is_open())
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + lista.getClassName());
-
-	lista.Leer(ifsDatos, offset);
-	ifsDatos.close();
-	_listaPropia = new Lista(lista);
-	delete hashIDListas;*/  //BORRAR ESTE COMENTARIO SI LO DE ARRIBA ANDA BIEN
-
 	//leo el id del votante
 	long idVotante = 0;
 	ifs.read(reinterpret_cast<char *>(&idVotante), sizeof(idVotante));
@@ -184,34 +167,6 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	dataAccess.Leer(votante,offset);
 	_votante = new Votante(votante);
 	delete hashIDVotantes;
-
-
-	// Leo el votante del archivo de votantes
-/*	Votante votante; //si no funciona probar con un puntero a votante
-
-	rutaArchivo = lista.getURLArchivoDatos();
-	ifsDatos.open(rutaArchivo.c_str(), ios::in | ios::binary);
-	if(!ifsDatos.is_open())
-		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + votante.getClassName());
-
-	votante.Leer(ifsDatos, offset);
-	ifsDatos.close();
-	_votante = new Votante(votante);
-	delete hashIDVotantes; */ //BORRAR ESTE COMENTARIO SI LO DE ARRIBA ANDA BIEN
-
-
-	//DataAccess dataAccess;
-	//Votante votante;
-	//dataAccess.Leer(idVotante, votante);
-	//_votante = &votante; //Ver si la instancia q creo aca se guarda en el puntero o se elimina al salir del metodo
-
-	//Cargo cargo;
-	//dataAccess.Leer(idCargo, cargo);
-	//_cargoAPresentarse = &cargo; //Ver si la instancia q creo aca se guarda en el puntero o se elimina al salir del metodo
-
-	//Lista lista;
-	//dataAccess.Leer(idLista, lista);
-	//_listaPropia = &lista; //Ver si la instancia q creo aca se guarda en el puntero o se elimina al salir del metodo
 }
 
 
