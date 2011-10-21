@@ -537,3 +537,81 @@ void TestABMentidades::testAltaConteo() {
 	cout << "                  Fin Test AgregarVoto Conteo" << endl;
 	cout << "********************************************************" << endl << endl;
 }
+
+
+///////////////////////////////////////////////////
+
+
+
+void TestABMentidades::testBajaDistrito() {
+	cout << endl << "********************************************************" << endl;
+	cout << "            Comienzo Test Baja Distritos" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	vector<Distrito> vecDistritos;
+
+	UtilidadesTests::cargarDistritos(vecDistritos);
+	int cantidadDistritos = vecDistritos.size();
+
+	//doy de alta los distritos
+    for(int i=0;i<cantidadDistritos;i++) {
+        if (ABMtest.altaDistrito(vecDistritos[i])) cout << "Alta "<<vecDistritos[i].getNombre()<<" correcta" << endl;
+        else cout << "Alta "<<vecDistritos[i].getNombre()<<" incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+    //los doy de baja
+    for(int i=0;i<cantidadDistritos;i++) {
+            if (ABMtest.bajaDistrito(vecDistritos[i])) cout << "Baja "<<vecDistritos[i].getNombre()<<" correcta" << endl;
+            else cout << "Baja "<<vecDistritos[i].getNombre()<<" incorrecta" << endl;
+    }
+    cout << endl;
+
+    //trato de obtenerlos para confirmar que se hayan borrado
+     string clave[cantidadDistritos];
+     	for(int i=0;i<cantidadDistritos;i++)	clave[i] = vecDistritos[i].getNombre();
+
+     for(int i=0;i<cantidadDistritos;i++)
+    	 if(this->ConsultaEntidadesTest.ObtenerRegistro(clave[i],vecDistritos[i])) cout <<"error en bajas distrito";
+     cout << endl;
+
+ 	cout << endl << "********************************************************" << endl;
+ 	cout << "                Fin Test Baja Distritos" << endl;
+ 	cout << "********************************************************" << endl << endl;
+}
+
+void TestABMentidades::testBajaCargo() {
+	cout << endl << "********************************************************" << endl;
+	cout << "            Comienzo Test Baja Cargos" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	vector<Cargo> vecCargos;
+
+	UtilidadesTests::cargarCargos(vecCargos);
+	int cantidadCargos = vecCargos.size();
+
+	//doy de alta los cargos
+    for(int i=0;i<cantidadCargos;i++) {
+        if (ABMtest.altaCargo(vecCargos[i])) cout << "Alta " << vecCargos[i].getCargoPrincipal() << " correcta" << endl;
+        else cout << "Alta " << vecCargos[i].getCargoPrincipal() << " incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+	//doy de baja los cargos
+    for(int i=0;i<cantidadCargos;i++) {
+        if (ABMtest.bajaCargo(vecCargos[i])) cout << "Baja " << vecCargos[i].getCargoPrincipal() << " correcta" << endl;
+        else cout << "Baja " << vecCargos[i].getCargoPrincipal() << " incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+    //trato de obtenerlos para confirmar que se hayan borrado
+    string clave[cantidadCargos];
+    for(int i=0;i<cantidadCargos;i++)	clave[i] = vecCargos[i].getCargoPrincipal();
+
+    for(int i=0;i<cantidadCargos;i++) this->ConsultaEntidadesTest.ObtenerRegistro(clave[i],vecCargos[i]);
+
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                Fin Test Baja Cargos" << endl;
+	cout << "********************************************************" << endl << endl;
+}
