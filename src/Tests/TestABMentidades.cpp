@@ -58,6 +58,16 @@ void TestABMentidades::testAltaDistrito() {
 
 	for(int i=0;i<cantidadDistritos;i++)	vecDistritos[i].Imprimir();
 
+	/* Prueba modificacion de un distrito */
+	this->ConsultaEntidadesTest.ObtenerRegistro(clave[0],vecDistritos[0]);
+	vecDistritos[0].Imprimir();
+	vecDistritos[0].modificarNombre("Cordoba");
+	if (this->ABMtest.modificacionDistrito(vecDistritos[0])) cout << "Correcto "<< endl;
+	vecDistritos[0].Imprimir();
+	vecDistritos[0].modificarNombre("Lanus Oeste");
+	if (this->ABMtest.modificacionDistrito(vecDistritos[0])) cout << "Correcto "<< endl;
+	vecDistritos[0].Imprimir();
+
 
 	cout << endl << "********************************************************" << endl;
 	cout << "                Fin Test Alta Distritos" << endl;
