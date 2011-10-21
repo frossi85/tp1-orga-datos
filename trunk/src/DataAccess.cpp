@@ -36,14 +36,12 @@ unsigned long int DataAccess::Guardar(Grabable & obj)
 
 	unsigned long int offset = obj.Guardar(ofs);
 
-	Logger::Alta(obj); //Se tiene q logguear alta y modificacion, ver como lo valido
-
 	ofs.close();
 
 	return offset;
 }
 
-void DataAccess::Eliminar(Grabable & obj)
+/*void DataAccess::Eliminar(Grabable & obj)
 {
 	string rutaArchivo = obj.getURLArchivoDatos();
 
@@ -62,4 +60,4 @@ void DataAccess::Eliminar(Grabable & obj)
 	Logger::Eliminar(obj); //Se tiene q logguear alta y modificacion, ver como lo valido
 
 	ofs.close();
-}
+}*/
