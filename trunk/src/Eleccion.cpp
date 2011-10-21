@@ -47,6 +47,27 @@ void Eleccion::agregarDistrito(Distrito distrito)
 long Eleccion::getId() {return _id;}
 
 
+int Eleccion::getTamanioEnDisco(){
+
+	int tamanio=0;
+
+	tamanio+=sizeof(this->_id);
+	tamanio+=sizeof(this->_cargo->getId());
+	tamanio+=sizeof(this->_distritos.size());
+	int cantDistritos=this->_distritos.size();
+	if(cantDistritos>0){
+		tamanio+=sizeof(this->_distritos[0]->getId());
+	}
+
+	tamanio+=sizeof(this->_cargo->getId());
+
+	return tamanio;
+
+}
+
+
+
+
 string Eleccion::getFecha() {return this->_fecha;}
 
 
