@@ -39,6 +39,8 @@ public:
 	Lista& getLista();
 	Distrito& getDistrito();
 
+	int getTamanioEnDisco();
+
 	Eleccion& getEleccion(){ return *(this->_eleccion);}
 
 	unsigned long int Guardar(ofstream & ofs);
