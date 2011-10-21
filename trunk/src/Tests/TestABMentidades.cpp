@@ -59,14 +59,15 @@ void TestABMentidades::testAltaDistrito() {
 	for(int i=0;i<cantidadDistritos;i++)	vecDistritos[i].Imprimir();
 
 	/* Prueba modificacion de un distrito */
-	this->ConsultaEntidadesTest.ObtenerRegistro(clave[0],vecDistritos[0]);
-	vecDistritos[0].Imprimir();
-	vecDistritos[0].modificarNombre("Cordoba");
-	if (this->ABMtest.modificacionDistrito(vecDistritos[0])) cout << "Correcto "<< endl;
-	vecDistritos[0].Imprimir();
-	vecDistritos[0].modificarNombre("Lanus Oeste");
-	if (this->ABMtest.modificacionDistrito(vecDistritos[0])) cout << "Correcto "<< endl;
-	vecDistritos[0].Imprimir();
+	this->ConsultaEntidadesTest.ObtenerRegistro(clave[2],vecDistritos[2]);
+
+	/*Cambia Santa Fe por Santa */
+	clave[2] = "Santa";
+	vecDistritos[2].modificarNombre("Santa");
+	if (this->ABMtest.modificacionDistrito(vecDistritos[2])) cout << "Correcto "<< endl;
+
+	for(int i=0;i<cantidadDistritos;i++)	this->ConsultaEntidadesTest.ObtenerRegistro(clave[i],vecDistritos[i]);
+	for(int i=0;i<cantidadDistritos;i++)	vecDistritos[i].Imprimir();
 
 
 	cout << endl << "********************************************************" << endl;

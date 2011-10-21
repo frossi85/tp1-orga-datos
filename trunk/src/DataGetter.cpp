@@ -95,10 +95,12 @@ bool DataGetter::getEleccionesPorFechayDistrito(vector<Eleccion*> & vecEleccione
 
 	/* Busco en el arbol todos los ids de elecciones con la fecha pedida */
 	list<RegistroArbol *> IDsElecciones;
-    if (!arbolEleccion->buscar(IDsElecciones, claveInicial, claveFinal)) return false;		// Si no habia ninguna coincidencia, se devuelve false
+	bool retorno = false;
+    if (!arbolEleccion->buscar(IDsElecciones, claveInicial, claveFinal)) retorno = true;	// Si no habia ninguna coincidencia, se devuelve false
     arbolEleccion->cerrar();
     delete arbolEleccion;
     arbolEleccion = NULL;
+    if (retorno) return false;
 
     /* A partir de la lista de IDs de elecciones se descartan las elecciones en las que ya participo el votante */
     int cantidadEleccionesVotante = votante.getElecciones().size();
