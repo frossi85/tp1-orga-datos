@@ -6,16 +6,7 @@
  */
 
 #include "Menu.h"
-#include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <cstdlib>
-#include <cstdio>
-#include <cctype>
-#include "DataAccess.h"
-#include "DataGetter.h"
-#include "ABM Entidades/ABMentidades.h"
-#include "Informe.h"
+
 using namespace std;
 
 Menu::Menu() {

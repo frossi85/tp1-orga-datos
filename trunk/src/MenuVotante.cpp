@@ -6,9 +6,6 @@
  */
 
 #include "MenuVotante.h"
-#include "DataGetter.h"
-#include "ABM Entidades/ABMentidades.h"
-#include <vector>
 
 MenuVotante::MenuVotante(Votante *votante) {
 

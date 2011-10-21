@@ -14,6 +14,9 @@
 #include "Eleccion.h"
 #include "Lista.h"
 #include "Candidato.h"
+#include "DataGetter.h"
+#include "ABMEntidades/ABMentidades.h"
+#include <vector>
 
 using namespace std;
 
