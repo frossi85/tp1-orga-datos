@@ -615,3 +615,331 @@ void TestABMentidades::testBajaCargo() {
 	cout << "                Fin Test Baja Cargos" << endl;
 	cout << "********************************************************" << endl << endl;
 }
+
+void TestABMentidades::testBajaEleccion() {
+	cout << endl << "********************************************************" << endl;
+	cout << "                Comienzo Test Baja Eleccion" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	 vector<Distrito> vecDistritos;
+	 vector<Cargo> vecCargos;
+
+	 UtilidadesTests::cargarDistritos(vecDistritos);
+	 UtilidadesTests::cargarCargos(vecCargos);
+	 int cantidadDistritos = vecDistritos.size();
+	 int cantidadCargos = vecCargos.size();
+
+    /* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
+    bool exito = true;
+    for (int i=0;i<cantidadDistritos;i++)	if (exito) exito = this->ABMtest.altaDistrito(vecDistritos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Distritos (verificar que no existan los hash de distrito)" << endl << endl;
+    	return;
+    }
+
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<cantidadCargos;i++)	if (exito) exito = this->ABMtest.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no existan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+	vector<Eleccion> vecElecciones;
+
+	UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+	int cantidadElecciones = vecElecciones.size();
+
+	 for(int i=0;i<cantidadElecciones;i++) {
+        if (ABMtest.altaEleccion(vecElecciones[i])) cout << "Alta " << vecElecciones[i].getFecha() << " correcta" << endl;
+        else cout << "Alta " << vecElecciones[i].getFecha() << " incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+    //doy de baja las elecciones
+    for(int i=0;i<cantidadElecciones;i++) {
+            if (ABMtest.bajaEleccion(vecElecciones[i])) cout << "Baja " << vecElecciones[i].getFecha() << " correcta" << endl;
+            else cout << "Baja " << vecElecciones[i].getFecha() << " incorrecta" << endl;
+       }
+       cout << endl;
+
+    //trato de obtenerlos para confirmar que se hayan borrado
+    string clave[cantidadElecciones];
+ 	for(int i=0;i<cantidadElecciones;i++)	{
+ 		clave[i] = Utilidades::indexarFecha(vecElecciones[i].getFecha()) + "$" + vecElecciones[i].getCargo().getCargoPrincipal();
+ 	}
+
+   	for(int i=0;i<cantidadElecciones;i++)
+   		if(this->ConsultaEntidadesTest.ObtenerRegistro(clave[cantidadElecciones-1-i],vecElecciones[i])) cout << "error baja elecciones";
+   	cout << endl;
+
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                    Fin Test Baja Eleccion" << endl;
+	cout << "********************************************************" << endl << endl;
+}
+
+void TestABMentidades::testBajaVotante() {
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Baja Votantes" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	// Cargo valores
+	vector<Distrito> vecDistritos;
+	UtilidadesTests::cargarDistritos(vecDistritos);
+	int cantidadDistritos = vecDistritos.size();
+
+	vector<Cargo> vecCargos;
+	UtilidadesTests::cargarCargos(vecCargos);
+	int cantidadCargos = vecCargos.size();
+
+	// Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA)
+	// Para que tenga exito, no deben existir los archivos de hash de distrito
+	bool exito = true;
+	for (int i=0;i<cantidadDistritos;i++)	if (exito) exito = this->ABMtest.altaDistrito(vecDistritos[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Distritos (verificar que no existan los hash de distrito)" << endl << endl;
+	  	return;
+	}
+
+	// Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA)
+    // Para que tenga exito, no deben existir los archivos de hash de cargo
+	exito = true;
+	for (int i=0;i<cantidadCargos;i++)	if (exito) exito = this->ABMtest.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no existan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+    vector<Eleccion> vecElecciones;
+    UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+    int cantidadElecciones = vecElecciones.size();
+
+	// Guardo las elecciones. Verificar que ande antes el ABMentidades::altaEleccion()
+	// Para que tenga exito, no debe existir el archivo de arbol de eleccion
+	exito = true;
+	for (int i=0;i<cantidadElecciones;i++)	if (exito) exito = this->ABMtest.altaEleccion(vecElecciones[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Elecciones (verificar que no exista el arbol de eleccion)" << endl << endl;
+	  	return;
+	}
+
+    vector<Votante> vecVotantes;
+    UtilidadesTests::cargarVotantes(vecVotantes,vecDistritos,vecElecciones);
+    int cantidadVotantes = vecVotantes.size();
+
+    //alta de votantes
+	for(int i=0;i<cantidadVotantes;i++) {
+      if (ABMtest.altaVotante(vecVotantes[i])) cout << "Alta " << vecVotantes[i].getDNI() << " correcta" << endl;
+      else cout << "Alta " << vecVotantes[i].getDNI() << " incorrecta (ya existia)" << endl;
+   }
+   cout << endl;
+
+   //baja de votantes
+   	for(int i=0;i<cantidadVotantes;i++) {
+         if (ABMtest.bajaVotante(vecVotantes[i])) cout << "baja " << vecVotantes[i].getDNI() << " correcta" << endl;
+         else cout << "Baja " << vecVotantes[i].getDNI() << " incorrecta" << endl;
+     }
+     cout << endl;
+
+   //trato de obtenerlos para ver que se hayan borrado
+   string clave[cantidadVotantes];
+   for(int i=0;i<cantidadVotantes;i++)	clave[i] = Utilidades::toString(vecVotantes[i].getDNI());
+
+   for(int i=0;i<cantidadVotantes;i++)
+	   if(this->ConsultaEntidadesTest.ObtenerRegistro(clave[i],vecVotantes[i])) cout << "error baja votantes";
+   cout << endl;
+
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Baja Votantes" << endl;
+	cout << "********************************************************" << endl << endl;
+}
+
+void TestABMentidades::testBajaLista() {
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Baja Listas" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	/* Cargo valores */
+	vector<Distrito> vecDistritos;
+	UtilidadesTests::cargarDistritos(vecDistritos);
+	int cantidadDistritos = vecDistritos.size();
+
+	vector<Cargo> vecCargos;
+	UtilidadesTests::cargarCargos(vecCargos);
+	int cantidadCargos = vecCargos.size();
+
+	/* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
+	bool exito = true;
+	for (int i=0;i<cantidadDistritos;i++)	if (exito) exito = this->ABMtest.altaDistrito(vecDistritos[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Distritos (verificar que no existan los hash de distrito)" << endl << endl;
+	  	return;
+	}
+
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<cantidadCargos;i++)	if (exito) exito = this->ABMtest.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no existan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+    vector<Eleccion> vecElecciones;
+    UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+    int cantidadElecciones = vecElecciones.size();
+
+	/* Guardo las elecciones. Verificar que ande antes el ABMentidades::altaEleccion() */
+	/* Para que tenga exito, no debe existir el archivo de arbol de eleccion */
+	exito = true;
+	for (int i=0;i<cantidadElecciones;i++)	if (exito) exito = this->ABMtest.altaEleccion(vecElecciones[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Elecciones (verificar que no exista el arbol de eleccion)" << endl << endl;
+	  	return;
+	}
+
+    vector<Lista> vecListas;
+    UtilidadesTests::cargarListas(vecListas,vecElecciones);
+    int cantidadListas = vecListas.size();
+
+    //alta listas
+	for(int i=0;i<cantidadListas;i++) {
+      if (ABMtest.altaLista(vecListas[i])) cout << "Alta " << vecListas[i].getNombre() << "$" << vecListas[i].getEleccion().getFecha() << " correcta" << endl;
+      else cout << "Alta " << vecListas[i].getNombre() << "$" << vecListas[i].getEleccion().getFecha() << " incorrecta (ya existia)" << endl;
+    }
+   cout << endl;
+
+
+   //baja listas
+	for(int i=0;i<cantidadListas;i++) {
+     if (ABMtest.bajaLista(vecListas[i])) cout << "Baja " << vecListas[i].getNombre() << "$" << vecListas[i].getEleccion().getFecha() << " correcta" << endl;
+     else cout << "Baja " << vecListas[i].getNombre() << "$" << vecListas[i].getEleccion().getFecha() << " incorrecta" << endl;
+   }
+  cout << endl;
+
+  //trato de obtenerlas para ver que se hayan borrado
+   string clave[cantidadListas];
+   for(int i=0;i<cantidadListas;i++) {
+	   clave[i] = Utilidades::indexarFecha(vecListas[i].getEleccion().getFecha()) + "$" + vecListas[i].getEleccion().getCargo().getCargoPrincipal() + "$" + vecListas[i].getNombre();
+   }
+
+   for(int i=0;i<cantidadListas;i++)
+	   if(this->ConsultaEntidadesTest.ObtenerRegistro(clave[cantidadListas-1-i],vecListas[i])) cout << "error baja listas";
+   cout << endl;
+
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Baja Listas" << endl;
+	cout << "********************************************************" << endl << endl;
+}
+
+
+void TestABMentidades::testBajaCandidato() {
+	cout << endl << "********************************************************" << endl;
+	cout << "              Comienzo Test Baja Candidatos" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	/* Cargo valores */
+	vector<Distrito> vecDistritos;
+	UtilidadesTests::cargarDistritos(vecDistritos);
+	int cantidadDistritos = vecDistritos.size();
+
+	vector<Cargo> vecCargos;
+	UtilidadesTests::cargarCargos(vecCargos);
+	int cantidadCargos = vecCargos.size();
+
+	/* Guardo los distritos. Verificar que ande antes el ABMentidades::altaDistrito() (ṔOR AHORA ANDA) */
+	/* Para que tenga exito, no deben existir los archivos de hash de distrito */
+	bool exito = true;
+	for (int i=0;i<cantidadDistritos;i++)	if (exito) exito = this->ABMtest.altaDistrito(vecDistritos[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Distritos (verificar que no existan los hash de distrito)" << endl << endl;
+	  	return;
+	}
+
+	/* Guardo los cargos. Verificar que ande antes el ABMentidades::altaCargo() (ṔOR AHORA ANDA) */
+    /* Para que tenga exito, no deben existir los archivos de hash de cargo */
+	exito = true;
+	for (int i=0;i<cantidadCargos;i++)	if (exito) exito = this->ABMtest.altaCargo(vecCargos[i]);
+    if (!exito) {
+    	cout << "Fallo la carga de Cargos (verificar que no existan los hash de cargo)" << endl << endl;
+    	return;
+    }
+
+    vector<Eleccion> vecElecciones;
+    UtilidadesTests::cargarElecciones(vecElecciones,vecCargos,vecDistritos);
+    int cantidadElecciones = vecElecciones.size();
+
+	/* Guardo las elecciones. Verificar que ande antes el ABMentidades::altaEleccion() */
+	/* Para que tenga exito, no debe existir el archivo de arbol de eleccion */
+	exito = true;
+	for (int i=0;i<cantidadElecciones;i++)	if (exito) exito = this->ABMtest.altaEleccion(vecElecciones[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Elecciones (verificar que no exista el arbol de eleccion)" << endl << endl;
+	  	return;
+	}
+
+    vector<Lista> vecListas;
+    UtilidadesTests::cargarListas(vecListas,vecElecciones);
+    int cantidadListas = vecListas.size();
+
+	/* Guardo las listas. Verificar que ande antes el ABMentidades::altaLista() */
+	/* Para que tenga exito, no debe existir el archivo de arbol de lista */
+	exito = true;
+	for (int i=0;i<cantidadListas;i++)	if (exito) exito = this->ABMtest.altaLista(vecListas[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Listas (verificar que no exista el arbol de lista)" << endl << endl;
+	  	return;
+	}
+
+    vector<Votante> vecVotantes;
+    UtilidadesTests::cargarVotantes(vecVotantes,vecDistritos,vecElecciones);
+    int cantidadVotantes = vecVotantes.size();
+
+	/* Guardo los votantes. Verificar que ande antes el ABMentidades::altaVotante() */
+	/* Para que tenga exito, no deben existir los archivos de hash de votante */
+	exito = true;
+	for (int i=0;i<cantidadVotantes;i++)	if (exito) exito = this->ABMtest.altaVotante(vecVotantes[i]);
+	if (!exito) {
+	 	cout << "Fallo la carga de Votantes (verificar que no existan los hash de votante)" << endl << endl;
+	  	return;
+	}
+
+	vector<Candidato> vecCandidatos;
+	UtilidadesTests::cargarCandidatos(vecCandidatos,vecListas,vecVotantes);
+	int cantidadCandidatos = vecCandidatos.size();
+
+	//alta de candidatos
+	for(int i=0;i<cantidadCandidatos;i++) {
+      if (ABMtest.altaCandidato(vecCandidatos[i])) cout << "Alta " << vecCandidatos[i].getLista().getNombre() << "$" << vecCandidatos[i].getDNI() << " correcta" << endl;
+      else cout << "Alta " << vecCandidatos[i].getLista().getNombre() << "$" << vecCandidatos[i].getDNI() << " incorrecta (ya existia)" << endl;
+    }
+   cout << endl;
+
+	//baja de candidatos
+	for(int i=0;i<cantidadCandidatos;i++) {
+     if (ABMtest.bajaCandidato(vecCandidatos[i])) cout << "Baja " << vecCandidatos[i].getLista().getNombre() << "$" << vecCandidatos[i].getDNI() << " correcta" << endl;
+     else cout << "Baja " << vecCandidatos[i].getLista().getNombre() << "$" << vecCandidatos[i].getDNI() << " incorrecta" << endl;
+   }
+  cout << endl;
+
+  //trato de obtenerlos para ver que se hayan borrado
+   string clave[cantidadCandidatos];
+   for(int i=0;i<cantidadCandidatos;i++) {
+	   clave[i] = Utilidades::indexarFecha(vecCandidatos[i].getLista().getEleccion().getFecha()) + "$" + vecCandidatos[i].getLista().getEleccion().getCargo().getCargoPrincipal() + "$" + vecCandidatos[i].getLista().getNombre() + "$" + Utilidades::toString(vecCandidatos[i].getDNI());
+   }
+
+   for(int i=0;i<cantidadCandidatos;i++)
+	   if(this->ConsultaEntidadesTest.ObtenerRegistro(clave[cantidadCandidatos-1-i],vecCandidatos[i])) cout << "error baja candidatos";
+   cout << endl;
+
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                  Fin Test Baja Candidatos" << endl;
+	cout << "********************************************************" << endl << endl;
+}
