@@ -642,7 +642,6 @@ void Menu::adminDistrito() {
 	char opcion;
 	bool invalida=false;
 	bool retorno=false;
-	char nombre[50];
 	std::string nombre_distrito;
 	ABMentidades abm;
 	ConsultaEntidades consulta;
@@ -667,7 +666,7 @@ void Menu::adminDistrito() {
 
 		case 'A':
 			cout << endl <<endl;
-			cout << "Ingrese el nombre del ditrito: ";
+			cout << "Ingrese el nombre del distrito: ";
 
 			cin.ignore();
 			getline(cin,nombre_distrito);
@@ -687,7 +686,7 @@ void Menu::adminDistrito() {
 			break;
 		case 'B':
 			cout << endl <<endl;
-			cout << "Ingrese el nombre del ditrito a borrar: ";
+			cout << "Ingrese el nombre del distrito a borrar: ";
 			cin.ignore();
 			getline(cin,nombre_distrito);
 
@@ -696,7 +695,7 @@ void Menu::adminDistrito() {
 
 			if (!consulta.ObtenerRegistro(nombre_distrito,*distrito))
 			{
-				cout << "No existe el Distrito \"" << nombre << "\"." << endl;
+				cout << "No existe el Distrito \"" << nombre_distrito << "\"." << endl;
 			}else{
 				abm.bajaDistrito(*distrito);
 			}
@@ -707,7 +706,7 @@ void Menu::adminDistrito() {
 
 		case 'M':
 			cout << endl <<endl;
-			cout << "Ingrese el nombre del ditrito a modificar: ";
+			cout << "Ingrese el nombre del distrito a modificar: ";
 			cin.ignore();
 			getline(cin,nombre_distrito);
 
@@ -723,7 +722,8 @@ void Menu::adminDistrito() {
 
 				if(abm.modificacionDistrito(*distrito)){
 					cout<<"Se modifico el Distrito."<<endl;
-				}else{
+				}
+				else{
 					cout << "Error al modificar el distrito."<<endl;
 				}
 
@@ -751,133 +751,133 @@ void Menu::adminDistrito() {
 
 void Menu::adminCargo() {
 	char opcion;
-		bool invalida=false;
-		bool retorno=false;
-		char nombre[50];
-		Cargo cargo;
-		int resultado;
-	    ConsultaEntidades consulta;
-	    ABMentidades abm;
-		do {
-			system("clear");
-			if (invalida) {
-				cout << "Opcion invalida, intente nuevamente." << endl;
-			}
-			cout << "********************************" << endl;
-			cout << "A => Crear un Cargo." << endl;
-			cout << "B => Borrar un Cargo." << endl;
-			cout << "G => Agregar un Cargo secundario." << endl;
-			cout << "V => Volver." << endl << "Opcion: ";
-			cin >> opcion;
+	bool invalida=false;
+	bool retorno=false;
+	char nombre[50];
+	Cargo cargo;
+	int resultado;
+    ConsultaEntidades consulta;
+    ABMentidades abm;
+	do {
+		system("clear");
+		if (invalida) {
+			cout << "Opcion invalida, intente nuevamente." << endl;
+		}
+		cout << "********************************" << endl;
+		cout << "A => Crear un Cargo." << endl;
+		cout << "B => Borrar un Cargo." << endl;
+		cout << "G => Agregar un Cargo secundario." << endl;
+		cout << "V => Volver." << endl << "Opcion: ";
+		cin >> opcion;
 
-			retorno=false;
-			invalida=false;
-			switch ((char)toupper(opcion)) {
-			case 'A':
-			{
-				cout << endl <<endl;
-				cout << "Ingrese el nombre del nuevo Cargo: ";
+		retorno=false;
+		invalida=false;
+		switch ((char)toupper(opcion)) {
+		case 'A':
+		{
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del nuevo Cargo: ";
+			cin.ignore();
+			fgets(nombre,50,stdin);
+
+			string cad(nombre);
+			Cargo nuevo(cad);
+
+			bool seguirCargando=false;
+			string cargoSec;
+
+			do{
+				cout<<"Ingrese un Cargo Secundario(0 para no ingresar):";
 				cin.ignore();
-				fgets(nombre,50,stdin);
+				getline(cin,cargoSec);
 
-				string cad(nombre);
-				Cargo nuevo(cad);
+				seguirCargando=cargoSec!="0";
 
-				bool seguirCargando=false;
+				if(seguirCargando){
+					nuevo.agregarCargoSecundario(cargoSec);
+				}
+
+
+			}while(seguirCargando);
+
+
+			//Se crea el cargo, verificando si no existia
+			if(abm.altaCargo(nuevo))
+				cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
+			else
+				cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			getchar();
+			retorno=true;
+			break;
+		}
+		case 'B':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del Cargo a borrar: ";
+			cin >> nombre;
+
+
+			if(!(consulta.ObtenerRegistro(nombre, cargo)))
+			{
+				cout<<"El cargo no existe"<<endl;
+				resultado = -1;
+				break;
+			}
+			if(abm.bajaCargo(cargo))
+				cout << "Se borro el cargo \"" << nombre << "\"." << endl;
+			else
+				cout<< "No se ha podido borrar al cargo." << endl;
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			getchar();
+			retorno=true;
+			break;
+		case 'G':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del Cargo a modificar: ";
+			cin.ignore();
+			fgets(nombre,50,stdin);
+
+			if(!(consulta.ObtenerRegistro(nombre, cargo)))
+			{
+				cout<<"El cargo no existe"<<endl;
+				resultado = -1;
+				break;
+			} else {
 				string cargoSec;
-
+				bool seguirCargando=false;
+				bool huboCambios=false;
+				cout << endl;
 				do{
-					cout<<"Ingrese un Cargo Secundario(0 para no ingresar):";
+					cout << "Ingrese el nombre del Cargo secundario(0 para finalizar): ";
 					cin.ignore();
 					getline(cin,cargoSec);
 
 					seguirCargando=cargoSec!="0";
 
 					if(seguirCargando){
-						nuevo.agregarCargoSecundario(cargoSec);
+						cargo.agregarCargoSecundario(cargoSec);
+						huboCambios=true;
 					}
-
 
 				}while(seguirCargando);
 
-
-				//Se crea el cargo, verificando si no existia
-				if(abm.altaCargo(nuevo))
-					cout << "Se creo el Cargo \"" << nombre << "\"." << endl;
-				else
-					cout << "El cargo ya existe o se produjo un error al crearlo." << endl;
-
-				cout << "Ingrese cualquier letra para continuar: ";
-				getchar();
-				retorno=true;
-				break;
-			}
-			case 'B':
-				cout << endl <<endl;
-				cout << "Ingrese el nombre del Cargo a borrar: ";
-				cin >> nombre;
-
-
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
-				{
-					cout<<"El cargo no existe"<<endl;
-					resultado = -1;
-					break;
-				}
-				if(abm.bajaCargo(cargo))
-					cout << "Se borro el cargo \"" << nombre << "\"." << endl;
-				else
-					cout<< "No se ha podido borrar al cargo." << endl;
-
-				cout << "Ingrese cualquier letra para continuar: ";
-				getchar();
-				retorno=true;
-				break;
-			case 'G':
-				cout << endl <<endl;
-				cout << "Ingrese el nombre del Cargo a modificar: ";
-				cin.ignore();
-				fgets(nombre,50,stdin);
-
-				if(!(consulta.ObtenerRegistro(nombre, cargo)))
-				{
-					cout<<"El cargo no existe"<<endl;
-					resultado = -1;
-					break;
-				} else {
-					string cargoSec;
-					bool seguirCargando=false;
-					bool huboCambios=false;
-					cout << endl;
-					do{
-						cout << "Ingrese el nombre del Cargo secundario(0 para finalizar): ";
-						cin.ignore();
-						getline(cin,cargoSec);
-
-						seguirCargando=cargoSec!="0";
-
-						if(seguirCargando){
-							cargo.agregarCargoSecundario(cargoSec);
-							huboCambios=true;
-						}
-
-					}while(seguirCargando);
-
-					if(huboCambios){
-						if(abm.modificacionCargo(cargo)){
-							cout<<"Se agregaron Correctamente los Cargos Sec."<<endl;
-						}else{
-							cout<<"Hubo Problemas al Intentar modificar el Cargo."<<endl;
-						}
+				if(huboCambios){
+					if(abm.modificacionCargo(cargo)){
+						cout<<"Se agregaron Correctamente los Cargos Sec."<<endl;
+					}else{
+						cout<<"Hubo Problemas al Intentar modificar el Cargo."<<endl;
 					}
 				}
-
-				cout << "Presione cualquier letra para continuar: ";
-				getchar();
-				retorno=true;
-				break;
 			}
-		} while ((invalida) || (retorno));
+
+			cout << "Presione cualquier letra para continuar: ";
+			getchar();
+			retorno=true;
+			break;
+		}
+	} while ((invalida) || (retorno));
 
 }
 
