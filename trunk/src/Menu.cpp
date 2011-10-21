@@ -63,19 +63,31 @@ bool Menu::accesoAdmin() {
 
 bool Menu::accesoUsuario() {
 	DataAccess data_access;
-	Votante votante;//= DataGetter::getVotante(user);
+	Votante votante;
 	ConsultaEntidades consulta;
 
 
-	if(consulta.ObtenerRegistro(this->user,votante) && votante.getClave()== pass)
+	if(consulta.ObtenerRegistro(this->user,votante))
 	{
-		cout<< "Accedio al sistema." << endl;
+		if(votante.getClave()== pass)
+		{
+			cout<< "Accedio al sistema." << endl;
 
-		//Se LLama al menu del Votante
+			//Se LLama al menu del Votante
 
-		MenuVotante menuVotante(&votante);
+			MenuVotante menuVotante(&votante);
 
-		return true;
+			return true;
+		}
+		else {
+			if ( user == salir || pass == salir ) {
+				cout << "Eligio terminar el programa." << endl;
+				return true;
+			} else {
+				cout << "El usuario o la contraseña son invalidos." << endl;
+				return false;
+			}
+		}
 	} else {
 		if ( user == salir || pass == salir ) {
 			cout << "Eligio terminar el programa." << endl;
