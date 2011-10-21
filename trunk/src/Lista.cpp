@@ -149,4 +149,18 @@ inline string Lista::getURLArchivoDatos() {
 }
 
 
+int Lista::getTamanioEnDisco(){
+	int tamanio=0;
+
+	tamanio+=sizeof(this->_id);
+
+	tamanio+=sizeof(this->_nombre.size());
+	tamanio+=sizeof(char)*this->_nombre.size();
+
+	tamanio+=sizeof(this->_eleccion->getId());
+
+	return tamanio;
+}
+
+
 string Lista::getClassName() {return "Lista";}

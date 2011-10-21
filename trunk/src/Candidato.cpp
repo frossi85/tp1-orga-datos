@@ -55,6 +55,16 @@ Cargo& Candidato::getCargo() {return (this->_listaPropia->getEleccion().getCargo
 
 Lista& Candidato::getLista() {return *(this->_listaPropia);}
 
+int Candidato::getTamanioEnDisco(){
+	int tamanio=0;
+
+	tamanio+=sizeof(this->_id);
+	tamanio+=sizeof(this->_listaPropia->getId());
+	tamanio+=sizeof(this->_votante->getId());
+
+	return tamanio;
+}
+
 
 void Candidato::setLista(Lista lista) {
 	if (this->_listaPropia != NULL) delete this->_listaPropia;

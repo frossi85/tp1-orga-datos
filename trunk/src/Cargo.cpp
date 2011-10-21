@@ -102,6 +102,31 @@ void Cargo::Imprimir()
 	cout << endl;
 }
 
+int Cargo::getTamanioEnDisco(){
+
+	int tamanio=0;
+
+	tamanio+=sizeof(this->_id);
+
+	tamanio+=sizeof(this->cargoPrincipal.size());
+	tamanio+=sizeof(char)*this->cargoPrincipal.size();
+
+	int cantCargosSec=this->cargosSecundarios.size();
+
+	tamanio+=sizeof(this->cargosSecundarios.size());
+
+	if (cantCargosSec>0){
+		for(int i=0;i<cantCargosSec;i++){
+			tamanio+=sizeof(this->cargosSecundarios[i].size());
+			tamanio+=sizeof(char)*this->cargosSecundarios[i].size();
+		}
+
+
+	}
+
+	return tamanio;
+}
+
 
 string Cargo::getURLArchivoDatos() {return (*Configuracion::getConfig()).getValorPorPrefijo(Configuracion::URL_CARGO);}
 
