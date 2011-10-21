@@ -1,3 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="node1" href="$classMenu.html" title="Menu" alt="" coords="7,5,60,35"/>
+<area shape="rect" id="node1" href="$classLogueable.html" title="Logueable" alt="" coords="7,192,87,221"/>
+<area shape="rect" id="node3" href="$classGrabable.html" title="Grabable" alt="" coords="136,192,211,221"/>
+<area shape="rect" id="node5" href="$classAdministrador.html" title="Administrador" alt="" coords="260,5,361,35"/>
+<area shape="rect" id="node7" href="$classCandidato.html" title="Candidato" alt="" coords="271,59,351,88"/>
+<area shape="rect" id="node9" href="$classCargo.html" title="Cargo" alt="" coords="283,112,339,141"/>
+<area shape="rect" id="node11" href="$classConteo.html" title="Conteo" alt="" coords="279,165,343,195"/>
+<area shape="rect" id="node13" href="$classDistrito.html" title="Distrito" alt="" coords="279,219,343,248"/>
+<area shape="rect" id="node15" href="$classEleccion.html" title="Eleccion" alt="" coords="275,272,347,301"/>
+<area shape="rect" id="node17" href="$classLista.html" title="Lista" alt="" coords="285,325,336,355"/>
+<area shape="rect" id="node19" href="$classVotante.html" title="Votante" alt="" coords="277,379,344,408"/>
 </map>

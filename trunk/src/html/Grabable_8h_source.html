@@ -77,24 +77,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00017"></a>00017 
 <a name="l00018"></a><a class="code" href="classGrabable.html">00018</a> <span class="keyword">class </span><a class="code" href="classGrabable.html">Grabable</a> : <span class="keyword">public</span> <a class="code" href="classLogueable.html">Logueable</a> {
 <a name="l00019"></a>00019 <span class="keyword">private</span>:
-<a name="l00020"></a>00020         <span class="comment">//string _stringId;// = &quot;Falta Implementar&quot;;</span>
+<a name="l00020"></a>00020 
 <a name="l00021"></a>00021 <span class="keyword">public</span>:
-<a name="l00022"></a>00022         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Guardar(ofstream &amp; ofs) = 0;
+<a name="l00022"></a>00022         <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> Guardar(ofstream &amp; ofs) = 0;  <span class="comment">// Devuelve el offset de donde lo grabo</span>
 <a name="l00023"></a>00023         <span class="comment">//virtual void Modificar() = 0;</span>
 <a name="l00024"></a>00024         <span class="comment">//virtual void Eliminar() = 0;</span>
-<a name="l00025"></a>00025         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Leer(ifstream &amp; ifs) = 0;
+<a name="l00025"></a>00025         <span class="keyword">virtual</span> <span class="keywordtype">void</span> Leer(ifstream &amp; ifs, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> offset) = 0;
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028         <span class="keyword">virtual</span> <span class="keywordtype">string</span> getURLArchivoDatos() = 0;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030         <span class="comment">//Es la interface Loggueable q heredo</span>
-<a name="l00031"></a>00031         <span class="keyword">virtual</span> <span class="keywordtype">string</span> getClassName() = 0;
-<a name="l00032"></a>00032         <span class="comment">//Lo de abajo seria una interface Comparable</span>
-<a name="l00033"></a>00033 
-<a name="l00034"></a>00034         <span class="comment">//bool operator ==(const Grabable &amp;obj) const;</span>
-<a name="l00035"></a>00035 };
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="preprocessor">#endif </span><span class="comment">/* GRABABLE_H_ */</span>
+<a name="l00027"></a>00027         <span class="comment">//virtual int getTamanioEnDisco() = 0;</span>
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029         <span class="keyword">virtual</span> <span class="keywordtype">string</span> getURLArchivoDatos() = 0;
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031         <span class="comment">//Es la interface Loggueable q heredo</span>
+<a name="l00032"></a>00032         <span class="keyword">virtual</span> <span class="keywordtype">string</span> getClassName() = 0;
+<a name="l00033"></a>00033 };
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="preprocessor">#endif </span><span class="comment">/* GRABABLE_H_ */</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -111,7 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:53 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

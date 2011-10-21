@@ -63,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="classVotante.html">Votante</a>, including all inherited members.<table>
+  <tr bgcolor="#f0f0f0"><td><b>agregarEleccion</b>(Eleccion eleccion) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>cambiarClave</b>(string claveAnterior, string claveNueva) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getClassName</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getClave</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
@@ -72,15 +73,18 @@ This is the complete list of members for <a class="el" href="classVotante.html">
   <tr bgcolor="#f0f0f0"><td><b>getElecciones</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getId</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getNombreYApellido</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>getTamanioEnDisco</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getURLArchivoDatos</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>Guardar</b>(ofstream &amp;ofs) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>Imprimir</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>Leer</b>(ifstream &amp;ifs) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [virtual]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>setDistrito</b>(Distrito &amp;distrito) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Leer</b>(ifstream &amp;ifs, unsigned long int offset) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>setDistrito</b>(Distrito distrito) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>setDomicilio</b>(string nuevo_domicilio) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>setId</b>(long id) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [inline]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>vaciarVectorElecciones</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Votante</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>Votante</b>(int dni, string nombreYApellido, string clave, string domicilio, Distrito distrito) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>Votante</b>(const Votante &amp;votante) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>votarEnEleccionALista</b>(Eleccion &amp;eleccion, Lista &amp;lista) (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>~Votante</b>() (defined in <a class="el" href="classVotante.html">Votante</a>)</td><td><a class="el" href="classVotante.html">Votante</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
 <!--- window showing the filter options -->
@@ -97,7 +101,7 @@ This is the complete list of members for <a class="el" href="classVotante.html">
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:54 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

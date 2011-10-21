@@ -24,12 +24,10 @@
 * alta o modificación, se deberá comprobar que sean únicos.
 * \n\n
 *
-* Las bajas serán físicas y se deberán borrar todas las referencias hacia la instancia que estemos eliminando.\n
 * Si se cambia el identificador (o parte de él) de una instancia particular de cualquier tipo de entidad, antes de eso se deberán actualizar los índices
 * que relacionen la clave autonumerica con el identificador de la instancia, modificando este ultimo con el nuevo valor. Lo mismo si se borra una entidad,
 * primero se actualizan los índices y luego se elimina.
 *
-* Como claves autonuméricas, usaremos los offsets de cada entidad en su correspondiente archivo.
 *
 *
 * @section orga Organización
@@ -40,58 +38,35 @@
 * - Votante (id, (DNI)i, NombreyApellido, clave, domicilio, (idDistrito)ie, ((idEleccion)ie)*)
 * - Eleccion (id, (fecha, (idCargo)ie)i, ((idDistrito)ie)+)
 * - Lista (id, ((idEleccion)ie, nombre)i)
-* - Conteo (id, ((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad)
 * - Candidato (id, ((idLista)ie, (idVotante)ie, (idCargo)ie)i)
 * - Cargo (id, (cargo)i, (cargo)*)
 * - Administrador (id, (usuario)i, clave)
+* - Conteo (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) \n
+* (Conteo no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos)
 *
 *
-* Del analisis de las anteriores entidades, llegamos a la conclucion de que existen dos grupos que utilizaran organizaciones de archivo diferentes.
+* Todas las entidades se almacenan en archivos de registros de tamaño variable.\n
+* En el caso de aquellas que implementan id numérico, se utiliza un hash para relacionar ese id con su correspondiente clave.\n
+* Es decir que primero se le pasa su id a dicho hash para obtener la clave, y luego se le pasa esa clave al hash/árbol índice de
+* esa entidad, para finalmente obtener el offset del registro en su archivo de registros variables.
 * \n\n
 *
-* A continuación se enumeran las entidades separadas por grupo, y se caracterizan las organizaciones que usaran cada uno.
-* \n\n
+* Para las entidades que tienen más de un campo como identificador (Elección, Lista y Candidato), se utilizan índices B+, para
+* aprovechar la posibilidad de hacer búsquedas aproximadas que brinda esa estructura.
+* Distrito, Votante, Cargo y Administrador usan índices de dispersión extensible modular.
 *
-* Entidades que usaran Archivos con Registros de Tamaño Fijos: Lista,  Distrito, Conteo, Candidato y Administrador
-* \n\n
+* En el caso particular de Conteo, tiene tres índices B+, para posibilitar la recuperación de conteos por lista, distrito o
+* elección, y usarlos para imprimir el reporte de resultados en base a alguno de esos tres criterios.
 *
-* Los registros tendrán tamaño fijo, este tamaño fijo estará dado por la suma del tamaño de los campos fijos mas la de los máximos estipulados para los
-* campos variables. Por ende el tamaño de registro será fijo pero dependerá del tipo de entidad.
-* \n\n
-*
-* En este archivo se guardarán las entidades propiamente dichas, mientras que las búsquedas para altas, bajas y modificación estarán organizadas
-* mediante un hash extensible como índice, en el que estarán almacenados las claves y los offsets de los registros.
-*
-* <hr>
-*
-* Entidades que usaran Archivos con Registros de Tamaño Variable: Cargo
-* \n\n
-*
-* En este archivo se guardarán las entidades propiamente dichas, mientras que las búsquedas para altas, bajas y modificación estarán organizadas
-* mediante un árbol B+ como índice, en el que estarán almacenados los offsets de los registros.
-*
-* <hr>
-* Solo queda analizar las entidades Votante y Elección. Para estos se guardará una referencia a una posición dentro de un Archivo de
-* VotanteEleccion/EleccionDistrito que tenga registros variables de elecciones/distritos. De esta manera Votante y Eleccion pasarían a ser guardados
-* en archivo con registros de tamaño fijo usando Hash Extensible y VotanteEleccion/EleccionDistrito utilizarían Archivo de Registros con tamaño variables,
-* usando índices B+.
-* \n\n
-*
-* Votante (id, (DNI)i, NombreyApellido, clave, domicilio, (idDistrito)ie, ((idVotanteEleccion)ie)) \n
-* VotanteEleccion (id, ((idEleccion)ie)*)
-* \n\n
-*
-* Eleccion (id, (fecha, (idCargo)ie)i, ((idEleccionDistrito)ie)+) \n
-* EleccionDistrito (id, ((idDistrito)ie)+)
 * <hr>
 *
 * @section res Resumen:
 *
 * - Los datos (las entidades propiamente dichas) se guardaran en archivos de registros variables o fijos (según de qué entidad se trate).
 * - La búsqueda de estos datos se realizará mediante índices implementados con un hash extensible y un árbol B+, que van a guardar un
-*   par (clave autonumerica, offset en archivo).
+*   par (clave, offset en archivo).
 * - El flujo del programa tendría esta forma:\n
-* 1- el administrador ingresa un id.\n
+* 1- el administrador ingresa una clave.\n
 * 2- el hash/árbol usado cómo índice recibe ese id, y devuelve un offset.\n
 * 3- se accede a ese offset para obtener el registro deseado.\n
 * 4- el administrador modifica el registro.\n

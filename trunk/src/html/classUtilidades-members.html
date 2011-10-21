@@ -63,11 +63,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="classUtilidades.html">Utilidades</a>, including all inherited members.<table>
+  <tr bgcolor="#f0f0f0"><td><b>formatearClave</b>(string &amp;clave) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getDNIaleatorio</b>(int semilla) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getFechaYHora</b>() (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>indexarFecha</b>(string fecha) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>obtenerClaveCandidato</b>(const string &amp;fecha, const string &amp;cargoPrincipal, const string &amp;nombreLista, const int &amp;DNI) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>obtenerClaveCargo</b>(const string &amp;cargoPrincipal) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>obtenerClaveDistrito</b>(const string &amp;nombreDistrito) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>obtenerClaveEleccion</b>(const string &amp;fecha, const string &amp;cargoPrincipal) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>obtenerClaveLista</b>(const string &amp;fecha, const string &amp;cargoPrincipal, const string &amp;nombreLista) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>obtenerClaveVotante</b>(const int &amp;DNI) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>sleep</b>(unsigned int mseconds) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>stringFromFile</b>(std::ifstream &amp;ifs) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>stringFromFile</b>(std::fstream &amp;ifs) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>stringToFile</b>(std::string &amp;str, std::ofstream &amp;ofs) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>toString</b>(int a) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>stringToFile</b>(std::string &amp;str, std::fstream &amp;ofs) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>toString</b>(long int a) (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [static]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>Utilidades</b>() (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>~Utilidades</b>() (defined in <a class="el" href="classUtilidades.html">Utilidades</a>)</td><td><a class="el" href="classUtilidades.html">Utilidades</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
@@ -85,7 +96,7 @@ This is the complete list of members for <a class="el" href="classUtilidades.htm
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:54 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

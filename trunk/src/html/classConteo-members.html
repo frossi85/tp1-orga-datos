@@ -63,15 +63,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="classConteo.html">Conteo</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>Conteo</b>(Eleccion &amp;eleccion, Lista &amp;lista, Distrito &amp;distrito) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Conteo</b>(Lista lista, Distrito distrito) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Conteo</b>(const Conteo &amp;conteo) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Conteo</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getClassName</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getDistrito</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>getEleccion</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [inline]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getLista</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>getURLArchivoDatos</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>getTamanioEnDisco</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>getURLArchivoDatos</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [inline, virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>getVotos</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>Guardar</b>(ofstream &amp;ofs) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Imprimir</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Imprimir</b>(ofstream &amp;ofs) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>incrementar</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>Leer</b>(ifstream &amp;ifs) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Leer</b>(ifstream &amp;ifs, unsigned long int offset) (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>~Conteo</b>() (defined in <a class="el" href="classConteo.html">Conteo</a>)</td><td><a class="el" href="classConteo.html">Conteo</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
 <!--- window showing the filter options -->
@@ -88,7 +94,7 @@ This is the complete list of members for <a class="el" href="classConteo.html">C
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Oct 9 2011 22:37:54 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
