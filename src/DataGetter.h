@@ -34,11 +34,11 @@ public:
 
 	//Metodos para Informes
 
-	static vector<Conteo *> getConteosPorDistrito(Distrito& distrito);
+	static void getConteosPorDistrito(vector<Conteo *> & conteos, Distrito& distrito);
 
-	static vector<Conteo *> getConteosPorLista(Lista& lista);
+	static void getConteosPorLista(vector<Conteo *> & conteos, Lista& lista);
 
-	static vector<Conteo *> getConteosPorEleccion(Eleccion& eleccion);
+	static void getConteosPorEleccion(vector<Conteo *> & conteos, Eleccion& eleccion);
 
 };
 
