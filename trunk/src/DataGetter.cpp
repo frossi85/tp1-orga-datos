@@ -12,7 +12,7 @@ DataGetter::DataGetter() {}
 DataGetter::~DataGetter() {}
 
 
-bool DataGetter::getListasPorEleccion(vector<Lista*> vecListas, Eleccion &eleccion){
+bool DataGetter::getListasPorEleccion(vector<Lista*> & vecListas, Eleccion &eleccion){
 	/* Chequeo si el vector de Listas esta vacio, si no lo vacio */
 	if(vecListas.size() != 0) {
 		int cantidad = vecListas.size();
@@ -69,10 +69,10 @@ bool DataGetter::getListasPorEleccion(vector<Lista*> vecListas, Eleccion &elecci
 }
 
 
-bool DataGetter::getEleccionesPorFechayDistrito(vector<Eleccion*> vecElecciones,string fecha, Votante &votante) {
+bool DataGetter::getEleccionesPorFechayDistrito(vector<Eleccion*> & vecElecciones,string fecha, Votante &votante) {
 
 	/* Chequeo si el vector de Elecciones esta vacio, si no lo vacio */
-	if(vecElecciones.size() != 0) {
+	if(vecElecciones.size() > 0) {
 		int cantidad = vecElecciones.size();
 		for(int i=0;i<cantidad;i++){
 			if(vecElecciones[i] != NULL) {

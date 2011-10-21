@@ -41,10 +41,10 @@ int main(int argc, char *argv[]){
 
 	//CargaInicial::ejecutar();
 
-	//VotanteAleatorio::ejecutar();
+	VotanteAleatorio::ejecutar();
 
 
-	Menu *menu = Menu::getMenu();
+//	Menu *menu = Menu::getMenu();
 //	if (argc != 2){
 //			// Numero incorrecto de parametros
 //			cout << "Uso: voto_electronico -h\n";
@@ -63,15 +63,15 @@ int main(int argc, char *argv[]){
 //
 //	if ( argumento == "-a" || argumento== "--admin" )
 //	{
-		cout << "Ingreso como administrador. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
-		// La funcionalidad deseada es acceder como administrador
-		// Se pide y verifica usuario y contraseña
-		do {
-			menu->pedirUsuario();
-			menu->pedirContrasena();
-		} while (!menu->accesoAdmin());
-
-		return 0;
+//		cout << "Ingreso como administrador. \n(para salir ingrese \"salir\" en alguno de los campos) \n";
+//		// La funcionalidad deseada es acceder como administrador
+//		// Se pide y verifica usuario y contraseña
+//		do {
+//			menu->pedirUsuario();
+//			menu->pedirContrasena();
+//		} while (!menu->accesoAdmin());
+//
+//		return 0;
 //	}
 //	else
 //	{
