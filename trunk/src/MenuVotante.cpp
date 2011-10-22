@@ -226,16 +226,6 @@ bool MenuVotante::confirmarVotacion(Eleccion *eleccion,Lista *lista){
 		confirmacion=true;
 		ABMentidades * abm = new ABMentidades();
 
-		cout<<endl<<"*************FACUNDO*************"<<endl;
-
-		cout<<"Eleccion "<<lista->getEleccion().getFecha()<<" - "<<lista->getEleccion().getCargo().getCargoPrincipal()<<endl;
-		cout<<"Lista Elegida: "<<lista->getNombre()<<endl;
-		cout<<"Distrito: "<<votante->getDistrito().getNombre()<<endl;
-
-		cout<<"******************************"<<endl;
-
-		getchar();
-
 		abm->agregarVoto(*(this->votante), *lista, this->votante->getDistrito());
 		//LOG de la confirmacion de la votacion
 		Logger::ConfirmacionDeVoto(*(this->votante), this->votante->getDNI());
