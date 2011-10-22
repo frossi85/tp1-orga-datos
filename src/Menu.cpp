@@ -293,6 +293,7 @@ void Menu::adminCandidato(){
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
 
 			getchar();
+			retorno=true;
 			break;
 		case 'B':
 			cout << endl <<endl;
@@ -429,6 +430,7 @@ void Menu::adminCandidato(){
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
 			getchar();
 			retorno=true;*/
+			retorno=true;
 			break;
 
 		case 'V':
@@ -516,6 +518,7 @@ void Menu::adminLista(){
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
 
 			getchar();
+			retorno=true;
 			break;
 		case 'A':
 			cout << endl <<endl;
@@ -556,6 +559,7 @@ void Menu::adminLista(){
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
 
 			getchar();
+			retorno=true;
 			break;
 		case 'B':
 
@@ -1035,7 +1039,7 @@ void Menu::adminEleccion(){
 				cout<<endl<<"No existe la eleccion solicitada."<<endl;
 
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
-
+			retorno=true;
 			getchar();
 			break;
 		case 'A':
@@ -1092,6 +1096,7 @@ void Menu::adminEleccion(){
 
 		cout<<"Presione una tecla para continuar:";
 		getchar();
+		retorno=true;
 		break;
 		case 'B':
 
@@ -1284,6 +1289,7 @@ void Menu::adminVotante() {
 				}
 
 				cout<< endl <<"Presione una tecla para continuar:"<<endl;
+				retorno=true;
 				getchar();
 				break;
             case 'A':
