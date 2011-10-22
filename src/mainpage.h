@@ -4,7 +4,7 @@
 * - Facundo Rossi (padrón 86.707 - frossi85@gmail.com)
 * - Leandro Miguenz (padrón 90.649 - leandro.v.059@gmail.com)
 * - Martín Lucero (padrón 89.630 - don_pipa182@yahoo.com)
-* - Miguel Torres (padrón xx.xxx - mat1204@hotmail.com)
+* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)
 * - Pablo Arlia (padrón xx.xxx - pablo.arlia@gmail.com)\n
 * <hr>
 *
@@ -58,7 +58,7 @@
 * 6- Hash idCargo/offset: clave: id_cargo, dato: offset del cargo en el archivo \n
 *
 * 7- Arbol Candidato/id = clave: fecha$cargoPpal$nombreLista$DNI(string). dato: id del candidato\n
-* 8- Hash Candidato = clave: id_candidato, dato: offset del candidato en el archivo \n
+* 8- Hash idCandidato/offset = clave: id_candidato, dato: offset del candidato en el archivo \n
 *
 * 9- Arbol Lista/id = clave: fecha$cargoPpal$nombreLista. dato: id de la lista. (el $ es el símbolo que usamos para concatenar las cadenas)\n
 * 10- Hash idLista/offset = clave: id_lista, dato: offset de la lista en el archivo \n
@@ -82,8 +82,11 @@
 * Distrito, Votante, Cargo y Administrador usan índices de dispersión extensible modular.
 *
 * En el caso particular de Conteo, tiene tres índices B+, para posibilitar la recuperación de conteos por lista, distrito o
-* elección, y usarlos para imprimir el reporte de resultados en base a alguno de esos tres criterios.
+* elección, y usarlos para imprimir el reporte de resultados en base a alguno de esos tres criterios.\n\n
 *
+* Los conteos se crean todos con cantidad 0 cuando se da de alta una lista.
+* Cuando se confirma el voto del usuario, a partir de su distrito y de la lista que votó se obtiene el conteo correspondiente
+* (buscándolo en el árbol) y se incrementa su cantidad de votos.
 * <hr>
 *
 * @section res Resumen:
