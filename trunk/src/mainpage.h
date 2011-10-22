@@ -1,11 +1,10 @@
 /** @mainpage Voto Electrónico
 *
-* @authors Grupo Furlong:
+* @Autores Grupo Furlong:
 * - Facundo Rossi (padrón 86.707 - frossi85@gmail.com)
 * - Leandro Miguenz (padrón 90.649 - leandro.v.059@gmail.com)
 * - Martín Lucero (padrón 89.630 - don_pipa182@yahoo.com)
-* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)
-* - Pablo Arlia (padrón xx.xxx - pablo.arlia@gmail.com)\n
+* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)\n
 * <hr>
 *
 * @section imple Implementación
@@ -40,9 +39,9 @@
 * - Lista (id, ((idEleccion)ie, nombre)i)
 * - Candidato (id, ((idLista)ie, (idVotante)ie, (idCargo)ie)i)
 * - Cargo (id, (cargo)i, (cargo)*)
-* - Administrador (id, (usuario)i, clave)
 * - Conteo (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) \n
-* (Conteo no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos)
+* (Conteo no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente
+* la clave con el offset en el archivo de conteos)
 *
 * Estructuras utilizadas:
 *
@@ -79,7 +78,7 @@
 *
 * Para las entidades que tienen más de un campo como identificador (Elección, Lista y Candidato), se utilizan índices B+, para
 * aprovechar la posibilidad de hacer búsquedas aproximadas que brinda esa estructura.
-* Distrito, Votante, Cargo y Administrador usan índices de dispersión extensible modular.
+* Distrito, Votante y Cargo usan índices de dispersión extensible modular.
 *
 * En el caso particular de Conteo, tiene tres índices B+, para posibilitar la recuperación de conteos por lista, distrito o
 * elección, y usarlos para imprimir el reporte de resultados en base a alguno de esos tres criterios.\n\n
@@ -167,6 +166,38 @@
 *
 * @section arbol Árbol B+:
 *
+* - Registros:\n\n
+*
+* El registro consta de 3 atributos, una clave(string), un offset u id(long) y un atributo denominado link (long) que es como indica su nombre es un
+* link directo al registro indmediatamente mayor a él. Este último atributo se implementa para realizar el recorrido secuencial desde un registro
+* en vez de hacerlo desde un nodo.\n
+* Los unicos campos variables dentro los registros del árbol son las claves, que son del tipo string. Para este tipo de dato se graba el largo
+* de la clave como un entero (int), sin contar el '/0'. Seguido de eso se procede a guardar cada caracter del string sin tener en cuenta
+* el caracter de finalización.
+* \n\n
+*
+* - Nodos:\n\n
+*
+* El nodo posee como atributos su tamaño máximo, la cantidad de registros que puede albergar, los registros mismos, una dirección dentro
+* del archivo del árbol, una dirección al padre, una al nodo inmediatamente menor y un flag que es utilizado para indicar si el nodo fue
+* modificado después de leerlo del archivo del árbol. Este último es utilizado para implementar una política de caché tal que al leer un
+* nodo, se guarda en memoria y mientras no se supere la cantidad máxima de nodos en memoria seteados por el árbol no se impacten los cambios,
+* ni se lea un nodo desde el disco si está en cachá. Además se provee de un mecanismo interno que permite obligar a impactar los cambios y
+* liberar. Este es útil en casos como por ejemplo al cerrar o eliminar el árbol.\n
+* Como se describió antes, el encargado de saber la ubicación de un registro mayor, pertenece al registro mismo, por lo que no se incluye
+* en el nodo el link al nodo hermano.\n
+* Para la búsqueda de registros dentro de un nodo en memoria se utilizó búsqueda binaria, la cual en memoria es muy eficiente debido a que
+* los registros estan ordenados.\n\n
+*
+*  - Reestructuración por overflow y underflow:\n\n
+*
+*  El split y la combinación de nodos se realiza a nivel del árbol. Es decir que no es un método implementado en la clase Nodo.\n
+*  Para la combinación, se fusionan los dos nodos sobre el nodo izquierdo y se libera el nodo derecho. Esta operación de combinar nodo
+*  se utiliza por el rebalancear nodo, que va rebalancenado el árbol desde el primer nodo en el que hay que combinar un nodo hasta llegar
+*  a la raíz o que no halla que combinar.\n
+*  El split es similar, se busca el nodo donde debería insertarse el registro; si necesita ser partido, se parte y se extiende la partición
+*  desde el nodo hacia arriba o sus menores.
+*
 * <hr>
 * @section bugs Bugs conocidos
 *
@@ -176,7 +207,17 @@
 * Sin embargo, para inserciones de menos de 300.000 elementos, la pérdida de memoria es mucho menor, y se pueden realizar sin problemas en una
 * computadora con 2 o más Gb de RAM. Independientemente de la memoria del sistema, se puede guardar cualquier cantidad de registros, siempre
 * y cuando no se los guarde a todos en una sola corrida (es decir, guardando algunos, cerrando el programa y guardando los que faltan).
-* - Sí la cantidad de registros en el hash es demasiado alta (alrededor de 1 millón), el método imprimir no muestra correctamente la tabla de
-* dispersión (se ve sólo una parte). Sin embargo la tabla en sí no tiene ninguna falla, por lo que el problema podría deberse a una limitación
-* del editore de texto para escribir líneas demasiado largas.
+* \n\n
+*
+* Bajas: \n\n
+*
+* - Las bajas funcionan bien eliminando los indices. Lo que no llegamos a hacer es arreglar el caso de que al dar de baja un indice id/offset de
+* alguna entidad, las otras entidades que la referenciaban, cuando quieran levantar a memoria la entidad a que referenciaban, no la van a
+* encontrar porque no va a estar en el hash id/offset. Lo que puede llegar a pasar es que se lancen excepciones cuando no se encuentre un id. \n\n
+*
+* Votación: \n\n
+*
+* - El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha.
+* Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar.
+*
 */

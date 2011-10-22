@@ -1,11 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="node5" href="$classAdministrador.html" title="Administrador" alt="" coords="5,160,107,189"/>
-<area shape="rect" id="node7" href="$classCandidato.html" title="Candidato" alt="" coords="131,160,211,189"/>
-<area shape="rect" id="node9" href="$classCargo.html" title="Cargo" alt="" coords="235,160,291,189"/>
-<area shape="rect" id="node11" href="$classConteo.html" title="Conteo" alt="" coords="315,160,379,189"/>
-<area shape="rect" id="node13" href="$classDistrito.html" title="Distrito" alt="" coords="403,160,467,189"/>
-<area shape="rect" id="node15" href="$classEleccion.html" title="Eleccion" alt="" coords="491,160,563,189"/>
-<area shape="rect" id="node17" href="$classLista.html" title="Lista" alt="" coords="587,160,637,189"/>
-<area shape="rect" id="node19" href="$classVotante.html" title="Votante" alt="" coords="661,160,728,189"/>
-<area shape="rect" id="node2" href="$classLogueable.html" title="Logueable" alt="" coords="351,5,431,35"/>
+<area shape="rect" id="node5" href="$classCandidato.html" title="Candidato" alt="" coords="5,160,85,189"/>
+<area shape="rect" id="node7" href="$classCargo.html" title="Cargo" alt="" coords="109,160,165,189"/>
+<area shape="rect" id="node9" href="$classConteo.html" title="Conteo" alt="" coords="189,160,253,189"/>
+<area shape="rect" id="node11" href="$classDistrito.html" title="Distrito" alt="" coords="277,160,341,189"/>
+<area shape="rect" id="node13" href="$classEleccion.html" title="Eleccion" alt="" coords="365,160,437,189"/>
+<area shape="rect" id="node15" href="$classLista.html" title="Lista" alt="" coords="461,160,512,189"/>
+<area shape="rect" id="node17" href="$classVotante.html" title="Votante" alt="" coords="536,160,603,189"/>
+<area shape="rect" id="node2" href="$classLogueable.html" title="Logueable" alt="" coords="269,5,349,35"/>
 </map>
