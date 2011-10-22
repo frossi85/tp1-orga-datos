@@ -932,10 +932,40 @@ bool ABMentidades::bajaEleccion(string claveEleccion)
         string IDaux = Utilidades::toString(IDEleccion);
         RegistroIndice registroABorrar(IDaux, 0);
         hashIDEleccion->borrar(&registroABorrar);
+        hashIDEleccion->imprimir("./archivos/Otros/hash_ideleccion");
         delete hashIDEleccion;
+        hashIDEleccion = NULL;
+
+        /* Debo buscar todas las claves que tengan mi nombre de eleccion viejo en el arbol de reporte */
+        archivo = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_REPORTE_ELECCION));
+        if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de reporte por eleccion");
+      	string claveFinal = claveEleccion + "&";
+        list<RegistroArbol *> clavesEncontradas;
+        if (!this->arbol->buscar(clavesEncontradas, claveEleccion, claveFinal)) {
+            this->arbol->cerrar();
+            delete this->arbol;
+            this->arbol = NULL;
+          	return true; 		// No se encontro ninguna, se retorna.
+        }
+
+        RegistroArbol *registroEnLista = NULL;
+       	string claveAux;
+      	list<RegistroArbol *>::iterator it;
+
+       	/* Elimino los indices */
+      	for (it = clavesEncontradas.begin(); it != clavesEncontradas.end(); it++){
+      	   	registroEnLista = *it;
+      	   	claveAux = registroEnLista->getClave();
+       	   	if(!this->arbol->eliminar(claveAux))
+       	   		throw VotoElectronicoExcepcion("No se pudo eliminar la clave en el arbol de reporte eleccion");
+      	}
+        this->arbol->cerrar();
+        delete this->arbol;
+        this->arbol = NULL;
 
         return true;
     }
+
     //devuelve false si la Elección no existía
     this->arbol->cerrar();
     delete this->arbol;
@@ -969,7 +999,9 @@ bool ABMentidades::bajaDistrito(string claveDistrito)
 
         int IDDistrito = registroObtenido->getOffset();
         hashDistrito->borrar(registroObtenido);
+        hashDistrito->imprimir("./archivos/Otros/hash_distrito");
         delete hashDistrito;
+        hashDistrito = NULL;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_REGS));
         string arch_id_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDDISTRITO_BLOQ_LIB));
@@ -979,12 +1011,49 @@ bool ABMentidades::bajaDistrito(string claveDistrito)
         string IDaux = Utilidades::toString(IDDistrito);
         RegistroIndice registroABorrar(IDaux, 0);
         hashIDDistrito->borrar(&registroABorrar);
+        hashIDDistrito->imprimir("./archivos/Otros/hash_iddistrito");
         delete hashIDDistrito;
+        hashIDDistrito = NULL;
+
+        /* Debo cambiar las claves en el arbol de reporte por distrito */
+
+       	/* Inicializo el arbol */
+       	string archivo((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_REPORTE_DISTRITO));
+       	this->arbol = new ArbolBMas();
+       	if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de reporte por distrito");
+        string claveFinal = claveDistrito + "&";
+
+        /* Busco todas las claves que tengan mi nombre de distrito a eliminar */
+        list<RegistroArbol *> clavesEncontradas;
+        if (!this->arbol->buscar(clavesEncontradas, claveDistrito, claveFinal)) {
+        	this->arbol->cerrar();
+       	    delete this->arbol;
+       	    this->arbol = NULL;
+         	return true;			// Si no habia ninguna coincidencia, se retorna
+        }
+
+        /* Elimino los indices */
+        RegistroArbol *registroEnLista = NULL;
+        string claveAux;
+        list<RegistroArbol *>::iterator it;
+        for (it = clavesEncontradas.begin(); it != clavesEncontradas.end(); it++){
+          	registroEnLista = *it;
+          	claveAux = registroEnLista->getClave();
+           	if(!this->arbol->eliminar(claveAux))
+           		throw VotoElectronicoExcepcion("No se pudo eliminar la clave en el arbol de reporte distrito");
+        }
+
+        /* Cierro el Arbol */
+      	this->arbol->cerrar();
+        delete this->arbol;
+        this->arbol = NULL;
 
         return true;
     }
+
     //devuelve false si el Distrito no existía
     delete hashDistrito;
+    hashDistrito = NULL;
     return false;
 }
 
@@ -1014,6 +1083,7 @@ bool ABMentidades::bajaCargo(string claveCargo)
 
         int IDCargo = registroObtenido->getOffset();
         hashCargo->borrar(registroObtenido);
+        hashCargo->imprimir("./archivos/Otros/hash_cargo");
         delete hashCargo;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCARGO_REGS));
@@ -1024,6 +1094,7 @@ bool ABMentidades::bajaCargo(string claveCargo)
         string IDaux = Utilidades::toString(IDCargo);
         RegistroIndice registroABorrar(IDaux, 0);
         hashIDCargo->borrar(&registroABorrar);
+        hashIDCargo->imprimir("./archivos/Otros/hash_idcargo");
         delete hashIDCargo;
 
         return true;
@@ -1059,6 +1130,7 @@ bool ABMentidades::bajaVotante(string claveVotante)
 
         int IDVotante = registroObtenido->getOffset();
         hashVotante->borrar(registroObtenido);
+        hashVotante->imprimir("./archivos/Otros/hash_votante");
         delete hashVotante;
 
         string arch_id_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDVOTANTE_REGS));
@@ -1069,6 +1141,7 @@ bool ABMentidades::bajaVotante(string claveVotante)
         string IDaux = Utilidades::toString(IDVotante);
         RegistroIndice registroABorrar(IDaux, 0);
         hashIDVotante->borrar(&registroABorrar);
+        hashIDVotante->imprimir("./archivos/Otros/hash_idvotante");
         delete hashIDVotante;
 
         return true;
@@ -1113,11 +1186,38 @@ bool ABMentidades::bajaLista(string claveLista)
         string IDaux = Utilidades::toString(IDLista);
         RegistroIndice registroABorrar(IDaux, 0);
         hashIDLista->borrar(&registroABorrar);
+        hashIDLista->imprimir("./archivos/Otros/hash_idlista");
         delete hashIDLista;
 
+        /* Debo buscar todas las claves que tengan mi nombre de lista viejo en el arbol de reporte */
+        archivo = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_ARBOL_REPORTE_LISTA));
+        if (!this->arbol->abrir(archivo)) throw VotoElectronicoExcepcion("No se abrio el arbol de lista");
+        string claveFinal = claveLista + "&";
+        list<RegistroArbol *> clavesEncontradas;
+        if (!this->arbol->buscar(clavesEncontradas, claveLista, claveFinal)) {
+            this->arbol->cerrar();
+            delete this->arbol;
+            this->arbol = NULL;
+        	return true; 	// No se encontro ninguna, se retorna.
+        }
+
+        RegistroArbol *registroEnLista = NULL;
+       	string claveAux;
+       	list<RegistroArbol *>::iterator it;
+
+       	/* Elimino los indices */
+       	for (it = clavesEncontradas.begin(); it != clavesEncontradas.end(); it++){
+      	   	registroEnLista = *it;
+      	   	claveAux = registroEnLista->getClave();
+       	   	if(!this->arbol->eliminar(claveAux))
+       	   		throw VotoElectronicoExcepcion("No se pudo eliminar la clave en el arbol de reporte lista");
+       	}
+        this->arbol->cerrar();
+        delete this->arbol;
+        this->arbol = NULL;
         return true;
-    }
-    //devuelve false si la Lista no existía
+   }
+   //devuelve false si la Lista no existía
     this->arbol->cerrar();
     delete this->arbol;
     this->arbol = NULL;
@@ -1160,6 +1260,7 @@ bool ABMentidades::bajaCandidato(string claveCandidato)
         string IDaux = Utilidades::toString(IDCandidato);
         RegistroIndice registroABorrar(IDaux, 0);
         hashIDCandidato->borrar(&registroABorrar);
+        hashIDCandidato->imprimir("./archivos/Otros/hash_idcandidato");
         delete hashIDCandidato;
 
         return true;
