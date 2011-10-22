@@ -212,14 +212,25 @@
 *
 * Bajas: \n\n
 *
-* - Las bajas funcionan bien eliminando los indices. Lo que no llegamos a hacer es arreglar el caso de que al dar de baja un indice id/offset de
-* alguna entidad, las otras entidades que la referenciaban, cuando quieran levantar a memoria la entidad a que referenciaban, no la van a
-* encontrar porque no va a estar en el hash id/offset. Lo que puede llegar a pasar es que se lancen excepciones cuando no se encuentre un id. \n\n
+* - Cuando se hacen bajas de Distrito, Eleccion y/o Lista, solo se modifican los indices en sus arboles de reporte respectivos
+* (ej: la baja de un distrito produce la baja de los indices con ese distrito en el arbol de Reporte por Distrito, pero no en
+* los de reporte por Lista y Eleccion). Solucion posible: hacer un parseo de claves en los arboles cuyos indices no se eliminan.
+* Como la solucion presentaba una dificultad elevada, a falta de tiempo, se tuvo que dejar como estaba. \n\n
+*
+* - Por falta de tiempo, no se pudo evaluar a fondo las bajas de las entidades, especialmente las que son referenciadas por
+* otras entidades, ya que esta ultima quedaria con una referencia erronea. Se trato de implementar manejo de excepciones para
+* este caso, pero no se llego a analizar correctamente. Conclusion: puede haber lanzamiento de excepciones, referencias
+* invalidas o referencias sin eliminar en las bajas de las entidades.\n\n
 *
 * Votación: \n\n
 *
 * - El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha.
-* Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar.
+* Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar.\n\n
+*
+* Otros: \n\n
+*
+*  - (Esto mas que un bug es algo que falto) No se hizo el ABM de administrador. El único administrador que puede ingresar
+*  es el de user "tp", pass "tp". Solucion: implementar la clase Administrador.
 * \n\n\n
 * <hr>
 * Aclaración importante:\n\n
