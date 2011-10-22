@@ -23,7 +23,10 @@ void Menu::mostrarAyuda() {
     cout << "Voto Electronico - Ayuda\n\n" << "Opciones:\n";
     cout << "-h, --help: Muestra esta ayuda\n";
     cout << "-u, --user: Login al sistema en calidad de usuario\n";
-    cout << "-a, --admin: Login al sistema en calidad de administrador\n\n";
+    cout << "-a, --admin: Login al sistema en calidad de administrador\n";
+    cout << "-c, --cargainicial: Carga inicial de datos para prueba de la aplicacion\n";
+    cout << "-v, --votanteautomatico: Ejecucion del votante automatico para prueba de informes. "
+    		<<"Ver resultados en ./archivos/resultados_votante_aleatorio.txt\n\n";
     cout << "Consulte el manual para mas informacion\n";
     cout << "*************************************************************\n";
 }
