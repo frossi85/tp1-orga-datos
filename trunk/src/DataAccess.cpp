@@ -15,16 +15,17 @@ DataAccess::~DataAccess() {}
 
 //Recibe el id del grabable q quiero leer, obj es una instacia vacia a sobreescribir con los
 //datos leidos de la BD dentro del metodo
-void DataAccess::Leer(Grabable & obj, unsigned long int offset)
+bool DataAccess::Leer(Grabable & obj, unsigned long int offset)
 {
 	string rutaArchivo = obj.getURLArchivoDatos();
 	ifstream ifs(rutaArchivo.c_str(), ios::in | ios::binary);
 	if(!ifs.is_open())
 		throw VotoElectronicoExcepcion("No se pudo abrir el archivo de " + obj.getClassName());
 
-	obj.Leer(ifs, offset);
+	bool leido = obj.Leer(ifs, offset);
 
 	ifs.close();
+	return leido;
 }
 
 unsigned long int DataAccess::Guardar(Grabable & obj)

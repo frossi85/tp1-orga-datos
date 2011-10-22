@@ -107,7 +107,7 @@ unsigned long int Candidato::Guardar(ofstream & ofs) {
 }
 
 
-void Candidato::Leer(ifstream & ifs, unsigned long int offset)
+bool Candidato::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
 	if (this->_listaPropia != NULL)	{
@@ -137,15 +137,34 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	hash_extensible *hashIDListas = new hash_extensible(arch_registros_lis,arch_bloq_libres_lis,arch_tabla_lis);
 	RegistroIndice ListaBuscar(idLis,0);
 	RegistroIndice *returnLista = hashIDListas->buscar(&ListaBuscar);
-	if (returnLista == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de lista en el hash");
+	if (returnLista == NULL) {
+		delete hashIDListas;
+		hashIDListas = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de lista en el hash. Se recomienda eliminar este registro (Razon: la lista fue dada de baja)");
+		return false;
+	}
 	offset = returnLista->getOffset();
+	delete hashIDListas;
+	hashIDListas = NULL;
 
 	// Leo la lista del archivo de listas
 	DataAccess dataAccess;
 	Lista lista;
-	dataAccess.Leer(lista,offset);
+	bool excepcion = false;
+	try{
+		dataAccess.Leer(lista,offset);
+	}
+	catch(string str){
+		cout << endl << str << endl;
+		excepcion = true;
+	}
+	if (excepcion) {
+		throw VotoElectronicoExcepcion("No se pudo levantar correctamente el candidato. Se recomienda eliminar este registro");
+		return false;
+	}
+
 	_listaPropia = new Lista(lista);
-	delete hashIDListas;
+
 
 	//leo el id del votante
 	long idVotante = 0;
@@ -159,14 +178,31 @@ void Candidato::Leer(ifstream & ifs, unsigned long int offset)
 	hash_extensible *hashIDVotantes = new hash_extensible(arch_registros_vot,arch_bloq_libres_vot,arch_tabla_vot);
 	RegistroIndice VotanteBuscar(idVot,0);
 	RegistroIndice *returnVotante = hashIDVotantes->buscar(&VotanteBuscar);
-	if (returnVotante == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de votante en el hash");
+	if (returnVotante == NULL) {
+		delete hashIDVotantes;
+		hashIDVotantes = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de votante en el hash. Se recomienda eliminar este registro (Razon: el votante fue dada de baja)");
+	}
 	offset = returnVotante->getOffset();
+	delete hashIDVotantes;
+	hashIDVotantes = NULL;
 
 	// Leo el votante del archivo de votantes
 	Votante votante;
-	dataAccess.Leer(votante,offset);
+	try{
+		dataAccess.Leer(votante,offset);
+	}
+	catch(string str){
+		cout << endl << str << endl;
+		excepcion = true;
+	}
+	if (excepcion) {
+		throw VotoElectronicoExcepcion("No se pudo levantar correctamente el candidato. Se recomienda eliminar este registro");
+		return false;
+	}
+
 	_votante = new Votante(votante);
-	delete hashIDVotantes;
+	return true;
 }
 
 

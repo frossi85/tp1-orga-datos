@@ -144,7 +144,7 @@ unsigned long int Eleccion::Guardar(ofstream & ofs)
 }
 
 
-void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
+bool Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
 	if (this->_cargo != NULL) {
@@ -172,15 +172,21 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 	hash_extensible *hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 	RegistroIndice CargoBuscar(id,0);
 	RegistroIndice *returnReg = hash->buscar(&CargoBuscar);
-	if (returnReg == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de cargo en el hash");
+	if (returnReg == NULL) {
+		delete hash;
+		hash = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de cargo en el hash. Se recomienda eliminar este registro (Razon: el cargo fue dado de baja)");
+		return false;
+	}
 	offset = returnReg->getOffset();
+	delete hash;
+	hash = NULL;
 
 	// Leo el cargo del archivo de cargos
 	DataAccess dataAccess;
 	Cargo cargo;
 	dataAccess.Leer(cargo,offset);
 	_cargo = new Cargo(cargo);
-	delete hash;
 
 	// Distritos: leo la cantidad de distritos
 	string::size_type cantidadDistritos = 0;
@@ -201,7 +207,12 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 		id = Utilidades::toString(idVector[i]);
 		DistritoBuscar.setClave(id);
 		returnReg = hash->buscar(&DistritoBuscar);
-		if (returnReg == NULL) throw VotoElectronicoExcepcion("No se encuentra el id del distrito en el hash");
+		if (returnReg == NULL) {
+			delete hash;
+			hash = NULL;
+			throw VotoElectronicoExcepcion("No se encuentra el id del distrito en el hash. Se recomienda eliminar este registro (Razon: el distrito fue dado de baja)");
+			return false;
+		}
 		offset = returnReg->getOffset();
 
 		// Leo el distrito del archivo de cargos
@@ -209,6 +220,8 @@ void Eleccion::Leer(ifstream & ifs, unsigned long int offset)
 		this->_distritos.push_back(new Distrito(distrito));
 	}
 	delete hash;
+	hash = NULL;
+	return true;
 }
 
 

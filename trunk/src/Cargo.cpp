@@ -80,7 +80,7 @@ unsigned long int Cargo::Guardar(ofstream & ofs)
 }
 
 
-void Cargo::Leer(ifstream & ifs, unsigned long int offset)
+bool Cargo::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
 	this->vaciarVectorCargosSecundarios();
@@ -102,6 +102,8 @@ void Cargo::Leer(ifstream & ifs, unsigned long int offset)
 	//Comienzo a leer los cargos secundarios
 	for(string::size_type i = 0; i < cantidadCargosSecundarios; i++)
 		cargosSecundarios.push_back(Utilidades::stringFromFile(ifs));
+
+	return true;
 }
 
 

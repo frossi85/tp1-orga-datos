@@ -59,8 +59,14 @@ bool DataGetter::getListasPorEleccion(vector<Lista*> & vecListas, Eleccion &elec
      	aBuscarID.setClave(Utilidades::toString(registroEnLista->getOffset()));
      	returnRegID = hash_lista->buscar(&aBuscarID);
      	if (returnRegID == NULL) throw VotoElectronicoExcepcion("No se encontro el id de la lista");
-     	dataAccess.Leer(aAgregar,returnRegID->getOffset());
-     	vecListas.push_back(new Lista(aAgregar));
+     	try{
+         	dataAccess.Leer(aAgregar,returnRegID->getOffset());
+         	vecListas.push_back(new Lista(aAgregar));
+     	}
+     	catch(string str){
+     		cout << endl << str << endl;
+     		/* No se agrega la lista porque tiene informacion erronea */
+     	}
     }
     delete hash_lista;
     hash_lista = NULL;
@@ -142,16 +148,22 @@ bool DataGetter::getEleccionesPorFechayDistrito(vector<Eleccion*> & vecEleccione
     	aBuscarID.setClave(Utilidades::toString(vecIDs[k]));
     	returnRegID = hash_eleccion->buscar(&aBuscarID);
     	if (returnRegID == NULL) throw VotoElectronicoExcepcion("No se encontro el id de la eleccion");
-  		dataAccess.Leer(aAgregar,returnRegID->getOffset());
-  		j = 0;
-  		encontrado = false;
-  		cantidadDistritos = aAgregar.getDistritos().size();
-  		while ((!encontrado) && (j != cantidadDistritos)){
-  			if (aAgregar.getDistritos()[j]->getNombre() == nombreDistrito) {
-  				encontrado = true;
-  				vecElecciones.push_back(new Eleccion(aAgregar));
-  			} else j++;
-  		}
+    	try{
+    		dataAccess.Leer(aAgregar,returnRegID->getOffset());
+   	  		j = 0;
+   	  		encontrado = false;
+   	  		cantidadDistritos = aAgregar.getDistritos().size();
+   	  		while ((!encontrado) && (j != cantidadDistritos)){
+   	  			if (aAgregar.getDistritos()[j]->getNombre() == nombreDistrito) {
+   	  				encontrado = true;
+   	  				vecElecciones.push_back(new Eleccion(aAgregar));
+   	  			} else j++;
+   	  		}
+    	}
+    	catch(string str){
+    		cout << endl << str << endl;
+    		/* No se agrega la eleccion porque tiene informacion erronea */
+    	}
     }
     delete hash_eleccion;
     hash_eleccion = NULL;
@@ -181,8 +193,15 @@ void DataGetter::getConteosPorDistrito(vector<Conteo *> & conteos, Distrito& dis
     conteos.clear();
     for (it = offsetsConteos.begin(); it != offsetsConteos.end(); it++){
     	registroEnLista = *it;
-        dataAccess.Leer(contAux, registroEnLista->getOffset());
-        conteos.push_back(new Conteo(contAux));
+    	try {
+            dataAccess.Leer(contAux, registroEnLista->getOffset());
+            conteos.push_back(new Conteo(contAux));
+    	}
+    	catch(string str){
+    		cout << endl << str << endl;
+    		/* No se agrega el conteo porque tiene informacion erronea */
+    	}
+
     }
 }
 
@@ -209,8 +228,14 @@ void DataGetter::getConteosPorLista(vector<Conteo *> & conteos, Lista& lista){
     conteos.clear();
     for (it = offsetsConteos.begin(); it != offsetsConteos.end(); it++){
     	registroEnLista = *it;
-        dataAccess.Leer(contAux, registroEnLista->getOffset());
-        conteos.push_back(new Conteo(contAux));
+    	try {
+            dataAccess.Leer(contAux, registroEnLista->getOffset());
+            conteos.push_back(new Conteo(contAux));
+    	}
+    	catch(string str){
+    		cout << endl << str << endl;
+    		/* No se agrega el conteo porque tiene informacion erronea */
+    	}
     }
 }
 
@@ -237,7 +262,13 @@ void DataGetter::getConteosPorEleccion(vector<Conteo *> & conteos, Eleccion& ele
     conteos.clear();
     for (it = offsetsConteos.begin(); it != offsetsConteos.end(); it++){
     	registroEnLista = *it;
-        dataAccess.Leer(contAux, registroEnLista->getOffset());
-        conteos.push_back(new Conteo(contAux));
+    	try {
+            dataAccess.Leer(contAux, registroEnLista->getOffset());
+            conteos.push_back(new Conteo(contAux));
+    	}
+    	catch(string str){
+    		cout << endl << str << endl;
+    		/* No se agrega el conteo porque tiene informacion erronea */
+    	}
     }
 }
