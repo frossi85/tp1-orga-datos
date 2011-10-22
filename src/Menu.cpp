@@ -867,10 +867,11 @@ void Menu::adminCargo() {
 
 				bool seguirCargando=false;
 				string cargoSec;
+				cin.ignore();
 
 				do{
 					cout<<"Ingrese un Cargo Secundario(0 para no ingresar):";
-					cin.ignore();
+
 					getline(cin,cargoSec);
 
 					seguirCargando=cargoSec!="0";
