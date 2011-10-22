@@ -61,7 +61,7 @@ void VotanteAleatorio::ejecutar()
 	vector<string> fechas = CargaInicial::getFechasElecciones();
 	vector<Eleccion *> elecciones;
 	vector<Lista *> listas;
-	string urlArchivoResultados = "./resultados_votante_aleatorio.txt";
+	string urlArchivoResultados = "./archivos/resultados_votante_aleatorio.txt";
 	int numeroAleatorio;
 	srand(time(NULL));
 	int porcentajeCambioVoto = 30;
