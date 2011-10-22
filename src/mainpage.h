@@ -1,7 +1,7 @@
 /** @mainpage Voto Electrónico
 *
 * @authors Grupo Furlong:
-* - Facundo Rossi (padrón xx.xxx - frossi85@gmail.com)
+* - Facundo Rossi (padrón 86.707 - frossi85@gmail.com)
 * - Leandro Miguenz (padrón 90.649 - leandro.v.059@gmail.com)
 * - Martín Lucero (padrón 89.630 - don_pipa182@yahoo.com)
 * - Miguel Torres (padrón xx.xxx - mat1204@hotmail.com)
@@ -44,6 +44,32 @@
 * - Conteo (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) \n
 * (Conteo no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos)
 *
+* Estructuras utilizadas:
+*
+* Estructuras del TP (cuando se usa la palabra id, se refiere a la clave autonumerica):
+*
+* 1- Hash Votante/id =  clave: DNI (pasar de int a string), dato: id del votante \n
+* 2- Hash idVotante/offset =  clave: id_votante, dato: offset del votante en el archivo \n
+*
+* 3- Hash Distrito/id = clave: nombreDistrito (string), dato: id del distrito\n
+* 4- Hash idDistrito/offset =  clave: id_distrito, dato: offset del distrito en el archivo \n
+*
+* 5- Hash Cargo/id = clave: cargoPrincipal (string), dato: id del cargo\n
+* 6- Hash idCargo/offset: clave: id_cargo, dato: offset del cargo en el archivo \n
+*
+* 7- Arbol Candidato/id = clave: fecha$cargoPpal$nombreLista$DNI(string). dato: id del candidato\n
+* 8- Hash Candidato = clave: id_candidato, dato: offset del candidato en el archivo \n
+*
+* 9- Arbol Lista/id = clave: fecha$cargoPpal$nombreLista. dato: id de la lista. (el $ es el símbolo que usamos para concatenar las cadenas)\n
+* 10- Hash idLista/offset = clave: id_lista, dato: offset de la lista en el archivo \n
+*
+* 11- Arbol Eleccion/id = clave: fecha$cargoPrincipal . dato: id_eleccion.\n
+* 12- Hash idEleccion/offset = clave: id_eleccion . dato: offset en el archivo \n
+*
+* 13- ARBOL REPORTE DISTRITO = clave: nom_distrito$fecha$cargoPrincipal$nom_lista. dato: offset del conteo en el archivo.\n
+* 14- ARBOL REPORTE LISTA = clave: fecha$cargoPrincipal$nom_lista$nom_distrito. dato: offset del conteo en el archivo.\n
+* 15- ARBOL REPORTE ELECCION = clave: fecha$cargoPrincipal$nom_distrito$nom_lista. dato: offset del conteo en el archivo.\n
+*
 *
 * Todas las entidades se almacenan en archivos de registros de tamaño variable.\n
 * En el caso de aquellas que implementan id numérico, se utiliza un hash para relacionar ese id con su correspondiente clave.\n
@@ -73,6 +99,30 @@
 * 5 - Se persisten los cambios, y si es necesario, se modifica el offset en el hash/árbol índice.
 * \n\n
 * (Para altas, bajas y votaciones la estructura es similar).\n
+* <hr>
+* @section notas Sobre el formato de las claves
+*
+* Aclaraciones:\n\n
+*
+* 1 - Cuando se guarda una clave en el hash o arbol, antes se llama a Utilidaes::formatearClave(clave)
+* para reemplazar los espacios por '&'.\n
+*
+* 2 - Para las claves con fechas, tambien antes de guardarlas se le hace a la fecha Utilidades::indexarFecha(fecha)
+* para llevarla al formato aaaammdd (la fecha original ingresada por el administrador debe ser del formato ddmmaaaa o dd/mm/aaaa. No es
+* valido un formato d/m/aaaa, es decir, debe completarse con ceros si es menor a 10.\n
+* 
+* 3 - También cuando una clave es compuesta, se concatenan los strings con '$'.\n\n
+*
+* Ejemplo ilustrativo: el administrador habia insertado una lista con fecha "20/10/2011", cargo "Diputado Cordoba", nombre "UCR".
+* El ABMentidades::altaLista inserta la clave en la forma "20111020$Diputado&Cordoba$UCR".\n\n
+*
+* - Distrito: "nombre_distrito" | Ejemplo: "Lanus"\n
+* - Cargo: "nombre_cargo" | Ejemplo: "Intendente&Lanus"\n
+* - Eleccion: "fecha$cargo" | Ejemplo: "20111020$Intendente&Lanus"\n
+* - Lista: "fecha$cargo$nombreLista" | Ejemplo: "20111020$Intendente&Lanus$UCR"\n
+* - Votante: "DNI" | Ejemplo: "34094150"\n
+* - Candidato: "fecha$cargo$nombreLista$DNI" | Ejemplo: "20111020$Intendente&Lanus$UCR$34094150"\n
+*
 * <hr>
 * @section ind Índices
 *

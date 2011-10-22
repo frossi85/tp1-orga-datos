@@ -55,7 +55,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <div class="textblock"><dl class="author"><dt><b>Authors:</b></dt><dd>Grupo Furlong:<ul>
-<li>Facundo Rossi (padrón xx.xxx - <a href="mailto:frossi85@gmail.com">frossi85@gmail.com</a>)</li>
+<li>Facundo Rossi (padrón 86.707 - <a href="mailto:frossi85@gmail.com">frossi85@gmail.com</a>)</li>
 <li>Leandro Miguenz (padrón 90.649 - <a href="mailto:leandro.v.059@gmail.com">leandro.v.059@gmail.com</a>)</li>
 <li>Martín Lucero (padrón 89.630 - <a href="mailto:don_pipa182@yahoo.com">don_pipa182@yahoo.com</a>)</li>
 <li>Miguel Torres (padrón xx.xxx - <a href="mailto:mat1204@hotmail.com">mat1204@hotmail.com</a>)</li>
@@ -93,6 +93,30 @@ Organización</h2>
 <li><a class="el" href="classConteo.html">Conteo</a> (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) <br/>
  (<a class="el" href="classConteo.html">Conteo</a> no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos)</li>
 </ul>
+<p>Estructuras utilizadas:</p>
+<p>Estructuras del TP (cuando se usa la palabra id, se refiere a la clave autonumerica):</p>
+<p>1- Hash Votante/id =  clave: DNI (pasar de int a string), dato: id del votante <br/>
+ 2- Hash idVotante/offset =  clave: id_votante, dato: offset del votante en el archivo <br/>
+</p>
+<p>3- Hash Distrito/id = clave: nombreDistrito (string), dato: id del distrito<br/>
+ 4- Hash idDistrito/offset = clave: id_distrito, dato: offset del distrito en el archivo <br/>
+</p>
+<p>5- Hash Cargo/id = clave: cargoPrincipal (string), dato: id del cargo<br/>
+ 6- Hash idCargo/offset: clave: id_cargo, dato: offset del cargo en el archivo <br/>
+</p>
+<p>7- Arbol Candidato/id = clave: fecha$cargoPpal$nombreLista$DNI(string). dato: id del candidato<br/>
+ 8- Hash <a class="el" href="classCandidato.html">Candidato</a> = clave: id_candidato, dato: offset del candidato en el archivo <br/>
+</p>
+<p>9- Arbol Lista/id = clave: fecha$cargoPpal$nombreLista. dato: id de la lista. (el $ es el símbolo que usamos para concatenar las cadenas)<br/>
+ 10- Hash idLista/offset = clave: id_lista, dato: offset de la lista en el archivo <br/>
+</p>
+<p>11- Arbol Eleccion/id = clave: fecha$cargoPrincipal . dato: id_eleccion.<br/>
+ 12- Hash idEleccion/offset = clave: id_eleccion . dato: offset en el archivo <br/>
+</p>
+<p>13- ARBOL REPORTE DISTRITO = clave: nom_distrito$fecha$cargoPrincipal$nom_lista. dato: offset del conteo en el archivo.<br/>
+ 14- ARBOL REPORTE LISTA = clave: fecha$cargoPrincipal$nom_lista$nom_distrito. dato: offset del conteo en el archivo.<br/>
+ 15- ARBOL REPORTE ELECCION = clave: fecha$cargoPrincipal$nom_distrito$nom_lista. dato: offset del conteo en el archivo.<br/>
+</p>
 <p>Todas las entidades se almacenan en archivos de registros de tamaño variable.<br/>
  En el caso de aquellas que implementan id numérico, se utiliza un hash para relacionar ese id con su correspondiente clave.<br/>
  Es decir que primero se le pasa su id a dicho hash para obtener la clave, y luego se le pasa esa clave al hash/árbol índice de esa entidad, para finalmente obtener el offset del registro en su archivo de registros variables. <br/>
@@ -117,7 +141,36 @@ Resumen:</h2>
  <hr/>
  </li>
 </ul>
-<h2><a class="anchor" id="ind"></a>
+<h2><a class="anchor" id="notas"></a>
+Sobre el formato de las claves</h2>
+<p>Aclaraciones:<br/>
+<br/>
+</p>
+<p>1 - Cuando se guarda una clave en el hash o arbol, antes se llama a Utilidaes::formatearClave(clave) para reemplazar los espacios por '&amp;'.<br/>
+</p>
+<p>2 - Para las claves con fechas, tambien antes de guardarlas se le hace a la fecha Utilidades::indexarFecha(fecha) para llevarla al formato aaaammdd (la fecha original ingresada por el administrador debe ser del formato ddmmaaaa o dd/mm/aaaa. No es valido un formato d/m/aaaa, es decir, debe completarse con ceros si es menor a 10.<br/>
+   3 - También cuando una clave es compuesta, se concatenan los strings con '$'.<br/>
+<br/>
+</p>
+<p>Ejemplo ilustrativo: el administrador habia insertado una lista con fecha "20/10/2011", cargo "Diputado Cordoba", nombre "UCR". El ABMentidades::altaLista inserta la clave en la forma "20111020$Diputado&amp;Cordoba$UCR".<br/>
+<br/>
+</p>
+<ul>
+<li><a class="el" href="classDistrito.html">Distrito</a>: "nombre_distrito" | Ejemplo: "Lanus"<br/>
+</li>
+<li><a class="el" href="classCargo.html">Cargo</a>: "nombre_cargo" | Ejemplo: "Intendente&amp;Lanus"<br/>
+</li>
+<li><a class="el" href="classEleccion.html">Eleccion</a>: "fecha$cargo" | Ejemplo: "20111020$Intendente&amp;Lanus"<br/>
+</li>
+<li><a class="el" href="classLista.html">Lista</a>: "fecha$cargo$nombreLista" | Ejemplo: "20111020$Intendente&amp;Lanus$UCR"<br/>
+</li>
+<li><a class="el" href="classVotante.html">Votante</a>: "DNI" | Ejemplo: "34094150"<br/>
+</li>
+<li><a class="el" href="classCandidato.html">Candidato</a>: "fecha$cargo$nombreLista$DNI" | Ejemplo: "20111020$Intendente&amp;Lanus$UCR$34094150"<br/>
+</li>
+</ul>
+<hr/>
+ <h2><a class="anchor" id="ind"></a>
 Índices</h2>
 <h2><a class="anchor" id="hash"></a>
 Hash:</h2>
@@ -180,7 +233,7 @@ Bugs conocidos</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 18:29:20 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 21:10:32 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
