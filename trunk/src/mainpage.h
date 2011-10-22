@@ -4,7 +4,8 @@
 * - Facundo Rossi (padrón 86.707 - frossi85@gmail.com)
 * - Leandro Miguenz (padrón 90.649 - leandro.v.059@gmail.com)
 * - Martín Lucero (padrón 89.630 - don_pipa182@yahoo.com)
-* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)\n
+* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)
+* - Pablo Arlia (pablo.arlia@gmail.com)\n
 * <hr>
 *
 * @section imple Implementación
@@ -219,5 +220,13 @@
 *
 * - El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha.
 * Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar.
+* \n\n\n
+* <hr>
+* Aclaración importante:\n\n
 *
+*  No es posible cambiar la fecha ni el cargo principal de una elección, ni agregarle cargos secundarios.
+*  Si se quieren agregar, debe hacerse desde el modificar de Cargo. Es decir, la opción de agregar cargos secundarios
+*  no debería estar en el modificar de Elección, sino sólo en el de Cargo, pero por cuestiones de tiempo no llegamos a
+*  eliminar dicha opción del menu.\n
+*  Por otra parte, el modificar de Elección sí permite agregar o quitar distritos.
 */

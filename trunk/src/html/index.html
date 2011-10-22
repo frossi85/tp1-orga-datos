@@ -59,7 +59,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Facundo Rossi (padrón 86.707 - <a href="mailto:frossi85@gmail.com">frossi85@gmail.com</a>)</li>
 <li>Leandro Miguenz (padrón 90.649 - <a href="mailto:leandro.v.059@gmail.com">leandro.v.059@gmail.com</a>)</li>
 <li>Martín Lucero (padrón 89.630 - <a href="mailto:don_pipa182@yahoo.com">don_pipa182@yahoo.com</a>)</li>
-<li>Miguel Torres (padrón 91.396 - <a href="mailto:mat1204@hotmail.com">mat1204@hotmail.com</a>)<br/>
+<li>Miguel Torres (padrón 91.396 - <a href="mailto:mat1204@hotmail.com">mat1204@hotmail.com</a>)</li>
+<li>Pablo Arlia (<a href="mailto:pablo.arlia@gmail.com">pablo.arlia@gmail.com</a>)<br/>
  <hr/>
 </li>
 </ul>
@@ -258,8 +259,16 @@ Bugs conocidos</h2>
 <br/>
 </p>
 <ul>
-<li>El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha. Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar. </li>
+<li>El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha. Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar. <br/>
+<br/>
+<br/>
+ <hr/>
+ Aclaración importante:<br/>
+<br/>
+</li>
 </ul>
+<p>No es posible cambiar la fecha ni el cargo principal de una elección, ni agregarle cargos secundarios. Si se quieren agregar, debe hacerse desde el modificar de <a class="el" href="classCargo.html">Cargo</a>. Es decir, la opción de agregar cargos secundarios no debería estar en el modificar de Elección, sino sólo en el de <a class="el" href="classCargo.html">Cargo</a>, pero por cuestiones de tiempo no llegamos a eliminar dicha opción del menu.<br/>
+ Por otra parte, el modificar de Elección sí permite agregar o quitar distritos. </p>
 </div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -275,7 +284,7 @@ Bugs conocidos</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 22:48:19 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 21 2011 23:50:03 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
