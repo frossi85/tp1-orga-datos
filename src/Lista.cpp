@@ -85,7 +85,7 @@ unsigned long int Lista::Guardar(ofstream & ofs)
 }
 
 
-void Lista::Leer(ifstream & ifs, unsigned long int offset)
+bool Lista::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
 	if (this->_eleccion != NULL) {
@@ -112,15 +112,35 @@ void Lista::Leer(ifstream & ifs, unsigned long int offset)
 	hash_extensible *hashIDElecciones = new hash_extensible(arch_registros_elec,arch_bloq_libres_elec,arch_tabla_elec);
 	RegistroIndice EleccionBuscar(idElec,0);
 	RegistroIndice *returnEleccion = hashIDElecciones->buscar(&EleccionBuscar);
-	if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de eleccion en el hash");
+	if (returnEleccion == NULL) {
+		delete hashIDElecciones;
+		hashIDElecciones = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de eleccion en el hash. Se recomienda eliminar este registro (Razon: la eleccion fue dada de baja)");
+		return false;
+	}
 	offset = returnEleccion->getOffset();
+	delete hashIDElecciones;
+	hashIDElecciones = NULL;
 
 	// Leo la eleccion del archivo de elecciones
 	DataAccess dataAccess;
 	Eleccion eleccion;
-	dataAccess.Leer(eleccion,offset);
+	bool excepcion = false;
+	try {
+		dataAccess.Leer(eleccion,offset);
+	}
+	catch(string str){
+		cout << endl << str << endl;
+		excepcion = true;
+	}
+	if (excepcion) {
+		throw VotoElectronicoExcepcion("No se pudo levantar correctamente la lista. Se recomienda eliminar este registro");
+		return false;
+	}
+
 	_eleccion = new Eleccion(eleccion);
-	delete hashIDElecciones;
+
+	return true;
 }
 
 

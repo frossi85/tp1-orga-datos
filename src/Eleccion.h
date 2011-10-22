@@ -40,7 +40,7 @@ public:
 
 	//Interface de Guardable
 	unsigned long int Guardar(ofstream & ofs);
-	void Leer(ifstream & ifs, unsigned long int offset);
+	bool Leer(ifstream & ifs, unsigned long int offset);
 	void Imprimir();
 	void ImprimirDistritos();
 	int getTamanioEnDisco();

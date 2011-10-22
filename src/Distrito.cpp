@@ -48,7 +48,7 @@ unsigned long int Distrito::Guardar(ofstream & ofs)
 }
 
 
-void Distrito::Leer(ifstream & ifs, unsigned long int offset)
+bool Distrito::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);
@@ -56,6 +56,7 @@ void Distrito::Leer(ifstream & ifs, unsigned long int offset)
 	//Comienzo lectura de atributos
 	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
 	_nombre = Utilidades::stringFromFile(ifs);
+	return true;
 }
 
 

@@ -76,7 +76,7 @@ unsigned long int Conteo::Guardar(ofstream & ofs){
 	return offset;
 }
 
-void Conteo::Leer(ifstream & ifs, unsigned long int offset){
+bool Conteo::Leer(ifstream & ifs, unsigned long int offset){
 
 	// Elimino atributos de la instancia
 	if (this->_distrito != NULL) {
@@ -110,7 +110,12 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	hash_extensible *hashIDDistritos = new hash_extensible(arch_registros_dist,arch_bloq_libres_dist,arch_tabla_dist);
 	RegistroIndice DistritoBuscar(idDist,0);
 	RegistroIndice *returnDistrito = hashIDDistritos->buscar(&DistritoBuscar);
-	if (returnDistrito == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de distrito en el hash");
+	if (returnDistrito == NULL) {
+		delete hashIDDistritos;
+		hashIDDistritos = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de distrito en el hash. Se recomienda eliminar este registro (Razon: el distrito fue dado de baja)");
+		return false;
+	}
 	offset = returnDistrito->getOffset();
 
 	// Leo el distrito del archivo de distritos
@@ -119,6 +124,7 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	dataAccess.Leer(distrito,offset);
 	_distrito = new Distrito(distrito);
 	delete hashIDDistritos;
+	hashIDDistritos = NULL;
 
 
 	// Leo el id de la lista
@@ -133,14 +139,32 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	hash_extensible *hashIDListas = new hash_extensible(arch_registros_lis,arch_bloq_libres_lis,arch_tabla_lis);
 	RegistroIndice ListaBuscar(idLis,0);
 	RegistroIndice *returnLista = hashIDListas->buscar(&ListaBuscar);
-	if (returnLista == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de lista en el hash");
+	if (returnLista == NULL) {
+		delete hashIDListas;
+		hashIDListas = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de lista en el hash. Se recomienda eliminar este registro (Razon: la lista fue dado de baja)");
+		return false;
+	}
 	offset = returnLista->getOffset();
+	delete hashIDListas;
+	hashIDListas = NULL;
 
 	// Leo la lista del archivo de listas
 	Lista lista;
-	dataAccess.Leer(lista,offset);
+	bool excepcion = false;
+	try{
+		dataAccess.Leer(lista,offset);
+	}
+	catch(string str){
+		cout << endl << str << endl;
+		excepcion = true;
+	}
+	if (excepcion) {
+		throw VotoElectronicoExcepcion("No se pudo levantar correctamente el conteo. Se recomienda eliminar este registro");
+		return false;
+	}
+
 	_lista = new Lista(lista);
-	delete hashIDListas;
 
 
 	// Leo el id de la eleccion
@@ -155,17 +179,35 @@ void Conteo::Leer(ifstream & ifs, unsigned long int offset){
 	hash_extensible *hashIDElecciones = new hash_extensible(arch_registros_elec,arch_bloq_libres_elec,arch_tabla_elec);
 	RegistroIndice EleccionBuscar(idElec,0);
 	RegistroIndice *returnEleccion = hashIDElecciones->buscar(&EleccionBuscar);
-	if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de eleccion en el hash");
+	if (returnEleccion == NULL) {
+		delete hashIDElecciones;
+		hashIDElecciones = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de eleccion en el hash. Se recomienda eliminar este registro (Razon: la eleccion fue dado de baja)");
+		return false;
+	}
 	offset = returnEleccion->getOffset();
+	delete hashIDElecciones;
+	hashIDElecciones = NULL;
 
 	// Leo la eleccion del archivo de elecciones
 	Eleccion eleccion;
-	dataAccess.Leer(eleccion,offset);
-	_eleccion = new Eleccion(eleccion);
-	delete hashIDElecciones;
+	try{
+		dataAccess.Leer(eleccion,offset);
+	}
+	catch(string str){
+		cout << endl << str << endl;
+		excepcion = true;
+	}
+	if (excepcion) {
+		throw VotoElectronicoExcepcion("No se pudo levantar correctamente el conteo. Se recomienda eliminar este registro");
+		return false;
+	}
 
+	_eleccion = new Eleccion(eleccion);
 
 	ifs.read(reinterpret_cast<char *>(&_cantidad), sizeof(_cantidad));
+
+	return true;
 }
 
 

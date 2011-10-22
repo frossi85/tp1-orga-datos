@@ -93,7 +93,14 @@ bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aSobreescribir) 
 	unsigned long int offset = returnRegID->getOffset();
 
 	/* Recupero el registro del archivo de datos */
-	this->dataAccess.Leer(aSobreescribir,offset);
+	try{
+		this->dataAccess.Leer(aSobreescribir,offset);
+	}
+	catch(string str){
+		cout << endl << str << endl;
+		return false;
+	}
+
 	return true;
 }
 

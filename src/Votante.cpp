@@ -160,7 +160,7 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 }
 
 
-void Votante::Leer(ifstream & ifs, unsigned long int offset)
+bool Votante::Leer(ifstream & ifs, unsigned long int offset)
 {
 	// Elimino atributos de la instancia
 	if (this->_distrito != NULL) {
@@ -191,8 +191,15 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	hash_extensible *hashIDDistritos = new hash_extensible(arch_registros_dist,arch_bloq_libres_dist,arch_tabla_dist);
 	RegistroIndice DistritoBuscar(idDist,0);
 	RegistroIndice *returnDistrito = hashIDDistritos->buscar(&DistritoBuscar);
-	if (returnDistrito == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de distrito en el hash");
+	if (returnDistrito == NULL) {
+		delete hashIDDistritos;
+		hashIDDistritos = NULL;
+		throw VotoElectronicoExcepcion("No se encuentra el id de distrito en el hash. Se recomienda eliminar este registro (Razon: el distrito fue dado de baja)");
+		return false;
+	}
 	offset = returnDistrito->getOffset();
+	delete hashIDDistritos;
+	hashIDDistritos = NULL;
 
 	// Leo el distrito del archivo de distritos
 	DataAccess dataAccess;
@@ -219,19 +226,41 @@ void Votante::Leer(ifstream & ifs, unsigned long int offset)
 	string idEleccion;
 	RegistroIndice *returnEleccion;
 	RegistroIndice EleccionBuscar(idEleccion,0);
+	bool excepcion = false;
 
 	for(string::size_type i = 0; i < cantidadElecciones; i++){
 		idEleccion = Utilidades::toString(idVector[i]);
 		EleccionBuscar.setClave(idEleccion);
 		returnEleccion = hashIDElecciones->buscar(&EleccionBuscar);
-		if (returnEleccion == NULL) throw VotoElectronicoExcepcion("No se encuentra el id de la eleccion en el hash");
+		if (returnEleccion == NULL) {
+			delete hashIDElecciones;
+			hashIDElecciones = NULL;
+			throw VotoElectronicoExcepcion("No se encuentra el id de eleccion en el hash. Se recomienda eliminar este registro (Razon: la eleccion fue dada de baja)");
+			return false;
+		}
 		offset = returnEleccion->getOffset();
 
 		// Leo la eleccion del archivo de elecciones;
-		dataAccess.Leer(eleccion,offset);
-		this->_elecciones.push_back(new Eleccion(eleccion));	// Anda? No usar push_back(&eleccion) xq eso esta muy mal.
+		try{
+			dataAccess.Leer(eleccion,offset);
+		}
+		catch(string str){
+			cout << endl << str << endl;
+			delete hashIDElecciones;
+			hashIDElecciones = NULL;
+			excepcion = true;
+		}
+		if (excepcion) {
+			throw VotoElectronicoExcepcion("No se pudo levantar correctamente la el votante. Se recomienda eliminar este registro");
+			return false;
+		}
+
+		this->_elecciones.push_back(new Eleccion(eleccion));
 	}
 	delete hashIDElecciones;
+	hashIDElecciones = NULL;
+
+	return true;
 }
 
 int Votante::getTamanioEnDisco(){

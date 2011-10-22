@@ -355,7 +355,15 @@ void ABMentidades::agregarVoto(Votante &votante, Lista &lista, Distrito &distrit
     //el cambio (en el archivo de registros variables)
     Conteo conteoExistente;
 
-    this->dataAccess.Leer(conteoExistente, offsetConteo);
+    try{
+        this->dataAccess.Leer(conteoExistente, offsetConteo);
+    }
+    catch(string str) {
+    	cout << endl << str << endl;
+    	cout << "No se pudo agregar el voto al conteo"<<endl;
+    	return;
+    }
+
     conteoExistente.incrementar();
 
     //sobreescribe el registro

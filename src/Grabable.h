@@ -22,9 +22,9 @@ public:
 	virtual unsigned long int Guardar(ofstream & ofs) = 0;	// Devuelve el offset de donde lo grabo
 	//virtual void Modificar() = 0;
 	//virtual void Eliminar() = 0;
-	virtual void Leer(ifstream & ifs, unsigned long int offset) = 0;
+	virtual bool Leer(ifstream & ifs, unsigned long int offset) = 0;
 
-	//virtual int getTamanioEnDisco() = 0;
+	virtual int getTamanioEnDisco() = 0;
 
 	virtual string getURLArchivoDatos() = 0;
 

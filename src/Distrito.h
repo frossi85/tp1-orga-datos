@@ -27,7 +27,7 @@ public:
 	void modificarNombre(string nombre_nuevo){ this->_nombre=nombre_nuevo;}
 
 	unsigned long int Guardar(ofstream & ofs);
-	void Leer(ifstream & ifs, unsigned long int offset);
+	bool Leer(ifstream & ifs, unsigned long int offset);
 	int getTamanioEnDisco();
 	void Imprimir();
 
