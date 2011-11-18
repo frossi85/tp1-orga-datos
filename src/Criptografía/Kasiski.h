@@ -32,6 +32,8 @@ private:
      * puntuación, etc. si fuera necesario */
     ///Devuelve false en caso de error
     static bool LeerCriptograma(const char* rutaCriptograma);
+    /** Devuelve el máximo común divisor entre x e y. */
+    static unsigned long MCD(unsigned long x, unsigned long y);
     /** busca cadenas repetidas en el buffer, calcula la distancia entre
      * ellas, calcula el mcd entre ese número y los que ya están en el vector
      * de longitudes posibles de la clave, y agrega cada uno de los valores
