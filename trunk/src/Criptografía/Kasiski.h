@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -23,8 +24,10 @@ private:
 
     ///atributos
     static char *bufferCriptograma;
+    static size_t tamanioBuffer;
     static vector<longitudPosible> longPosibles;
     static const vector<string> palabrasConocidas;
+    static const unsigned int MIN_LONG_CADENA;
 
     ///métodos
 
