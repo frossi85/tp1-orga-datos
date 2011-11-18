@@ -2,7 +2,7 @@ OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Conf
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o hash_extensible.o MenuVotante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
 TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o UtilidadesTests.o\
-CargaInicial.o VotanteAleatorio.o
+CargaInicial.o VotanteAleatorio.o Kasiski.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -200,3 +200,6 @@ ABMEntidades/ConsultaEntidades.h: Grabable.h DataAccess.h hash_extensible.h Regi
 
 VotanteAleatorio.o: VotanteAleatorio/VotanteAleatorio.h VotanteAleatorio/VotanteAleatorio.cpp CargaInicial.h
 	$(CC) $(CFLAGS) VotanteAleatorio/VotanteAleatorio.cpp
+
+Kasiski.o: Criptografía/Kasiski.cpp Criptografía/Kasiski.h
+	$(CC) $(CFLAGS) Criptografía/Kasiski.cpp
