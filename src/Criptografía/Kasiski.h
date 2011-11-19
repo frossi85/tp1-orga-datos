@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <vector>
 #include <fstream>
 
@@ -26,8 +27,10 @@ private:
     static char *bufferCriptograma;
     static size_t tamanioBuffer;
     static vector<longitudPosible> longPosibles;
-    static const vector<string> palabrasConocidas;
+    static const vector<string> PALABRAS_CONOCIDAS;
+    static const vector<char> CARACTERES_FRECUENTES;
     static const unsigned int MIN_LONG_CADENA;
+    static const unsigned int LONG_ALFABETO;
 
     ///métodos
 
@@ -55,6 +58,15 @@ private:
      * Devuelve cuántas de esas palabras fueron encontradas. */
     ///Devuelve -1 en caso de error
     static int BuscarPalabrasConocidas(const char* rutaTexto);
+    static void AgregarAListaDeFrecuencias(vector<caracterFrecuencia> *listaFrec, char caracter);
+    static char ObtenerCaracterMasFrecuente(vector<caracterFrecuencia> *listaFrec);
+    /** aplica una clave tentativa al buffer para obtener el texto desencriptado.
+     * Genera un archivo con el resultado en rutaDestino. */
+    static void Desencriptar(const vector<char> clave, const char* rutaDestino);
+    /** devuelve cuántas veces aparecen las palabras del vector palabras en el archivo
+     * de texto ubicado en rutaOrigen. */
+    ///Devuelve -1 en caso de error.
+    static int CantidadDeOcurrencias(const vector<string> palabras, const char* rutaOrigen);
     /** Libera la memoria reservada por las estructuras de la clase. */
     static void LiberarMemoria();
 
