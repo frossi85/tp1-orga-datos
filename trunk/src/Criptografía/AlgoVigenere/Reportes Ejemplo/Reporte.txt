@@ -1,0 +1,7 @@
+Reporte de prueba:
+
+Mayusculas: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+minusculas: abcdefghijklmnopqrstuvwxyz
+Numeros: 0123456789
+Puntuacion: .,;:-_{}[]+-*!"#$%&/()=?<>@
+	Tabulacion:									Votos: 30
