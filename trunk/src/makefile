@@ -2,7 +2,7 @@ OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Conf
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o hash_extensible.o MenuVotante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
 TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o UtilidadesTests.o\
-CargaInicial.o VotanteAleatorio.o Kasiski.o Vigenere.o
+CargaInicial.o VotanteAleatorio.o Kasiski.o Vigenere.o RSA.o TestRSA.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -206,3 +206,11 @@ Kasiski.o: Criptografía/Kasiski.cpp Criptografía/Kasiski.h
 
 Vigenere.o: Criptografía/AlgoVigenere/Vigenere.cpp Criptografía/AlgoVigenere/Vigenere.h
 	$(CC) $(CFLAGS) Criptografía/AlgoVigenere/Vigenere.cpp
+
+RSA.o: Criptografía/RSA/RSA.cpp Criptografía/RSA/RSA.h
+	$(CC) $(CFLAGS) Criptografía/RSA/RSA.cpp
+	
+TestRSA.o: Criptografía/RSA/TestRSA.cpp Criptografía/RSA/TestRSA.h
+	$(CC) $(CFLAGS) Criptografía/RSA/TestRSA.cpp
+
+Criptografía/RSA/TestRSA.h: Criptografía/RSA/RSA.h
