@@ -17,7 +17,7 @@ const vector<char> Kasiski::CARACTERES_FRECUENTES(aux2, aux2 + (sizeof(aux2) / s
 
 const unsigned int Kasiski::MIN_LONG_CADENA = 3;
 
-const unsigned int Kasiski::LONG_ALFABETO = 256;
+const unsigned int Kasiski::LONG_ALFABETO = 127;
 
 /////////////////////////////////
 /////////////////////////////////
