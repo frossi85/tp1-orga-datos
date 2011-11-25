@@ -9,7 +9,7 @@ size_t Kasiski::tamanioBuffer = 0;
 
 vector<Kasiski::longitudPosible> Kasiski::longPosibles;
 
-string aux[] = {"lista", "eleccion", "elección", "distrito", "votos", "candidato"};
+string aux[] = {"lista", "eleccion", "distrito", "votos", "candidato"};
 const vector<string> Kasiski::PALABRAS_CONOCIDAS(aux, aux + (sizeof(aux) / sizeof(aux[0])));
 
 char aux2[] = {' ', 'e', 'a'};
@@ -17,7 +17,7 @@ const vector<char> Kasiski::CARACTERES_FRECUENTES(aux2, aux2 + (sizeof(aux2) / s
 
 const unsigned int Kasiski::MIN_LONG_CADENA = 3;
 
-const unsigned int Kasiski::LONG_ALFABETO = 127;
+const unsigned int Kasiski::LONG_ALFABETO = 128;
 
 /////////////////////////////////
 /////////////////////////////////
@@ -27,17 +27,17 @@ const unsigned int Kasiski::LONG_ALFABETO = 127;
 bool Kasiski::LeerCriptograma(const char* rutaCriptograma){
 
     ifstream criptograma(rutaCriptograma);
+    if(!criptograma.is_open()) return false;
 
     //calcula el tamaño del archivo para reservar memoria para el buffer
-    size_t principio = criptograma.tellg();
     criptograma.seekg (0, ios::end);
-    size_t fin = criptograma.tellg();
-    tamanioBuffer = fin - principio;
+    tamanioBuffer = criptograma.tellg();
     bufferCriptograma = new char[tamanioBuffer];
+    criptograma.seekg(0, ios::beg);
     if(bufferCriptograma == NULL) return false;
 
     //carga la información en el buffer y cierra el archivo
-    criptograma >> bufferCriptograma;
+    criptograma.read(bufferCriptograma, tamanioBuffer);   
     criptograma.close();
     
     return true;
@@ -90,11 +90,12 @@ bool Kasiski::ProcesarCadenasRepetidas(){
             }
             if(coincidencias >= MIN_LONG_CADENA){
                 //calcula la distancia entre las cadenas (REVISAR ESTA CUENTA)
-                unsigned long distancia = j - i + coincidencias;
+                unsigned long distancia = j - i;
                 //calcular MCDs y agregar longitud
                 if(longPosibles.size() == 0) AgregarLongitud(distancia);
                 else{
-                    for(unsigned long k = 0; k < longPosibles.size(); k++){
+                    unsigned long cantLongitudes = longPosibles.size();
+                    for(unsigned long k = 0; k < cantLongitudes; k++){
                         longitud = MCD(distancia, longPosibles[k].longitud);
                         AgregarLongitud(longitud);
                     }
@@ -165,14 +166,14 @@ char Kasiski::ObtenerCaracterMasFrecuente(vector<caracterFrecuencia>* listaFrec)
 
 ////////////////////
 
-void Kasiski::Desencriptar(const vector<char> clave, const char* rutaDestino){
+void Kasiski::Desencriptar(const vector<char> *clave, const char* rutaDestino){
 
     ofstream textoPlano(rutaDestino);
 
     //en la primera línea imprime la clave usada
     textoPlano << "Clave: ";
-    for(unsigned int i = 0; i < clave.size(); i++)
-        textoPlano << clave[i];
+    for(unsigned int i = 0; i < clave->size(); i++)
+        textoPlano << clave->at(i);
 
     textoPlano << endl << endl;
 
@@ -181,10 +182,10 @@ void Kasiski::Desencriptar(const vector<char> clave, const char* rutaDestino){
     unsigned int j = 0;
 
     for(unsigned int i = 0; i < tamanioBuffer; i++){
-        caracter = (bufferCriptograma[i] - clave[j]) % LONG_ALFABETO;
+        caracter = (bufferCriptograma[i] - clave->at(j)) % LONG_ALFABETO;
         textoPlano << caracter;
 
-        if(j == clave.size() - 1) j = 0;
+        if(j == clave->size() - 1) j = 0;
         else j++;
     }
 
@@ -218,6 +219,7 @@ int Kasiski::CantidadDeOcurrencias(const vector<string> palabras, const char* ru
         cadena = strtok(NULL, " .,;:-+*¿?¡!'()$#%&/=ºª\"\\");
     }
 
+    delete[] buffer;
     return ocurrencias;
 }
 
@@ -243,8 +245,7 @@ bool Kasiski::Romper(const char* rutaCriptograma, const char* rutaDestino){
     vector<caracterFrecuencia> frecuencias;
     unsigned long j;
     char carMasFrecuente;
-    vector<char> posibleClave;
-    posibleClave.reserve(longClave);
+    vector<char> *posibleClave = new vector<char>(longClave);
     vector<int> ocurrencias;
     ocurrencias.reserve(CARACTERES_FRECUENTES.size());
     char* ruta = NULL;
@@ -265,15 +266,18 @@ bool Kasiski::Romper(const char* rutaCriptograma, const char* rutaDestino){
             //calculando la resta mod 26 (o 256?) entre el caracter más frecuente y el que debería
             //reemplazarlo (espacio, 'e' o 'a'), se obtiene uno de los caracteres de la clave.
             carMasFrecuente = ObtenerCaracterMasFrecuente(&frecuencias);
-            posibleClave[i] = (carMasFrecuente - CARACTERES_FRECUENTES[combinacion]) % LONG_ALFABETO;
+            posibleClave->at(i) = (carMasFrecuente - CARACTERES_FRECUENTES[combinacion]) % LONG_ALFABETO;
         }
         //genera el archivo desencriptado con esa clave
+        ruta = new char[strlen(rutaDestino) + 1];
         sprintf (ruta, "%s%i", rutaDestino, combinacion);
         Desencriptar(posibleClave, ruta);
         //busca las palabras conocidas
         ocurrencias[combinacion] = CantidadDeOcurrencias(PALABRAS_CONOCIDAS, ruta);
         if(ocurrencias[combinacion] > ocurrencias[textoMasProbable])
             textoMasProbable = combinacion;
+
+        delete ruta;
     }
 
     //Al final borra todos los archivos menos el que tenga el mayor numero de
@@ -281,12 +285,14 @@ bool Kasiski::Romper(const char* rutaCriptograma, const char* rutaDestino){
     //primer archivo generado, que probablemente sea el más cercano al buscado).
     for(unsigned int combinacion = 0; combinacion < maxCombinaciones; combinacion++){
         if(combinacion != textoMasProbable){
+            ruta = new char[strlen(rutaDestino) + 1];
             sprintf (ruta, "%s%i", rutaDestino, combinacion);
             remove(ruta);
+            delete ruta;
         }
     }
 
+    delete posibleClave;
     LiberarMemoria();
     return true;
 }
-
