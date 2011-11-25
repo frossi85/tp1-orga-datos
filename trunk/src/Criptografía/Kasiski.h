@@ -62,7 +62,7 @@ private:
     static char ObtenerCaracterMasFrecuente(vector<caracterFrecuencia> *listaFrec);
     /** aplica una clave tentativa al buffer para obtener el texto desencriptado.
      * Genera un archivo con el resultado en rutaDestino. */
-    static void Desencriptar(const vector<char> clave, const char* rutaDestino);
+    static void Desencriptar(const vector<char> *clave, const char* rutaDestino);
     /** devuelve cuántas veces aparecen las palabras del vector palabras en el archivo
      * de texto ubicado en rutaOrigen. */
     ///Devuelve -1 en caso de error.
