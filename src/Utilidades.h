@@ -54,7 +54,7 @@ public:
 	static string obtenerClaveLista(const string &fecha, const string &cargoPrincipal, const string &nombreLista);
 	static string obtenerClaveVotante(const int &DNI);
 	static string obtenerClaveCandidato(const string &fecha, const string &cargoPrincipal, const string &nombreLista, const int &DNI);
-
+	static string obtenerClaveAdministrador(const string &usuario);
 
 };
 

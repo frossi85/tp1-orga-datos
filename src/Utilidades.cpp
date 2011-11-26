@@ -169,3 +169,10 @@ string Utilidades::obtenerClaveCandidato(const string &fecha, const string &carg
 	Utilidades::formatearClave(clave);
 	return clave;
 }
+
+
+string Utilidades::obtenerClaveAdministrador(const string &usuario) {
+	string clave = usuario;
+	Utilidades::formatearClave(clave);
+	return clave;
+}
