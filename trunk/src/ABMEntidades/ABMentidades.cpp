@@ -288,6 +288,40 @@ bool ABMentidades::altaCandidato(Candidato &candidato) {
 }
 
 
+/* ALTA EN HASH */
+bool ABMentidades::altaAdministrador(Administrador &admin) {
+	/* Inicializo el hash */
+	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_REGS));
+	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_BLOQ_LIB));
+	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_TABLA));
+	this->hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+	/* Busco en el hash si ya existe el administrador */
+	string clave = Utilidades::obtenerClaveAdministrador(admin.getUsuario());
+	RegistroIndice aAgregar(clave,0);
+	RegistroIndice *returnReg = this->hash->buscar(&aAgregar);
+	if (returnReg != NULL) {
+		delete this->hash;
+		this->hash = NULL;
+		return false;							// Ya existia en el hash, no se agrega
+	}
+
+	/* Lo guardo en el archivo de datos */
+	unsigned long int offset = this->dataAccess.Guardar(admin);
+
+	/* Guardo en el hash administrador/offset */
+	aAgregar.setOffset(offset);
+	this->hash->guardar(&aAgregar);
+	this->hash->imprimir("./archivos/Otros/hash_administrador");
+	delete this->hash;
+	this->hash = NULL;
+
+	Logger::Alta(admin);
+
+	return true;
+}
+
+
 void ABMentidades::agregarVoto(Votante &votante, Lista &lista, Distrito &distrito) {
 
     /* Le agrego la eleccion al votante como "ya votada" y guardo el votante en disco */
@@ -1269,5 +1303,38 @@ bool ABMentidades::bajaCandidato(string claveCandidato)
     this->arbol->cerrar();
     delete this->arbol;
     this->arbol = NULL;
+    return false;
+}
+
+
+bool ABMentidades::bajaAdministrador(Administrador &admin) {
+    string clave = Utilidades::obtenerClaveAdministrador(admin.getUsuario());
+    bool bajaCorrecta = bajaAdministrador(clave);
+    if (bajaCorrecta) Logger::Eliminar(admin);
+    return bajaCorrecta;
+}
+
+
+bool ABMentidades::bajaAdministrador(string claveAdmin) {
+
+	// Busca la clave en el hash
+	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_REGS));
+	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_BLOQ_LIB));
+	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_TABLA));
+	hash_extensible *hashAdmin = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+	// Si existe, la borra del hash de administrador/offset (baja lógica) y devuelve true
+    RegistroIndice registroABuscar(claveAdmin, 0);
+    RegistroIndice *registroObtenido = hashAdmin->buscar(&registroABuscar);
+    if(registroObtenido != NULL){
+
+    	hashAdmin->borrar(registroObtenido);
+        hashAdmin->imprimir("./archivos/Otros/hash_administrador");
+        delete hashAdmin;
+        return true;
+    }
+
+    //devuelve false si el Administrador no existía
+    delete hashAdmin;
     return false;
 }

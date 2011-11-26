@@ -18,6 +18,7 @@
 #include "../Lista.h"
 #include "../Candidato.h"
 #include "../Conteo.h"
+#include "../Administrador.h"
 #include "../RegistroIndice.h"
 #include "../ManejoIDs.h"
 #include "../Utilidades.h"
@@ -35,6 +36,7 @@ public:
 	bool altaVotante(Votante &votante);
 	bool altaLista(Lista &lista);
 	bool altaCandidato(Candidato &candidato);
+	bool altaAdministrador(Administrador &admin);
 	void agregarVoto(Votante &votante, Lista &lista, Distrito &distrito);
 
 
@@ -50,6 +52,7 @@ public:
 	bool bajaVotante(Votante &votante);
 	bool bajaLista(Lista &lista);
 	bool bajaCandidato(Candidato &candidato);
+	bool bajaAdministrador(Administrador &admin);
 
 private:
 	DataAccess dataAccess;
@@ -63,6 +66,7 @@ private:
 	bool bajaVotante(string claveVotante);
 	bool bajaLista(string claveLista);
 	bool bajaCandidato(string claveCandidato);
+	bool bajaAdministrador(string claveAdmin);
 };
 
 #endif /* ABMENTIDADES_H_ */

@@ -69,7 +69,11 @@ bool ConsultaEntidades::ObtenerRegistro(string clave, Grabable &aSobreescribir) 
 		delete this->hash;
 		this->hash = NULL;
 		if (returnReg == NULL) return false;					// No se encontro el registro
-		else IDobtenido = returnReg->getOffset();
+		if (aSobreescribir.getClassName() == "Administrador") {
+			this->dataAccess.Leer(aSobreescribir,returnReg->getOffset());	// Si buscaba un admin, ya lo puedo devolver
+			return true;
+		}
+		IDobtenido = returnReg->getOffset();
 	}
 
 	/* Busco el id del registro en el arbol (si no es hash) */
@@ -155,6 +159,12 @@ bool ConsultaEntidades::getURLs(string classname) {
 		this->URL_idhash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_BLOQ_LIB);
 		this->URL_idhash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_TABLA);
 		return false;
+	}
+	if (classname == "Administrador") {
+		this->URL_hash_regs = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_REGS);
+		this->URL_hash_bloq_lib = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_BLOQ_LIB);
+		this->URL_hash_tabla = Configuracion::getConfig()->getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_TABLA);
+		return true;
 	}
 	throw VotoElectronicoExcepcion("El registro pasado no pertenece a ninguna entidad (no usar este metodo para buscar Conteos)");
 }
