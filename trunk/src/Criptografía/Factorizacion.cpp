@@ -10,14 +10,11 @@
 Factorizacion::Factorizacion() {
 }
 
-Factorizacion::Factorizacion(const Factorizacion& orig) {
-}
-
 Factorizacion::~Factorizacion() {
 }
 
 
-bool Factorizacion::factorizar1(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
+bool Factorizacion::divisionesSucesivas(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
 {
     vector<EnteroLargo> Ps;
 
@@ -50,10 +47,13 @@ bool Factorizacion::factorizar1(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
 //    devolvemos P
     
     cout<<endl;
-    for(int j = 0; j < Ps.size(); j++)
+    for(unsigned int j = 0; j < Ps.size(); j++)
     {
         cout<<"Factor "<<j<<": "<<Ps[j]<<endl;
     }
+
+    p = Ps[0];
+    q = Ps[0];
 
     return true;
 }
@@ -69,17 +69,9 @@ bool Factorizacion::esCuadradoPerfecto(EnteroLargo a)
         return false;
 }
 
-void Factorizacion::factorizar2(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
+void Factorizacion::fermat(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
 {
     //Metodo de Fermat
-//    FermatFactor(N): // N should be odd
-//    a ← ceil(sqrt(N))
-//    b2 ← a*a - N
-//    while b2 isn't a square:
-//        a ← a + 1    // equivalently: b2 ← b2 + 2*a + 1
-//        b2 ← a*a - N //               a ← a + 1
-//    endwhile
-//    return a - sqrt(b2) // or a + sqrt(b2)
 
     EnteroLargo a = sqrt(N);
     a +=1;
@@ -96,43 +88,18 @@ void Factorizacion::factorizar2(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
     }
     
     cout<<endl;
-    p =  sqrt(b2);
-    p +=a;
+    q =  a + sqrt(b2);
+    p = a - sqrt(b2);
 
-    cout<<"Factor 1: "<<a - sqrt(b2)<<endl;
-    cout<<"Factor 2: "<<p<<endl;
-}
-
-void Factorizacion::factorizar3(EnteroLargo &N, EnteroLargo &p, EnteroLargo &q)
-{
-
-}
-
-void Factorizacion::factorizar4(EnteroLargo &N, EnteroLargo &p, EnteroLargo &q)
-{
-
+    cout<<"Factor 1: "<<p<<endl;
+    cout<<"Factor 2: "<<q<<endl;
 }
 
 bool Factorizacion::esPrimo(EnteroLargo a)
 {
-//    int contador=0;
-//
-//    for(int i=a; i>0; i--)
-//    {
-//        if(a%i==0)
-//            contador++;
-//        if(contador>2)
-//            return false;
-//    }
-//    if(contador==2)
-//        return true;
-//    else
-//        return false;
-
-
     int contador=0;
 
-    for(int i=1; i<=a; i++)
+    for(unsigned int i=1; i<=a; i++)
     {
         if(a%i==0)
             contador++;
@@ -150,7 +117,6 @@ bool Factorizacion::esDivisiblePor(EnteroLargo a, EnteroLargo b)
     if(b == 0)
         return false;
 
-    //Si el algoritmo de factorizacion no funca hacer a%b >= 0
     if((a%b) == 0)
         return true;
 
