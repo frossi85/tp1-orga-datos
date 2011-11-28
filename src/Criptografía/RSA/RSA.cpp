@@ -469,6 +469,20 @@ string RSA::realizarProceso(string mensaje, const EnteroLargo &clave){
     return msj_encriptado;
 }
 
+EnteroLargo RSA::romper(EnteroLargo e, EnteroLargo n)
+{
+	EnteroLargo p, q, clavePrivada, funcionEuler;
+
+
+	Factorizacion::fermat(n, p, q);
+
+	funcionEuler = (p-1)*(q-1);
+
+	clavePrivada = (1/e) % funcionEuler;
+
+	return clavePrivada;
+}
+
 RSA::~RSA() {
 }
 

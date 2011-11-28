@@ -43,7 +43,7 @@ void TestFactorizacion::ejecutar()
 //    if(!Factorizacion::esPrimo(b))
 //                    cout<<endl<<"b no es primo"<<endl;
 //
-    Factorizacion::factorizar2(axb, p, q);
+    Factorizacion::fermat(axb, p, q);
 
-    //Factorizacion::factorizar2(481, p, q);
+    //Factorizacion::divisionesSucesivas(481, p, q);
 }

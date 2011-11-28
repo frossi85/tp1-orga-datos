@@ -13,26 +13,27 @@
 #include <string.h>
 #include <vector>
 #include <fstream>
-#include "./RSA/RSA.h"
 #include <cmath>
 
-class Factorizacion {
-public:
-    Factorizacion();
-    Factorizacion(const Factorizacion& orig);
-    virtual ~Factorizacion();
+using namespace std;
 
-    static bool factorizar1(EnteroLargo N, EnteroLargo &p, EnteroLargo &q);
-    static void factorizar2(EnteroLargo N, EnteroLargo &p, EnteroLargo &q);
-    static void factorizar3(EnteroLargo &N, EnteroLargo &p, EnteroLargo &q);
-    static void factorizar4(EnteroLargo &N, EnteroLargo &p, EnteroLargo &q);
+typedef long long unsigned EnteroLargo;
+typedef long long int EnteroLargoSignado;
+
+class Factorizacion {
+	friend class TestFactorizacion;
+public:
+    static bool divisionesSucesivas(EnteroLargo N, EnteroLargo &p, EnteroLargo &q);
+    static void fermat(EnteroLargo N, EnteroLargo &p, EnteroLargo &q);
+
+private:
     static bool esPrimo(EnteroLargo a);
     static bool esDivisiblePor(EnteroLargo a, EnteroLargo b);
 
     static bool esCuadradoPerfecto(EnteroLargo a);
 
-private:
-
+    Factorizacion();
+    virtual ~Factorizacion();
 };
 
 #endif	/* FACTORIZACION_H */

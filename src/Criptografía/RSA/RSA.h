@@ -12,6 +12,8 @@
 #define	RSA_H
 #include <stdlib.h>
 #include <iostream>
+#include "../Factorizacion.h"
+
 using namespace std;
 
 typedef long long unsigned EnteroLargo;
@@ -123,7 +125,11 @@ public:
      * y devuelve el mensaje desencriptado en forma de string
      */
     std::string desencriptar(std::string msj_encrip);
-    
+
+
+	//Devuelve el exponente d de la calve privada
+    EnteroLargo romper(EnteroLargo e, EnteroLargo n);
+
     virtual ~RSA();
 private:
 
