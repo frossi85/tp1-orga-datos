@@ -10,10 +10,14 @@
 #include "./ABMEntidades/ConsultaEntidades.h"
 #include "./Eleccion.h"
 
+#include "Criptografía/TestFactorizacion.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]){
+
+	//TestFactorizacion::ejecutar();
+
 
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){
