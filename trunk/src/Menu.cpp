@@ -178,6 +178,7 @@ void Menu::adminCandidato(){
 	string claveConsulta;
 	int dni;
 
+	vector<string> candidatos;
 
 	do {
 		system("clear");
@@ -185,7 +186,7 @@ void Menu::adminCandidato(){
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
-		cout << "L => Listado  de Candidatos."
+		cout << "L => Listado  de Candidatos." << endl;
 		cout << "C => Consulta de un Candidato."<<endl;
 		cout << "A => Crear una Candidato." << endl;
 		cout << "B => Borrar una Candidato." << endl;
@@ -199,10 +200,12 @@ void Menu::adminCandidato(){
 		case 'L':
 				/*
 				 *
-				 * IMplementar el Listado de los Candidatos
-				 *
+				 * Agregar las descripciones de los candidatos al
+				 * vector de strings "candidatos"
 				 *
 				 */
+
+				this->listarEntidad(candidatos);
 
 			break;
 		case 'C':
@@ -481,6 +484,8 @@ void Menu::adminLista(){
 	string nombreLista;
 	string claveConsulta;
 
+	vector<string> listas;
+
 
 	do {
 		system("clear");
@@ -488,7 +493,7 @@ void Menu::adminLista(){
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
-		cout << "L => Mostrar Listas."
+		cout << "L => Mostrar Listas." << endl;
 		cout << "C => Consultar una Lista." << endl;
 		cout << "A => Crear una Lista." << endl;
 		cout << "B => Borrar una Lista." << endl;
@@ -501,9 +506,11 @@ void Menu::adminLista(){
 		switch ((char)toupper(opcion)) {
 		case 'L':
 					/*
-					 *
-					 * Llamar al metodo de Listado de listas.
+					 *Agregar las descripciones de todas las listas
+					 * al vector de strings
 					 */
+
+					this->listarEntidad(listas);
 
 			break;
 		case 'C':
@@ -721,6 +728,7 @@ void Menu::adminDistrito() {
 	ConsultaEntidades consulta;
 	Distrito *distrito;
 
+	vector<string> distritos;
 
 	do {
 		system("clear");
@@ -740,9 +748,14 @@ void Menu::adminDistrito() {
 		switch ((char)toupper(opcion)) {
 
 		case 'L':
+
+
 					/*
-					 * Llamar al metodo Listar Distritos
+					 * Agregar las descripciones de todos los Distritos
+					 * al vector de strings "distritos"
 					 */
+
+				this->listarEntidad(distritos);
 
 			break;
 
@@ -830,20 +843,24 @@ void Menu::adminDistrito() {
 }
 
 void Menu::adminCargo() {
-		char opcion;
-		bool invalida=false;
-		bool retorno=false;
-		string nombreCargo;
-		Cargo cargo;
-		int resultado;
-	    ConsultaEntidades consulta;
-	    ABMentidades abm;
+	char opcion;
+	bool invalida=false;
+	bool retorno=false;
+	string nombreCargo;
+	Cargo cargo;
+	int resultado;
+	ConsultaEntidades consulta;
+	ABMentidades abm;
+
+	vector<string> cargos;
+
 		do {
 			system("clear");
 			if (invalida) {
 				cout << "Opcion invalida, intente nuevamente." << endl;
 			}
 			cout << "********************************" << endl;
+			cout << "L => Listar Cargos."<<endl;
 			cout << "C => Consulta para un Cargo."<<endl;
 			cout << "A => Crear un Cargo." << endl;
 			cout << "B => Borrar un Cargo." << endl;
@@ -854,6 +871,15 @@ void Menu::adminCargo() {
 			retorno=false;
 			invalida=false;
 			switch ((char)toupper(opcion)) {
+			case 'L':
+					/*
+					 * Agregar las descripciones de todos los Cargos
+					 * al vector de strings "cargos"
+					 */
+
+					this->listarEntidad(cargos);
+
+				break;
 			case 'C':
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del Cargo: ";
@@ -1650,7 +1676,7 @@ void Menu::adminInformes(){
 }
 
 
-void listarEntidad(vector<string> entidades){
+void Menu::listarEntidad(vector<string> entidades){
 
 	bool seguirMostrando=true;
 	char opcion;
@@ -1658,7 +1684,7 @@ void listarEntidad(vector<string> entidades){
 	int i,iPantalla=0;
 	int cantEntidades=entidades.size();
 
-	for ( i=0;i < cantPorPantalla  && seguirMostrando ; i++,iPantalla++){
+	for ( i=0;i < cantEntidades  && seguirMostrando ; i++,iPantalla++){
 
 		if (iPantalla >= cantPorPantalla){
 
