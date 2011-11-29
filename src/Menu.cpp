@@ -185,6 +185,7 @@ void Menu::adminCandidato(){
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
+		cout << "L => Listado  de Candidatos."
 		cout << "C => Consulta de un Candidato."<<endl;
 		cout << "A => Crear una Candidato." << endl;
 		cout << "B => Borrar una Candidato." << endl;
@@ -195,6 +196,15 @@ void Menu::adminCandidato(){
 		retorno=false;
 		invalida=false;
 		switch ((char)toupper(opcion)) {
+		case 'L':
+				/*
+				 *
+				 * IMplementar el Listado de los Candidatos
+				 *
+				 *
+				 */
+
+			break;
 		case 'C':
 			cout << endl;
 			cout << "Ingrese el nombre de la Lista del Candidato: ";
@@ -478,6 +488,7 @@ void Menu::adminLista(){
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
+		cout << "L => Mostrar Listas."
 		cout << "C => Consultar una Lista." << endl;
 		cout << "A => Crear una Lista." << endl;
 		cout << "B => Borrar una Lista." << endl;
@@ -488,7 +499,13 @@ void Menu::adminLista(){
 		retorno=false;
 		invalida=false;
 		switch ((char)toupper(opcion)) {
+		case 'L':
+					/*
+					 *
+					 * Llamar al metodo de Listado de listas.
+					 */
 
+			break;
 		case 'C':
 			cout << endl <<endl;
 			cout << "Ingrese el nombre de la Lista: ";
@@ -711,6 +728,7 @@ void Menu::adminDistrito() {
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
+		cout << "L => Listar Distritos."<< endl;
 		cout << "A => Crear un Distrito." << endl;
 		cout << "B => Borrar un Distrito." << endl;
 		cout << "M => Modificar un Distrito." << endl;
@@ -720,6 +738,13 @@ void Menu::adminDistrito() {
 		retorno=false;
 		invalida=false;
 		switch ((char)toupper(opcion)) {
+
+		case 'L':
+					/*
+					 * Llamar al metodo Listar Distritos
+					 */
+
+			break;
 
 		case 'A':
 			cout << endl <<endl;
