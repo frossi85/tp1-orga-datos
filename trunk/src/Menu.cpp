@@ -27,6 +27,7 @@ void Menu::mostrarAyuda() {
     cout << "-c, --cargainicial: Carga inicial de datos para prueba de la aplicacion\n";
     cout << "-v, --votanteautomatico: Ejecucion del votante automatico para prueba de informes. "
     		<<"Ver resultados en ./archivos/resultados_votante_aleatorio.txt\n\n";
+    cout << "--romperRSA: Ejecucion de test para probar funcionalidad de ruptura de RSA\n\n";
     cout << "Consulte el manual para mas informacion\n";
     cout << "*************************************************************\n";
 }
