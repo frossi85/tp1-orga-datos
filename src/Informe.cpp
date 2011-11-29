@@ -55,7 +55,7 @@ Informe::Informe(Eleccion& eleccion) {
 
 		Lista lista=conteos[i]->getLista();
 
-		cout<<"		Lista: "<<lista.getNombre()<<"........Votos: "<<conteos[i]->getVotos()<<endl;
+		cout<<"		Lista: "<<lista.getNombre()<<". . . . . Votos: "<<conteos[i]->getVotos()<<endl;
 
 		total_votos_distrito+=conteos[i]->getVotos();
 		total_votos+=conteos[i]->getVotos();
@@ -108,7 +108,7 @@ Informe::Informe(Distrito& distrito) {
 
 		Lista lista=conteos[i]->getLista();
 
-		cout<<"		Lista:"<<lista.getNombre()<<".........Votos: "<<conteos[i]->getVotos()<<endl;
+		cout<<"		Lista: "<<lista.getNombre()<<". . . . . Votos: "<<conteos[i]->getVotos()<<endl;
 
 		total_votos_eleccion+=conteos[i]->getVotos();
 		total_votos+=conteos[i]->getVotos();
@@ -139,7 +139,7 @@ Informe::Informe(Lista& lista){
 
 		Distrito distrito=conteos[i]->getDistrito();
 
-		cout<<"		"<<distrito.getNombre()<<"...........Votos: "<<conteos[i]->getVotos()<<endl;
+		cout<<"		"<<distrito.getNombre()<<". . . . . Votos: "<<conteos[i]->getVotos()<<endl;
 
 		total_votos+=conteos[i]->getVotos();
 
