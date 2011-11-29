@@ -383,3 +383,35 @@ void TestPersistencias::TestCandidato() {
 	cout << "                  Fin Test Candidatos" << endl;
 	cout << "********************************************************" << endl << endl;
 }
+
+
+/* Se crean 6 administradores, se guardan en archivo y se recuperan en forma opuesta */
+void TestPersistencias::TestAdministrador() {
+
+	cout << endl << "********************************************************" << endl;
+		cout << "              Comienzo Test Administradores" << endl;
+		cout << "********************************************************" << endl << endl;
+
+		vector<Administrador> vecAdministradores;
+
+		UtilidadesTests::cargarAdministradores(vecAdministradores);
+		int cantidadAdministradores = vecAdministradores.size();
+
+		for(int i=0;i<cantidadAdministradores;i++)	vecAdministradores[i].Imprimir();
+
+	    unsigned long int offset[cantidadAdministradores];
+
+	    for(int i=0;i<cantidadAdministradores;i++) {
+	        offset[i] = dataAccess.Guardar(vecAdministradores[i]);
+	        cout << "Offset de "<< vecAdministradores[i].getUsuario() << ": " << offset[i] << endl;
+	    }
+	    cout << endl;
+
+	    for(int i=0;i<cantidadAdministradores;i++)     dataAccess.Leer(vecAdministradores[i],offset[cantidadAdministradores-1-i]);
+
+		for(int i=0;i<cantidadAdministradores;i++)	vecAdministradores[i].Imprimir();
+
+		cout << endl << "********************************************************" << endl;
+		cout << "                  Fin Test Administradores" << endl;
+		cout << "********************************************************" << endl << endl;
+}

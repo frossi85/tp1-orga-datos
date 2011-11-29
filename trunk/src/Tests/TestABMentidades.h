@@ -29,12 +29,14 @@ public:
 	void testAltaLista();
 	void testAltaCandidato();
 	void testAltaConteo();
+	void testAltaAdministrador();
 	void testBajaDistrito();
 	void testBajaCargo();
 	void testBajaEleccion();
 	void testBajaVotante();
 	void testBajaLista();
 	void testBajaCandidato();
+	void testBajaAdministrador();
 
 
 private:

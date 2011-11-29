@@ -539,6 +539,49 @@ void TestABMentidades::testAltaConteo() {
 }
 
 
+/* Se crean 6 Administradores, se guardan en archivo y hash y se recuperan en forma opuesta */
+void TestABMentidades::testAltaAdministrador() {
+	cout << endl << "********************************************************" << endl;
+	cout << "            Comienzo Alta Test Administrador" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	vector<Administrador> vecAdministradores;
+
+	UtilidadesTests::cargarAdministradores(vecAdministradores);
+	int cantidadAdministradores = vecAdministradores.size();
+
+	for(int i=0;i<cantidadAdministradores;i++)	vecAdministradores[i].Imprimir();
+
+    for(int i=0;i<cantidadAdministradores;i++) {
+        if (ABMtest.altaAdministrador(vecAdministradores[i])) cout << "Alta "<<vecAdministradores[i].getUsuario() <<" correcta" << endl;
+        else cout << "Alta "<< vecAdministradores[i].getUsuario() <<" incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+
+    /* Pido que se impriman archivos de texto del hash para control */
+	string regs((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_REGS));
+	string bloq_lib((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_BLOQ_LIB));
+	string tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_ADMINISTRADOR_TABLA));
+
+    hash_extensible hash_administrador(regs,bloq_lib,tabla);
+    hash_administrador.imprimir("./archivos/Tests/testABM_hash_administrador");
+
+    /* Recupero los valores de administradores */
+    // Debo guardar las claves para que no se cambien al cargar los registros
+	string clave[cantidadAdministradores];
+	for(int i=0;i<cantidadAdministradores;i++)	clave[i] = vecAdministradores[i].getUsuario();
+
+    for(int i=0;i<cantidadAdministradores;i++)	this->ConsultaEntidadesTest.ObtenerRegistro(clave[cantidadAdministradores-1-i],vecAdministradores[i]);
+
+	for(int i=0;i<cantidadAdministradores;i++)	vecAdministradores[i].Imprimir();
+
+	cout << endl << "********************************************************" << endl;
+	cout << "                Fin Test Alta Administradores" << endl;
+	cout << "********************************************************" << endl << endl;
+}
+
+
 ///////////////////////////////////////////////////
 
 
@@ -942,4 +985,42 @@ void TestABMentidades::testBajaCandidato() {
 	cout << endl << "********************************************************" << endl;
 	cout << "                  Fin Test Baja Candidatos" << endl;
 	cout << "********************************************************" << endl << endl;
+}
+
+
+void TestABMentidades::testBajaAdministrador() {
+	cout << endl << "********************************************************" << endl;
+	cout << "            Comienzo Test Baja Administradores" << endl;
+	cout << "********************************************************" << endl << endl;
+
+	vector<Administrador> vecAdministradores;
+
+	UtilidadesTests::cargarAdministradores(vecAdministradores);
+	int cantidadAdministradores = vecAdministradores.size();
+
+	//doy de alta los administradores
+    for(int i=0;i<cantidadAdministradores;i++) {
+        if (ABMtest.altaAdministrador(vecAdministradores[i])) cout << "Alta "<<vecAdministradores[i].getUsuario()<<" correcta" << endl;
+        else cout << "Alta "<<vecAdministradores[i].getUsuario()<<" incorrecta (ya existia)" << endl;
+    }
+    cout << endl;
+
+    //los doy de baja
+    for(int i=0;i<cantidadAdministradores;i++) {
+        if (ABMtest.bajaAdministrador(vecAdministradores[i])) cout << "Baja "<<vecAdministradores[i].getUsuario()<<" correcta" << endl;
+        else cout << "Baja "<<vecAdministradores[i].getUsuario()<<" incorrecta" << endl;
+    }
+    cout << endl;
+
+    //trato de obtenerlos para confirmar que se hayan borrado
+     string clave[cantidadAdministradores];
+     for(int i=0;i<cantidadAdministradores;i++)	clave[i] = vecAdministradores[i].getUsuario();
+
+     for(int i=0;i<cantidadAdministradores;i++)
+    	 if(this->ConsultaEntidadesTest.ObtenerRegistro(clave[i],vecAdministradores[i])) cout <<"error en bajas distrito";
+     cout << endl;
+
+ 	cout << endl << "********************************************************" << endl;
+ 	cout << "                Fin Test Baja Administradores" << endl;
+ 	cout << "********************************************************" << endl << endl;
 }
