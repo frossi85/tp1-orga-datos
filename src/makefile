@@ -2,7 +2,7 @@ OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Conf
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o hash_extensible.o MenuVotante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
 TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o UtilidadesTests.o\
-CargaInicial.o VotanteAleatorio.o Kasiski.o Vigenere.o Factorizacion.o TestFactorizacion.o TestRSA.o
+CargaInicial.o VotanteAleatorio.o Kasiski.o Vigenere.o Factorizacion.o TestFactorizacion.o Administrador.o #TestRSA.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -191,7 +191,7 @@ ABMentidades.o: ABMEntidades/ABMentidades.cpp ABMEntidades/ABMentidades.h
 	$(CC) $(CFLAGS) ABMEntidades/ABMentidades.cpp
 
 ABMEntidades/ABMentidades.h: DataAccess.h Configuracion.h hash_extensible.h Eleccion.h Distrito.h Cargo.h Votante.h \
-Lista.h Candidato.h RegistroIndice.h ManejoIDs.h Utilidades.h
+Lista.h Candidato.h RegistroIndice.h ManejoIDs.h Utilidades.h Administrador.h
 
 ConsultaEntidades.o: ABMEntidades/ConsultaEntidades.cpp ABMEntidades/ConsultaEntidades.h
 	$(CC) $(CFLAGS) ABMEntidades/ConsultaEntidades.cpp
@@ -210,13 +210,22 @@ Vigenere.o: Criptografía/AlgoVigenere/Vigenere.cpp Criptografía/AlgoVigenere/V
 RSA.o: Criptografía/RSA/RSA.cpp Criptografía/RSA/RSA.h
 	$(CC) $(CFLAGS) Criptografía/RSA/RSA.cpp
 	
-TestRSA.o: Criptografía/RSA/TestRSA.cpp Criptografía/RSA/TestRSA.h
-	$(CC) $(CFLAGS) Criptografía/RSA/TestRSA.cpp
+Criptografía/RSA/RSA.h: Criptografía/Factorizacion.h
+	
+#TestRSA.o: Criptografía/RSA/TestRSA.cpp Criptografía/RSA/TestRSA.h
+	# $(CC) $(CFLAGS) Criptografía/RSA/TestRSA.cpp
 
-Criptografía/RSA/TestRSA.h: Criptografía/RSA/RSA.h
+#Criptografía/RSA/TestRSA.h: Criptografía/RSA/RSA.h
 	
 Factorizacion.o: Criptografía/Factorizacion.cpp Criptografía/Factorizacion.h
-	$(CC) $(CFLAGS) Criptografía/Factorizacion.cpp
+	# $(CC) $(CFLAGS) Criptografía/Factorizacion.cpp
 	
 TestFactorizacion.o: Criptografía/TestFactorizacion.cpp Criptografía/TestFactorizacion.h
 	$(CC) $(CFLAGS) Criptografía/TestFactorizacion.cpp
+
+Criptografía/TestFactorizacion.h: Criptografía/Factorizacion.h Criptografía/RSA/RSA.h
+
+Administrador.o: Administrador.cpp Administrador.h
+	$(CC) $(CFLAGS) Administrador.cpp
+
+Administrador.h: Grabable.h Logueable.h Utilidades.h Configuracion.h
