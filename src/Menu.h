@@ -9,6 +9,7 @@
 #define MENU_H_
 
 #include <string.h>
+#include <vector.h>
 #include <iostream>
 #include <sstream>
 #include "MenuVotante.h"
@@ -70,6 +71,8 @@ private:
 	string salir;
 
 	Menu();
+
+	void listarEntidad(vector<string> entidades);
 
 	virtual ~Menu();
 

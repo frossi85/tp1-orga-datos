@@ -1650,5 +1650,36 @@ void Menu::adminInformes(){
 }
 
 
+void listarEntidad(vector<string> entidades){
+
+	bool seguirMostrando=true;
+	char opcion;
+	int cantPorPantalla=15;
+	int i,iPantalla=0;
+	int cantEntidades=entidades.size();
+
+	for ( i=0;i < cantPorPantalla  && seguirMostrando ; i++,iPantalla++){
+
+		if (iPantalla >= cantPorPantalla){
+
+					cout<<"Ingrese F para finalizar o alguna tecla para continuar:";
+					cin >> opcion;
+					opcion=(char)toupper(opcion);
+
+					seguirMostrando = (opcion != 'F');
+					iPantalla = 0;
+
+		}else{
+
+			cout<<" - "<<entidades[i]<<endl;
+		}
+
+
+	}
+
+
+}
+
+
 Menu::~Menu() {
 }
