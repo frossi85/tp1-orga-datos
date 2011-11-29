@@ -346,3 +346,21 @@ void UtilidadesTests::cargarConteos(vector<Conteo> &vecConteos, vector<Lista> &v
 
 	return;
 }
+
+
+void UtilidadesTests::cargarAdministradores(vector<Administrador> &vecAdministradores) {
+	if (!vecAdministradores.empty()) vecAdministradores.clear();
+	Administrador administrador1("admin_1","pass_1");
+	Administrador administrador2("admin_2","pass_2");
+	Administrador administrador3("admin_3","pass_3");
+	Administrador administrador4("admin_4","pass_4");
+	Administrador administrador5("admin_5","pass_5");
+	Administrador administrador6("admin_6","pass_6");
+    vecAdministradores.push_back(administrador1);
+    vecAdministradores.push_back(administrador2);
+    vecAdministradores.push_back(administrador3);
+    vecAdministradores.push_back(administrador4);
+    vecAdministradores.push_back(administrador5);
+    vecAdministradores.push_back(administrador6);
+    return;
+}

@@ -16,6 +16,7 @@
 #include "../Cargo.h"
 #include "../Eleccion.h"
 #include "../Conteo.h"
+#include "../Administrador.h"
 #include "../DataAccess.h"
 #include "../hash_extensible.h"
 #include "../RegistroIndice.h"
@@ -35,6 +36,7 @@ public:
 	void TestVotante();
 	void TestLista();
 	void TestCandidato();
+	void TestAdministrador();
 
 private:
 	DataAccess dataAccess;

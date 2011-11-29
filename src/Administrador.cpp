@@ -36,6 +36,7 @@ string Administrador::getClave() { return this->clave; }
 
 void Administrador::Imprimir() {
 	cout<<"Usuario: " << this->usuario << endl;
+	cout<<"Clave: " << this->clave << endl;
 }
 
 
