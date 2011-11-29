@@ -13,33 +13,22 @@
  * 
  */
 
-#ifndef TESTRSA_H
-#define	TESTRSA_H
+#ifndef TESTROMPERRSA_H
+#define	TESTROMPERRSA_H
 #include "RSA.h"
 
 #include <iostream>
 
 using namespace std;
 
-class TestRSA {
+class TestRomperRSA {
     friend class RSA;
 public:
-    TestRSA();
+    TestRomperRSA();
     
     void iniciar();
-    bool TestEsPrimo();
-    bool TestMCDesUno();
-    bool TestGenerarE();
-    bool TestCalcularModulo();
-    bool TestDeterminarCantChar();
-    bool TestConvertirAEnteros();
-    bool TestEncriptacion();
-    bool TestEncriptacionPorBloque();
-    bool TestCalcularModuloReal();
-    bool TestComprobacionNumeros();
-    bool TestComprobacionConversionCorrecta();
-    
-    bool TestRomperRSA();
+
+    bool testRomperRSA();
 
     void msjInicioTest(string test){
         cout<<"*--------------------*"<<endl;
@@ -72,11 +61,11 @@ public:
         
     }
     
-    virtual ~TestRSA();
+    virtual ~TestRomperRSA();
 private:
     RSA *rsa;
     int errores;
 };
 
-#endif	/* TESTRSA_H */
+#endif	/* TESTROMPERRSA_H */
 

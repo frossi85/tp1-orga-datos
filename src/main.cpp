@@ -11,13 +11,13 @@
 #include "./Eleccion.h"
 
 #include "Criptografía/TestFactorizacion.h"
+#include "Criptografía/RSA/TestRomperRSA.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]){
 
 	//TestFactorizacion::ejecutar();
-
 
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){
@@ -74,6 +74,14 @@ int main(int argc, char *argv[]){
 		return 0;
 	}
 
+	if ( argumento == "--romperRSA" )
+	{
+		TestRomperRSA test;
+
+		test.iniciar();
+
+		return 0;
+	}
 
 	cout << "Uso: voto_electronico -h\n";   // Mal uso de las opciones
 

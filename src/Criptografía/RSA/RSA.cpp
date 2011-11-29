@@ -471,14 +471,26 @@ string RSA::realizarProceso(string mensaje, const EnteroLargo &clave){
 
 EnteroLargo RSA::romper(EnteroLargo e, EnteroLargo n)
 {
-	EnteroLargo p, q, clavePrivada, funcionEuler;
+	EnteroLargo p, q, clavePrivada = 0, funcionEuler;
+	RSA rsa;
+
+
+	 rsa.getClavePublicaActual().E();
+
+	    /*
+	     * Metodo que devuelve la clave PRIVADA que se esta utilizando
+	     */
+	    Clave getClavePrivadaActual();
 
 
 	Factorizacion::fermat(n, p, q);
 
 	funcionEuler = (p-1)*(q-1);
 
-	clavePrivada = (1/e) % funcionEuler;
+	if(rsa.generarE(e, funcionEuler))
+		clavePrivada = rsa.E;
+
+	//(1/e) % funcionEuler;
 
 	return clavePrivada;
 }
