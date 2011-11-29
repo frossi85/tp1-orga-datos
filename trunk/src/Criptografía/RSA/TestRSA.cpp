@@ -123,6 +123,13 @@ void TestRSA::iniciar(){
     
 }
 
+bool TestRSA::TestRomperRSA()
+{
+	this->msjInicioTest("romperRSA");
+
+	return true;
+}
+
 bool TestRSA::TestEsPrimo(){
     
     bool error_encontrado=false;

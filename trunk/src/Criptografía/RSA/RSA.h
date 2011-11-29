@@ -128,7 +128,7 @@ public:
 
 
 	//Devuelve el exponente d de la calve privada
-    EnteroLargo romper(EnteroLargo e, EnteroLargo n);
+    static EnteroLargo romper(EnteroLargo e, EnteroLargo n);
 
     virtual ~RSA();
 private:

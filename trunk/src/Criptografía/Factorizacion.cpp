@@ -80,19 +80,19 @@ void Factorizacion::fermat(EnteroLargo N, EnteroLargo &p, EnteroLargo &q)
 
     while(!esCuadradoPerfecto(b2))
     {
-        //b2 = b2 + 2*a + 1;
-        //a = a + 1;
+        b2 = b2 + 2*a + 1;
+        a = a + 1;
 
-        a = a + 1;    // equivalently: b2 ← b2 + 2*a + 1
-        b2 = a*a - N; //               a ← a + 1
+        //a = a + 1;    // equivalently: b2 ← b2 + 2*a + 1
+        //b2 = a*a - N; //               a ← a + 1
     }
     
     cout<<endl;
     q =  a + sqrt(b2);
     p = a - sqrt(b2);
 
-    cout<<"Factor 1: "<<p<<endl;
-    cout<<"Factor 2: "<<q<<endl;
+    cout<<"Factor p: "<<p<<endl;
+    cout<<"Factor q: "<<q<<endl<<endl;
 }
 
 bool Factorizacion::esPrimo(EnteroLargo a)
