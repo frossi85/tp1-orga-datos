@@ -9,7 +9,7 @@
 #define MENU_H_
 
 #include <string.h>
-#include <vector.h>
+#include <vector>
 #include <iostream>
 #include <sstream>
 #include "MenuVotante.h"
