@@ -1,0 +1,7 @@
+Este es un ejemplo de un .txt que se desea encriptar con Vigenere.
+
+0123456789
+
+abcdefghijklmnopqrstuvwxyz
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
