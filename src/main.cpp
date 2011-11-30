@@ -12,6 +12,7 @@
 
 #include "Criptografía/TestFactorizacion.h"
 #include "Criptografía/RSA/TestRomperRSA.h"
+#include "./Criptografía/AlgoVigenere/Vigenere.h"
 
 using namespace std;
 
@@ -79,6 +80,15 @@ int main(int argc, char *argv[]){
 		TestRomperRSA test;
 
 		test.iniciar();
+
+		return 0;
+	}
+
+	if ( argumento == "--testVigenere" )
+	{
+		Vigenere test;
+
+		test.ejecutarTestArchivo();
 
 		return 0;
 	}

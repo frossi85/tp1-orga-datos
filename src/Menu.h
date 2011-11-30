@@ -27,6 +27,7 @@
 #include "./Eleccion.h"
 #include "./Distrito.h"
 #include "./Lista.h"
+#include "./Criptografía/AlgoVigenere/Vigenere.h"
 
 using namespace std;
 
@@ -45,12 +46,13 @@ public:
 
 	bool loggin();
 
-
 	void adminInformes();
 
 	void adminMain();
 
 	void adminCandidato();
+
+	void adminAdministrador();
 
 	void adminDistrito();
 
@@ -62,7 +64,8 @@ public:
 
 	void adminLista();
 
-public:
+	void adminVigenere();
+
 	static Menu *getMenu();
 
 private:
