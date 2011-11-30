@@ -486,6 +486,8 @@ void Menu::adminLista(){
 	string claveConsulta;
 
 	vector<string> listas;
+	Grabable *listaGrabable;
+	vector<Grabable *> listas_grab;
 
 
 	do {
@@ -510,8 +512,27 @@ void Menu::adminLista(){
 					 *Agregar las descripciones de todas las listas
 					 * al vector de strings
 					 */
+					listaGrabable = new Lista();
 
-					this->listarEntidad(listas);
+					this->obtenerGrabables(listas_grab,listaGrabable);
+
+					if (listas_grab.size()==0){
+
+						cout<<"Aun no hay ninguna Lista Cargada."<<endl;
+
+					}else{
+						int cant = listas_grab.size();
+						Lista *lista_aux;
+						for(int i=0 ; i<cant ;i++){
+
+							lista_aux = dynamic_cast<Lista *> (listas_grab[i]);
+
+							listas.push_back(lista_aux->getNombre());
+						}
+
+
+						this->listarEntidad(listas);
+					}
 
 			break;
 		case 'C':
@@ -727,9 +748,10 @@ void Menu::adminDistrito() {
 	std::string nombreDistrito;
 	ABMentidades abm;
 	ConsultaEntidades consulta;
-	Distrito *distrito;
+	Distrito *distrito,*distritoGrabable;
 
 	vector<string> distritos;
+	vector<Grabable *> distritos_grab;
 
 	do {
 		system("clear");
@@ -755,9 +777,26 @@ void Menu::adminDistrito() {
 					 * Agregar las descripciones de todos los Distritos
 					 * al vector de strings "distritos"
 					 */
+					distritoGrabable = new Distrito("Lanus");
 
-				this->listarEntidad(distritos);
+					this->obtenerGrabables(distritos_grab,distritoGrabable);
 
+					if (distritos_grab.size()==0){
+
+						cout<<"Aun no hay ningun Distrito Cargada."<<endl;
+
+					}else{
+						int cant = distritos_grab.size();
+						Distrito *distrito_aux;
+						for(int i=0 ; i<cant ;i++){
+
+							if (distrito_aux = dynamic_cast<Distrito *> (distritos_grab[i]))
+								distritos.push_back(distrito_aux->getNombre());
+						}
+
+
+						this->listarEntidad(distritos);
+					}
 			break;
 
 		case 'A':
@@ -1702,6 +1741,24 @@ void Menu::listarEntidad(vector<string> entidades){
 		}
 
 
+	}
+
+
+}
+
+void Menu::obtenerGrabables(vector<Grabable *> &grabables,Grabable *obj){
+
+	DataAccess dtAccess;
+
+	try {
+
+		for (long int i=0; dtAccess.Leer(*obj,i);i++){
+
+			grabables.push_back(obj);
+
+		}
+	}catch (VotoElectronicoExcepcion e){
+		cout<<"Error en lectura de Archivo de "<<(*obj).getClassName()<<endl;
 	}
 
 
