@@ -19,7 +19,7 @@ Menu *Menu::getMenu() {
 }
 
 void Menu::mostrarAyuda() {
-    cout << "*************************************************************\n";
+    cout << "******************************************************************************************************\n";
     cout << "Voto Electronico - Ayuda\n\n" << "Opciones:\n";
     cout << "-h, --help: Muestra esta ayuda\n";
     cout << "-u, --user: Login al sistema en calidad de usuario\n";
@@ -28,8 +28,9 @@ void Menu::mostrarAyuda() {
     cout << "-v, --votanteautomatico: Ejecucion del votante automatico para prueba de informes. "
     		<<"Ver resultados en ./archivos/resultados_votante_aleatorio.txt\n\n";
     cout << "--romperRSA: Ejecucion de test para probar funcionalidad de ruptura de RSA\n\n";
+    cout << "--testVigenere: Ejecucion de test para probar funcionalidad de encriptar/desencriptar con Vigenere\n\n";
     cout << "Consulte el manual para mas informacion\n";
-    cout << "*************************************************************\n";
+    cout << "******************************************************************************************************\n";
 }
 
 void Menu::pedirUsuario() {
@@ -48,20 +49,31 @@ bool Menu::accesoAdmin() {
 
 	string userOk="tp";
 	string passOk="tp";
+	ConsultaEntidades consulta;
+	Administrador admin;
+
+	if (consulta.ObtenerRegistro(user,admin)) {
+		if (pass == admin.getClave()) {
+			adminMain();
+			return true;
+		}
+		cout << "La contraseña es invalida." << endl;
+		return false;
+	}
 
 	if ( user == userOk && pass == passOk ) {
 		cout<< "Accedio al sistema." << endl;
 		adminMain();
 		return true;
-	} else {
-		if ( user == salir || pass == salir) {
-			cout <<endl<< "Eligio terminar el programa." << endl;
-			return true;
-		} else {
-			cout << "El usuario o la contraseña son invalidos." << endl;
-			return false;
-		}
 	}
+
+	if ( user == salir || pass == salir) {
+		cout <<endl<< "Eligio terminar el programa." << endl;
+		return true;
+	}
+
+	cout << "El usuario o la contraseña son invalidos." << endl;
+	return false;
 }
 
 bool Menu::accesoUsuario() {
@@ -114,24 +126,36 @@ void Menu::adminMain() {
 			cout << "Opcion invalida, intente nuevamente." << endl;
 		}
 		cout << "********************************" << endl;
+		cout << "A => Mantenimiento de Administradores." << endl;
 		cout << "D => Mantenimiento de Distritos." << endl;
 		cout << "V => Mantenimiento de Votantes." << endl;
 		cout << "E => Mantenimiento de Elecciones." << endl;
 		cout << "C => Mantenimiento de Cargos." << endl;
 		cout << "L => Mantenimiento de Listas." << endl;
-		cout << "A => Mantenimiento de Candidatos." << endl;
+		cout << "T => Mantenimiento de Candidatos." << endl;
 		cout << "R => Informes de Resultados." << endl;
+		cout << "G => Encriptar/Desencriptar Reportes." << endl;
 		cout << "S => Salir." << endl << "Opcion: ";
 		cin >> opcion;
 
 		retorno=false;
 		invalida=false;
 		switch ((char)toupper(opcion)) {
+		case 'A':
+			adminAdministrador();
+			retorno=true;
+			break;
+		case 'T':
+			adminCandidato();
+			retorno=true;
+			break;
 		case 'L':
 			adminLista();
+			retorno=true;
 			break;
 		case 'E':
 			adminEleccion();
+			retorno=true;
 			break;
 		case 'D':
 			adminDistrito();
@@ -147,6 +171,10 @@ void Menu::adminMain() {
 			break;
 		case 'R':
 			adminInformes();
+			retorno=true;
+			break;
+		case 'G':
+			adminVigenere();
 			retorno=true;
 			break;
 		case 'S':
@@ -459,12 +487,6 @@ void Menu::adminCandidato(){
 		}
 
 	} while ((invalida) || (retorno));
-
-
-
-
-
-
 }
 
 void Menu::adminLista(){
@@ -1404,7 +1426,7 @@ void Menu::adminVotante() {
 
                     } while ( (dniN<5000000) || (dniN>100000000) );
 
-                    cout<<"ingrese una clave para el Votante:";
+                    cout<<"Ingrese una clave para el Votante:";
 
                     //fgets(claveVotante,50,stdin);
                     getline(cin,claveVotante);
@@ -1711,8 +1733,171 @@ void Menu::adminInformes(){
         }
 
     } while ((invalida) || (retorno));
+}
 
 
+void Menu::adminAdministrador() {
+	char opcion;
+	bool invalida=false;
+	bool retorno=false;
+	std::string nombreAdministrador, claveAdministrador;
+	ABMentidades abm;
+	ConsultaEntidades consulta;
+	Administrador *admin;
+
+	do {
+		system("clear");
+		if (invalida) {
+			cout << "Opcion invalida, intente nuevamente." << endl;
+		}
+		cout << "********************************" << endl;
+		cout << "A => Crear un Administrador." << endl;
+		cout << "B => Borrar un Administrador." << endl;
+		cout << "V => Volver." << endl << "Opcion: ";
+		cin >> opcion;
+
+		retorno=false;
+		invalida=false;
+		switch ((char)toupper(opcion)) {
+
+		case 'A':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre de usuario del Administrador: ";
+
+			cin.ignore();
+			getline(cin,nombreAdministrador);
+
+			cout << "Ingrese la clave del Administrador: ";
+			cin >> claveAdministrador;
+
+			admin = new Administrador(nombreAdministrador,claveAdministrador);
+
+			if(abm.altaAdministrador(*admin))
+				cout << "Se creo el Administrador \"" << nombreAdministrador << "\"." << endl;
+			else
+				cout << "El Administrador ya existe o se produjo un error al crearlo." << endl;
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
+			retorno=true;
+			break;
+
+		case 'B':
+			cout << endl <<endl;
+			cout << "Ingrese el nombre del Administrador a borrar: ";
+			cin.ignore();
+			getline(cin,nombreAdministrador);
+
+			admin = new Administrador;
+
+
+			if (!consulta.ObtenerRegistro(nombreAdministrador,*admin))
+			{
+				cout << "No existe el Administrador \"" << nombreAdministrador << "\"." << endl;
+			}else{
+				abm.bajaAdministrador(*admin);
+				cout << "La baja del Administrador fue completada." << endl;
+			}
+			cout << "Presione cualquier letra para continuar: ";
+			getchar();
+			retorno=true;
+			break;
+
+		case 'V':
+			system("clear");
+			break;
+		default:
+			invalida=true;
+			break;
+		}
+
+	} while ((invalida) || (retorno));
+}
+
+
+void Menu::adminVigenere() {
+	char opcion;
+	bool invalida=false;
+	bool retorno=false;
+	std::string clave, rutaOrigen, rutaDestino;
+	Vigenere vigenere;
+
+	do {
+		system("clear");
+		if (invalida) {
+			cout << "Opcion invalida, intente nuevamente." << endl;
+		}
+		cout << "********************************" << endl;
+		cout << "E => Encriptar un Reporte." << endl;
+		cout << "D => Desencriptar un Reporte." << endl;
+		cout << "V => Volver." << endl << "Opcion: ";
+		cin >> opcion;
+
+		retorno=false;
+		invalida=false;
+		switch ((char)toupper(opcion)) {
+
+		case 'E':
+			cout << endl <<endl;
+			cout << "Ingrese una clave para encriptar (usar solo caracteres ASCII de 7 bits): ";
+
+			cin.ignore();
+			getline(cin,clave);
+
+			vigenere.setClave(clave);
+
+			cout << "Ingrese la ruta del archivo a encriptar: ";
+			cin >> rutaOrigen;
+
+			cout << "Ingrese la ruta donde se guardara el archivo encriptado: ";
+			cin >> rutaDestino;
+
+			if (vigenere.cifrarArchivo(rutaOrigen,rutaDestino)) {
+				cout << "El archivo se cifro correctamente." << endl;
+			} else {
+				cout << "El archivo no se cifro correctamente. Revise las rutas y vuelva a intentarlo." << endl;
+			}
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
+			retorno=true;
+			break;
+
+		case 'D':
+			cout << endl <<endl;
+			cout << "Ingrese la clave correspondiente para desencriptar: ";
+
+			cin.ignore();
+			getline(cin,clave);
+
+			vigenere.setClave(clave);
+
+			cout << "Ingrese la ruta del archivo a desencriptar (archivo ya cifrado): ";
+			cin >> rutaOrigen;
+
+			cout << "Ingrese la ruta donde se guardara el archivo desencriptado: ";
+			cin >> rutaDestino;
+
+			if (vigenere.descifrarArchivo(rutaOrigen,rutaDestino)) {
+				cout << "El archivo se descifro correctamente." << endl;
+			} else {
+				cout << "El archivo no se descifro correctamente. Revise las rutas y la clave y vuelva a intentarlo." << endl;
+			}
+
+			cout << "Presione cualquier letra para continuar: ";
+			getchar();
+			retorno=true;
+			break;
+
+		case 'V':
+			system("clear");
+			break;
+		default:
+			invalida=true;
+			break;
+		}
+
+	} while ((invalida) || (retorno));
 }
 
 
