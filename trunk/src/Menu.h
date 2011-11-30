@@ -73,6 +73,7 @@ private:
 	Menu();
 
 	void listarEntidad(vector<string> entidades);
+	void obtenerGrabables(vector<Grabable *> &grabables,Grabable *obj);
 
 	virtual ~Menu();
 
