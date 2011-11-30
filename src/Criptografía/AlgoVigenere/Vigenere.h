@@ -26,13 +26,7 @@
  *
  * TESTS:
  *
- * HAY 2 TESTS:
- *
- * 1- PARA PROBAR DESDE UNA CADENA INGRESADA EN CONSOLA (LIMITACION: NO INGRESAR ESPACIOS, RAZON: EL cin TOMA
- * HASTA EL ESPACIO). FUE EL PRIMER TEST ESCRITO PARA PROBAR MAS RAPIDO, PERO AHORA NO TIENE MUCHO USO YA QUE
- * EN EL TP NO SE USA DE ESA FORMA. SE PUEDE BORRAR.
- *
- * 2- PARA PROBAR DESDE UN ARCHIVO DE TEXTO. DEBE EXISTIR EL ARCHIVO A CIFRAR. EL ARCHIVO CIFRADO Y EL POSTERIORMENTE
+ * PARA PROBAR DESDE UN ARCHIVO DE TEXTO. DEBE EXISTIR EL ARCHIVO A CIFRAR. EL ARCHIVO CIFRADO Y EL POSTERIORMENTE
  * DESCIFRADO PUEDEN NO EXISTIR, EN CASO DE EXISTIR SERAN REEMPLAZADOS POR LOS NUEVOS.
  *
  *
@@ -64,10 +58,6 @@ public:
     bool cifrarArchivo(string ruta_arch_aCifrar, string ruta_arch_cifrado);
     bool descifrarArchivo(string ruta_arch_aDescifrar, string ruta_arch_descifrado);
 
-    string cifrarCadena(string mensaje);
-    string descifrarCadena(string criptograma);
-
-    void ejecutarTestDirecto();
     void ejecutarTestArchivo();
 
 private:

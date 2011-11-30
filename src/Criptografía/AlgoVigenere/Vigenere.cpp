@@ -70,10 +70,6 @@ bool Vigenere::cifrarArchivo(string ruta_arch_aCifrar, string ruta_arch_cifrado)
 	stream_aCifrar.read(buffer,long_mensaje);
 
 	/* Encripto */
-	//string criptograma = this->cifrarCadena(buffer);
-
-
-
     string criptograma;
     int long_clave = this->clave.length();
     int pos = 0;
@@ -144,11 +140,7 @@ bool Vigenere::descifrarArchivo(string ruta_arch_aDescifrar, string ruta_arch_de
 	stream_aDescifrar.read(buffer,long_criptograma);
 
 	/* Desencripto */
-	//string mensaje = this->descifrarCadena(buffer);
-
-
-
-    string mensaje;
+	string mensaje;
     int long_clave = this->clave.length();
     int pos = 0;
     for(int i=0;i<long_criptograma;i++) {
@@ -182,63 +174,6 @@ bool Vigenere::descifrarArchivo(string ruta_arch_aDescifrar, string ruta_arch_de
 }
 
 
-/* ESTO DESPUES SE BORRA. ES PARA PRUEBAS RAPIDAS */
-string Vigenere::cifrarCadena(string mensaje) {
-    string criptograma;
-    int long_clave = this->clave.length();
-    int long_mensaje = mensaje.length();
-    int pos = 0;
-    for(int i=0;i<long_mensaje;i++) {
-        int caracter = ((mensaje[i] + this->clave[pos]) % this->long_alfabeto);
-        pos++;
-        if(pos >= long_clave)   pos = 0;
-        criptograma += caracter;
-    }
-    return criptograma;
-}
-
-/* ESTO DESPUES SE BORRA. ES PARA PRUEBAS RAPIDAS */
-string Vigenere::descifrarCadena(string criptograma) {
-    string mensaje;
-    int long_clave = this->clave.length();
-    int long_criptograma = criptograma.length();
-    int pos = 0;
-    for(int i=0;i<long_criptograma;i++) {
-        int caracter = ((criptograma[i] - this->clave[pos]) % this->long_alfabeto);
-        if (caracter < 0) caracter += this->long_alfabeto;
-        pos++;
-        if(pos >= long_clave)   pos = 0;
-        mensaje += caracter;
-    }
-    return mensaje;
-}
-
-/* ESTO DESPUES SE BORRA. ES PARA PRUEBAS RAPIDAS */
-void Vigenere::ejecutarTestDirecto() {
-
-    string cad_aux;
-    string criptograma;
-    string mensaje;
-
-    cout << "Ingrese una clave: ";
-    cin >> cad_aux;
-    this->setClave(cad_aux);
-    cout << "Su clave es: " << this->getClave() << endl;
-
-    do {
-        cout << endl << "Ingrese un mensaje: ";
-        cin >> mensaje;
-        criptograma = this->cifrarCadena(mensaje);
-        cout << "El criptograma es: " << criptograma << endl;
-        cout << "El desencriptado es: " << this->descifrarCadena(criptograma) << endl;
-        cout << "¿Desea probar con otro mensaje? (S/N): ";
-        cin >> cad_aux;
-    } while (cad_aux[0] == 'S');
-
-    return;
-}
-
-
 /* TEST */
 void Vigenere::ejecutarTestArchivo() {
 
@@ -247,6 +182,10 @@ void Vigenere::ejecutarTestArchivo() {
     string ruta_destino;
     string cad_aux;
     bool exito;
+
+    cout << "***********************************************" << endl;
+    cout << "                 Test Vigenere" << endl;
+    cout << "***********************************************" << endl;
 
     cout << "Ingrese una clave: ";
     cin >> clave;
@@ -277,6 +216,10 @@ void Vigenere::ejecutarTestArchivo() {
         cout << endl << "¿Desea probar con otro archivo? (S/N): ";
         cin >> cad_aux;
     } while (cad_aux[0] == 'S');
+
+    cout << "***********************************************" << endl;
+    cout << "              Fin Test Vigenere" << endl;
+    cout << "***********************************************" << endl;
 
     return;
 }
