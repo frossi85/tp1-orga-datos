@@ -28,6 +28,7 @@
 #include "./Distrito.h"
 #include "./Lista.h"
 #include "./Criptografía/AlgoVigenere/Vigenere.h"
+#include "./Criptografía/Kasiski.h"
 
 using namespace std;
 
