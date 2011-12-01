@@ -2,7 +2,7 @@ OBJS = main.o Cargo.o Conteo.o Distrito.o Eleccion.o Grabable.o Candidato.o Conf
 Votante.o Utilidades.o VotoElectronicoExcepcion.o BloqueHash.o RegistroIndice.o Menu.o DataAccess.o hash_extensible.o MenuVotante.o \
 RegistroArbol.o Nodo.o ArbolBMas.o ManejoIDs.o ABMentidades.o Tester.o Test.o TestCargo.o TestDataAccess.o TestDistrito.o TestEleccion.o TestVotante.o \
 TestCandidato.o TestLista.o TestABMentidades.o TestPersistencias.o DataGetter.o ConsultaEntidades.o UtilidadesTests.o\
-CargaInicial.o VotanteAleatorio.o Kasiski.o Vigenere.o Factorizacion.o TestFactorizacion.o Administrador.o #TestRSA.o
+CargaInicial.o VotanteAleatorio.o Kasiski.o Vigenere.o Factorizacion.o TestFactorizacion.o Administrador.o RSA.o TestRomperRSA.o TestRSA.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
@@ -11,7 +11,7 @@ LFLAGS = -Wall $(DEBUG)
 VotoElectronico: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o VotoElectronico
 
-main.o: main.cpp Menu.h Distrito.h Cargo.h DataAcces.h Tests/Tester.h RegistroArbol.h Nodo.h ArbolBMas.h
+main.o: main.cpp Menu.h Distrito.h Cargo.h DataAcces.h Tests/Tester.h RegistroArbol.h Nodo.h ArbolBMas.h Criptografía/RSA/TestRomperRSA.h
 	$(CC) $(CFLAGS) main.cpp
 
 Cargo.o: Cargo.cpp Cargo.h ManejoIDs.h
@@ -212,13 +212,13 @@ RSA.o: Criptografía/RSA/RSA.cpp Criptografía/RSA/RSA.h
 	
 Criptografía/RSA/RSA.h: Criptografía/Factorizacion.h
 	
-#TestRSA.o: Criptografía/RSA/TestRSA.cpp Criptografía/RSA/TestRSA.h
-	# $(CC) $(CFLAGS) Criptografía/RSA/TestRSA.cpp
+TestRSA.o: Criptografía/RSA/TestRSA.cpp Criptografía/RSA/TestRSA.h
+	$(CC) $(CFLAGS) Criptografía/RSA/TestRSA.cpp
 
-#Criptografía/RSA/TestRSA.h: Criptografía/RSA/RSA.h
+Criptografía/RSA/TestRSA.h: Criptografía/RSA/RSA.h
 	
 Factorizacion.o: Criptografía/Factorizacion.cpp Criptografía/Factorizacion.h
-	# $(CC) $(CFLAGS) Criptografía/Factorizacion.cpp
+	$(CC) $(CFLAGS) Criptografía/Factorizacion.cpp
 	
 TestFactorizacion.o: Criptografía/TestFactorizacion.cpp Criptografía/TestFactorizacion.h
 	$(CC) $(CFLAGS) Criptografía/TestFactorizacion.cpp
@@ -229,3 +229,8 @@ Administrador.o: Administrador.cpp Administrador.h
 	$(CC) $(CFLAGS) Administrador.cpp
 
 Administrador.h: Grabable.h Logueable.h Utilidades.h Configuracion.h
+
+TestRomperRSA.o: Criptografía/RSA/TestRomperRSA.cpp Criptografía/RSA/TestRomperRSA.h Criptografía/RSA/RSA.h
+	$(CC) $(CFLAGS) Criptografía/RSA/TestRomperRSA.cpp
+
+Criptografía/RSA/TestRomperRSA.h: Criptografía/RSA/RSA.h
