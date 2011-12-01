@@ -134,7 +134,7 @@ void Menu::adminMain() {
 		cout << "L => Mantenimiento de Listas." << endl;
 		cout << "T => Mantenimiento de Candidatos." << endl;
 		cout << "R => Informes de Resultados." << endl;
-		cout << "G => Encriptar/Desencriptar Reportes." << endl;
+		cout << "G => Encriptar/Desencriptar/Romper Reportes." << endl;
 		cout << "S => Salir." << endl << "Opcion: ";
 		cin >> opcion;
 
@@ -812,7 +812,7 @@ void Menu::adminDistrito() {
 						Distrito *distrito_aux;
 						for(int i=0 ; i<cant ;i++){
 
-							if (distrito_aux = dynamic_cast<Distrito *> (distritos_grab[i]))
+							if (distrito_aux == dynamic_cast<Distrito *> (distritos_grab[i]))
 								distritos.push_back(distrito_aux->getNombre());
 						}
 
@@ -1652,8 +1652,9 @@ void Menu::adminInformes(){
 
 				clave=Utilidades::obtenerClaveEleccion(fechaEleccion,cargoEleccion);
 				if(consulta.ObtenerRegistro(clave,eleccion)){
-
-					informe=new Informe(eleccion);
+                                        informe = new Informe(eleccion);
+                                        delete informe;
+                                        informe = new Informe(eleccion, "./Reportes/ReporteEleccion" );
 					delete informe;
 
 				}else{
@@ -1680,6 +1681,8 @@ void Menu::adminInformes(){
 					DataGetter::getConteosPorDistrito(conteos, distrito);
 
 					informe=new Informe(distrito);
+					delete informe;
+                                        informe=new Informe(distrito, "./Reportes/ReporteDistrito");
 					delete informe;
 
 				}else{
@@ -1713,6 +1716,8 @@ void Menu::adminInformes(){
             	if(consulta.ObtenerRegistro(clave,lista)){
 
             		informe= new Informe(lista);
+            		delete informe;
+                        informe= new Informe(lista, "./Reportes/ReporteLista");
             		delete informe;
 
             	}else{
@@ -1830,6 +1835,7 @@ void Menu::adminVigenere() {
 		cout << "********************************" << endl;
 		cout << "E => Encriptar un Reporte." << endl;
 		cout << "D => Desencriptar un Reporte." << endl;
+                cout << "R => Romper la encriptación un reporte con el método de Kasiski." << endl;
 		cout << "V => Volver." << endl << "Opcion: ";
 		cin >> opcion;
 
@@ -1882,6 +1888,27 @@ void Menu::adminVigenere() {
 				cout << "El archivo se descifro correctamente." << endl;
 			} else {
 				cout << "El archivo no se descifro correctamente. Revise las rutas y la clave y vuelva a intentarlo." << endl;
+			}
+
+			cout << "Presione cualquier letra para continuar: ";
+			getchar();
+			retorno=true;
+			break;
+
+                case 'R':
+
+			cout << "Ingrese la ruta del criptograma a romper: ";
+			cin >> rutaOrigen;
+
+			cout << "Ingrese la ruta donde se guardará el archivo obtenido: ";
+			cin >> rutaDestino;
+
+			if (Kasiski::Romper(rutaOrigen.c_str(),rutaDestino.c_str())) {
+				cout << "El archivo se obtuvo correctamente." << endl;
+                                cout << "nota: el método de Kasiski no es efectivo en todos los casos, por lo que el archivo generado ";
+                                cout << "podría ser ilegible o imposible de abrir con el editor de textos." << endl;
+			} else {
+				cout << "Error: la ruta de origen o de destino es/son incorrecta/s." << endl;
 			}
 
 			cout << "Presione cualquier letra para continuar: ";

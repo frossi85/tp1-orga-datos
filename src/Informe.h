@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 #include "Eleccion.h"
 #include "Distrito.h"
 #include "Lista.h"
@@ -20,10 +21,13 @@ using namespace std;
 class Informe {
 public:
 	Informe(Eleccion& eleccion);
+        Informe(Eleccion& eleccion, string rutaInforme);
 
 	Informe(Distrito& distrito);
+        Informe(Distrito& distrito, string rutaInforme);
 
 	Informe(Lista& lista);
+        Informe(Lista& lista, string rutaInforme);
 
 
 	virtual ~Informe();
