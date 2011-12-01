@@ -547,3 +547,62 @@ void hash_extensible::imprimir(const string nombre_archivo){
 	delete tabla;
 	delete lista_bloqlib;
 }
+
+///////////////////////////
+
+vector<unsigned int> hash_extensible::listar(){
+
+    //carga la tabla de dispersión y determina cuál es el número
+    //de bloque en uso más alto
+    vector<unsigned int> *tabla = cargar_tabla_dispersion();
+
+    int max = -1;
+    for(unsigned int i = 1; i <= (*tabla)[0]; i++)
+    	if((int)(*tabla)[i] > max) max = (*tabla)[i];
+
+    //declaraciones de cosas que uso adentro del while
+    unsigned int offset_bloque = 0;
+    BloqueHash bloque_aux(0);
+    BloqueHash *unBloque;
+    unsigned int num_bloque;
+    bool liberado = false;
+    vector<unsigned int> vec_aux;
+    vector<unsigned int> *vec_final = new vector<unsigned int>;
+    vector<unsigned int> *lista_bloqlib = cargar_archivo_bloques_libres();
+    unsigned int tamanio_lista_libres = (*lista_bloqlib)[0];
+    
+    //mietras no llegue al final del archivo de bloques
+    while(offset_bloque <= max*BloqueHash::getTamanioBloques()){
+        //lee un bloque
+        unBloque = (BloqueHash*) bloque_aux.Leer(this->nombre_arch_bloques.c_str(), offset_bloque);
+        num_bloque = offset_bloque/BloqueHash::getTamanioBloques();
+        //revisa que el bloque no esté liberado
+        unsigned int i = 1;
+        while((i <= tamanio_lista_libres) && (!liberado)){
+                if((*lista_bloqlib)[i] == num_bloque) liberado = true;
+                i++;
+        }
+        if(liberado){
+                offset_bloque += BloqueHash::getTamanioBloques();
+                liberado = false;
+                delete unBloque;
+                continue;
+        }
+
+        //si no estaba liberado, lista los offsets del bloque y los agrega al vector final
+        vec_aux = unBloque->Listar();
+        vec_final->insert(vec_final->end(), vec_aux.begin(), vec_aux.end());
+
+        //incrementa contadores y limpia variables antes del próximo ciclo
+        offset_bloque += BloqueHash::getTamanioBloques();
+        vec_aux.clear();
+        delete unBloque;
+    }
+
+    delete tabla;
+    delete lista_bloqlib;
+
+    //ordena el vector y lo devuelve
+    sort(vec_final->begin(), vec_final->end());
+    return *vec_final;
+}

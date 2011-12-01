@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <list>
+#include <algorithm>
 #include "RegistroIndice.h"
 #include "BloqueHash.h"
 
@@ -78,6 +79,9 @@ public:
 
 	/// Crea un archivo de texto plano en el que se muestra la estructura del hash
 	void imprimir(const string nombre_archivo);
+
+        /// Devuelve un vector ordenado con los offsets de todos los registros que hay en el hash
+        vector<unsigned int> listar();
 
 	/// Carga en memoria la tabla de dispersión.
 	/**En la primera posición del vector se almacena la cantidad de posiciones de la tabla. */

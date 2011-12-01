@@ -66,6 +66,9 @@ public:
 	 * quiera escribir la información del bloque.
 	 */
 	void Imprimir(fstream *archImpresion);
+
+        /// Devuelve un vector con los offsets de todos los registros que hay en el bloque
+        vector<unsigned int> Listar();
 };
 
 #endif /* BLOQUEHASH_H_ */

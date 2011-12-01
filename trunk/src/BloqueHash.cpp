@@ -1,3 +1,5 @@
+#include <vector>
+
 #include "BloqueHash.h"
 
 BloqueHash::BloqueHash(unsigned int tamanioDispersion){
@@ -188,13 +190,29 @@ void BloqueHash::Imprimir(fstream *archImpresion){
     *archImpresion << "EL: " << this->espacioLibre << endl;
     *archImpresion << "Registros: ";
 
-	RegistroIndice *registroEnLista = NULL;
-	list<RegistroIndice *>::iterator it;
-	for (it = this->registros.begin(); it != this->registros.end(); it++){
-		registroEnLista = *it;
-		registroEnLista->Imprimir(archImpresion);
-		*archImpresion << " ";
-	}
+    RegistroIndice *registroEnLista = NULL;
+    list<RegistroIndice *>::iterator it;
+    for (it = this->registros.begin(); it != this->registros.end(); it++){
+    	registroEnLista = *it;
+        registroEnLista->Imprimir(archImpresion);
+	*archImpresion << " ";
+    }
 
-	archImpresion->flush();
+    archImpresion->flush();
+}
+
+///////////////////////
+
+vector<unsigned int> BloqueHash::Listar(){
+
+    vector<unsigned int> *offsets = new vector<unsigned int>;
+
+    RegistroIndice *registroEnLista = NULL;
+    list<RegistroIndice *>::iterator it;
+    for (it = this->registros.begin(); it != this->registros.end(); it++){
+    	registroEnLista = *it;
+        offsets->push_back(registroEnLista->getOffset());
+    }
+
+    return *offsets;
 }
