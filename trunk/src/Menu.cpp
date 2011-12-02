@@ -538,6 +538,8 @@ void Menu::adminLista(){
 
 					this->obtenerGrabables(listas_grab,listaGrabable);
 
+
+
 					if (listas_grab.size()==0){
 
 						cout<<"Aun no hay ninguna Lista Cargada."<<endl;
@@ -773,7 +775,15 @@ void Menu::adminDistrito() {
 	Distrito *distrito,*distritoGrabable;
 
 	vector<string> distritos;
+	vector<unsigned int> offsets;
 	vector<Grabable *> distritos_grab;
+
+	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_REGS));
+	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_BLOQ_LIB));
+	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_DISTRITO_TABLA));
+	hash_extensible* hash;
+
+
 
 	do {
 		system("clear");
@@ -799,9 +809,14 @@ void Menu::adminDistrito() {
 					 * Agregar las descripciones de todos los Distritos
 					 * al vector de strings "distritos"
 					 */
-					distritoGrabable = new Distrito("Lanus");
 
-					this->obtenerGrabables(distritos_grab,distritoGrabable);
+					hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+					offsets = hash->listar();
+
+					this->obtenerGrabables(distritos_grab,"Distrito",offsets,arch_registros);
+
+
 
 					if (distritos_grab.size()==0){
 
@@ -812,13 +827,19 @@ void Menu::adminDistrito() {
 						Distrito *distrito_aux;
 						for(int i=0 ; i<cant ;i++){
 
-							if (distrito_aux == dynamic_cast<Distrito *> (distritos_grab[i]))
+							if (distrito_aux = dynamic_cast<Distrito *> (distritos_grab[i])){
 								distritos.push_back(distrito_aux->getNombre());
+								delete distrito_aux;
+							}
 						}
 
 
 						this->listarEntidad(distritos);
 					}
+
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
+			retorno=true;
 			break;
 
 		case 'A':
@@ -1964,7 +1985,36 @@ void Menu::obtenerGrabables(vector<Grabable *> &grabables,Grabable *obj){
 
 	try {
 
-		for (long int i=0; dtAccess.Leer(*obj,i);i++){
+		for (long int i=0; dtAccess.Leer(*obj,i) && i < 1000;){
+			cout<<(dynamic_cast<Distrito *> (obj))->getNombre();
+			i+= obj->getTamanioEnDisco();
+			cout<<"Se ...."<<endl;
+			grabables.push_back(obj);
+
+		}
+	}catch (VotoElectronicoExcepcion e){
+		cout<<"Error en lectura de Archivo de "<<(*obj).getClassName()<<endl;
+	}
+
+
+}
+
+void Menu::obtenerGrabables(vector<Grabable *> &grabables,string tipo,vector<unsigned int> &offsets,string nom_archivo){
+
+	DataAccess dtAccess;
+	int cant= offsets.size();
+	Grabable *obj;
+
+	ifstream archivo;
+	archivo.open(nom_archivo.c_str(), ios::binary | ios::out);
+
+
+	try {
+
+		for (long int i=0; i < cant; i++){
+			obj = this->instanciarGrabable(tipo);
+
+			obj->Leer(archivo,offsets[i]);
 
 			grabables.push_back(obj);
 
@@ -1973,6 +2023,32 @@ void Menu::obtenerGrabables(vector<Grabable *> &grabables,Grabable *obj){
 		cout<<"Error en lectura de Archivo de "<<(*obj).getClassName()<<endl;
 	}
 
+	archivo.close();
+
+}
+
+Grabable* Menu::instanciarGrabable(string tipo){
+
+	Grabable *instancia;
+
+	if (tipo == "Distrito"){
+
+		instancia = new Distrito(" ");
+
+	}else if (tipo == "Lista"){
+
+		instancia = new Lista();
+
+	}else if (tipo == "Cargo"){
+
+		instancia = new Cargo();
+
+	}else if (tipo == "Candidato"){
+
+		instancia = new Candidato();
+	}
+
+	return instancia;
 
 }
 

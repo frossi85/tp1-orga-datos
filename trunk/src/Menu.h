@@ -78,7 +78,8 @@ private:
 
 	void listarEntidad(vector<string> entidades);
 	void obtenerGrabables(vector<Grabable *> &grabables,Grabable *obj);
-
+	void obtenerGrabables(vector<Grabable *> &grabables,string tipo,vector<unsigned int> &offsets,string nom_archivo);
+	Grabable* instanciarGrabable(string tipo);
 	virtual ~Menu();
 
 };
