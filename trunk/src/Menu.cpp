@@ -549,9 +549,9 @@ void Menu::adminLista(){
 	string nombreLista;
 	string claveConsulta;
 
-	vector<string> listas;
+	vector<string> *listas_str;
 	Grabable *listaGrabable;
-	vector<Grabable *> listas_grab;
+	vector<Grabable *> *listas_grab;
 	vector<unsigned int> offsets;
 
 	string arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
@@ -587,29 +587,35 @@ void Menu::adminLista(){
 
 					offsets = hash->listar();
 
-					this->obtenerGrabables(listas_grab,"Lista",offsets,listaGrabable->getURLArchivoDatos());
+					listas_str = new vector<string>;
+					listas_grab = new vector<Grabable *>;
 
+					this->obtenerGrabables((*listas_grab),"Lista",offsets,listaGrabable->getURLArchivoDatos());
 
+					delete listaGrabable;
 
-					if (listas_grab.size()==0){
+					if (listas_grab->size()==0){
 
 						cout<<"Aun no hay ninguna Lista Cargada."<<endl;
 
 					}else{
-						int cant = listas_grab.size();
+						int cant = listas_grab->size();
 						Lista *lista_aux;
 						for(int i=0 ; i<cant ;i++){
 
-							lista_aux = dynamic_cast<Lista *> (listas_grab[i]);
+							lista_aux = dynamic_cast<Lista *> ((*listas_grab)[i]);
 
-							listas.push_back(lista_aux->getNombre());
+							listas_str->push_back(lista_aux->getNombre());
 
 							delete lista_aux;
 						}
 
 
-						this->listarEntidad(listas);
+						this->listarEntidad((*listas_str));
 					}
+
+			delete listas_grab;
+			delete listas_str;
 
 			cout<<endl<<"Presione una tecla para continuar."<<endl;
 			getchar();
