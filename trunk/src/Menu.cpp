@@ -207,7 +207,14 @@ void Menu::adminCandidato(){
 	string claveConsulta;
 	int dni;
 
+	vector<Grabable *> candidatos_grab;
 	vector<string> candidatos;
+	vector<unsigned int> offsets;
+
+	string arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_REGS));
+	string arch_bloq_libres = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_BLOQ_LIB));
+	string arch_tabla = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDCANDIDATO_TABLA));
+	hash_extensible* hash;
 
 	do {
 		system("clear");
@@ -233,10 +240,39 @@ void Menu::adminCandidato(){
 				 * vector de strings "candidatos"
 				 *
 				 */
+				hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+				offsets =hash->listar();
+				delete hash;
 
-				this->listarEntidad(candidatos);
+				this->obtenerGrabables(candidatos_grab,"Candidato",offsets,candidato.getURLArchivoDatos());
 
-			break;
+
+
+				if (candidatos_grab.size()==0){
+
+					cout<<"Aun no hay ningun Distrito Cargada."<<endl;
+
+				}else{
+					int cant = candidatos_grab.size();
+					Candidato *candidato_aux;
+					candidatos.clear();
+					for(int i=0 ; i<cant ;i++){
+
+						if (candidato_aux = dynamic_cast<Candidato *> (candidatos_grab[i])){
+							candidatos.push_back(candidato_aux->getNombreYApellido());
+							delete candidato_aux;
+						}
+
+					}
+
+
+					this->listarEntidad(candidatos);
+				}
+
+				cout << "Ingrese cualquier letra para continuar: ";
+				getchar();
+				retorno=true;
+				break;
 		case 'C':
 			cout << endl;
 			cout << "Ingrese el nombre de la Lista del Candidato: ";
@@ -510,7 +546,12 @@ void Menu::adminLista(){
 	vector<string> listas;
 	Grabable *listaGrabable;
 	vector<Grabable *> listas_grab;
+	vector<unsigned int> offsets;
 
+	string arch_registros = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_REGS));
+	string arch_bloq_libres = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_BLOQ_LIB));
+	string arch_tabla = ((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_IDLISTA_TABLA));
+	hash_extensible* hash;
 
 	do {
 		system("clear");
@@ -536,7 +577,11 @@ void Menu::adminLista(){
 					 */
 					listaGrabable = new Lista();
 
-					this->obtenerGrabables(listas_grab,listaGrabable);
+					hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+
+					offsets = hash->listar();
+
+					this->obtenerGrabables(listas_grab,"Lista",offsets,listaGrabable->getURLArchivoDatos());
 
 
 
@@ -552,12 +597,17 @@ void Menu::adminLista(){
 							lista_aux = dynamic_cast<Lista *> (listas_grab[i]);
 
 							listas.push_back(lista_aux->getNombre());
+
+							delete lista_aux;
 						}
 
 
 						this->listarEntidad(listas);
 					}
 
+			cout<<endl<<"Presione una tecla para continuar."<<endl;
+			getchar();
+			retorno=true;
 			break;
 		case 'C':
 			cout << endl <<endl;
@@ -813,9 +863,12 @@ void Menu::adminDistrito() {
 					hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
 
 					offsets = hash->listar();
+					delete hash;
 
-					this->obtenerGrabables(distritos_grab,"Distrito",offsets,arch_registros);
+					distrito = new Distrito(" ");
 
+					this->obtenerGrabables(distritos_grab,"Distrito",offsets,distrito->getURLArchivoDatos());
+					delete distrito;
 
 
 					if (distritos_grab.size()==0){
@@ -831,6 +884,7 @@ void Menu::adminDistrito() {
 								distritos.push_back(distrito_aux->getNombre());
 								delete distrito_aux;
 							}
+
 						}
 
 
@@ -936,6 +990,13 @@ void Menu::adminCargo() {
 	ABMentidades abm;
 
 	vector<string> cargos;
+	vector<Grabable *> cargos_grab;
+	vector<unsigned int> offsets;
+
+	string arch_registros((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CARGO_REGS));
+	string arch_bloq_libres((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CARGO_BLOQ_LIB));
+	string arch_tabla((*Configuracion::getConfig()).getValorPorPrefijo(RUTA_HASH_CARGO_TABLA));
+	hash_extensible* hash;
 
 		do {
 			system("clear");
@@ -959,10 +1020,38 @@ void Menu::adminCargo() {
 					 * Agregar las descripciones de todos los Cargos
 					 * al vector de strings "cargos"
 					 */
+					hash = new hash_extensible(arch_registros,arch_bloq_libres,arch_tabla);
+					offsets = hash->listar();
 
-					this->listarEntidad(cargos);
+					this->obtenerGrabables(cargos_grab,"Cargo",offsets,cargo.getURLArchivoDatos());
 
+
+					if (cargos_grab.size()==0){
+
+						cout<<"Aun no hay ningun Cargo cargado."<<endl;
+
+					}else{
+						int cant = cargos_grab.size();
+						Cargo *cargo_aux;
+						for(int i=0 ; i<cant ;i++){
+
+							cargo_aux = dynamic_cast<Cargo *> (cargos_grab[i]);
+
+							cargos.push_back(cargo_aux->getCargoPrincipal());
+
+							delete cargo_aux;
+						}
+
+
+						this->listarEntidad(cargos);
+					}
+
+
+				cout << "Presione cualquier letra para continuar: ";
+				getchar();
+				retorno=true;
 				break;
+
 			case 'C':
 				cout << endl <<endl;
 				cout << "Ingrese el nombre del Cargo: ";
@@ -2007,14 +2096,17 @@ void Menu::obtenerGrabables(vector<Grabable *> &grabables,string tipo,vector<uns
 
 	ifstream archivo;
 	archivo.open(nom_archivo.c_str(), ios::binary | ios::out);
+	unsigned int offsetActual;
+	for (int i=0; i < cant;i++)
+		cout<<"offset "<<i<<":  "<<offsets[i]<<endl;
 
 
 	try {
 
-		for (long int i=0; i < cant; i++){
+		for (long int i=0; i < cant;i++){
 			obj = this->instanciarGrabable(tipo);
-
-			obj->Leer(archivo,offsets[i]);
+			offsetActual = offsets[i];
+			obj->Leer(archivo,offsetActual);
 
 			grabables.push_back(obj);
 
