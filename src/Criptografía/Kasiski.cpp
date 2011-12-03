@@ -9,7 +9,7 @@ size_t Kasiski::tamanioBuffer = 0;
 
 vector<Kasiski::longitudPosible> Kasiski::longPosibles;
 
-string aux[] = {"lista", "eleccion", "distrito", "votos", "candidato"};
+string aux[] = {"Lista", "Eleccion", "Distrito", "Votos", "Candidato", "Cargo"};
 const vector<string> Kasiski::PALABRAS_CONOCIDAS(aux, aux + (sizeof(aux) / sizeof(aux[0])));
 
 char aux2[] = {' ', 'e', 'a'};
@@ -292,6 +292,17 @@ bool Kasiski::Romper(const char* rutaCriptograma, const char* rutaDestino){
         }
     }
 
+    //le saca el número del final al textoMasProbable
+    ruta = new char[strlen(rutaDestino) + 1];
+    sprintf (ruta, "%s%i", rutaDestino, textoMasProbable);
+    char *rutaNueva = new char[strlen(rutaDestino)];
+
+    strncpy ( rutaNueva, ruta, strlen(rutaDestino) );
+
+    if(!rename ( ruta, rutaNueva )) return false;
+
+    delete ruta;
+    delete rutaNueva;
     delete posibleClave;
     LiberarMemoria();
     return true;
