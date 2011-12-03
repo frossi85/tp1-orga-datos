@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -58,7 +59,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>Configuracion.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a href="Configuracion_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * Configuracion.h</span>
 <a name="l00003"></a>00003 <span class="comment"> *</span>
 <a name="l00004"></a>00004 <span class="comment"> *  Created on: 19/09/2011</span>
@@ -74,53 +75,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00014"></a>00014 <span class="preprocessor">#ifndef CONFIGURACION_H_</span>
 <a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor">#define CONFIGURACION_H_</span>
 <a name="l00016"></a>00016 <span class="preprocessor"></span>
-<a name="l00017"></a>00017 <span class="preprocessor">#define RUTA_VOTANTES &quot;&lt;ruta_votante&gt;&quot;</span>
-<a name="l00018"></a>00018 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_DISTRITOS &quot;&lt;ruta_distrito&gt;&quot;</span>
-<a name="l00019"></a>00019 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ELECCION &quot;&lt;ruta_eleccion&gt;&quot;</span>
-<a name="l00020"></a>00020 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_LISTA &quot;&lt;ruta_lista&gt;&quot;</span>
-<a name="l00021"></a>00021 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CONTEO &quot;&lt;ruta_conteo&gt;&quot;</span>
-<a name="l00022"></a>00022 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CANDIDATO &quot;&lt;ruta_candidato&gt;&quot;</span>
-<a name="l00023"></a>00023 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CARGO &quot;&lt;ruta_cargo&gt;&quot;</span>
-<a name="l00024"></a>00024 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ADMINISTRADOR &quot;&lt;ruta_administrador&gt;&quot;</span>
-<a name="l00025"></a>00025 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_IDs &quot;&lt;ruta_IDs&gt;&quot;</span>
-<a name="l00026"></a>00026 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_REGS &quot;&lt;ruta_hash_administrador_regs&gt;&quot;</span>
-<a name="l00027"></a>00027 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_BLOQ_LIB &quot;&lt;ruta_hash_administrador_bloq_lib&gt;&quot;</span>
-<a name="l00028"></a>00028 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_TABLA &quot;&lt;ruta_hash_administrador_tabla&gt;&quot;</span>
-<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_ELECCION &quot;&lt;ruta_arbol_eleccion&gt;&quot;</span>
-<a name="l00030"></a>00030 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_LISTA &quot;&lt;ruta_arbol_lista&gt;&quot;</span>
-<a name="l00031"></a>00031 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_CANDIDATO &quot;&lt;ruta_arbol_candidato&gt;&quot;</span>
-<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_REGS &quot;&lt;ruta_hash_distrito_regs&gt;&quot;</span>
-<a name="l00033"></a>00033 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_BLOQ_LIB &quot;&lt;ruta_hash_distrito_bloq_lib&gt;&quot;</span>
-<a name="l00034"></a>00034 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_TABLA &quot;&lt;ruta_hash_distrito_tabla&gt;&quot;</span>
-<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_REGS &quot;&lt;ruta_hash_cargo_regs&gt;&quot;</span>
-<a name="l00036"></a>00036 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_BLOQ_LIB &quot;&lt;ruta_hash_cargo_bloq_lib&gt;&quot;</span>
-<a name="l00037"></a>00037 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_TABLA &quot;&lt;ruta_hash_cargo_tabla&gt;&quot;</span>
-<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_REGS &quot;&lt;ruta_hash_votante_regs&gt;&quot;</span>
-<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_BLOQ_LIB &quot;&lt;ruta_hash_votante_bloq_lib&gt;&quot;</span>
-<a name="l00040"></a>00040 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_TABLA &quot;&lt;ruta_hash_votante_tabla&gt;&quot;</span>
-<a name="l00041"></a>00041 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_REGS &quot;&lt;ruta_hash_ideleccion_regs&gt;&quot;</span>
-<a name="l00042"></a>00042 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_BLOQ_LIB &quot;&lt;ruta_hash_ideleccion_bloq_lib&gt;&quot;</span>
-<a name="l00043"></a>00043 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_TABLA &quot;&lt;ruta_hash_ideleccion_tabla&gt;&quot;</span>
-<a name="l00044"></a>00044 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_REGS &quot;&lt;ruta_hash_iddistrito_regs&gt;&quot;</span>
-<a name="l00045"></a>00045 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_BLOQ_LIB &quot;&lt;ruta_hash_iddistrito_bloq_lib&gt;&quot;</span>
-<a name="l00046"></a>00046 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_TABLA &quot;&lt;ruta_hash_iddistrito_tabla&gt;&quot;</span>
-<a name="l00047"></a>00047 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_REGS &quot;&lt;ruta_hash_idcargo_regs&gt;&quot;</span>
-<a name="l00048"></a>00048 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_BLOQ_LIB &quot;&lt;ruta_hash_idcargo_bloq_lib&gt;&quot;</span>
-<a name="l00049"></a>00049 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_TABLA &quot;&lt;ruta_hash_idcargo_tabla&gt;&quot;</span>
-<a name="l00050"></a>00050 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_REGS &quot;&lt;ruta_hash_idvotante_regs&gt;&quot;</span>
-<a name="l00051"></a>00051 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_BLOQ_LIB &quot;&lt;ruta_hash_idvotante_bloq_lib&gt;&quot;</span>
-<a name="l00052"></a>00052 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_TABLA &quot;&lt;ruta_hash_idvotante_tabla&gt;&quot;</span>
-<a name="l00053"></a>00053 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_REGS &quot;&lt;ruta_hash_idcandidato_regs&gt;&quot;</span>
-<a name="l00054"></a>00054 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_BLOQ_LIB &quot;&lt;ruta_hash_idcandidato_bloq_lib&gt;&quot;</span>
-<a name="l00055"></a>00055 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_TABLA &quot;&lt;ruta_hash_idcandidato_tabla&gt;&quot;</span>
-<a name="l00056"></a>00056 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_REGS &quot;&lt;ruta_hash_idlista_regs&gt;&quot;</span>
-<a name="l00057"></a>00057 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_BLOQ_LIB &quot;&lt;ruta_hash_idlista_bloq_lib&gt;&quot;</span>
-<a name="l00058"></a>00058 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_TABLA &quot;&lt;ruta_hash_idlista_tabla&gt;&quot;</span>
-<a name="l00059"></a>00059 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_DISTRITO &quot;&lt;ruta_arbol_reporte_distrito&gt;&quot;</span>
-<a name="l00060"></a>00060 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_ELECCION &quot;&lt;ruta_arbol_reporte_eleccion&gt;&quot;</span>
-<a name="l00061"></a>00061 <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_LISTA &quot;&lt;ruta_arbol_reporte_lista&gt;&quot;</span>
+<a name="l00017"></a><a class="code" href="Configuracion_8h.html#a0427dbdef3204fd6e42a7f200081cce9">00017</a> <span class="preprocessor">#define RUTA_VOTANTES &quot;&lt;ruta_votante&gt;&quot;</span>
+<a name="l00018"></a><a class="code" href="Configuracion_8h.html#a03175d90b80ba0e4c328a46ed100f4b1">00018</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_DISTRITOS &quot;&lt;ruta_distrito&gt;&quot;</span>
+<a name="l00019"></a><a class="code" href="Configuracion_8h.html#a56058565181af9510ec51c3528b5c885">00019</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ELECCION &quot;&lt;ruta_eleccion&gt;&quot;</span>
+<a name="l00020"></a><a class="code" href="Configuracion_8h.html#a2c979e6ee69f7ea4305d6b496ce02283">00020</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_LISTA &quot;&lt;ruta_lista&gt;&quot;</span>
+<a name="l00021"></a><a class="code" href="Configuracion_8h.html#a127732a30bc7c1847e3a4b61b0dc5db7">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CONTEO &quot;&lt;ruta_conteo&gt;&quot;</span>
+<a name="l00022"></a><a class="code" href="Configuracion_8h.html#aaa0619f0978127584c13179dc56746ad">00022</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CANDIDATO &quot;&lt;ruta_candidato&gt;&quot;</span>
+<a name="l00023"></a><a class="code" href="Configuracion_8h.html#a9afdf2b1e974d2ecbcf78450ed99cdda">00023</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_CARGO &quot;&lt;ruta_cargo&gt;&quot;</span>
+<a name="l00024"></a><a class="code" href="Configuracion_8h.html#af3024fe5c433191b55a3a281415d7dca">00024</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ADMINISTRADOR &quot;&lt;ruta_administrador&gt;&quot;</span>
+<a name="l00025"></a><a class="code" href="Configuracion_8h.html#a3457196f540c5fee005150580b96cf19">00025</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_IDs &quot;&lt;ruta_IDs&gt;&quot;</span>
+<a name="l00026"></a><a class="code" href="Configuracion_8h.html#a1413a2f4f93dae09cc3a097b0fcaef2f">00026</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_REGS &quot;&lt;ruta_hash_administrador_regs&gt;&quot;</span>
+<a name="l00027"></a><a class="code" href="Configuracion_8h.html#afd894a41f8de1da577cce93a6ff81cda">00027</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_BLOQ_LIB &quot;&lt;ruta_hash_administrador_bloq_lib&gt;&quot;</span>
+<a name="l00028"></a><a class="code" href="Configuracion_8h.html#a4cb5157bca1f8488a6efefa85b51c0c3">00028</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_ADMINISTRADOR_TABLA &quot;&lt;ruta_hash_administrador_tabla&gt;&quot;</span>
+<a name="l00029"></a><a class="code" href="Configuracion_8h.html#aa8002fbfc52371554250f602b3171932">00029</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_ELECCION &quot;&lt;ruta_arbol_eleccion&gt;&quot;</span>
+<a name="l00030"></a><a class="code" href="Configuracion_8h.html#a4245b679b902d5d15737e22e6fefa9e0">00030</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_LISTA &quot;&lt;ruta_arbol_lista&gt;&quot;</span>
+<a name="l00031"></a><a class="code" href="Configuracion_8h.html#a8f37ffc78e0f15f41e0d916c3a717916">00031</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_CANDIDATO &quot;&lt;ruta_arbol_candidato&gt;&quot;</span>
+<a name="l00032"></a><a class="code" href="Configuracion_8h.html#a4e5a4b02ad3ddfee4f5d83d22878a9dd">00032</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_REGS &quot;&lt;ruta_hash_distrito_regs&gt;&quot;</span>
+<a name="l00033"></a><a class="code" href="Configuracion_8h.html#a58ed8cf01f2a73550a1ecd78c82a62ca">00033</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_BLOQ_LIB &quot;&lt;ruta_hash_distrito_bloq_lib&gt;&quot;</span>
+<a name="l00034"></a><a class="code" href="Configuracion_8h.html#a78d7ae61e09c572eddd8db7757a3dd1b">00034</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_DISTRITO_TABLA &quot;&lt;ruta_hash_distrito_tabla&gt;&quot;</span>
+<a name="l00035"></a><a class="code" href="Configuracion_8h.html#a5d0ec177efd0171b0f5ba6eb6f7ace86">00035</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_REGS &quot;&lt;ruta_hash_cargo_regs&gt;&quot;</span>
+<a name="l00036"></a><a class="code" href="Configuracion_8h.html#ac143bc85fa216a746dbe0f796db0ae09">00036</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_BLOQ_LIB &quot;&lt;ruta_hash_cargo_bloq_lib&gt;&quot;</span>
+<a name="l00037"></a><a class="code" href="Configuracion_8h.html#ae76d5e170d1643a9b96767d87f553efd">00037</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_CARGO_TABLA &quot;&lt;ruta_hash_cargo_tabla&gt;&quot;</span>
+<a name="l00038"></a><a class="code" href="Configuracion_8h.html#ad145a25100aac9b1b2f528f53a6aaceb">00038</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_REGS &quot;&lt;ruta_hash_votante_regs&gt;&quot;</span>
+<a name="l00039"></a><a class="code" href="Configuracion_8h.html#a58ec24c4e6e00ac977c799f3ab0080a9">00039</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_BLOQ_LIB &quot;&lt;ruta_hash_votante_bloq_lib&gt;&quot;</span>
+<a name="l00040"></a><a class="code" href="Configuracion_8h.html#a36228778966d0c724fb16b50afddd391">00040</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_VOTANTE_TABLA &quot;&lt;ruta_hash_votante_tabla&gt;&quot;</span>
+<a name="l00041"></a><a class="code" href="Configuracion_8h.html#a0ff402d62d3d205c75d3225ab1cb54be">00041</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_REGS &quot;&lt;ruta_hash_ideleccion_regs&gt;&quot;</span>
+<a name="l00042"></a><a class="code" href="Configuracion_8h.html#a85328406d04d82add3fcd9fe64230001">00042</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_BLOQ_LIB &quot;&lt;ruta_hash_ideleccion_bloq_lib&gt;&quot;</span>
+<a name="l00043"></a><a class="code" href="Configuracion_8h.html#a9aadc965a7442b9d5d65944c959fca59">00043</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDELECCION_TABLA &quot;&lt;ruta_hash_ideleccion_tabla&gt;&quot;</span>
+<a name="l00044"></a><a class="code" href="Configuracion_8h.html#a5afa599f4041b2aaac4c71b2c39ab648">00044</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_REGS &quot;&lt;ruta_hash_iddistrito_regs&gt;&quot;</span>
+<a name="l00045"></a><a class="code" href="Configuracion_8h.html#a09cbf640d12934862b9bd8a3b2b77c69">00045</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_BLOQ_LIB &quot;&lt;ruta_hash_iddistrito_bloq_lib&gt;&quot;</span>
+<a name="l00046"></a><a class="code" href="Configuracion_8h.html#aeaedcf92bc20e9057da0fe5e3d7538cc">00046</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDDISTRITO_TABLA &quot;&lt;ruta_hash_iddistrito_tabla&gt;&quot;</span>
+<a name="l00047"></a><a class="code" href="Configuracion_8h.html#aa3e392158a3d236d0f163503410e6ff9">00047</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_REGS &quot;&lt;ruta_hash_idcargo_regs&gt;&quot;</span>
+<a name="l00048"></a><a class="code" href="Configuracion_8h.html#a42bcaafa6028cb9a20feeb9823ff5af0">00048</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_BLOQ_LIB &quot;&lt;ruta_hash_idcargo_bloq_lib&gt;&quot;</span>
+<a name="l00049"></a><a class="code" href="Configuracion_8h.html#ae84f6d183a05d3eebc90db3414cdd562">00049</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCARGO_TABLA &quot;&lt;ruta_hash_idcargo_tabla&gt;&quot;</span>
+<a name="l00050"></a><a class="code" href="Configuracion_8h.html#aa53b3d084697a6b9e3d0be501ec887e6">00050</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_REGS &quot;&lt;ruta_hash_idvotante_regs&gt;&quot;</span>
+<a name="l00051"></a><a class="code" href="Configuracion_8h.html#a2847b4d225a70f2188ed5cc3e289dad2">00051</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_BLOQ_LIB &quot;&lt;ruta_hash_idvotante_bloq_lib&gt;&quot;</span>
+<a name="l00052"></a><a class="code" href="Configuracion_8h.html#a8bf9adf8b8cc46af3b9b36328fa146e4">00052</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDVOTANTE_TABLA &quot;&lt;ruta_hash_idvotante_tabla&gt;&quot;</span>
+<a name="l00053"></a><a class="code" href="Configuracion_8h.html#a9b41879ae16050cb43f709d17184b028">00053</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_REGS &quot;&lt;ruta_hash_idcandidato_regs&gt;&quot;</span>
+<a name="l00054"></a><a class="code" href="Configuracion_8h.html#a084c374267693ee078508a6c1f19cc08">00054</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_BLOQ_LIB &quot;&lt;ruta_hash_idcandidato_bloq_lib&gt;&quot;</span>
+<a name="l00055"></a><a class="code" href="Configuracion_8h.html#a43e18c35fe39322aa0fb63eba56d8c82">00055</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDCANDIDATO_TABLA &quot;&lt;ruta_hash_idcandidato_tabla&gt;&quot;</span>
+<a name="l00056"></a><a class="code" href="Configuracion_8h.html#abd520df4f82843fc66dfa48541b0ece1">00056</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_REGS &quot;&lt;ruta_hash_idlista_regs&gt;&quot;</span>
+<a name="l00057"></a><a class="code" href="Configuracion_8h.html#a04b499c633299a7aff03fd8aaef409bc">00057</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_BLOQ_LIB &quot;&lt;ruta_hash_idlista_bloq_lib&gt;&quot;</span>
+<a name="l00058"></a><a class="code" href="Configuracion_8h.html#a3b0e00eff9762a3449c0a62bd001dbfb">00058</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_HASH_IDLISTA_TABLA &quot;&lt;ruta_hash_idlista_tabla&gt;&quot;</span>
+<a name="l00059"></a><a class="code" href="Configuracion_8h.html#afd2c467373f477b68d8191a372051ce5">00059</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_DISTRITO &quot;&lt;ruta_arbol_reporte_distrito&gt;&quot;</span>
+<a name="l00060"></a><a class="code" href="Configuracion_8h.html#affe71a3e41ae4690b1cee673d08019d9">00060</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_ELECCION &quot;&lt;ruta_arbol_reporte_eleccion&gt;&quot;</span>
+<a name="l00061"></a><a class="code" href="Configuracion_8h.html#ae1c1872294cc978339fd7f001473211b">00061</a> <span class="preprocessor"></span><span class="preprocessor">#define RUTA_ARBOL_REPORTE_LISTA &quot;&lt;ruta_arbol_reporte_lista&gt;&quot;</span>
 <a name="l00062"></a>00062 <span class="preprocessor"></span>
-<a name="l00063"></a>00063 <span class="preprocessor">#define CANT_CONF 45</span>
+<a name="l00063"></a><a class="code" href="Configuracion_8h.html#a373b5e748c63a738000489a357b25786">00063</a> <span class="preprocessor">#define CANT_CONF 45</span>
 <a name="l00064"></a>00064 <span class="preprocessor"></span>
 <a name="l00065"></a>00065 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00066"></a>00066 
@@ -128,19 +129,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00068"></a>00068 
 <a name="l00069"></a><a class="code" href="classConfiguracion.html">00069</a> <span class="keyword">class </span><a class="code" href="classConfiguracion.html">Configuracion</a> {
 <a name="l00070"></a>00070 <span class="keyword">private</span>:
-<a name="l00071"></a>00071                 <span class="keywordtype">string</span> constantes[CANT_CONF];
-<a name="l00072"></a>00072                 <span class="keywordtype">string</span> valores[CANT_CONF];
+<a name="l00071"></a><a class="code" href="classConfiguracion.html#a79d14eb0229d3153cb01b059eebaff90">00071</a>                 <span class="keywordtype">string</span> constantes[<a class="code" href="Configuracion_8h.html#a373b5e748c63a738000489a357b25786">CANT_CONF</a>];
+<a name="l00072"></a><a class="code" href="classConfiguracion.html#acf571fc14d20301839a16cb683e8fbb5">00072</a>                 <span class="keywordtype">string</span> valores[<a class="code" href="Configuracion_8h.html#a373b5e748c63a738000489a357b25786">CANT_CONF</a>];
 <a name="l00073"></a>00073                 <a class="code" href="classConfiguracion.html">Configuracion</a>();
 <a name="l00074"></a>00074 <span class="keyword">public</span>:
-<a name="l00075"></a>00075                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_VOTANTES;
-<a name="l00076"></a>00076                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_DISTRITOS;
-<a name="l00077"></a>00077                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_ELECCION;
-<a name="l00078"></a>00078                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_LISTA;
-<a name="l00079"></a>00079                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CONTEO;
-<a name="l00080"></a>00080                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CANDIDATO;
-<a name="l00081"></a>00081                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_CARGO;
-<a name="l00082"></a>00082                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_ADMINISTRADOR;
-<a name="l00083"></a>00083                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> URL_IDs;
+<a name="l00075"></a><a class="code" href="classConfiguracion.html#a561b501e550349c9096e55a5ce3f380c">00075</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#a561b501e550349c9096e55a5ce3f380c">URL_VOTANTES</a>;
+<a name="l00076"></a><a class="code" href="classConfiguracion.html#a3a1076dca51841ab35b86e930b110acb">00076</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#a3a1076dca51841ab35b86e930b110acb">URL_DISTRITOS</a>;
+<a name="l00077"></a><a class="code" href="classConfiguracion.html#aaecb9690f7ced5d908e636d9e7fd2e01">00077</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#aaecb9690f7ced5d908e636d9e7fd2e01">URL_ELECCION</a>;
+<a name="l00078"></a><a class="code" href="classConfiguracion.html#aefce4bda16e975ca071d8bc7f4437942">00078</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#aefce4bda16e975ca071d8bc7f4437942">URL_LISTA</a>;
+<a name="l00079"></a><a class="code" href="classConfiguracion.html#acac3cd778272b1e7c458bdb23e1e970e">00079</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#acac3cd778272b1e7c458bdb23e1e970e">URL_CONTEO</a>;
+<a name="l00080"></a><a class="code" href="classConfiguracion.html#a4255ccf6df2dba81d6e08347f0b0001d">00080</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#a4255ccf6df2dba81d6e08347f0b0001d">URL_CANDIDATO</a>;
+<a name="l00081"></a><a class="code" href="classConfiguracion.html#a6f9d39be16625e64157ca12fcf882e84">00081</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#a6f9d39be16625e64157ca12fcf882e84">URL_CARGO</a>;
+<a name="l00082"></a><a class="code" href="classConfiguracion.html#a3924dd7d4d4220f905253c12fbc7d9b8">00082</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#a3924dd7d4d4220f905253c12fbc7d9b8">URL_ADMINISTRADOR</a>;
+<a name="l00083"></a><a class="code" href="classConfiguracion.html#ad39d04d8c38612587532c39f1071bc13">00083</a>                 <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">string</span> <a class="code" href="classConfiguracion.html#ad39d04d8c38612587532c39f1071bc13">URL_IDs</a>;
 <a name="l00084"></a>00084 
 <a name="l00085"></a>00085                 <span class="keyword">static</span> <a class="code" href="classConfiguracion.html">Configuracion</a> *getConfig();
 <a name="l00086"></a>00086         ~<a class="code" href="classConfiguracion.html">Configuracion</a>();
@@ -156,7 +157,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -165,7 +166,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

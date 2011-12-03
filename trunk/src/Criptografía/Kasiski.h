@@ -9,21 +9,33 @@
 
 using namespace std;
 
+/** Clase estática que aplica el algoritmo de Kasiski y análisis de frecuencias para intentar
+ * romper la encriptación de Vigenère.
+ * Su único método público es Romper.
+ */
 class Kasiski {
 private:
 
     //tipos
+
+	/** Se usa para almacenar las posibles longitudes para la clave de Vigenère, junto con la cantidad de veces
+	 * que aparece esa longitud como resultado del MCD entre las distancias entre cadenas repetidas. A mayor cantidad
+	 * de ocurrencias, hay mayor probabilidad de que esa sea la longitud correcta.
+	 */
     typedef struct _longitudPosible {
         unsigned long longitud;
         unsigned long ocurrencias;
     } longitudPosible;
 
+	/** Se usa en el análisis de frecuencias. Almacena cada caracter junto con la cantidad de veces que aparece
+	 * en el texto.
+	 */
     typedef struct _caracterFrecuencia {
         char caracter;
         unsigned long frecuencia;
     } caracterFrecuencia;
 
-    ///atributos
+    //atributos
     static char *bufferCriptograma;
     static size_t tamanioBuffer;
     static vector<longitudPosible> longPosibles;
@@ -32,7 +44,7 @@ private:
     static const unsigned int MIN_LONG_CADENA;
     static const unsigned int LONG_ALFABETO;
 
-    ///métodos
+    //métodos
 
     /** carga el texto en el buffer, eliminando espacios, signos de
      * puntuación, etc. si fuera necesario */

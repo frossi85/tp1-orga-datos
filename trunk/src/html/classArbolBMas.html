@@ -59,7 +59,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <h1>ArbolBMas Class Reference</h1>  </div>
 </div>
@@ -81,11 +84,11 @@ Collaboration diagram for ArbolBMas:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca4e4267124302160a15df40a7e8b26f"></a><!-- doxytag: member="ArbolBMas::abrir" ref="aca4e4267124302160a15df40a7e8b26f" args="(string url)" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>abrir</b> (string url)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1104de2053b1b04faaf5ab1ad8a9965e"></a><!-- doxytag: member="ArbolBMas::estaAbierto" ref="a1104de2053b1b04faaf5ab1ad8a9965e" args="()" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e">estaAbierto</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#acacb5475c17796c22460f49ffeb07587">ArbolBMas</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a082f4e7610260bb493ec90f9e2d059d0">~ArbolBMas</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#aca4e4267124302160a15df40a7e8b26f">abrir</a> (string url)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e">estaAbierto</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto.  <a href="#a1104de2053b1b04faaf5ab1ad8a9965e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ad543ef02ea86b9853aa9485e57aef695">agregar</a> (const string &amp;clave, const long &amp;offset)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: se agrega un registro con clave y offset pasado por parametro.  <a href="#ad543ef02ea86b9853aa9485e57aef695"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a2aeb094c032caf347ed6f6d6ae262aa3">eliminar</a> (const string &amp;clave)</td></tr>
@@ -106,9 +109,52 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: cambia el offset del registro que tiene la clave pasada como parametro*/.  <a href="#adc6b4cc7cf4a0eb84f95c7309a19b696"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ac1b5d8beaa4ba0ca7616f3adff58e363">cambiarClave</a> (const string &amp;clave, const string &amp;nuevaClave)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: cambia la clave del registro que tiene la clave pasada como parametro*/.  <a href="#ac1b5d8beaa4ba0ca7616f3adff58e363"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae1de5dd729afe3e20575f22f30808e2"></a><!-- doxytag: member="ArbolBMas::cerrar" ref="aae1de5dd729afe3e20575f22f30808e2" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#aae1de5dd729afe3e20575f22f30808e2">cerrar</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#aae1de5dd729afe3e20575f22f30808e2">cerrar</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/.  <a href="#aae1de5dd729afe3e20575f22f30808e2"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a09f1aaeffd58537f36da6fd19c49b05e">getRegistroDelMedio</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, <a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;elem)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a2e1474effa8dcd0c0b7f5a03bd59ca45">partirNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, <a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;medio, <a class="el" href="classNodo.html">Nodo</a> **nodoDerecho)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5">encontrarNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, const string &amp;clave, int &amp;retIndice, int &amp;indicePadre, bool &amp;econtrado)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#aaff101e3ffe2d7e9d66614c5a39ad128">hayEspacioLibre</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a39c3827edd1c6cf3a2a88efe4d750128">rebalancear</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, int indicePadre)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a5ec3c869b34955499ffcf6f530b97cba">combinarNodos</a> (<a class="el" href="classNodo.html">Nodo</a> *nodoIzquierdo, <a class="el" href="classNodo.html">Nodo</a> *nodoDerecho)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a28b6e0235de7a3c80e87cfcf4327c413">retirar</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, int indiceItem)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a4844649f61b89bb7b0d304ba4cf8c8bb">getNodoMasDerecho</a> (<a class="el" href="classNodo.html">Nodo</a> *subarbol, string &amp;mayorClave, long &amp;mayorOffset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a006df812b6a81a219146aaa48706b2e4">getNodoMasIzquierdo</a> (<a class="el" href="classNodo.html">Nodo</a> *subarbol, string &amp;menorClave, long &amp;menorOffset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ae0ac0ab696286a963e0f82d3cd81f65f">buscar</a> (list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;retList, const string &amp;claveInicial, bool esBusquedaPrecisa, bool habilitarCondicion, const string &amp;claveHasta)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a8123ccc4fe62faace3f175d4ee8d943f">registrosDesdeNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;retList, int indiceElem, const string &amp;claveInicial, bool habilitarCondicion, const string &amp;claveHasta)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#acc8482ec841f02ecb83b29ca1469e43d">registrosDesdeNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;retList, bool habilitarCondicion, const string &amp;claveHasta)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ad243b2952f7646d1fa9eabdeaa3c7834">registrosDesdeNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo, list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;retList)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b">cargarNodo</a> (<a class="el" href="classNodo.html">Nodo</a> **nodo, int addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ae271edffe1d6d16bab3884421ccd928a">getNodoNuevo</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ab787b0fb20dd4981c84990415ef43ef2">borrarNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc">liberarNodo</a> (int addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c">guardarNodo</a> (<a class="el" href="classNodo.html">Nodo</a> *nodo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ae7b5fcd5f99efd5d2273d179c9fc13d4">getAddrRaiz</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45">setAddrRaiz</a> (long addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ab169b61dcb10b0e3f0085429e33afea9">getRaiz</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a43b292dc0acc4a6dc13a0abcc12f466d">tamanioStorage</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c">limpiarCache</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154">liberarCache</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#aadd6441cb48113a6bf42d425099f3943">ImprimirCache</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2">buscarEnCache</a> (int addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#afa09490ef15018f15c0a3c63ef05f809">buscarEnCache</a> (int addr, int &amp;pos)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc">nodoEstaEnCache</a> (int addr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e">borrarDeCache</a> (int indice)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb">impactarCambios</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a5b279fdb783ba4e92abaf37f1b9fdba8">cerrarControlador</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a83de834cbc2bd015c37191993b826645">_raiz</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">fstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a4de8dcfc7c25d1fb83da29439125f58e">_storage</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a983307c14ead729193e2a75d6aa43797">_tamanioMaximoCache</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#ab572105f4e27a83121ccdd794284f677">_addrRaiz</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="classNodo.html">Nodo</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a0a68d299e6c082f6cdef56e45d093d09">_cache</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a411b69c422bd1c4bedc8e57911fece02">_estaAbierto</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static const long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArbolBMas.html#a977a6f603725d33dbefd0539f9c15fb0">_finCamposControl</a> = 512</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Arbol B+ con administracion de chache. </p>
@@ -116,8 +162,76 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <ul>
 <li>Nodos: es donde se guardan los nodos con los registros.</li>
 </ul>
-<p>Ejemplo de uso: 1.- <a class="el" href="classArbolBMas.html" title="Arbol B+ con administracion de chache.">ArbolBMas</a> * arbol = new ArbolBMas(); 2.- arbol-&gt;abrir(url); 3.- arbol-&gt;agregar(clave, offset); 4.- arbol-&gt;buscar(clave, offsetEcontrado); 5.- arbol-&gt;<a class="el" href="classArbolBMas.html#aae1de5dd729afe3e20575f22f30808e2" title="Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/.">cerrar()</a>; 6.- delete arbol; </p>
-</div><hr/><h2>Member Function Documentation</h2>
+<p>Ejemplo de uso: 1.- <a class="el" href="classArbolBMas.html" title="Arbol B+ con administracion de chache.">ArbolBMas</a> * arbol = new <a class="el" href="classArbolBMas.html#acacb5475c17796c22460f49ffeb07587">ArbolBMas()</a>; 2.- arbol-&gt;abrir(url); 3.- arbol-&gt;agregar(clave, offset); 4.- arbol-&gt;buscar(clave, offsetEcontrado); 5.- arbol-&gt;<a class="el" href="classArbolBMas.html#aae1de5dd729afe3e20575f22f30808e2" title="Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/.">cerrar()</a>; 6.- delete arbol; </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="acacb5475c17796c22460f49ffeb07587"></a><!-- doxytag: member="ArbolBMas::ArbolBMas" ref="acacb5475c17796c22460f49ffeb07587" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArbolBMas::ArbolBMas </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a082f4e7610260bb493ec90f9e2d059d0"></a><!-- doxytag: member="ArbolBMas::~ArbolBMas" ref="a082f4e7610260bb493ec90f9e2d059d0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArbolBMas::~ArbolBMas </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a082f4e7610260bb493ec90f9e2d059d0_cgraph.png" border="0" usemap="#classArbolBMas_a082f4e7610260bb493ec90f9e2d059d0_cgraph" alt=""/></div>
+<map name="classArbolBMas_a082f4e7610260bb493ec90f9e2d059d0_cgraph" id="classArbolBMas_a082f4e7610260bb493ec90f9e2d059d0_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#aae1de5dd729afe3e20575f22f30808e2" title="Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/." alt="" coords="223,32,348,61"/><area shape="rect" id="node5" href="classArbolBMas.html#a5b279fdb783ba4e92abaf37f1b9fdba8" title="ArbolBMas::cerrarControlador" alt="" coords="397,5,592,35"/><area shape="rect" id="node7" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="409,59,580,88"/><area shape="rect" id="node9" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="641,59,836,88"/><area shape="rect" id="node11" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="889,32,1049,61"/><area shape="rect" id="node13" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="885,85,1053,115"/><area shape="rect" id="node15" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1101,85,1208,115"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="aca4e4267124302160a15df40a7e8b26f"></a><!-- doxytag: member="ArbolBMas::abrir" ref="aca4e4267124302160a15df40a7e8b26f" args="(string url)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::abrir </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>url</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_aca4e4267124302160a15df40a7e8b26f_cgraph.png" border="0" usemap="#classArbolBMas_aca4e4267124302160a15df40a7e8b26f_cgraph" alt=""/></div>
+<map name="classArbolBMas_aca4e4267124302160a15df40a7e8b26f_cgraph" id="classArbolBMas_aca4e4267124302160a15df40a7e8b26f_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="191,5,351,35"/><area shape="rect" id="node17" href="classArbolBMas.html#a5b279fdb783ba4e92abaf37f1b9fdba8" title="ArbolBMas::cerrarControlador" alt="" coords="173,59,368,88"/><area shape="rect" id="node19" href="classArbolBMas.html#ae7b5fcd5f99efd5d2273d179c9fc13d4" title="ArbolBMas::getAddrRaiz" alt="" coords="188,112,353,141"/><area shape="rect" id="node21" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="661,164,829,193"/><area shape="rect" id="node25" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="185,216,356,245"/><area shape="rect" id="node32" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45" title="ArbolBMas::setAddrRaiz" alt="" coords="188,269,353,299"/><area shape="rect" id="node34" href="classArbolBMas.html#a43b292dc0acc4a6dc13a0abcc12f466d" title="ArbolBMas::tamanioStorage" alt="" coords="179,323,363,352"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="421,5,608,35"/><area shape="rect" id="node7" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="472,59,557,88"/><area shape="rect" id="node9" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="679,32,812,61"/><area shape="rect" id="node15" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="700,85,791,115"/><area shape="rect" id="node11" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="879,32,1065,61"/><area shape="rect" id="node13" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="887,85,1057,115"/><area shape="rect" id="node23" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="919,164,1025,193"/><area shape="rect" id="node27" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="417,216,612,245"/><area shape="rect" id="node29" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="665,217,825,247"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ad543ef02ea86b9853aa9485e57aef695"></a><!-- doxytag: member="ArbolBMas::agregar" ref="ad543ef02ea86b9853aa9485e57aef695" args="(const string &amp;clave, const long &amp;offset)" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,41 +260,57 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Pre: el arbol fue creado. Post: se agrega un registro con clave y offset pasado por parametro. </p>
 <p>Si no se puede agregar o ya existia un registro con esa clave, devuelve false </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ad543ef02ea86b9853aa9485e57aef695_cgraph.png" border="0" usemap="#classArbolBMas_ad543ef02ea86b9853aa9485e57aef695_cgraph" alt=""/></div>
+<map name="classArbolBMas_ad543ef02ea86b9853aa9485e57aef695_cgraph" id="classArbolBMas_ad543ef02ea86b9853aa9485e57aef695_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#a8645f33f559ae2cf5b45dd03bd970e66" title="Nodo::agregarRegistro" alt="" coords="451,112,603,141"/><area shape="rect" id="node5" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="447,59,607,88"/><area shape="rect" id="node19" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="192,59,371,88"/><area shape="rect" id="node24" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="932,469,1092,499"/><area shape="rect" id="node26" href="classNodo.html#af9a0f3dbaa1f3ecca3e976234822d85c" title="Nodo::estaLleno" alt="" coords="223,691,340,720"/><area shape="rect" id="node28" href="classArbolBMas.html#ae7b5fcd5f99efd5d2273d179c9fc13d4" title="ArbolBMas::getAddrRaiz" alt="" coords="199,744,364,773"/><area shape="rect" id="node30" href="classArbolBMas.html#ae271edffe1d6d16bab3884421ccd928a" title="ArbolBMas::getNodoNuevo" alt="" coords="436,640,617,669"/><area shape="rect" id="node40" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="199,536,364,565"/><area shape="rect" id="node48" href="classArbolBMas.html#a2e1474effa8dcd0c0b7f5a03bd59ca45" title="ArbolBMas::partirNodo" alt="" coords="204,325,359,355"/><area shape="rect" id="node73" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45" title="ArbolBMas::setAddrRaiz" alt="" coords="199,797,364,827"/><area shape="rect" id="node7" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="688,165,875,195"/><area shape="rect" id="node9" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="739,59,824,88"/><area shape="rect" id="node11" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="945,32,1079,61"/><area shape="rect" id="node17" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="967,85,1057,115"/><area shape="rect" id="node13" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1145,59,1332,88"/><area shape="rect" id="node15" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1153,5,1324,35"/><area shape="rect" id="node21" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="452,5,601,35"/><area shape="rect" id="node32" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="928,600,1096,629"/><area shape="rect" id="node36" href="classArbolBMas.html#aaff101e3ffe2d7e9d66614c5a39ad128" title="ArbolBMas::hayEspacioLibre" alt="" coords="687,691,876,720"/><area shape="rect" id="node38" href="classArbolBMas.html#a43b292dc0acc4a6dc13a0abcc12f466d" title="ArbolBMas::tamanioStorage" alt="" coords="689,744,873,773"/><area shape="rect" id="node34" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1185,600,1292,629"/><area shape="rect" id="node42" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="441,536,612,565"/><area shape="rect" id="node44" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="684,429,879,459"/><area shape="rect" id="node51" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="431,483,623,512"/><area shape="rect" id="node54" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="735,483,828,512"/><area shape="rect" id="node56" href="classRegistroArbol.html#a0b2d531b844c949a0c8fd3b970e828f1" title="RegistroArbol::getClave" alt="" coords="447,272,607,301"/><area shape="rect" id="node59" href="classArbolBMas.html#a09f1aaeffd58537f36da6fd19c49b05e" title="ArbolBMas::getRegistroDelMedio" alt="" coords="419,379,635,408"/><area shape="rect" id="node62" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="447,219,607,248"/><area shape="rect" id="node68" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="425,165,628,195"/><area shape="rect" id="node71" href="classNodo.html#ae455ddcfe5e6a3c22afc9646b582be65" title="Nodo::removerEnPosicion" alt="" coords="440,325,613,355"/><area shape="rect" id="node64" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="691,219,872,248"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a3b92f290073cf41fe3631cc16d63b57d"></a><!-- doxytag: member="ArbolBMas::buscar" ref="a3b92f290073cf41fe3631cc16d63b57d" args="(list&lt; RegistroArbol * &gt; &amp;retList, const string &amp;claveInicial, bool esBusquedaPrecisa)" -->
+<a class="anchor" id="abab89f98c6bb18a924b069cdf704556e"></a><!-- doxytag: member="ArbolBMas::borrarDeCache" ref="abab89f98c6bb18a924b069cdf704556e" args="(int indice)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ArbolBMas::buscar </td>
+          <td class="memname">void ArbolBMas::borrarDeCache </td>
           <td>(</td>
-          <td class="paramtype">list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>retList</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>claveInicial</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>esBusquedaPrecisa</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indice</em></td><td>)</td>
+          <td><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves sean igual o mayor a claveInicial. </p>
-<p>Si esBusquedaPrecisa es true y claveInicial no existe en el arbol, devuelve una lista vacia, sino devuelve la lista y true. Si esBusquedaPresisa es false devuelve una lista con los inmediatamente mayores a claveIncial </p>
+</div>
+</div>
+<a class="anchor" id="ab787b0fb20dd4981c84990415ef43ef2"></a><!-- doxytag: member="ArbolBMas::borrarNodo" ref="ab787b0fb20dd4981c84990415ef43ef2" args="(Nodo *nodo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::borrarNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ab787b0fb20dd4981c84990415ef43ef2_cgraph.png" border="0" usemap="#classArbolBMas_ab787b0fb20dd4981c84990415ef43ef2_cgraph" alt=""/></div>
+<map name="classArbolBMas_ab787b0fb20dd4981c84990415ef43ef2_cgraph" id="classArbolBMas_ab787b0fb20dd4981c84990415ef43ef2_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="216,5,397,35"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="213,59,400,88"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -218,6 +348,114 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves esten entre claveInicial y condicion. </p>
 <p>Si no habia registros que devolver, devuelve false </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a93106f0ade5c3834aea63970b8d527ab_cgraph.png" border="0" usemap="#classArbolBMas_a93106f0ade5c3834aea63970b8d527ab_cgraph" alt=""/></div>
+<map name="classArbolBMas_a93106f0ade5c3834aea63970b8d527ab_cgraph" id="classArbolBMas_a93106f0ade5c3834aea63970b8d527ab_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a4b1c85b177a42d68ae6bda3b7c49d009" title="Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro su offset..." alt="" coords="187,112,320,141"/><area shape="rect" id="node5" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="368,85,547,115"/><area shape="rect" id="node23" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="375,139,540,168"/><area shape="rect" id="node7" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="605,32,755,61"/><area shape="rect" id="node9" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="600,85,760,115"/><area shape="rect" id="node11" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="819,32,1005,61"/><area shape="rect" id="node13" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="869,85,955,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1076,32,1209,61"/><area shape="rect" id="node21" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1097,85,1188,115"/><area shape="rect" id="node17" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1276,5,1463,35"/><area shape="rect" id="node19" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1284,59,1455,88"/><area shape="rect" id="node25" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="595,139,765,168"/><area shape="rect" id="node27" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="815,139,1009,168"/><area shape="rect" id="node29" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1063,139,1223,168"/><area shape="rect" id="node31" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1059,192,1227,221"/><area shape="rect" id="node33" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1316,192,1423,221"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a3b92f290073cf41fe3631cc16d63b57d"></a><!-- doxytag: member="ArbolBMas::buscar" ref="a3b92f290073cf41fe3631cc16d63b57d" args="(list&lt; RegistroArbol * &gt; &amp;retList, const string &amp;claveInicial, bool esBusquedaPrecisa)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::buscar </td>
+          <td>(</td>
+          <td class="paramtype">list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>retList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>claveInicial</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>esBusquedaPrecisa</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves sean igual o mayor a claveInicial. </p>
+<p>Si esBusquedaPrecisa es true y claveInicial no existe en el arbol, devuelve una lista vacia, sino devuelve la lista y true. Si esBusquedaPresisa es false devuelve una lista con los inmediatamente mayores a claveIncial </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a3b92f290073cf41fe3631cc16d63b57d_cgraph.png" border="0" usemap="#classArbolBMas_a3b92f290073cf41fe3631cc16d63b57d_cgraph" alt=""/></div>
+<map name="classArbolBMas_a3b92f290073cf41fe3631cc16d63b57d_cgraph" id="classArbolBMas_a3b92f290073cf41fe3631cc16d63b57d_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a4b1c85b177a42d68ae6bda3b7c49d009" title="Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro su offset..." alt="" coords="187,112,320,141"/><area shape="rect" id="node5" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="368,85,547,115"/><area shape="rect" id="node23" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="375,139,540,168"/><area shape="rect" id="node7" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="605,32,755,61"/><area shape="rect" id="node9" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="600,85,760,115"/><area shape="rect" id="node11" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="819,32,1005,61"/><area shape="rect" id="node13" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="869,85,955,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1076,32,1209,61"/><area shape="rect" id="node21" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1097,85,1188,115"/><area shape="rect" id="node17" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1276,5,1463,35"/><area shape="rect" id="node19" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1284,59,1455,88"/><area shape="rect" id="node25" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="595,139,765,168"/><area shape="rect" id="node27" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="815,139,1009,168"/><area shape="rect" id="node29" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1063,139,1223,168"/><area shape="rect" id="node31" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1059,192,1227,221"/><area shape="rect" id="node33" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1316,192,1423,221"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ae0ac0ab696286a963e0f82d3cd81f65f"></a><!-- doxytag: member="ArbolBMas::buscar" ref="ae0ac0ab696286a963e0f82d3cd81f65f" args="(list&lt; RegistroArbol * &gt; &amp;retList, const string &amp;claveInicial, bool esBusquedaPrecisa, bool habilitarCondicion, const string &amp;claveHasta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::buscar </td>
+          <td>(</td>
+          <td class="paramtype">list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>retList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>claveInicial</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>esBusquedaPrecisa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>habilitarCondicion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>claveHasta</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ae0ac0ab696286a963e0f82d3cd81f65f_cgraph.png" border="0" usemap="#classArbolBMas_ae0ac0ab696286a963e0f82d3cd81f65f_cgraph" alt=""/></div>
+<map name="classArbolBMas_ae0ac0ab696286a963e0f82d3cd81f65f_cgraph" id="classArbolBMas_ae0ac0ab696286a963e0f82d3cd81f65f_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="204,112,383,141"/><area shape="rect" id="node21" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="211,245,376,275"/><area shape="rect" id="node33" href="classArbolBMas.html#a8123ccc4fe62faace3f175d4ee8d943f" title="ArbolBMas::registrosDesdeNodo" alt="" coords="187,165,400,195"/><area shape="rect" id="node5" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="475,112,624,141"/><area shape="rect" id="node7" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="469,59,629,88"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="704,165,891,195"/><area shape="rect" id="node11" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="755,59,840,88"/><area shape="rect" id="node13" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="961,32,1095,61"/><area shape="rect" id="node19" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="983,85,1073,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1161,59,1348,88"/><area shape="rect" id="node17" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1169,5,1340,35"/><area shape="rect" id="node23" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="464,272,635,301"/><area shape="rect" id="node25" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="700,272,895,301"/><area shape="rect" id="node27" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="948,245,1108,275"/><area shape="rect" id="node29" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="944,299,1112,328"/><area shape="rect" id="node31" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1201,299,1308,328"/><area shape="rect" id="node37" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="469,219,629,248"/><area shape="rect" id="node43" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="448,165,651,195"/><area shape="rect" id="node39" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="707,219,888,248"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b1c85b177a42d68ae6bda3b7c49d009"></a><!-- doxytag: member="ArbolBMas::buscar" ref="a4b1c85b177a42d68ae6bda3b7c49d009" args="(const string &amp;clave, long &amp;offset)" -->
@@ -247,6 +485,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro su offset. </p>
 <p>Si no encuentra el registro, devuelve false </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a4b1c85b177a42d68ae6bda3b7c49d009_cgraph.png" border="0" usemap="#classArbolBMas_a4b1c85b177a42d68ae6bda3b7c49d009_cgraph" alt=""/></div>
+<map name="classArbolBMas_a4b1c85b177a42d68ae6bda3b7c49d009_cgraph" id="classArbolBMas_a4b1c85b177a42d68ae6bda3b7c49d009_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="187,85,365,115"/><area shape="rect" id="node21" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="193,139,359,168"/><area shape="rect" id="node5" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="424,32,573,61"/><area shape="rect" id="node7" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="419,85,579,115"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="637,32,824,61"/><area shape="rect" id="node11" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="688,85,773,115"/><area shape="rect" id="node13" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="895,32,1028,61"/><area shape="rect" id="node19" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="916,85,1007,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1095,5,1281,35"/><area shape="rect" id="node17" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1103,59,1273,88"/><area shape="rect" id="node23" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="413,139,584,168"/><area shape="rect" id="node25" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="633,139,828,168"/><area shape="rect" id="node27" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="881,139,1041,168"/><area shape="rect" id="node29" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="877,192,1045,221"/><area shape="rect" id="node31" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1135,192,1241,221"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -290,6 +537,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro una lista de registros cuyas claves esten entre claveInicial y condicion. </p>
 <p>Si esBusquedaPrecisa es true y claveInicial no existe en el arbol, devuelve una lista vacia, sino devuelve la lista y true. Si esBusquedaPresisa es false devuelve una lista con los inmediatamente mayores a claveIncial hasta condicion </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a4bca0e3661250f5b93dd5c0ca19415d2_cgraph.png" border="0" usemap="#classArbolBMas_a4bca0e3661250f5b93dd5c0ca19415d2_cgraph" alt=""/></div>
+<map name="classArbolBMas_a4bca0e3661250f5b93dd5c0ca19415d2_cgraph" id="classArbolBMas_a4bca0e3661250f5b93dd5c0ca19415d2_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a4b1c85b177a42d68ae6bda3b7c49d009" title="Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro su offset..." alt="" coords="187,112,320,141"/><area shape="rect" id="node5" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="368,85,547,115"/><area shape="rect" id="node23" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="375,139,540,168"/><area shape="rect" id="node7" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="605,32,755,61"/><area shape="rect" id="node9" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="600,85,760,115"/><area shape="rect" id="node11" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="819,32,1005,61"/><area shape="rect" id="node13" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="869,85,955,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1076,32,1209,61"/><area shape="rect" id="node21" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1097,85,1188,115"/><area shape="rect" id="node17" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1276,5,1463,35"/><area shape="rect" id="node19" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1284,59,1455,88"/><area shape="rect" id="node25" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="595,139,765,168"/><area shape="rect" id="node27" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="815,139,1009,168"/><area shape="rect" id="node29" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1063,139,1223,168"/><area shape="rect" id="node31" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1059,192,1227,221"/><area shape="rect" id="node33" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1316,192,1423,221"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a97b46e296964934b90c554653e2fe5d2"></a><!-- doxytag: member="ArbolBMas::buscarEnCache" ref="a97b46e296964934b90c554653e2fe5d2" args="(int addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::buscarEnCache </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afa09490ef15018f15c0a3c63ef05f809"></a><!-- doxytag: member="ArbolBMas::buscarEnCache" ref="afa09490ef15018f15c0a3c63ef05f809" args="(int addr, int &amp;pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::buscarEnCache </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
 </div>
 </div>
 <a class="anchor" id="ac1b5d8beaa4ba0ca7616f3adff58e363"></a><!-- doxytag: member="ArbolBMas::cambiarClave" ref="ac1b5d8beaa4ba0ca7616f3adff58e363" args="(const string &amp;clave, const string &amp;nuevaClave)" -->
@@ -319,6 +619,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Pre: el arbol fue creado. Post: cambia la clave del registro que tiene la clave pasada como parametro*/. </p>
 <p>Se verifica que el registro exista y se reoragniza el arbol si es necesario, si el cambio se realiza con exito se retorna true </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ac1b5d8beaa4ba0ca7616f3adff58e363_cgraph.png" border="0" usemap="#classArbolBMas_ac1b5d8beaa4ba0ca7616f3adff58e363_cgraph" alt=""/></div>
+<map name="classArbolBMas_ac1b5d8beaa4ba0ca7616f3adff58e363_cgraph" id="classArbolBMas_ac1b5d8beaa4ba0ca7616f3adff58e363_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#ad543ef02ea86b9853aa9485e57aef695" title="Pre: el arbol fue creado. Post: se agrega un registro con clave y offset pasado por parametro..." alt="" coords="231,261,367,291"/><area shape="rect" id="node77" href="classArbolBMas.html#a4b1c85b177a42d68ae6bda3b7c49d009" title="Pre: el arbol fue creado. Post: se busca un registro por clave y devuelve por parametro su offset..." alt="" coords="232,107,365,136"/><area shape="rect" id="node81" href="classArbolBMas.html#a2aeb094c032caf347ed6f6d6ae262aa3" title="Pre: el arbol fue creado. Post: se elimina un registro por clave." alt="" coords="229,315,368,344"/><area shape="rect" id="node5" href="classNodo.html#a8645f33f559ae2cf5b45dd03bd970e66" title="Nodo::agregarRegistro" alt="" coords="675,263,827,292"/><area shape="rect" id="node7" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="671,209,831,239"/><area shape="rect" id="node21" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="416,107,595,136"/><area shape="rect" id="node26" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1156,177,1316,207"/><area shape="rect" id="node28" href="classNodo.html#af9a0f3dbaa1f3ecca3e976234822d85c" title="Nodo::estaLleno" alt="" coords="447,476,564,505"/><area shape="rect" id="node30" href="classArbolBMas.html#ae7b5fcd5f99efd5d2273d179c9fc13d4" title="ArbolBMas::getAddrRaiz" alt="" coords="423,261,588,291"/><area shape="rect" id="node32" href="classArbolBMas.html#ae271edffe1d6d16bab3884421ccd928a" title="ArbolBMas::getNodoNuevo" alt="" coords="660,687,841,716"/><area shape="rect" id="node42" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="423,53,588,83"/><area shape="rect" id="node50" href="classArbolBMas.html#a2e1474effa8dcd0c0b7f5a03bd59ca45" title="ArbolBMas::partirNodo" alt="" coords="428,369,583,399"/><area shape="rect" id="node75" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45" title="ArbolBMas::setAddrRaiz" alt="" coords="423,423,588,452"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="912,289,1099,319"/><area shape="rect" id="node11" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="963,52,1048,81"/><area shape="rect" id="node13" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1169,32,1303,61"/><area shape="rect" id="node19" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1191,85,1281,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1369,59,1556,88"/><area shape="rect" id="node17" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1377,5,1548,35"/><area shape="rect" id="node23" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="676,52,825,81"/><area shape="rect" id="node34" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1152,455,1320,484"/><area shape="rect" id="node38" href="classArbolBMas.html#aaff101e3ffe2d7e9d66614c5a39ad128" title="ArbolBMas::hayEspacioLibre" alt="" coords="911,712,1100,741"/><area shape="rect" id="node40" href="classArbolBMas.html#a43b292dc0acc4a6dc13a0abcc12f466d" title="ArbolBMas::tamanioStorage" alt="" coords="913,608,1097,637"/><area shape="rect" id="node36" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1409,455,1516,484"/><area shape="rect" id="node44" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="665,156,836,185"/><area shape="rect" id="node46" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="908,207,1103,236"/><area shape="rect" id="node53" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="655,369,847,399"/><area shape="rect" id="node56" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="959,541,1052,571"/><area shape="rect" id="node58" href="classRegistroArbol.html#a0b2d531b844c949a0c8fd3b970e828f1" title="RegistroArbol::getClave" alt="" coords="671,580,831,609"/><area shape="rect" id="node61" href="classArbolBMas.html#a09f1aaeffd58537f36da6fd19c49b05e" title="ArbolBMas::getRegistroDelMedio" alt="" coords="643,633,859,663"/><area shape="rect" id="node64" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="671,316,831,345"/><area shape="rect" id="node70" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="649,476,852,505"/><area shape="rect" id="node73" href="classNodo.html#ae455ddcfe5e6a3c22afc9646b582be65" title="Nodo::removerEnPosicion" alt="" coords="664,423,837,452"/><area shape="rect" id="node66" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="915,343,1096,372"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -350,6 +659,151 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Pre: el arbol fue creado. Post: cambia el offset del registro que tiene la clave pasada como parametro*/. </p>
 <p>Se verifica que el registro exista, si el cambio se realiza con exito se retorna true </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_adc6b4cc7cf4a0eb84f95c7309a19b696_cgraph.png" border="0" usemap="#classArbolBMas_adc6b4cc7cf4a0eb84f95c7309a19b696_cgraph" alt=""/></div>
+<map name="classArbolBMas_adc6b4cc7cf4a0eb84f95c7309a19b696_cgraph" id="classArbolBMas_adc6b4cc7cf4a0eb84f95c7309a19b696_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="229,85,408,115"/><area shape="rect" id="node21" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="236,139,401,168"/><area shape="rect" id="node5" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="467,32,616,61"/><area shape="rect" id="node7" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="461,85,621,115"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="680,32,867,61"/><area shape="rect" id="node11" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="731,85,816,115"/><area shape="rect" id="node13" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="937,32,1071,61"/><area shape="rect" id="node19" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="959,85,1049,115"/><area shape="rect" id="node15" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1137,5,1324,35"/><area shape="rect" id="node17" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1145,59,1316,88"/><area shape="rect" id="node23" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="456,139,627,168"/><area shape="rect" id="node25" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="676,139,871,168"/><area shape="rect" id="node27" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="924,139,1084,168"/><area shape="rect" id="node29" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="920,192,1088,221"/><area shape="rect" id="node31" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1177,192,1284,221"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a8a844dba127490661b1cd8d0dd91e62b"></a><!-- doxytag: member="ArbolBMas::cargarNodo" ref="a8a844dba127490661b1cd8d0dd91e62b" args="(Nodo **nodo, int addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::cargarNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> **&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Limpia completamente el arbol Carga el nodo especificado </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a8a844dba127490661b1cd8d0dd91e62b_cgraph.png" border="0" usemap="#classArbolBMas_a8a844dba127490661b1cd8d0dd91e62b_cgraph" alt=""/></div>
+<map name="classArbolBMas_a8a844dba127490661b1cd8d0dd91e62b_cgraph" id="classArbolBMas_a8a844dba127490661b1cd8d0dd91e62b_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="216,5,403,35"/><area shape="rect" id="node5" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="267,59,352,88"/><area shape="rect" id="node7" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="452,32,585,61"/><area shape="rect" id="node13" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="473,85,564,115"/><area shape="rect" id="node9" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="636,5,823,35"/><area shape="rect" id="node11" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="644,59,815,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aae1de5dd729afe3e20575f22f30808e2"></a><!-- doxytag: member="ArbolBMas::cerrar" ref="aae1de5dd729afe3e20575f22f30808e2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::cerrar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Pre: el arbol fue creado. Post: cierra el arbol y libera todos los recursos*/. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_aae1de5dd729afe3e20575f22f30808e2_cgraph.png" border="0" usemap="#classArbolBMas_aae1de5dd729afe3e20575f22f30808e2_cgraph" alt=""/></div>
+<map name="classArbolBMas_aae1de5dd729afe3e20575f22f30808e2_cgraph" id="classArbolBMas_aae1de5dd729afe3e20575f22f30808e2_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a5b279fdb783ba4e92abaf37f1b9fdba8" title="ArbolBMas::cerrarControlador" alt="" coords="181,5,376,35"/><area shape="rect" id="node5" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="193,59,364,88"/><area shape="rect" id="node7" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="425,59,620,88"/><area shape="rect" id="node9" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="673,32,833,61"/><area shape="rect" id="node11" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="669,85,837,115"/><area shape="rect" id="node13" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="885,85,992,115"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a5b279fdb783ba4e92abaf37f1b9fdba8"></a><!-- doxytag: member="ArbolBMas::cerrarControlador" ref="a5b279fdb783ba4e92abaf37f1b9fdba8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::cerrarControlador </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5ec3c869b34955499ffcf6f530b97cba"></a><!-- doxytag: member="ArbolBMas::combinarNodos" ref="a5ec3c869b34955499ffcf6f530b97cba" args="(Nodo *nodoIzquierdo, Nodo *nodoDerecho)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::combinarNodos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodoIzquierdo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodoDerecho</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a5ec3c869b34955499ffcf6f530b97cba_cgraph.png" border="0" usemap="#classArbolBMas_a5ec3c869b34955499ffcf6f530b97cba_cgraph" alt=""/></div>
+<map name="classArbolBMas_a5ec3c869b34955499ffcf6f530b97cba_cgraph" id="classArbolBMas_a5ec3c869b34955499ffcf6f530b97cba_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="241,5,433,35"/><area shape="rect" id="node5" href="classArbolBMas.html#ab787b0fb20dd4981c84990415ef43ef2" title="ArbolBMas::borrarNodo" alt="" coords="259,59,416,88"/><area shape="rect" id="node11" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="257,112,417,141"/><area shape="rect" id="node24" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="291,165,384,195"/><area shape="rect" id="node7" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="485,32,667,61"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="483,85,669,115"/><area shape="rect" id="node14" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="533,139,619,168"/><area shape="rect" id="node16" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="719,112,852,141"/><area shape="rect" id="node22" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="740,165,831,195"/><area shape="rect" id="node18" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="903,85,1089,115"/><area shape="rect" id="node20" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="911,139,1081,168"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a2aeb094c032caf347ed6f6d6ae262aa3"></a><!-- doxytag: member="ArbolBMas::eliminar" ref="a2aeb094c032caf347ed6f6d6ae262aa3" args="(const string &amp;clave)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::eliminar </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>clave</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Pre: el arbol fue creado. Post: se elimina un registro por clave. </p>
+<p>Si no se puede eliminar o no existia el registro, devuelve false </p>
+
 </div>
 </div>
 <a class="anchor" id="a5347b5782147be5f5a8cdb307dcc2ea1"></a><!-- doxytag: member="ArbolBMas::eliminar" ref="a5347b5782147be5f5a8cdb307dcc2ea1" args="(const string &amp;clave, long &amp;offset)" -->
@@ -380,25 +834,263 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Pre: el arbol fue creado. Post: se elimina un registro por clave y devuelve por parametro su offset. </p>
 <p>Si no se puede eliminar o no existia el registro, devuelve false </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a5347b5782147be5f5a8cdb307dcc2ea1_cgraph.png" border="0" usemap="#classArbolBMas_a5347b5782147be5f5a8cdb307dcc2ea1_cgraph" alt=""/></div>
+<map name="classArbolBMas_a5347b5782147be5f5a8cdb307dcc2ea1_cgraph" id="classArbolBMas_a5347b5782147be5f5a8cdb307dcc2ea1_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a012ef8d80760350d206d1da8d14eeda5" title="ArbolBMas::encontrarNodo" alt="" coords="192,104,371,134"/><area shape="rect" id="node21" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="199,678,364,707"/><area shape="rect" id="node33" href="classArbolBMas.html#a39c3827edd1c6cf3a2a88efe4d750128" title="ArbolBMas::rebalancear" alt="" coords="449,288,609,318"/><area shape="rect" id="node54" href="classNodo.html#ae455ddcfe5e6a3c22afc9646b582be65" title="Nodo::removerEnPosicion" alt="" coords="711,418,884,447"/><area shape="rect" id="node59" href="classArbolBMas.html#a28b6e0235de7a3c80e87cfcf4327c413" title="ArbolBMas::retirar" alt="" coords="219,496,344,526"/><area shape="rect" id="node72" href="classNodo.html#a75338008f3f8c891c89430308b1dedac" title="Nodo::tieneHijos" alt="" coords="471,676,588,706"/><area shape="rect" id="node5" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="455,52,604,82"/><area shape="rect" id="node7" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="972,315,1132,344"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="1197,171,1384,200"/><area shape="rect" id="node11" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="1248,315,1333,344"/><area shape="rect" id="node13" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1433,288,1567,318"/><area shape="rect" id="node19" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1455,342,1545,371"/><area shape="rect" id="node15" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1617,262,1804,291"/><area shape="rect" id="node17" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1625,315,1796,344"/><area shape="rect" id="node23" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="444,730,615,759"/><area shape="rect" id="node25" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="700,730,895,759"/><area shape="rect" id="node27" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="972,703,1132,732"/><area shape="rect" id="node29" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="968,756,1136,786"/><area shape="rect" id="node31" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1237,756,1344,786"/><area shape="rect" id="node35" href="classNodo.html#a8645f33f559ae2cf5b45dd03bd970e66" title="Nodo::agregarRegistro" alt="" coords="721,156,873,186"/><area shape="rect" id="node37" href="classArbolBMas.html#ab787b0fb20dd4981c84990415ef43ef2" title="ArbolBMas::borrarNodo" alt="" coords="973,27,1131,56"/><area shape="rect" id="node43" href="classArbolBMas.html#a5ec3c869b34955499ffcf6f530b97cba" title="ArbolBMas::combinarNodos" alt="" coords="705,52,889,82"/><area shape="rect" id="node49" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="1005,470,1099,499"/><area shape="rect" id="node52" href="classNodo.html#a17ea42e0fa72f43de4cafa12045a88ea" title="Nodo::estaVacio" alt="" coords="739,210,856,239"/><area shape="rect" id="node56" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45" title="ArbolBMas::setAddrRaiz" alt="" coords="715,263,880,292"/><area shape="rect" id="node39" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="1200,27,1381,56"/><area shape="rect" id="node45" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="956,80,1148,110"/><area shape="rect" id="node63" href="classArbolBMas.html#a4844649f61b89bb7b0d304ba4cf8c8bb" title="ArbolBMas::getNodoMasDerecho" alt="" coords="689,572,905,602"/><area shape="rect" id="node67" href="classArbolBMas.html#a006df812b6a81a219146aaa48706b2e4" title="ArbolBMas::getNodoMasIzquierdo" alt="" coords="419,522,640,551"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a2aeb094c032caf347ed6f6d6ae262aa3"></a><!-- doxytag: member="ArbolBMas::eliminar" ref="a2aeb094c032caf347ed6f6d6ae262aa3" args="(const string &amp;clave)" -->
+<a class="anchor" id="a012ef8d80760350d206d1da8d14eeda5"></a><!-- doxytag: member="ArbolBMas::encontrarNodo" ref="a012ef8d80760350d206d1da8d14eeda5" args="(Nodo *nodo, const string &amp;clave, int &amp;retIndice, int &amp;indicePadre, bool &amp;econtrado)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ArbolBMas::eliminar </td>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::encontrarNodo </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>clave</em></td><td>)</td>
+          <td class="paramname"><em>clave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>retIndice</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>indicePadre</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>econtrado</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a012ef8d80760350d206d1da8d14eeda5_cgraph.png" border="0" usemap="#classArbolBMas_a012ef8d80760350d206d1da8d14eeda5_cgraph" alt=""/></div>
+<map name="classArbolBMas_a012ef8d80760350d206d1da8d14eeda5_cgraph" id="classArbolBMas_a012ef8d80760350d206d1da8d14eeda5_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="239,5,388,35"/><area shape="rect" id="node5" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="233,59,393,88"/><area shape="rect" id="node7" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="443,32,629,61"/><area shape="rect" id="node9" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="493,85,579,115"/><area shape="rect" id="node11" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="679,59,812,88"/><area shape="rect" id="node17" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="700,112,791,141"/><area shape="rect" id="node13" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="863,32,1049,61"/><area shape="rect" id="node15" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="871,85,1041,115"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a1104de2053b1b04faaf5ab1ad8a9965e"></a><!-- doxytag: member="ArbolBMas::estaAbierto" ref="a1104de2053b1b04faaf5ab1ad8a9965e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::estaAbierto </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Pre: el arbol fue creado. Post: se elimina un registro por clave. </p>
-<p>Si no se puede eliminar o no existia el registro, devuelve false </p>
+<p>Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae7b5fcd5f99efd5d2273d179c9fc13d4"></a><!-- doxytag: member="ArbolBMas::getAddrRaiz" ref="ae7b5fcd5f99efd5d2273d179c9fc13d4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long ArbolBMas::getAddrRaiz </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4844649f61b89bb7b0d304ba4cf8c8bb"></a><!-- doxytag: member="ArbolBMas::getNodoMasDerecho" ref="a4844649f61b89bb7b0d304ba4cf8c8bb" args="(Nodo *subarbol, string &amp;mayorClave, long &amp;mayorOffset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::getNodoMasDerecho </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>subarbol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string &amp;&#160;</td>
+          <td class="paramname"><em>mayorClave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long &amp;&#160;</td>
+          <td class="paramname"><em>mayorOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a4844649f61b89bb7b0d304ba4cf8c8bb_cgraph.png" border="0" usemap="#classArbolBMas_a4844649f61b89bb7b0d304ba4cf8c8bb_cgraph" alt=""/></div>
+<map name="classArbolBMas_a4844649f61b89bb7b0d304ba4cf8c8bb_cgraph" id="classArbolBMas_a4844649f61b89bb7b0d304ba4cf8c8bb_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="273,32,433,61"/><area shape="rect" id="node17" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="307,85,400,115"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="483,5,669,35"/><area shape="rect" id="node7" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="533,59,619,88"/><area shape="rect" id="node9" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="719,32,852,61"/><area shape="rect" id="node15" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="740,85,831,115"/><area shape="rect" id="node11" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="903,5,1089,35"/><area shape="rect" id="node13" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="911,59,1081,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a006df812b6a81a219146aaa48706b2e4"></a><!-- doxytag: member="ArbolBMas::getNodoMasIzquierdo" ref="a006df812b6a81a219146aaa48706b2e4" args="(Nodo *subarbol, string &amp;menorClave, long &amp;menorOffset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::getNodoMasIzquierdo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>subarbol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string &amp;&#160;</td>
+          <td class="paramname"><em>menorClave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long &amp;&#160;</td>
+          <td class="paramname"><em>menorOffset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a006df812b6a81a219146aaa48706b2e4_cgraph.png" border="0" usemap="#classArbolBMas_a006df812b6a81a219146aaa48706b2e4_cgraph" alt=""/></div>
+<map name="classArbolBMas_a006df812b6a81a219146aaa48706b2e4_cgraph" id="classArbolBMas_a006df812b6a81a219146aaa48706b2e4_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="276,32,436,61"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="485,5,672,35"/><area shape="rect" id="node7" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="536,59,621,88"/><area shape="rect" id="node9" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="721,32,855,61"/><area shape="rect" id="node15" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="743,85,833,115"/><area shape="rect" id="node11" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="905,5,1092,35"/><area shape="rect" id="node13" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="913,59,1084,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ae271edffe1d6d16bab3884421ccd928a"></a><!-- doxytag: member="ArbolBMas::getNodoNuevo" ref="ae271edffe1d6d16bab3884421ccd928a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::getNodoNuevo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ae271edffe1d6d16bab3884421ccd928a_cgraph.png" border="0" usemap="#classArbolBMas_ae271edffe1d6d16bab3884421ccd928a_cgraph" alt=""/></div>
+<map name="classArbolBMas_ae271edffe1d6d16bab3884421ccd928a_cgraph" id="classArbolBMas_ae271edffe1d6d16bab3884421ccd928a_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="247,5,415,35"/><area shape="rect" id="node7" href="classArbolBMas.html#aaff101e3ffe2d7e9d66614c5a39ad128" title="ArbolBMas::hayEspacioLibre" alt="" coords="236,59,425,88"/><area shape="rect" id="node9" href="classArbolBMas.html#a43b292dc0acc4a6dc13a0abcc12f466d" title="ArbolBMas::tamanioStorage" alt="" coords="239,112,423,141"/><area shape="rect" id="node5" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="475,5,581,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ab169b61dcb10b0e3f0085429e33afea9"></a><!-- doxytag: member="ArbolBMas::getRaiz" ref="ab169b61dcb10b0e3f0085429e33afea9" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a> * ArbolBMas::getRaiz </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a09f1aaeffd58537f36da6fd19c49b05e"></a><!-- doxytag: member="ArbolBMas::getRegistroDelMedio" ref="a09f1aaeffd58537f36da6fd19c49b05e" args="(Nodo *nodo, RegistroArbol &amp;elem)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ArbolBMas::getRegistroDelMedio </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;&#160;</td>
+          <td class="paramname"><em>elem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a09f1aaeffd58537f36da6fd19c49b05e_cgraph.png" border="0" usemap="#classArbolBMas_a09f1aaeffd58537f36da6fd19c49b05e_cgraph" alt=""/></div>
+<map name="classArbolBMas_a09f1aaeffd58537f36da6fd19c49b05e_cgraph" id="classArbolBMas_a09f1aaeffd58537f36da6fd19c49b05e_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="269,5,363,35"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -420,11 +1112,589 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Pre: el arbol fue creado. Post: devuelve todos los registros del arbol de manera ordenada. </p>
 <p>Si no habia registros que devolver, devuelve false </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ae886b14b1375b2de46e3bfe7cf6e364e_cgraph.png" border="0" usemap="#classArbolBMas_ae886b14b1375b2de46e3bfe7cf6e364e_cgraph" alt=""/></div>
+<map name="classArbolBMas_ae886b14b1375b2de46e3bfe7cf6e364e_cgraph" id="classArbolBMas_ae886b14b1375b2de46e3bfe7cf6e364e_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a0bcf10dd02a727c1885c7f606fcb0154" title="ArbolBMas::liberarCache" alt="" coords="304,32,469,61"/><area shape="rect" id="node15" href="classArbolBMas.html#a8123ccc4fe62faace3f175d4ee8d943f" title="ArbolBMas::registrosDesdeNodo" alt="" coords="280,112,493,141"/><area shape="rect" id="node5" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="557,5,728,35"/><area shape="rect" id="node7" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="793,45,988,75"/><area shape="rect" id="node9" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1041,45,1201,75"/><area shape="rect" id="node11" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1037,99,1205,128"/><area shape="rect" id="node13" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1295,99,1401,128"/><area shape="rect" id="node17" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="568,59,717,88"/><area shape="rect" id="node19" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="563,219,723,248"/><area shape="rect" id="node33" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="563,112,723,141"/><area shape="rect" id="node39" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="541,165,744,195"/><area shape="rect" id="node21" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="797,165,984,195"/><area shape="rect" id="node23" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="848,219,933,248"/><area shape="rect" id="node25" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1055,179,1188,208"/><area shape="rect" id="node31" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1076,232,1167,261"/><area shape="rect" id="node27" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1255,165,1441,195"/><area shape="rect" id="node29" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1263,219,1433,248"/><area shape="rect" id="node35" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="800,112,981,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="af4dab13f42e8a426c146bd4145acbb8c"></a><!-- doxytag: member="ArbolBMas::guardarNodo" ref="af4dab13f42e8a426c146bd4145acbb8c" args="(Nodo *nodo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::guardarNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_af4dab13f42e8a426c146bd4145acbb8c_cgraph.png" border="0" usemap="#classArbolBMas_af4dab13f42e8a426c146bd4145acbb8c_cgraph" alt=""/></div>
+<map name="classArbolBMas_af4dab13f42e8a426c146bd4145acbb8c_cgraph" id="classArbolBMas_af4dab13f42e8a426c146bd4145acbb8c_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="221,5,328,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aaff101e3ffe2d7e9d66614c5a39ad128"></a><!-- doxytag: member="ArbolBMas::hayEspacioLibre" ref="aaff101e3ffe2d7e9d66614c5a39ad128" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::hayEspacioLibre </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af80bdc93e11afb91b7b7b60e39d265eb"></a><!-- doxytag: member="ArbolBMas::impactarCambios" ref="af80bdc93e11afb91b7b7b60e39d265eb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::impactarCambios </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_af80bdc93e11afb91b7b7b60e39d265eb_cgraph.png" border="0" usemap="#classArbolBMas_af80bdc93e11afb91b7b7b60e39d265eb_cgraph" alt=""/></div>
+<map name="classArbolBMas_af80bdc93e11afb91b7b7b60e39d265eb_cgraph" id="classArbolBMas_af80bdc93e11afb91b7b7b60e39d265eb_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="255,5,415,35"/><area shape="rect" id="node5" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="251,59,419,88"/><area shape="rect" id="node7" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="467,59,573,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aadd6441cb48113a6bf42d425099f3943"></a><!-- doxytag: member="ArbolBMas::ImprimirCache" ref="aadd6441cb48113a6bf42d425099f3943" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::ImprimirCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0bcf10dd02a727c1885c7f606fcb0154"></a><!-- doxytag: member="ArbolBMas::liberarCache" ref="a0bcf10dd02a727c1885c7f606fcb0154" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::liberarCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a0bcf10dd02a727c1885c7f606fcb0154_cgraph.png" border="0" usemap="#classArbolBMas_a0bcf10dd02a727c1885c7f606fcb0154_cgraph" alt=""/></div>
+<map name="classArbolBMas_a0bcf10dd02a727c1885c7f606fcb0154_cgraph" id="classArbolBMas_a0bcf10dd02a727c1885c7f606fcb0154_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a4212d128a7da4249eb98e1895a17c33c" title="ArbolBMas::limpiarCache" alt="" coords="221,32,392,61"/><area shape="rect" id="node5" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="441,32,636,61"/><area shape="rect" id="node7" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="689,5,849,35"/><area shape="rect" id="node9" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="685,59,853,88"/><area shape="rect" id="node11" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="901,59,1008,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a977495353f078e54e7edf4abb64630bc"></a><!-- doxytag: member="ArbolBMas::liberarNodo" ref="a977495353f078e54e7edf4abb64630bc" args="(int addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::liberarNodo </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Libera un solo nodo </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a977495353f078e54e7edf4abb64630bc_cgraph.png" border="0" usemap="#classArbolBMas_a977495353f078e54e7edf4abb64630bc_cgraph" alt=""/></div>
+<map name="classArbolBMas_a977495353f078e54e7edf4abb64630bc_cgraph" id="classArbolBMas_a977495353f078e54e7edf4abb64630bc_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="221,5,403,35"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="219,59,405,88"/><area shape="rect" id="node7" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="215,112,409,141"/><area shape="rect" id="node9" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="463,85,623,115"/><area shape="rect" id="node11" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="459,139,627,168"/><area shape="rect" id="node13" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="675,139,781,168"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a4212d128a7da4249eb98e1895a17c33c"></a><!-- doxytag: member="ArbolBMas::limpiarCache" ref="a4212d128a7da4249eb98e1895a17c33c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::limpiarCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a4212d128a7da4249eb98e1895a17c33c_cgraph.png" border="0" usemap="#classArbolBMas_a4212d128a7da4249eb98e1895a17c33c_cgraph" alt=""/></div>
+<map name="classArbolBMas_a4212d128a7da4249eb98e1895a17c33c_cgraph" id="classArbolBMas_a4212d128a7da4249eb98e1895a17c33c_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="225,32,420,61"/><area shape="rect" id="node5" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="473,5,633,35"/><area shape="rect" id="node7" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="469,59,637,88"/><area shape="rect" id="node9" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="685,59,792,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e3a22daf0674c4ee29935cd023a15cc"></a><!-- doxytag: member="ArbolBMas::nodoEstaEnCache" ref="a1e3a22daf0674c4ee29935cd023a15cc" args="(int addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::nodoEstaEnCache </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a1e3a22daf0674c4ee29935cd023a15cc_cgraph.png" border="0" usemap="#classArbolBMas_a1e3a22daf0674c4ee29935cd023a15cc_cgraph" alt=""/></div>
+<map name="classArbolBMas_a1e3a22daf0674c4ee29935cd023a15cc_cgraph" id="classArbolBMas_a1e3a22daf0674c4ee29935cd023a15cc_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="256,5,443,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a2e1474effa8dcd0c0b7f5a03bd59ca45"></a><!-- doxytag: member="ArbolBMas::partirNodo" ref="a2e1474effa8dcd0c0b7f5a03bd59ca45" args="(Nodo *nodo, RegistroArbol &amp;medio, Nodo **nodoDerecho)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::partirNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;&#160;</td>
+          <td class="paramname"><em>medio</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> **&#160;</td>
+          <td class="paramname"><em>nodoDerecho</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a2e1474effa8dcd0c0b7f5a03bd59ca45_cgraph.png" border="0" usemap="#classArbolBMas_a2e1474effa8dcd0c0b7f5a03bd59ca45_cgraph" alt=""/></div>
+<map name="classArbolBMas_a2e1474effa8dcd0c0b7f5a03bd59ca45_cgraph" id="classArbolBMas_a2e1474effa8dcd0c0b7f5a03bd59ca45_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#a8645f33f559ae2cf5b45dd03bd970e66" title="Nodo::agregarRegistro" alt="" coords="240,5,392,35"/><area shape="rect" id="node5" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="220,59,412,88"/><area shape="rect" id="node7" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="236,219,396,248"/><area shape="rect" id="node21" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="524,379,617,408"/><area shape="rect" id="node23" href="classRegistroArbol.html#a0b2d531b844c949a0c8fd3b970e828f1" title="RegistroArbol::getClave" alt="" coords="236,429,396,459"/><area shape="rect" id="node25" href="classArbolBMas.html#ae271edffe1d6d16bab3884421ccd928a" title="ArbolBMas::getNodoNuevo" alt="" coords="225,272,407,301"/><area shape="rect" id="node35" href="classArbolBMas.html#a09f1aaeffd58537f36da6fd19c49b05e" title="ArbolBMas::getRegistroDelMedio" alt="" coords="208,376,424,405"/><area shape="rect" id="node38" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="236,112,396,141"/><area shape="rect" id="node48" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="215,165,417,195"/><area shape="rect" id="node51" href="classNodo.html#ae455ddcfe5e6a3c22afc9646b582be65" title="Nodo::removerEnPosicion" alt="" coords="229,483,403,512"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="477,115,664,144"/><area shape="rect" id="node11" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="528,219,613,248"/><area shape="rect" id="node13" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="735,260,868,289"/><area shape="rect" id="node19" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="756,207,847,236"/><area shape="rect" id="node15" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="935,233,1121,263"/><area shape="rect" id="node17" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="943,287,1113,316"/><area shape="rect" id="node27" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="717,128,885,157"/><area shape="rect" id="node31" href="classArbolBMas.html#aaff101e3ffe2d7e9d66614c5a39ad128" title="ArbolBMas::hayEspacioLibre" alt="" coords="476,272,665,301"/><area shape="rect" id="node33" href="classArbolBMas.html#a43b292dc0acc4a6dc13a0abcc12f466d" title="ArbolBMas::tamanioStorage" alt="" coords="479,325,663,355"/><area shape="rect" id="node29" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="975,128,1081,157"/><area shape="rect" id="node40" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="480,8,661,37"/><area shape="rect" id="node43" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="473,61,668,91"/><area shape="rect" id="node45" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="721,61,881,91"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a39c3827edd1c6cf3a2a88efe4d750128"></a><!-- doxytag: member="ArbolBMas::rebalancear" ref="a39c3827edd1c6cf3a2a88efe4d750128" args="(Nodo *nodo, int indicePadre)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::rebalancear </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indicePadre</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a39c3827edd1c6cf3a2a88efe4d750128_cgraph.png" border="0" usemap="#classArbolBMas_a39c3827edd1c6cf3a2a88efe4d750128_cgraph" alt=""/></div>
+<map name="classArbolBMas_a39c3827edd1c6cf3a2a88efe4d750128_cgraph" id="classArbolBMas_a39c3827edd1c6cf3a2a88efe4d750128_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#a8645f33f559ae2cf5b45dd03bd970e66" title="Nodo::agregarRegistro" alt="" coords="233,5,385,35"/><area shape="rect" id="node5" href="classArbolBMas.html#ab787b0fb20dd4981c84990415ef43ef2" title="ArbolBMas::borrarNodo" alt="" coords="469,55,627,84"/><area shape="rect" id="node11" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="468,108,628,137"/><area shape="rect" id="node24" href="classArbolBMas.html#a5ec3c869b34955499ffcf6f530b97cba" title="ArbolBMas::combinarNodos" alt="" coords="217,160,401,189"/><area shape="rect" id="node30" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="501,215,595,244"/><area shape="rect" id="node33" href="classNodo.html#a17ea42e0fa72f43de4cafa12045a88ea" title="Nodo::estaVacio" alt="" coords="251,264,368,293"/><area shape="rect" id="node35" href="classNodo.html#ae455ddcfe5e6a3c22afc9646b582be65" title="Nodo::removerEnPosicion" alt="" coords="223,317,396,347"/><area shape="rect" id="node37" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45" title="ArbolBMas::setAddrRaiz" alt="" coords="227,371,392,400"/><area shape="rect" id="node7" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="696,28,877,57"/><area shape="rect" id="node9" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="693,81,880,111"/><area shape="rect" id="node14" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="744,135,829,164"/><area shape="rect" id="node16" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="929,108,1063,137"/><area shape="rect" id="node22" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="951,161,1041,191"/><area shape="rect" id="node18" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1113,81,1300,111"/><area shape="rect" id="node20" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1121,135,1292,164"/><area shape="rect" id="node26" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="452,161,644,191"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a8123ccc4fe62faace3f175d4ee8d943f"></a><!-- doxytag: member="ArbolBMas::registrosDesdeNodo" ref="a8123ccc4fe62faace3f175d4ee8d943f" args="(Nodo *nodo, list&lt; RegistroArbol * &gt; &amp;retList, int indiceElem, const string &amp;claveInicial, bool habilitarCondicion, const string &amp;claveHasta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::registrosDesdeNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>retList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indiceElem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>claveInicial</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>habilitarCondicion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>claveHasta</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a8123ccc4fe62faace3f175d4ee8d943f_cgraph.png" border="0" usemap="#classArbolBMas_a8123ccc4fe62faace3f175d4ee8d943f_cgraph" alt=""/></div>
+<map name="classArbolBMas_a8123ccc4fe62faace3f175d4ee8d943f_cgraph" id="classArbolBMas_a8123ccc4fe62faace3f175d4ee8d943f_cgraph">
+<area shape="rect" id="node3" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="293,5,443,35"/><area shape="rect" id="node5" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="288,59,448,88"/><area shape="rect" id="node19" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="288,165,448,195"/><area shape="rect" id="node32" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="267,112,469,141"/><area shape="rect" id="node7" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="523,112,709,141"/><area shape="rect" id="node9" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="573,59,659,88"/><area shape="rect" id="node11" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="780,32,913,61"/><area shape="rect" id="node17" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="801,85,892,115"/><area shape="rect" id="node13" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="980,59,1167,88"/><area shape="rect" id="node15" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="988,5,1159,35"/><area shape="rect" id="node21" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="525,165,707,195"/><area shape="rect" id="node24" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="519,219,713,248"/><area shape="rect" id="node26" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="767,192,927,221"/><area shape="rect" id="node28" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="763,245,931,275"/><area shape="rect" id="node30" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1020,245,1127,275"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="acc8482ec841f02ecb83b29ca1469e43d"></a><!-- doxytag: member="ArbolBMas::registrosDesdeNodo" ref="acc8482ec841f02ecb83b29ca1469e43d" args="(Nodo *nodo, list&lt; RegistroArbol * &gt; &amp;retList, bool habilitarCondicion, const string &amp;claveHasta)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::registrosDesdeNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>retList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>habilitarCondicion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>claveHasta</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_acc8482ec841f02ecb83b29ca1469e43d_cgraph.png" border="0" usemap="#classArbolBMas_acc8482ec841f02ecb83b29ca1469e43d_cgraph" alt=""/></div>
+<map name="classArbolBMas_acc8482ec841f02ecb83b29ca1469e43d_cgraph" id="classArbolBMas_acc8482ec841f02ecb83b29ca1469e43d_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="549,59,709,88"/><area shape="rect" id="node17" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="327,268,420,297"/><area shape="rect" id="node19" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="549,219,709,248"/><area shape="rect" id="node32" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="528,112,731,141"/><area shape="rect" id="node35" href="classArbolBMas.html#a8123ccc4fe62faace3f175d4ee8d943f" title="ArbolBMas::registrosDesdeNodo" alt="" coords="267,164,480,193"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="784,112,971,141"/><area shape="rect" id="node7" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="835,59,920,88"/><area shape="rect" id="node9" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1041,32,1175,61"/><area shape="rect" id="node15" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1063,85,1153,115"/><area shape="rect" id="node11" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1241,59,1428,88"/><area shape="rect" id="node13" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1249,5,1420,35"/><area shape="rect" id="node21" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="787,192,968,221"/><area shape="rect" id="node24" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="780,245,975,275"/><area shape="rect" id="node26" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1028,219,1188,248"/><area shape="rect" id="node28" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1024,272,1192,301"/><area shape="rect" id="node30" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1281,272,1388,301"/><area shape="rect" id="node37" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="555,165,704,195"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ad243b2952f7646d1fa9eabdeaa3c7834"></a><!-- doxytag: member="ArbolBMas::registrosDesdeNodo" ref="ad243b2952f7646d1fa9eabdeaa3c7834" args="(Nodo *nodo, list&lt; RegistroArbol * &gt; &amp;retList)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::registrosDesdeNodo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list&lt; <a class="el" href="classRegistroArbol.html">RegistroArbol</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>retList</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_ad243b2952f7646d1fa9eabdeaa3c7834_cgraph.png" border="0" usemap="#classArbolBMas_ad243b2952f7646d1fa9eabdeaa3c7834_cgraph" alt=""/></div>
+<map name="classArbolBMas_ad243b2952f7646d1fa9eabdeaa3c7834_cgraph" id="classArbolBMas_ad243b2952f7646d1fa9eabdeaa3c7834_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="549,59,709,88"/><area shape="rect" id="node17" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="327,268,420,297"/><area shape="rect" id="node19" href="classArbolBMas.html#a977495353f078e54e7edf4abb64630bc" title="ArbolBMas::liberarNodo" alt="" coords="549,219,709,248"/><area shape="rect" id="node32" href="classArbolBMas.html#a1e3a22daf0674c4ee29935cd023a15cc" title="ArbolBMas::nodoEstaEnCache" alt="" coords="528,112,731,141"/><area shape="rect" id="node35" href="classArbolBMas.html#a8123ccc4fe62faace3f175d4ee8d943f" title="ArbolBMas::registrosDesdeNodo" alt="" coords="267,164,480,193"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="784,112,971,141"/><area shape="rect" id="node7" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="835,59,920,88"/><area shape="rect" id="node9" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1041,32,1175,61"/><area shape="rect" id="node15" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1063,85,1153,115"/><area shape="rect" id="node11" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1241,59,1428,88"/><area shape="rect" id="node13" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1249,5,1420,35"/><area shape="rect" id="node21" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="787,192,968,221"/><area shape="rect" id="node24" href="classArbolBMas.html#af80bdc93e11afb91b7b7b60e39d265eb" title="ArbolBMas::impactarCambios" alt="" coords="780,245,975,275"/><area shape="rect" id="node26" href="classArbolBMas.html#a1104de2053b1b04faaf5ab1ad8a9965e" title="Pre: el arbol fue creado. Post: devuelve true si el arbol esta abierto." alt="" coords="1028,219,1188,248"/><area shape="rect" id="node28" href="classArbolBMas.html#af4dab13f42e8a426c146bd4145acbb8c" title="ArbolBMas::guardarNodo" alt="" coords="1024,272,1192,301"/><area shape="rect" id="node30" href="classNodo.html#a32b1757169f5fca618be9f6415c1cdf7" title="Nodo::Guardar" alt="" coords="1281,272,1388,301"/><area shape="rect" id="node37" href="classNodo.html#a67e95e33ce245a86ffdc9316702c4b18" title="Nodo::buscarRegistro" alt="" coords="555,165,704,195"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a28b6e0235de7a3c80e87cfcf4327c413"></a><!-- doxytag: member="ArbolBMas::retirar" ref="a28b6e0235de7a3c80e87cfcf4327c413" args="(Nodo *nodo, int indiceItem)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbolBMas::retirar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classNodo.html">Nodo</a> *&#160;</td>
+          <td class="paramname"><em>nodo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indiceItem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classArbolBMas_a28b6e0235de7a3c80e87cfcf4327c413_cgraph.png" border="0" usemap="#classArbolBMas_a28b6e0235de7a3c80e87cfcf4327c413_cgraph" alt=""/></div>
+<map name="classArbolBMas_a28b6e0235de7a3c80e87cfcf4327c413_cgraph" id="classArbolBMas_a28b6e0235de7a3c80e87cfcf4327c413_cgraph">
+<area shape="rect" id="node3" href="classArbolBMas.html#a8a844dba127490661b1cd8d0dd91e62b" title="ArbolBMas::cargarNodo" alt="" coords="735,73,895,102"/><area shape="rect" id="node17" href="classNodo.html#ac4902c487f2b3a000f52b1b15c2be40e" title="Nodo::count" alt="" coords="768,188,861,217"/><area shape="rect" id="node19" href="classArbolBMas.html#a4844649f61b89bb7b0d304ba4cf8c8bb" title="ArbolBMas::getNodoMasDerecho" alt="" coords="452,98,668,128"/><area shape="rect" id="node23" href="classArbolBMas.html#a006df812b6a81a219146aaa48706b2e4" title="ArbolBMas::getNodoMasIzquierdo" alt="" coords="181,22,403,52"/><area shape="rect" id="node26" href="classArbolBMas.html#a39c3827edd1c6cf3a2a88efe4d750128" title="ArbolBMas::rebalancear" alt="" coords="212,280,372,309"/><area shape="rect" id="node46" href="classNodo.html#ae455ddcfe5e6a3c22afc9646b582be65" title="Nodo::removerEnPosicion" alt="" coords="473,517,647,546"/><area shape="rect" id="node51" href="classNodo.html#a75338008f3f8c891c89430308b1dedac" title="Nodo::tieneHijos" alt="" coords="233,384,351,413"/><area shape="rect" id="node5" href="classArbolBMas.html#a97b46e296964934b90c554653e2fe5d2" title="ArbolBMas::buscarEnCache" alt="" coords="960,177,1147,206"/><area shape="rect" id="node7" href="classNodo.html#af47511769272310fe68becc2730d0c30" title="Nodo::Leer" alt="" coords="1011,73,1096,102"/><area shape="rect" id="node9" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103" title="RegistroArbol::Leer" alt="" coords="1196,46,1329,76"/><area shape="rect" id="node15" href="classNodo.html#ac30bd1bed827ef8784fd3cebd032e9a4" title="Nodo::Nodo" alt="" coords="1217,100,1308,129"/><area shape="rect" id="node11" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="1380,20,1567,49"/><area shape="rect" id="node13" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="1388,73,1559,102"/><area shape="rect" id="node28" href="classNodo.html#a8645f33f559ae2cf5b45dd03bd970e66" title="Nodo::agregarRegistro" alt="" coords="484,410,636,440"/><area shape="rect" id="node30" href="classArbolBMas.html#ab787b0fb20dd4981c84990415ef43ef2" title="ArbolBMas::borrarNodo" alt="" coords="736,318,893,348"/><area shape="rect" id="node36" href="classArbolBMas.html#a5ec3c869b34955499ffcf6f530b97cba" title="ArbolBMas::combinarNodos" alt="" coords="468,306,652,336"/><area shape="rect" id="node44" href="classNodo.html#a17ea42e0fa72f43de4cafa12045a88ea" title="Nodo::estaVacio" alt="" coords="501,464,619,493"/><area shape="rect" id="node48" href="classArbolBMas.html#aeb9aab0bd41ca0b19342dccfaae2cd45" title="ArbolBMas::setAddrRaiz" alt="" coords="477,253,643,282"/><area shape="rect" id="node32" href="classArbolBMas.html#abab89f98c6bb18a924b069cdf704556e" title="ArbolBMas::borrarDeCache" alt="" coords="963,318,1144,348"/><area shape="rect" id="node38" href="classNodo.html#ac159cde3339bcd1226d8250cc907b4c0" title="Nodo::agregarRegistroAlFinal" alt="" coords="719,265,911,294"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aeb9aab0bd41ca0b19342dccfaae2cd45"></a><!-- doxytag: member="ArbolBMas::setAddrRaiz" ref="aeb9aab0bd41ca0b19342dccfaae2cd45" args="(long addr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbolBMas::setAddrRaiz </td>
+          <td>(</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a43b292dc0acc4a6dc13a0abcc12f466d"></a><!-- doxytag: member="ArbolBMas::tamanioStorage" ref="a43b292dc0acc4a6dc13a0abcc12f466d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ArbolBMas::tamanioStorage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ab572105f4e27a83121ccdd794284f677"></a><!-- doxytag: member="ArbolBMas::_addrRaiz" ref="ab572105f4e27a83121ccdd794284f677" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long <a class="el" href="classArbolBMas.html#ab572105f4e27a83121ccdd794284f677">ArbolBMas::_addrRaiz</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0a68d299e6c082f6cdef56e45d093d09"></a><!-- doxytag: member="ArbolBMas::_cache" ref="a0a68d299e6c082f6cdef56e45d093d09" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="classNodo.html">Nodo</a> *&gt; <a class="el" href="classArbolBMas.html#a0a68d299e6c082f6cdef56e45d093d09">ArbolBMas::_cache</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a411b69c422bd1c4bedc8e57911fece02"></a><!-- doxytag: member="ArbolBMas::_estaAbierto" ref="a411b69c422bd1c4bedc8e57911fece02" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classArbolBMas.html#a411b69c422bd1c4bedc8e57911fece02">ArbolBMas::_estaAbierto</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a977a6f603725d33dbefd0539f9c15fb0"></a><!-- doxytag: member="ArbolBMas::_finCamposControl" ref="a977a6f603725d33dbefd0539f9c15fb0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const long <a class="el" href="classArbolBMas.html#a977a6f603725d33dbefd0539f9c15fb0">ArbolBMas::_finCamposControl</a> = 512<code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a83de834cbc2bd015c37191993b826645"></a><!-- doxytag: member="ArbolBMas::_raiz" ref="a83de834cbc2bd015c37191993b826645" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNodo.html">Nodo</a>* <a class="el" href="classArbolBMas.html#a83de834cbc2bd015c37191993b826645">ArbolBMas::_raiz</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4de8dcfc7c25d1fb83da29439125f58e"></a><!-- doxytag: member="ArbolBMas::_storage" ref="a4de8dcfc7c25d1fb83da29439125f58e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fstream <a class="el" href="classArbolBMas.html#a4de8dcfc7c25d1fb83da29439125f58e">ArbolBMas::_storage</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a983307c14ead729193e2a75d6aa43797"></a><!-- doxytag: member="ArbolBMas::_tamanioMaximoCache" ref="a983307c14ead729193e2a75d6aa43797" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long <a class="el" href="classArbolBMas.html#a983307c14ead729193e2a75d6aa43797">ArbolBMas::_tamanioMaximoCache</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="ArbolBMas_8h_source.html">ArbolBMas.h</a></li>
-<li>ArbolBMas.cpp</li>
+<li><a class="el" href="ArbolBMas_8cpp.html">ArbolBMas.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -432,7 +1702,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -441,7 +1711,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

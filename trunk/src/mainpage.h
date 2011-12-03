@@ -4,8 +4,7 @@
 * - Facundo Rossi (padrón 86.707 - frossi85@gmail.com)
 * - Leandro Miguenz (padrón 90.649 - leandro.v.059@gmail.com)
 * - Martín Lucero (padrón 89.630 - don_pipa182@yahoo.com)
-* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)
-* - Pablo Arlia (pablo.arlia@gmail.com)\n
+* - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)\n
 * <hr>
 *
 * @section imple Implementación
@@ -40,9 +39,10 @@
 * - Lista (id, ((idEleccion)ie, nombre)i)
 * - Candidato (id, ((idLista)ie, (idVotante)ie, (idCargo)ie)i)
 * - Cargo (id, (cargo)i, (cargo)*)
-* - Conteo (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) \n
+* - Conteo (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad)
+* - Administrador ((usuario)i, clave) \n
 * (Conteo no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente
-* la clave con el offset en el archivo de conteos)
+* la clave con el offset en el archivo de conteos. Lo mismo para Administrador)
 *
 * Estructuras utilizadas:
 *
@@ -240,4 +240,57 @@
 *  no debería estar en el modificar de Elección, sino sólo en el de Cargo, pero por cuestiones de tiempo no llegamos a
 *  eliminar dicha opción del menu.\n
 *  Por otra parte, el modificar de Elección sí permite agregar o quitar distritos.
+*
+*
+*  <hr>
+* @section segunda Segunda Entrega
+*
+* Para esta entrega se agregó funcionalidad al trabajo práctico para realizar la encriptación de la información de votantes
+* y administradores usando RSA, y la encriptación de los reportes mediante el algoritmo de Vigenere.\n
+* También se agregaron opciones para romper dichos criptogramas usando factorización de números primos y el
+* algoritmo de Kasiski, respectivamente.\n
+* A excepción de la utilización de RSA, que es transparente al usuario, el resto de la funcionalidad se agregó en forma de nuevas
+* opciones en el menú del administrador, o que se acceden mediante ciertos argumentos por línea de comandos. Su uso se explica a
+* continuación.
+*
+* @section uso Modos de uso
+*
+* @section carga Carga inicial:
+*
+* Para tener datos cargados en el programa, de manera tal que se puedan probar todas sus características sin tener que crear entidades
+* ni votar manualmente, se pueden usar las opciones de carga inicial y votante automático de la siguiente manera: \n\n
+*
+* ./VotoElectronico -c \n
+* ./VotoElectronico -v \n\n
+*
+*
+* @section romperRSA Romper RSA:
+*
+* Para probar el algoritmo de factorización, se debe ejecutar el programa por línea de comandos de la siguiente forma: \n\n
+*
+* ./VotoElectronico --romperRSA \n\n
+*
+* Por pantalla se mostrarán los pasos seguidos por el algoritmo y sus resultados.
+*
+* @section encriptar Encriptación/rotura de reportes con Vigenère y Kasiski:
+*
+* Antes de empezar a trabajar con los reportes, estos deben ser generados. Para hacerlo, hay que ingresar como administrador
+* (recordar que por defecto se puede usar la cuenta con usuario y contraseña "tp"), en el menú seleccionar la opción "R"
+* (Informes de resultados), y en el submenú que aparece, elegir alguno de los 3 tipos de reportes para ver. El reporte elegido
+* se mostrará por pantalla, y además se guardará en un archivo de texto en la carpeta src/Reportes.
+*
+* Una vez que haya algún reporte, hay que acceder como administrador, y en el menú principal seleccionar la opción "G"
+* (Encriptar/Desencriptar/Romper Reportes). En el submenú que aparece figuran tres opciones: \n\n
+*
+* - Encriptar: se pide una clave de encriptación, la ruta del archivo a encriptar (para un reporte debería ser
+* "./Reportes/ReporteDistrito" por ejemplo), y la ruta donde se desea guardar el criptograma (que puede ser la misma).
+* Al final se informa si la encriptación no fue exitosa.
+*
+* - Desencriptrar: el funcionamiento es análogo al de la opción anterior.
+*
+* - Romper: también se pide una ruta de origen y una de destino. En la primera línea del archivo generado se muestra cuál
+* era la clave de encriptación. Puede pasar que para un determinado criptograma, el método no sea efectivo y el archivo
+* obtenido resulte total o parcialmente ilegible. En la entrega se incluye el criptograma de ejemplo "EjemploParaKasiski"
+* en la carpeta Reportes, para que se pueda probar este algoritmo en un caso en el que sabemos que cumple su cometido.
+*
 */

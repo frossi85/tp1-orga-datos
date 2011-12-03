@@ -1,5 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="node2" href="$classGrabable.html" title="Interfaz para la persistencia de las entidades." alt="" coords="131,85,205,115"/>
+<area shape="rect" id="node2" href="$classGrabable.html" title="Grabable" alt="" coords="131,85,205,115"/>
 <area shape="rect" id="node6" href="$classVotante.html" title="Votante" alt="" coords="52,261,119,291"/>
 <area shape="rect" id="node9" href="$classDistrito.html" title="Distrito" alt="" coords="93,165,157,195"/>
 <area shape="rect" id="node12" href="$classLista.html" title="Lista" alt="" coords="169,357,220,387"/>

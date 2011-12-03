@@ -59,8 +59,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Facundo Rossi (padrón 86.707 - <a href="mailto:frossi85@gmail.com">frossi85@gmail.com</a>)</li>
 <li>Leandro Miguenz (padrón 90.649 - <a href="mailto:leandro.v.059@gmail.com">leandro.v.059@gmail.com</a>)</li>
 <li>Martín Lucero (padrón 89.630 - <a href="mailto:don_pipa182@yahoo.com">don_pipa182@yahoo.com</a>)</li>
-<li>Miguel Torres (padrón 91.396 - <a href="mailto:mat1204@hotmail.com">mat1204@hotmail.com</a>)</li>
-<li>Pablo Arlia (<a href="mailto:pablo.arlia@gmail.com">pablo.arlia@gmail.com</a>)<br/>
+<li>Miguel Torres (padrón 91.396 - <a href="mailto:mat1204@hotmail.com">mat1204@hotmail.com</a>)<br/>
  <hr/>
 </li>
 </ul>
@@ -89,8 +88,9 @@ Organización</h2>
 <li><a class="el" href="classLista.html">Lista</a> (id, ((idEleccion)ie, nombre)i)</li>
 <li><a class="el" href="classCandidato.html">Candidato</a> (id, ((idLista)ie, (idVotante)ie, (idCargo)ie)i)</li>
 <li><a class="el" href="classCargo.html">Cargo</a> (id, (cargo)i, (cargo)*)</li>
-<li><a class="el" href="classConteo.html">Conteo</a> (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad) <br/>
- (<a class="el" href="classConteo.html">Conteo</a> no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos)</li>
+<li><a class="el" href="classConteo.html">Conteo</a> (((idLista)ie, (idDistrito)ie, (idEleccion)ie)i, cantidad)</li>
+<li><a class="el" href="classAdministrador.html">Administrador</a> ((usuario)i, clave) <br/>
+ (<a class="el" href="classConteo.html">Conteo</a> no necesita id numérico ya que ninguna otra entidad tiene referencias a ella. Relacionamos directamente la clave con el offset en el archivo de conteos. Lo mismo para <a class="el" href="classAdministrador.html">Administrador</a>)</li>
 </ul>
 <p>Estructuras utilizadas:</p>
 <p>Estructuras del TP (cuando se usa la palabra id, se refiere a la clave autonumerica):</p>
@@ -153,7 +153,7 @@ Sobre el formato de las claves</h2>
    3 - También cuando una clave es compuesta, se concatenan los strings con '$'.<br/>
 <br/>
 </p>
-<p>Ejemplo ilustrativo: el administrador habia insertado una lista con fecha "20/10/2011", cargo "Diputado Cordoba", nombre "UCR". El ABMentidades::altaLista inserta la clave en la forma "20111020$Diputado&amp;Cordoba$UCR".<br/>
+<p>Ejemplo ilustrativo: el administrador habia insertado una lista con fecha "20/10/2011", cargo "Diputado Cordoba", nombre "UCR". El <a class="el" href="classABMentidades.html#ae133c835d245ddf83ca0d2facc8989ae">ABMentidades::altaLista</a> inserta la clave en la forma "20111020$Diputado&amp;Cordoba$UCR".<br/>
 <br/>
 </p>
 <ul>
@@ -180,10 +180,10 @@ Hash:</h2>
 <br/>
 </li>
 </ul>
-<div class="fragment"><pre class="fragment"> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> hash_extensible::funcion_hashing(<a class="code" href="classRegistroIndice.html" title="Registros utilizados por los índices implementados con el árbol B+ y el hash extensible.">RegistroIndice</a> *registro){
+<div class="fragment"><pre class="fragment"> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef">hash_extensible::funcion_hashing</a>(<a class="code" href="classRegistroIndice.html" title="Registros utilizados por los índices implementados con el árbol B+ y el hash extensible.">RegistroIndice</a> *registro){
 
         <span class="keywordtype">string</span> clave = registro-&gt;<a class="code" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro.">getClave</a>();
-        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tam_tabla = obtener_tamanio_tabla();
+        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tam_tabla = <a class="code" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2">obtener_tamanio_tabla</a>();
 
         <span class="keywordtype">int</span> valor = 0;
 
@@ -272,7 +272,7 @@ Bugs conocidos</h2>
 <br/>
 </p>
 <ul>
-<li>(Esto mas que un bug es algo que falto) No se hizo el ABM de administrador. El único administrador que puede ingresar es el de user "tp", pass "tp". Solucion: implementar la clase Administrador. <br/>
+<li>(Esto mas que un bug es algo que falto) No se hizo el ABM de administrador. El único administrador que puede ingresar es el de user "tp", pass "tp". Solucion: implementar la clase <a class="el" href="classAdministrador.html">Administrador</a>. <br/>
 <br/>
 <br/>
  <hr/>
@@ -281,14 +281,55 @@ Bugs conocidos</h2>
 </li>
 </ul>
 <p>No es posible cambiar la fecha ni el cargo principal de una elección, ni agregarle cargos secundarios. Si se quieren agregar, debe hacerse desde el modificar de <a class="el" href="classCargo.html">Cargo</a>. Es decir, la opción de agregar cargos secundarios no debería estar en el modificar de Elección, sino sólo en el de <a class="el" href="classCargo.html">Cargo</a>, pero por cuestiones de tiempo no llegamos a eliminar dicha opción del menu.<br/>
- Por otra parte, el modificar de Elección sí permite agregar o quitar distritos. </p>
+ Por otra parte, el modificar de Elección sí permite agregar o quitar distritos.</p>
+<hr/>
+ <h2><a class="anchor" id="segunda"></a>
+Segunda Entrega</h2>
+<p>Para esta entrega se agregó funcionalidad al trabajo práctico para realizar la encriptación de la información de votantes y administradores usando <a class="el" href="classRSA.html">RSA</a>, y la encriptación de los reportes mediante el algoritmo de <a class="el" href="classVigenere.html">Vigenere</a>.<br/>
+ También se agregaron opciones para romper dichos criptogramas usando factorización de números primos y el algoritmo de <a class="el" href="classKasiski.html">Kasiski</a>, respectivamente.<br/>
+ A excepción de la utilización de <a class="el" href="classRSA.html">RSA</a>, que es transparente al usuario, el resto de la funcionalidad se agregó en forma de nuevas opciones en el menú del administrador, o que se acceden mediante ciertos argumentos por línea de comandos. Su uso se explica a continuación.</p>
+<h2><a class="anchor" id="uso"></a>
+Modos de uso</h2>
+<h2><a class="anchor" id="carga"></a>
+Carga inicial:</h2>
+<p>Para tener datos cargados en el programa, de manera tal que se puedan probar todas sus características sin tener que crear entidades ni votar manualmente, se pueden usar las opciones de carga inicial y votante automático de la siguiente manera: <br/>
+<br/>
+</p>
+<p>./VotoElectronico -c <br/>
+ ./VotoElectronico -v <br/>
+<br/>
+</p>
+<h2><a class="anchor" id="romperRSA"></a>
+Romper RSA:</h2>
+<p>Para probar el algoritmo de factorización, se debe ejecutar el programa por línea de comandos de la siguiente forma: <br/>
+<br/>
+</p>
+<p>./VotoElectronico --romperRSA <br/>
+<br/>
+</p>
+<p>Por pantalla se mostrarán los pasos seguidos por el algoritmo y sus resultados.</p>
+<h2><a class="anchor" id="encriptar"></a>
+Encriptación/rotura de reportes con Vigenère y Kasiski:</h2>
+<p>Antes de empezar a trabajar con los reportes, estos deben ser generados. Para hacerlo, hay que ingresar como administrador (recordar que por defecto se puede usar la cuenta con usuario y contraseña "tp"), en el menú seleccionar la opción "R" (Informes de resultados), y en el submenú que aparece, elegir alguno de los 3 tipos de reportes para ver. El reporte elegido se mostrará por pantalla, y además se guardará en un archivo de texto en la carpeta src/Reportes.</p>
+<p>Una vez que haya algún reporte, hay que acceder como administrador, y en el menú principal seleccionar la opción "G" (Encriptar/Desencriptar/Romper Reportes). En el submenú que aparece figuran tres opciones: <br/>
+<br/>
+</p>
+<ul>
+<li>Encriptar: se pide una clave de encriptación, la ruta del archivo a encriptar (para un reporte debería ser "./Reportes/ReporteDistrito" por ejemplo), y la ruta donde se desea guardar el criptograma (que puede ser la misma). Al final se informa si la encriptación no fue exitosa.</li>
+</ul>
+<ul>
+<li>Desencriptrar: el funcionamiento es análogo al de la opción anterior.</li>
+</ul>
+<ul>
+<li>Romper: también se pide una ruta de origen y una de destino. En la primera línea del archivo generado se muestra cuál era la clave de encriptación. Puede pasar que para un determinado criptograma, el método no sea efectivo y el archivo obtenido resulte total o parcialmente ilegible. En la entrega se incluye el criptograma de ejemplo "EjemploParaKasiski" en la carpeta Reportes, para que se pueda probar este algoritmo en un caso en el que sabemos que cumple su cometido. </li>
+</ul>
 </div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -297,7 +338,7 @@ Bugs conocidos</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
