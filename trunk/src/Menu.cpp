@@ -19,18 +19,18 @@ Menu *Menu::getMenu() {
 }
 
 void Menu::mostrarAyuda() {
-    cout << "******************************************************************************************************\n";
+    cout << "****************************************************************\n";
     cout << "Voto Electronico - Ayuda\n\n" << "Opciones:\n";
     cout << "-h, --help: Muestra esta ayuda\n";
     cout << "-u, --user: Login al sistema en calidad de usuario\n";
     cout << "-a, --admin: Login al sistema en calidad de administrador\n";
     cout << "-c, --cargainicial: Carga inicial de datos para prueba de la aplicacion\n";
-    cout << "-v, --votanteautomatico: Ejecucion del votante automatico para prueba de informes. "
+    cout << "-v, --votanteautomatico: Ejecucion del votante automatico para prueba de informes.\n"
     		<<"Ver resultados en ./archivos/resultados_votante_aleatorio.txt\n\n";
     cout << "--romperRSA: Ejecucion de test para probar funcionalidad de ruptura de RSA\n\n";
     cout << "--testVigenere: Ejecucion de test para probar funcionalidad de encriptar/desencriptar con Vigenere\n\n";
     cout << "Consulte el manual para mas informacion\n";
-    cout << "******************************************************************************************************\n";
+    cout << "****************************************************************\n";
 }
 
 void Menu::pedirUsuario() {
@@ -1787,9 +1787,9 @@ void Menu::adminInformes(){
 
 				clave=Utilidades::obtenerClaveEleccion(fechaEleccion,cargoEleccion);
 				if(consulta.ObtenerRegistro(clave,eleccion)){
-                                        informe = new Informe(eleccion);
-                                        delete informe;
-                                        informe = new Informe(eleccion, "./Reportes/ReporteEleccion" );
+                    informe = new Informe(eleccion);
+                    delete informe;
+                    informe = new Informe(eleccion, "./Reportes/ReporteEleccion" );
 					delete informe;
 
 				}else{
@@ -1817,7 +1817,7 @@ void Menu::adminInformes(){
 
 					informe=new Informe(distrito);
 					delete informe;
-                                        informe=new Informe(distrito, "./Reportes/ReporteDistrito");
+                    informe=new Informe(distrito, "./Reportes/ReporteDistrito");
 					delete informe;
 
 				}else{
@@ -1827,7 +1827,7 @@ void Menu::adminInformes(){
 				}
 
 				cout << "Ingrese cualquier letra para continuar: ";
-				getchar();
+				cin >> opcion;
 				retorno=true;
 				break;
 
@@ -1846,13 +1846,11 @@ void Menu::adminInformes(){
 
             	clave= Utilidades::obtenerClaveLista(fechaEleccion, nombreCargo, nombreLista);
 
-            	cout<<endl<<clave<<endl;
-
             	if(consulta.ObtenerRegistro(clave,lista)){
 
             		informe= new Informe(lista);
             		delete informe;
-                        informe= new Informe(lista, "./Reportes/ReporteLista");
+                    informe= new Informe(lista, "./Reportes/ReporteLista");
             		delete informe;
 
             	}else{
@@ -1860,8 +1858,8 @@ void Menu::adminInformes(){
             		cout<<"No Existe la Lista Ingresada."<<endl;
             	}
 
-                cout << "Ingrese cualquier letra para continuar: ";
-            	getchar();
+    			cout << "Ingrese cualquier letra para continuar: ";
+    			cin >> opcion;;
                 retorno=true;
                 break;
             case 'V':
@@ -1938,8 +1936,8 @@ void Menu::adminAdministrador() {
 				abm.bajaAdministrador(*admin);
 				cout << "La baja del Administrador fue completada." << endl;
 			}
-			cout << "Presione cualquier letra para continuar: ";
-			getchar();
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
 			retorno=true;
 			break;
 
@@ -2025,8 +2023,8 @@ void Menu::adminVigenere() {
 				cout << "El archivo no se descifro correctamente. Revise las rutas y la clave y vuelva a intentarlo." << endl;
 			}
 
-			cout << "Presione cualquier letra para continuar: ";
-			getchar();
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
 			retorno=true;
 			break;
 
@@ -2046,8 +2044,8 @@ void Menu::adminVigenere() {
 				cout << "Error: la ruta de origen o de destino es/son incorrecta/s." << endl;
 			}
 
-			cout << "Presione cualquier letra para continuar: ";
-			getchar();
+			cout << "Ingrese cualquier letra para continuar: ";
+			cin >> opcion;
 			retorno=true;
 			break;
 
