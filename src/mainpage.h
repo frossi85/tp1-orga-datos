@@ -282,15 +282,34 @@
 * Una vez que haya algún reporte, hay que acceder como administrador, y en el menú principal seleccionar la opción "G"
 * (Encriptar/Desencriptar/Romper Reportes). En el submenú que aparece figuran tres opciones: \n\n
 *
-* - Encriptar: se pide una clave de encriptación, la ruta del archivo a encriptar (para un reporte debería ser
-* "./Reportes/ReporteDistrito" por ejemplo), y la ruta donde se desea guardar el criptograma (que puede ser la misma).
-* Al final se informa si la encriptación no fue exitosa.
+* - Encriptar: se pide una clave de encriptación, la ruta del archivo a encriptar, y la ruta donde se desea guardar el criptograma (que puede ser la misma).
+* Vale la pena aclarar que cuando se ingresa la ruta, se debe considerar que "./" 'apunta' al directorio del programa ejecutable.
+* Como los reportes se encuentran en una carpeta "Reportes" dentro del directorio donde se encuentra el ejecutable, entonces
+* la ruta sería "./Reportes/ReporteDistrito", por ejemplo.
+* Cuando se pide el archivo sin encriptar para encriptar (o cuando se pide el encriptado para desencriptar), este debe existir.
+* De lo contrario, se mostrará un mensaje de error. Cuando se pide la ruta para generar el archivo encriptado (o generear el
+* desencriptado), en caso de existir ya un archivo con el nombre que se ingresa, este se sobreescribe.
+* La clave puede tener sólo caracteres ascii de 7 bits
+* (es decir, no ascii extendido). Esto se debe a que esta implementación del algoritmo realiza las operaciones en módulo 127 (usa una
+* tabla de 127 símbolos para los reemplazos).
+* Ya que la idea de la encriptación en este caso es aplicarla cuando se quiere mandar el reporte a alguien, y para facilitar la
+* observación del funcionamiento de los algoritmos, se decidió que en principio el reporte se guarde como texto plano sin encriptar.
 *
 * - Desencriptrar: el funcionamiento es análogo al de la opción anterior.
 *
-* - Romper: también se pide una ruta de origen y una de destino. En la primera línea del archivo generado se muestra cuál
+* - Romper: también se pide una ruta de origen y una de destino. Si el archivo de origen (el criptograma) no existiese, se mostrará
+* un mensaje de error. En la primera línea del archivo generado se muestra cuál
 * era la clave de encriptación. Puede pasar que para un determinado criptograma, el método no sea efectivo y el archivo
 * obtenido resulte total o parcialmente ilegible. En la entrega se incluye el criptograma de ejemplo "EjemploParaKasiski"
 * en la carpeta Reportes, para que se pueda probar este algoritmo en un caso en el que sabemos que cumple su cometido.
+* Al igual que Vigenère, la implementación de este algoritmo trabaja con los primeros 127 ascii.
+* Básicamente, el funcionamiento es el siguiente: se aplica el método de Kasiski para determinar la longitud de la clave. Luego
+* se alinea el criptograma en n columnas, siendo n dicha longitud, y en cada columna se hace un análisis de frecuencias. Se asume
+* que el caracter que aparezca más veces se corresponde con el espacio (' '). También se generan posibles claves probando reemplazar ese
+* caracter por 'e' y 'a', en ese orden, ya que son los que aparecen con más frecuencia en un texto en castellano. Se realiza la resta de
+* los valores ascii de esos caracteres, y se obtiene el primer caracter de la clave. Repitiendo el proceso con las demás columnas se obtiene
+* el resto de la clave. Al terminar este proceso, se tienen 3 claves posibles (una por cada reemplazo probado). Finalmente se usa cada clave
+* para desencriptar el texto (se generan 3 archivos "desencriptados"). El algoritmo recorre esos tres archivos, busca las palabras clave (eleccion,
+* lista, distrito, etc.), y deja sólo aquel en el que estas palabras aparezcan más veces, borrando los demás.
 *
 */
