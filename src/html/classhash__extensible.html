@@ -59,7 +59,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <h1>hash_extensible Class Reference</h1>  </div>
 </div>
@@ -74,22 +76,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a681d8ea679318d3685eab50cc3953770">hash_extensible</a> (string nombre_arch_bloques, string nombre_arch_bloques_libres, string nombre_arch_tabla)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a681d8ea679318d3685eab50cc3953770">hash_extensible</a> (string <a class="el" href="classhash__extensible.html#a6d2e712759bf68c288523f8cc7af27bb">nombre_arch_bloques</a>, string <a class="el" href="classhash__extensible.html#ae16d00ce72e440376a6ff9dbc406479d">nombre_arch_bloques_libres</a>, string <a class="el" href="classhash__extensible.html#a3cfd127f8701a324a222102001f8ac8f">nombre_arch_tabla</a>)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Crea e inicializa los archivos de bloques, de bloques libres y de tabla de dispersión.  <a href="#a681d8ea679318d3685eab50cc3953770"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c4dcd668f5f9c282c3a7589e4690f45"></a><!-- doxytag: member="hash_extensible::guardar" ref="a7c4dcd668f5f9c282c3a7589e4690f45" args="(RegistroIndice *registro)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a7c4dcd668f5f9c282c3a7589e4690f45">guardar</a> (<a class="el" href="classRegistroIndice.html">RegistroIndice</a> *registro)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el hash fue creado. Post: se almacena el registro de índice. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a7c4dcd668f5f9c282c3a7589e4690f45">guardar</a> (<a class="el" href="classRegistroIndice.html">RegistroIndice</a> *registro)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el hash fue creado. Post: se almacena el registro de índice.  <a href="#a7c4dcd668f5f9c282c3a7589e4690f45"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#acfd466efa078d89cf80a2b02d07485cb">borrar</a> (<a class="el" href="classRegistroIndice.html">RegistroIndice</a> *registro)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el hash fue creado. Post: se elimina el registro de índice, y su información es devuelta por parámetro.  <a href="#acfd466efa078d89cf80a2b02d07485cb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRegistroIndice.html">RegistroIndice</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a7be1cc9d6428642ec9fd7f421b3cc56b">buscar</a> (<a class="el" href="classRegistroIndice.html">RegistroIndice</a> *registro)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre: el hash fue creado. Post: devuelve la información del registro de índice (sin modificarlo).  <a href="#a7be1cc9d6428642ec9fd7f421b3cc56b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a968f9cd71ed09e5215253cb7af83476a"></a><!-- doxytag: member="hash_extensible::imprimir" ref="a968f9cd71ed09e5215253cb7af83476a" args="(const string nombre_archivo)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a968f9cd71ed09e5215253cb7af83476a">imprimir</a> (const string nombre_archivo)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Crea un archivo de texto plano en el que se muestra la estructura del hash. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a968f9cd71ed09e5215253cb7af83476a">imprimir</a> (const string nombre_archivo)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Crea un archivo de texto plano en el que se muestra la estructura del hash.  <a href="#a968f9cd71ed09e5215253cb7af83476a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#acf873e9a635394e575c336da5a0aef87">listar</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve un vector ordenado con los offsets de todos los registros que hay en el hash.  <a href="#acf873e9a635394e575c336da5a0aef87"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; unsigned int &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae">cargar_tabla_dispersion</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Carga en memoria la tabla de dispersión.  <a href="#a3fa8abb5b88c6d7cce2600e5030123ae"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; unsigned int &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5">cargar_archivo_bloques_libres</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Carga en memoria el archivo de bloques libres.  <a href="#a6d87723428008b049fdb758e6ac990f5"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b">obtener_offset_bloque</a> (unsigned int posicion_en_tabla)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#af10aaf19ff3744ac065d818323fac40d">duplicar_tabla</a> (unsigned int posicion_en_tabla)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#aefa8ea49f8bc3264877cd585c8fb699a">incrementar_tabla</a> (unsigned int posicion_en_tabla)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a75aa1a7c5e55c3e1a144402fe280ef46">expandir_hash</a> (unsigned int posicion_en_tabla)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a2317f8763d6c674ff2739275fe296673">reducir_hash</a> (unsigned int posicion_en_tabla)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#aff529785e40d742620f75087d00ee815">extraer_nro_nuevo_bloque</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef">funcion_hashing</a> (<a class="el" href="classRegistroIndice.html">RegistroIndice</a> *registro)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975">persistir_vector</a> (vector&lt; unsigned int &gt; *vec, string nombre_archivo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2">obtener_tamanio_tabla</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a6d2e712759bf68c288523f8cc7af27bb">nombre_arch_bloques</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#ae16d00ce72e440376a6ff9dbc406479d">nombre_arch_bloques_libres</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhash__extensible.html#a3cfd127f8701a324a222102001f8ac8f">nombre_arch_tabla</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Hash con dispersión extensible modular. </p>
@@ -136,6 +154,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p><p>Trata de abrir los archivos para comprobar si existen. Si es así no hace nada, si no, los crea y los inicializa.</p>
 </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a681d8ea679318d3685eab50cc3953770_cgraph.png" border="0" usemap="#classhash__extensible_a681d8ea679318d3685eab50cc3953770_cgraph" alt=""/></div>
+<map name="classhash__extensible_a681d8ea679318d3685eab50cc3953770_cgraph" id="classhash__extensible_a681d8ea679318d3685eab50cc3953770_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="273,5,527,35"/><area shape="rect" id="node5" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="325,59,475,88"/><area shape="rect" id="node7" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="577,32,807,61"/><area shape="rect" id="node9" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="611,85,773,115"/><area shape="rect" id="node11" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="857,59,1023,88"/><area shape="rect" id="node13" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="856,112,1024,141"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -160,6 +187,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p><p>Si el borrado fue exitoso, luego revisa si el bloque quedó vacío para tratar de liberarlo </p>
 </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_acfd466efa078d89cf80a2b02d07485cb_cgraph.png" border="0" usemap="#classhash__extensible_acfd466efa078d89cf80a2b02d07485cb_cgraph" alt=""/></div>
+<map name="classhash__extensible_acfd466efa078d89cf80a2b02d07485cb_cgraph" id="classhash__extensible_acfd466efa078d89cf80a2b02d07485cb_cgraph">
+<area shape="rect" id="node3" href="classBloqueHash.html#a5cd11a12ebea2e77ee79f7c917367cdb" title="Pre: el bloque fue creado. Post: se elimina el registro de índice, y su información es devuelta por p..." alt="" coords="561,107,708,136"/><area shape="rect" id="node15" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef" title="hash_extensible::funcion_hashing" alt="" coords="215,212,433,241"/><area shape="rect" id="node20" href="classBloqueHash.html#a1995b7d3efd207bd64f11d4b96964b5b" title="Devuelve la cantidad de registros en el bloque." alt="" coords="211,267,437,296"/><area shape="rect" id="node22" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="572,369,697,399"/><area shape="rect" id="node30" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="509,636,760,665"/><area shape="rect" id="node34" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="560,265,709,295"/><area shape="rect" id="node42" href="classhash__extensible.html#a2317f8763d6c674ff2739275fe296673" title="hash_extensible::reducir_hash" alt="" coords="225,423,423,452"/><area shape="rect" id="node5" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="1129,188,1295,217"/><area shape="rect" id="node7" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="1128,109,1296,139"/><area shape="rect" id="node9" href="classRegistroIndice.html#a97d591238f2788dbe91103eed03d866d" title="Devuelve el tamaño (en bytes) que tendría el registro una vez persistido." alt="" coords="832,109,1064,139"/><area shape="rect" id="node13" href="classRegistroIndice.html#a0fec703516c64e81169b3b78bac10da8" title="Establece el offset del registro." alt="" coords="864,5,1032,35"/><area shape="rect" id="node18" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="508,160,761,189"/><area shape="rect" id="node24" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="863,424,1033,453"/><area shape="rect" id="node26" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="879,371,1017,400"/><area shape="rect" id="node28" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="1113,371,1311,400"/><area shape="rect" id="node32" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="840,636,1056,665"/><area shape="rect" id="node36" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="833,317,1063,347"/><area shape="rect" id="node38" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="867,264,1029,293"/><area shape="rect" id="node44" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="485,583,784,612"/><area shape="rect" id="node46" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="504,423,765,452"/><area shape="rect" id="node52" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="528,476,741,505"/><area shape="rect" id="node54" href="classBloqueHash.html#a7f5a9884122a1146d97fb693f5859f94" title="Establece el tamaño de dispersión del bloque." alt="" coords="520,529,749,559"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a7be1cc9d6428642ec9fd7f421b3cc56b"></a><!-- doxytag: member="hash_extensible::buscar" ref="a7be1cc9d6428642ec9fd7f421b3cc56b" args="(RegistroIndice *registro)" -->
@@ -179,6 +215,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Pre: el hash fue creado. Post: devuelve la información del registro de índice (sin modificarlo). </p>
 <p>Si no encuentra el registro devuelve NULL </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a7be1cc9d6428642ec9fd7f421b3cc56b_cgraph.png" border="0" usemap="#classhash__extensible_a7be1cc9d6428642ec9fd7f421b3cc56b_cgraph" alt=""/></div>
+<map name="classhash__extensible_a7be1cc9d6428642ec9fd7f421b3cc56b_cgraph" id="classhash__extensible_a7be1cc9d6428642ec9fd7f421b3cc56b_cgraph">
+<area shape="rect" id="node3" href="classBloqueHash.html#aef41a88171a4de7a35dafe52f366ad74" title="Pre: el bloque fue creado. Post: devuelve la información del registro de índice." alt="" coords="272,5,413,35"/><area shape="rect" id="node7" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef" title="hash_extensible::funcion_hashing" alt="" coords="233,59,452,88"/><area shape="rect" id="node12" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="280,112,405,141"/><area shape="rect" id="node20" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="217,192,468,221"/><area shape="rect" id="node5" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="563,5,728,35"/><area shape="rect" id="node10" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="519,59,772,88"/><area shape="rect" id="node14" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="560,112,731,141"/><area shape="rect" id="node16" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="576,165,715,195"/><area shape="rect" id="node18" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="823,165,1020,195"/><area shape="rect" id="node22" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="537,219,753,248"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -220,9 +265,356 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a class="anchor" id="af10aaf19ff3744ac065d818323fac40d"></a><!-- doxytag: member="hash_extensible::duplicar_tabla" ref="af10aaf19ff3744ac065d818323fac40d" args="(unsigned int posicion_en_tabla)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::duplicar_tabla </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>posicion_en_tabla</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_af10aaf19ff3744ac065d818323fac40d_cgraph.png" border="0" usemap="#classhash__extensible_af10aaf19ff3744ac065d818323fac40d_cgraph" alt=""/></div>
+<map name="classhash__extensible_af10aaf19ff3744ac065d818323fac40d_cgraph" id="classhash__extensible_af10aaf19ff3744ac065d818323fac40d_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="1389,5,1651,35"/><area shape="rect" id="node5" href="classhash__extensible.html#aff529785e40d742620f75087d00ee815" title="hash_extensible::extraer_nro_nuevo_bloque" alt="" coords="1047,57,1321,87"/><area shape="rect" id="node10" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="1413,112,1627,141"/><area shape="rect" id="node12" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="1412,403,1628,432"/><area shape="rect" id="node14" href="classhash__extensible.html#a7c4dcd668f5f9c282c3a7589e4690f45" title="Pre: el hash fue creado. Post: se almacena el registro de índice." alt="" coords="260,415,425,444"/><area shape="rect" id="node28" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="1121,196,1247,225"/><area shape="rect" id="node39" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="1109,620,1259,649"/><area shape="rect" id="node49" href="classBloqueHash.html#a7f5a9884122a1146d97fb693f5859f94" title="Establece el tamaño de dispersión del bloque." alt="" coords="1069,823,1299,852"/><area shape="rect" id="node51" href="classBloqueHash.html#ad649716b7e49be27dbd9ce7510339097" title="Pre: el bloque fue creado. Post: extrae la lista de registros del bloque devuelve un puntero a una co..." alt="" coords="1095,769,1273,799"/><area shape="rect" id="node59" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="743,568,996,597"/><area shape="rect" id="node7" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="1371,59,1669,88"/><area shape="rect" id="node16" href="classhash__extensible.html#a75aa1a7c5e55c3e1a144402fe280ef46" title="hash_extensible::expandir_hash" alt="" coords="480,363,688,392"/><area shape="rect" id="node36" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="1059,249,1309,279"/><area shape="rect" id="node61" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef" title="hash_extensible::funcion_hashing" alt="" coords="475,467,693,496"/><area shape="rect" id="node65" href="classBloqueHash.html#a03a5bf4e2188e2f5e74ff78e0adc1989" title="Pre: el bloque fue creado. Post: se almacena el registro de índice." alt="" coords="797,875,941,904"/><area shape="rect" id="node19" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="1405,503,1635,532"/><area shape="rect" id="node21" href="classhash__extensible.html#aefa8ea49f8bc3264877cd585c8fb699a" title="hash_extensible::incrementar_tabla" alt="" coords="756,413,983,443"/><area shape="rect" id="node30" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="1435,185,1605,215"/><area shape="rect" id="node32" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="1451,239,1589,268"/><area shape="rect" id="node34" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="1719,239,1916,268"/><area shape="rect" id="node42" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="1439,743,1601,772"/><area shape="rect" id="node44" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="1735,743,1900,772"/><area shape="rect" id="node46" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="1733,796,1901,825"/><area shape="rect" id="node53" href="classRegistroIndice.html#a97d591238f2788dbe91103eed03d866d" title="Devuelve el tamaño (en bytes) que tendría el registro una vez persistido." alt="" coords="1404,796,1636,825"/><area shape="rect" id="node67" href="classBloqueHash.html#a5cd11a12ebea2e77ee79f7c917367cdb" title="Pre: el bloque fue creado. Post: se elimina el registro de índice, y su información es devuelta por p..." alt="" coords="1111,927,1257,956"/><area shape="rect" id="node72" href="classRegistroIndice.html#a0fec703516c64e81169b3b78bac10da8" title="Establece el offset del registro." alt="" coords="1436,900,1604,929"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a75aa1a7c5e55c3e1a144402fe280ef46"></a><!-- doxytag: member="hash_extensible::expandir_hash" ref="a75aa1a7c5e55c3e1a144402fe280ef46" args="(unsigned int posicion_en_tabla)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::expandir_hash </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>posicion_en_tabla</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a75aa1a7c5e55c3e1a144402fe280ef46_cgraph.png" border="0" usemap="#classhash__extensible_a75aa1a7c5e55c3e1a144402fe280ef46_cgraph" alt=""/></div>
+<map name="classhash__extensible_a75aa1a7c5e55c3e1a144402fe280ef46_cgraph" id="classhash__extensible_a75aa1a7c5e55c3e1a144402fe280ef46_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#af10aaf19ff3744ac065d818323fac40d" title="hash_extensible::duplicar_tabla" alt="" coords="273,657,476,687"/><area shape="rect" id="node23" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="1209,916,1463,945"/><area shape="rect" id="node39" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="948,144,1073,173"/><area shape="rect" id="node47" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="885,91,1136,120"/><area shape="rect" id="node52" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="1221,197,1451,227"/><area shape="rect" id="node68" href="classhash__extensible.html#aefa8ea49f8bc3264877cd585c8fb699a" title="hash_extensible::incrementar_tabla" alt="" coords="261,297,488,327"/><area shape="rect" id="node5" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="880,761,1141,791"/><area shape="rect" id="node7" href="classhash__extensible.html#aff529785e40d742620f75087d00ee815" title="hash_extensible::extraer_nro_nuevo_bloque" alt="" coords="537,709,812,739"/><area shape="rect" id="node12" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="904,655,1117,684"/><area shape="rect" id="node14" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="1228,251,1444,280"/><area shape="rect" id="node16" href="classhash__extensible.html#a7c4dcd668f5f9c282c3a7589e4690f45" title="Pre: el hash fue creado. Post: se almacena el registro de índice." alt="" coords="592,349,757,379"/><area shape="rect" id="node50" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="936,321,1085,351"/><area shape="rect" id="node62" href="classBloqueHash.html#a7f5a9884122a1146d97fb693f5859f94" title="Establece el tamaño de dispersión del bloque." alt="" coords="560,504,789,533"/><area shape="rect" id="node64" href="classBloqueHash.html#ad649716b7e49be27dbd9ce7510339097" title="Pre: el bloque fue creado. Post: extrae la lista de registros del bloque devuelve un puntero a una co..." alt="" coords="585,813,764,843"/><area shape="rect" id="node9" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="861,708,1160,737"/><area shape="rect" id="node19" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef" title="hash_extensible::funcion_hashing" alt="" coords="901,581,1120,611"/><area shape="rect" id="node25" href="classBloqueHash.html#a03a5bf4e2188e2f5e74ff78e0adc1989" title="Pre: el bloque fue creado. Post: se almacena el registro de índice." alt="" coords="939,439,1083,468"/><area shape="rect" id="node21" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="1793,504,1959,533"/><area shape="rect" id="node27" href="classBloqueHash.html#a5cd11a12ebea2e77ee79f7c917367cdb" title="Pre: el bloque fue creado. Post: se elimina el registro de índice, y su información es devuelta por p..." alt="" coords="1263,439,1409,468"/><area shape="rect" id="node32" href="classRegistroIndice.html#a97d591238f2788dbe91103eed03d866d" title="Devuelve el tamaño (en bytes) que tendría el registro una vez persistido." alt="" coords="1512,529,1744,559"/><area shape="rect" id="node30" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="1792,373,1960,403"/><area shape="rect" id="node36" href="classRegistroIndice.html#a0fec703516c64e81169b3b78bac10da8" title="Establece el offset del registro." alt="" coords="1544,425,1712,455"/><area shape="rect" id="node41" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="1251,91,1421,120"/><area shape="rect" id="node43" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="1267,144,1405,173"/><area shape="rect" id="node45" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="1529,144,1727,173"/><area shape="rect" id="node54" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="1547,321,1709,351"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aff529785e40d742620f75087d00ee815"></a><!-- doxytag: member="hash_extensible::extraer_nro_nuevo_bloque" ref="aff529785e40d742620f75087d00ee815" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int hash_extensible::extraer_nro_nuevo_bloque </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_aff529785e40d742620f75087d00ee815_cgraph.png" border="0" usemap="#classhash__extensible_aff529785e40d742620f75087d00ee815_cgraph" alt=""/></div>
+<map name="classhash__extensible_aff529785e40d742620f75087d00ee815_cgraph" id="classhash__extensible_aff529785e40d742620f75087d00ee815_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="331,5,629,35"/><area shape="rect" id="node5" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="349,59,611,88"/><area shape="rect" id="node7" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="373,112,587,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a0456ecea4f18013d8fac2392fa7413ef"></a><!-- doxytag: member="hash_extensible::funcion_hashing" ref="a0456ecea4f18013d8fac2392fa7413ef" args="(RegistroIndice *registro)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int hash_extensible::funcion_hashing </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRegistroIndice.html">RegistroIndice</a> *&#160;</td>
+          <td class="paramname"><em>registro</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a0456ecea4f18013d8fac2392fa7413ef_cgraph.png" border="0" usemap="#classhash__extensible_a0456ecea4f18013d8fac2392fa7413ef_cgraph" alt=""/></div>
+<map name="classhash__extensible_a0456ecea4f18013d8fac2392fa7413ef_cgraph" id="classhash__extensible_a0456ecea4f18013d8fac2392fa7413ef_cgraph">
+<area shape="rect" id="node3" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="317,5,483,35"/><area shape="rect" id="node5" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="273,59,527,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a7c4dcd668f5f9c282c3a7589e4690f45"></a><!-- doxytag: member="hash_extensible::guardar" ref="a7c4dcd668f5f9c282c3a7589e4690f45" args="(RegistroIndice *registro)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::guardar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRegistroIndice.html">RegistroIndice</a> *&#160;</td>
+          <td class="paramname"><em>registro</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Pre: el hash fue creado. Post: se almacena el registro de índice. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a7c4dcd668f5f9c282c3a7589e4690f45_cgraph.png" border="0" usemap="#classhash__extensible_a7c4dcd668f5f9c282c3a7589e4690f45_cgraph" alt=""/></div>
+<map name="classhash__extensible_a7c4dcd668f5f9c282c3a7589e4690f45_cgraph" id="classhash__extensible_a7c4dcd668f5f9c282c3a7589e4690f45_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a75aa1a7c5e55c3e1a144402fe280ef46" title="hash_extensible::expandir_hash" alt="" coords="221,527,429,556"/><area shape="rect" id="node19" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="828,59,953,88"/><area shape="rect" id="node29" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="816,629,965,659"/><area shape="rect" id="node57" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="765,733,1016,763"/><area shape="rect" id="node67" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef" title="hash_extensible::funcion_hashing" alt="" coords="481,771,700,800"/><area shape="rect" id="node71" href="classBloqueHash.html#a03a5bf4e2188e2f5e74ff78e0adc1989" title="Pre: el bloque fue creado. Post: se almacena el registro de índice." alt="" coords="519,887,663,916"/><area shape="rect" id="node5" href="classhash__extensible.html#af10aaf19ff3744ac065d818323fac40d" title="hash_extensible::duplicar_tabla" alt="" coords="489,317,692,347"/><area shape="rect" id="node27" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="764,424,1017,453"/><area shape="rect" id="node31" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="1112,733,1341,763"/><area shape="rect" id="node49" href="classhash__extensible.html#aefa8ea49f8bc3264877cd585c8fb699a" title="hash_extensible::incrementar_tabla" alt="" coords="477,527,704,556"/><area shape="rect" id="node7" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="1096,165,1357,195"/><area shape="rect" id="node9" href="classhash__extensible.html#aff529785e40d742620f75087d00ee815" title="hash_extensible::extraer_nro_nuevo_bloque" alt="" coords="753,163,1028,192"/><area shape="rect" id="node14" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="1120,219,1333,248"/><area shape="rect" id="node16" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="1119,577,1335,607"/><area shape="rect" id="node40" href="classBloqueHash.html#a7f5a9884122a1146d97fb693f5859f94" title="Establece el tamaño de dispersión del bloque." alt="" coords="776,317,1005,347"/><area shape="rect" id="node42" href="classBloqueHash.html#ad649716b7e49be27dbd9ce7510339097" title="Pre: el bloque fue creado. Post: extrae la lista de registros del bloque devuelve un puntero a una co..." alt="" coords="801,371,980,400"/><area shape="rect" id="node11" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="1077,112,1376,141"/><area shape="rect" id="node21" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="1141,59,1312,88"/><area shape="rect" id="node23" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="1157,5,1296,35"/><area shape="rect" id="node25" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="1425,5,1623,35"/><area shape="rect" id="node33" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="1145,680,1308,709"/><area shape="rect" id="node35" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="1441,835,1607,864"/><area shape="rect" id="node37" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="1440,888,1608,917"/><area shape="rect" id="node44" href="classRegistroIndice.html#a97d591238f2788dbe91103eed03d866d" title="Devuelve el tamaño (en bytes) que tendría el registro una vez persistido." alt="" coords="1111,887,1343,916"/><area shape="rect" id="node73" href="classBloqueHash.html#a5cd11a12ebea2e77ee79f7c917367cdb" title="Pre: el bloque fue creado. Post: se elimina el registro de índice, y su información es devuelta por p..." alt="" coords="817,939,964,968"/><area shape="rect" id="node78" href="classRegistroIndice.html#a0fec703516c64e81169b3b78bac10da8" title="Establece el offset del registro." alt="" coords="1143,991,1311,1020"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a968f9cd71ed09e5215253cb7af83476a"></a><!-- doxytag: member="hash_extensible::imprimir" ref="a968f9cd71ed09e5215253cb7af83476a" args="(const string nombre_archivo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::imprimir </td>
+          <td>(</td>
+          <td class="paramtype">const string&#160;</td>
+          <td class="paramname"><em>nombre_archivo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Crea un archivo de texto plano en el que se muestra la estructura del hash. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a968f9cd71ed09e5215253cb7af83476a_cgraph.png" border="0" usemap="#classhash__extensible_a968f9cd71ed09e5215253cb7af83476a_cgraph" alt=""/></div>
+<map name="classhash__extensible_a968f9cd71ed09e5215253cb7af83476a_cgraph" id="classhash__extensible_a968f9cd71ed09e5215253cb7af83476a_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="224,5,523,35"/><area shape="rect" id="node5" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="243,59,504,88"/><area shape="rect" id="node7" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="265,112,481,141"/><area shape="rect" id="node9" href="classBloqueHash.html#a30d922b4dc90e370a92da6b4556b2464" title="Crea un archivo de texto plano en el que se muestra la estructura del bloque." alt="" coords="300,165,447,195"/><area shape="rect" id="node19" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="311,219,436,248"/><area shape="rect" id="node11" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="572,112,801,141"/><area shape="rect" id="node13" href="classRegistroIndice.html#acb8a9dbb951bd94cb2a9567ed80a7779" title="Crea un archivo de texto plano en el que se muestra la información del registro." alt="" coords="607,165,767,195"/><area shape="rect" id="node15" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="868,139,1033,168"/><area shape="rect" id="node17" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="867,192,1035,221"/><area shape="rect" id="node21" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="601,219,772,248"/><area shape="rect" id="node23" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="617,272,756,301"/><area shape="rect" id="node25" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="852,272,1049,301"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aefa8ea49f8bc3264877cd585c8fb699a"></a><!-- doxytag: member="hash_extensible::incrementar_tabla" ref="aefa8ea49f8bc3264877cd585c8fb699a" args="(unsigned int posicion_en_tabla)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::incrementar_tabla </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>posicion_en_tabla</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_aefa8ea49f8bc3264877cd585c8fb699a_cgraph.png" border="0" usemap="#classhash__extensible_aefa8ea49f8bc3264877cd585c8fb699a_cgraph" alt=""/></div>
+<map name="classhash__extensible_aefa8ea49f8bc3264877cd585c8fb699a_cgraph" id="classhash__extensible_aefa8ea49f8bc3264877cd585c8fb699a_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="1397,59,1659,88"/><area shape="rect" id="node5" href="classhash__extensible.html#aff529785e40d742620f75087d00ee815" title="hash_extensible::extraer_nro_nuevo_bloque" alt="" coords="1055,59,1329,88"/><area shape="rect" id="node10" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="1421,112,1635,141"/><area shape="rect" id="node12" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="1084,236,1300,265"/><area shape="rect" id="node14" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="1413,724,1643,753"/><area shape="rect" id="node16" href="classhash__extensible.html#a7c4dcd668f5f9c282c3a7589e4690f45" title="Pre: el hash fue creado. Post: se almacena el registro de índice." alt="" coords="281,443,447,472"/><area shape="rect" id="node26" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="1129,289,1255,319"/><area shape="rect" id="node36" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="1117,671,1267,700"/><area shape="rect" id="node46" href="classBloqueHash.html#a7f5a9884122a1146d97fb693f5859f94" title="Establece el tamaño de dispersión del bloque." alt="" coords="1077,829,1307,859"/><area shape="rect" id="node48" href="classBloqueHash.html#ad649716b7e49be27dbd9ce7510339097" title="Pre: el bloque fue creado. Post: extrae la lista de registros del bloque devuelve un puntero a una co..." alt="" coords="1103,776,1281,805"/><area shape="rect" id="node57" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="753,263,1004,292"/><area shape="rect" id="node7" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="1379,5,1677,35"/><area shape="rect" id="node18" href="classhash__extensible.html#a75aa1a7c5e55c3e1a144402fe280ef46" title="hash_extensible::expandir_hash" alt="" coords="496,416,704,445"/><area shape="rect" id="node61" href="classhash__extensible.html#a0456ecea4f18013d8fac2392fa7413ef" title="hash_extensible::funcion_hashing" alt="" coords="769,572,988,601"/><area shape="rect" id="node65" href="classBloqueHash.html#a03a5bf4e2188e2f5e74ff78e0adc1989" title="Pre: el bloque fue creado. Post: se almacena el registro de índice." alt="" coords="807,929,951,959"/><area shape="rect" id="node20" href="classhash__extensible.html#af10aaf19ff3744ac065d818323fac40d" title="hash_extensible::duplicar_tabla" alt="" coords="777,468,980,497"/><area shape="rect" id="node34" href="classhash__extensible.html#acf4823205a3cb26f6efce6a1e293f5d2" title="hash_extensible::obtener_tamanio_tabla" alt="" coords="1065,520,1319,549"/><area shape="rect" id="node28" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="1443,263,1613,292"/><area shape="rect" id="node30" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="1459,316,1597,345"/><area shape="rect" id="node32" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="1727,316,1924,345"/><area shape="rect" id="node39" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="1447,671,1609,700"/><area shape="rect" id="node41" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="1743,697,1908,727"/><area shape="rect" id="node43" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="1741,777,1909,807"/><area shape="rect" id="node50" href="classRegistroIndice.html#a97d591238f2788dbe91103eed03d866d" title="Devuelve el tamaño (en bytes) que tendría el registro una vez persistido." alt="" coords="1412,777,1644,807"/><area shape="rect" id="node67" href="classBloqueHash.html#a5cd11a12ebea2e77ee79f7c917367cdb" title="Pre: el bloque fue creado. Post: se elimina el registro de índice, y su información es devuelta por p..." alt="" coords="1119,933,1265,963"/><area shape="rect" id="node72" href="classRegistroIndice.html#a0fec703516c64e81169b3b78bac10da8" title="Establece el offset del registro." alt="" coords="1444,933,1612,963"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="acf873e9a635394e575c336da5a0aef87"></a><!-- doxytag: member="hash_extensible::listar" ref="acf873e9a635394e575c336da5a0aef87" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; unsigned int &gt; hash_extensible::listar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Devuelve un vector ordenado con los offsets de todos los registros que hay en el hash. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_acf873e9a635394e575c336da5a0aef87_cgraph.png" border="0" usemap="#classhash__extensible_acf873e9a635394e575c336da5a0aef87_cgraph" alt=""/></div>
+<map name="classhash__extensible_acf873e9a635394e575c336da5a0aef87_cgraph" id="classhash__extensible_acf873e9a635394e575c336da5a0aef87_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="205,5,504,35"/><area shape="rect" id="node5" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="224,59,485,88"/><area shape="rect" id="node7" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="247,112,463,141"/><area shape="rect" id="node9" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="292,165,417,195"/><area shape="rect" id="node17" href="classBloqueHash.html#af9f0b26b8fb202f69f048daa3910b386" title="Devuelve un vector con los offsets de todos los registros que hay en el bloque." alt="" coords="288,219,421,248"/><area shape="rect" id="node11" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="553,112,724,141"/><area shape="rect" id="node13" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="569,165,708,195"/><area shape="rect" id="node15" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="775,165,972,195"/><area shape="rect" id="node19" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="555,219,723,248"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a19cfbfafa61cf7ec3be11d55b794525b"></a><!-- doxytag: member="hash_extensible::obtener_offset_bloque" ref="a19cfbfafa61cf7ec3be11d55b794525b" args="(unsigned int posicion_en_tabla)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int hash_extensible::obtener_offset_bloque </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>posicion_en_tabla</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a19cfbfafa61cf7ec3be11d55b794525b_cgraph.png" border="0" usemap="#classhash__extensible_a19cfbfafa61cf7ec3be11d55b794525b_cgraph" alt=""/></div>
+<map name="classhash__extensible_a19cfbfafa61cf7ec3be11d55b794525b_cgraph" id="classhash__extensible_a19cfbfafa61cf7ec3be11d55b794525b_cgraph">
+<area shape="rect" id="node3" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="307,5,523,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="acf4823205a3cb26f6efce6a1e293f5d2"></a><!-- doxytag: member="hash_extensible::obtener_tamanio_tabla" ref="acf4823205a3cb26f6efce6a1e293f5d2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int hash_extensible::obtener_tamanio_tabla </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8352b368a61cb93eb3fc2200471c975"></a><!-- doxytag: member="hash_extensible::persistir_vector" ref="ab8352b368a61cb93eb3fc2200471c975" args="(vector&lt; unsigned int &gt; *vec, string nombre_archivo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::persistir_vector </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; unsigned int &gt; *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>nombre_archivo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2317f8763d6c674ff2739275fe296673"></a><!-- doxytag: member="hash_extensible::reducir_hash" ref="a2317f8763d6c674ff2739275fe296673" args="(unsigned int posicion_en_tabla)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hash_extensible::reducir_hash </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>posicion_en_tabla</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classhash__extensible_a2317f8763d6c674ff2739275fe296673_cgraph.png" border="0" usemap="#classhash__extensible_a2317f8763d6c674ff2739275fe296673_cgraph" alt=""/></div>
+<map name="classhash__extensible_a2317f8763d6c674ff2739275fe296673_cgraph" id="classhash__extensible_a2317f8763d6c674ff2739275fe296673_cgraph">
+<area shape="rect" id="node3" href="classhash__extensible.html#a6d87723428008b049fdb758e6ac990f5" title="Carga en memoria el archivo de bloques libres." alt="" coords="253,5,552,35"/><area shape="rect" id="node5" href="classhash__extensible.html#a3fa8abb5b88c6d7cce2600e5030123ae" title="Carga en memoria la tabla de dispersión." alt="" coords="272,59,533,88"/><area shape="rect" id="node7" href="classBloqueHash.html#a6b5fd9619595e0cbd2c2a5f619161c75" title="Devuelve el tamaño de dispersión del bloque." alt="" coords="601,165,831,195"/><area shape="rect" id="node9" href="classBloqueHash.html#a051a8c9c3cdd0d4222cd27d6e89faeb1" title="BloqueHash::Leer" alt="" coords="340,112,465,141"/><area shape="rect" id="node17" href="classhash__extensible.html#a19cfbfafa61cf7ec3be11d55b794525b" title="hash_extensible::obtener_offset_bloque" alt="" coords="277,269,528,299"/><area shape="rect" id="node21" href="classBloqueHash.html#aa52a2d3c5eda4b37031aa068ceea6c3a" title="Guarda el bloque junto con sus metadatos en un archivo binario en la ruta indicada." alt="" coords="328,216,477,245"/><area shape="rect" id="node30" href="classhash__extensible.html#ab8352b368a61cb93eb3fc2200471c975" title="hash_extensible::persistir_vector" alt="" coords="296,323,509,352"/><area shape="rect" id="node32" href="classBloqueHash.html#a7f5a9884122a1146d97fb693f5859f94" title="Establece el tamaño de dispersión del bloque." alt="" coords="288,376,517,405"/><area shape="rect" id="node11" href="classBloqueHash.html#af562611d2a00d3ac44ce9a1a24151984" title="Crea un bloque sin registros." alt="" coords="631,112,801,141"/><area shape="rect" id="node13" href="classRegistroIndice.html#a049c9c9430d6638e263e29e4627d7e53" title="Levanta el registro a memoria." alt="" coords="647,59,785,88"/><area shape="rect" id="node15" href="classRegistroIndice.html#af94e3e1319048e46d87f4a1d3fca0a6f" title="Crea un nuevo registro asignandole clave y offset." alt="" coords="881,59,1079,88"/><area shape="rect" id="node19" href="classBloqueHash.html#a144b4b2be03f6d599060c654afe16efd" title="Devuelve el tamaño que tienen todos los bloques de la clase BloqueHash." alt="" coords="608,272,824,301"/><area shape="rect" id="node24" href="classRegistroIndice.html#a600c50b2980fb2fa3a8a088115e883c6" title="Guarda el bloque junto con sus metadatos en un archivo." alt="" coords="635,219,797,248"/><area shape="rect" id="node26" href="classRegistroIndice.html#a9e398fb8bd9b8a93d98ecd3f4994c1c7" title="Devuelve la clave del registro." alt="" coords="897,245,1063,275"/><area shape="rect" id="node28" href="classRegistroIndice.html#a69387f309a42289602f88dc546011ad2" title="Devuelve el offset del registro." alt="" coords="896,192,1064,221"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a6d2e712759bf68c288523f8cc7af27bb"></a><!-- doxytag: member="hash_extensible::nombre_arch_bloques" ref="a6d2e712759bf68c288523f8cc7af27bb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="classhash__extensible.html#a6d2e712759bf68c288523f8cc7af27bb">hash_extensible::nombre_arch_bloques</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae16d00ce72e440376a6ff9dbc406479d"></a><!-- doxytag: member="hash_extensible::nombre_arch_bloques_libres" ref="ae16d00ce72e440376a6ff9dbc406479d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="classhash__extensible.html#ae16d00ce72e440376a6ff9dbc406479d">hash_extensible::nombre_arch_bloques_libres</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3cfd127f8701a324a222102001f8ac8f"></a><!-- doxytag: member="hash_extensible::nombre_arch_tabla" ref="a3cfd127f8701a324a222102001f8ac8f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="classhash__extensible.html#a3cfd127f8701a324a222102001f8ac8f">hash_extensible::nombre_arch_tabla</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="hash__extensible_8h_source.html">hash_extensible.h</a></li>
-<li>hash_extensible.cpp</li>
+<li><a class="el" href="hash__extensible_8cpp.html">hash_extensible.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -230,7 +622,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -239,7 +631,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

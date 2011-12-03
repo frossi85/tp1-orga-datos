@@ -61,52 +61,385 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a>  </div>
   <div class="headertitle">
 <h1>RegistroArbol Class Reference</h1>  </div>
 </div>
 <div class="contents">
 <!-- doxytag: class="RegistroArbol" -->
+<p><code>#include &lt;<a class="el" href="RegistroArbol_8h_source.html">RegistroArbol.h</a>&gt;</code></p>
+
 <p><a href="classRegistroArbol-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8dc9d1aa507a37f4d4f71972d4074936"></a><!-- doxytag: member="RegistroArbol::RegistroArbol" ref="a8dc9d1aa507a37f4d4f71972d4074936" args="(string clave, long offset)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>RegistroArbol</b> (string clave, long offset)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd2be47013708bca1acd2fc3ae311af9"></a><!-- doxytag: member="RegistroArbol::RegistroArbol" ref="acd2be47013708bca1acd2fc3ae311af9" args="(RegistroArbol &amp;registro)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>RegistroArbol</b> (<a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;registro)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b2d531b844c949a0c8fd3b970e828f1"></a><!-- doxytag: member="RegistroArbol::getClave" ref="a0b2d531b844c949a0c8fd3b970e828f1" args="()" -->
-string&#160;</td><td class="memItemRight" valign="bottom"><b>getClave</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29d6f4b1555abac950e746c1374d225e"></a><!-- doxytag: member="RegistroArbol::getOffset" ref="a29d6f4b1555abac950e746c1374d225e" args="()" -->
-long&#160;</td><td class="memItemRight" valign="bottom"><b>getOffset</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ddde1de6fbd1a1d11fed47ebf4de827"></a><!-- doxytag: member="RegistroArbol::setClave" ref="a0ddde1de6fbd1a1d11fed47ebf4de827" args="(string offset)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setClave</b> (string offset)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a201413683783d974c885d7d258b2672a"></a><!-- doxytag: member="RegistroArbol::setOffset" ref="a201413683783d974c885d7d258b2672a" args="(long offset)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setOffset</b> (long offset)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43a9bf8a4c6aa8bb4777924b94d5e187"></a><!-- doxytag: member="RegistroArbol::getTamanioEnDisco" ref="a43a9bf8a4c6aa8bb4777924b94d5e187" args="()" -->
-long&#160;</td><td class="memItemRight" valign="bottom"><b>getTamanioEnDisco</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4285a31f82e5eae9262807f8e3b1d52b"></a><!-- doxytag: member="RegistroArbol::Guardar" ref="a4285a31f82e5eae9262807f8e3b1d52b" args="(fstream &amp;archivo)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Guardar</b> (fstream &amp;archivo)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ad25a3080c5fc9c0bc259a53877701a"></a><!-- doxytag: member="RegistroArbol::Imprimir" ref="a6ad25a3080c5fc9c0bc259a53877701a" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Imprimir</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a588ad88c34e726828e0da190829a8dad"></a><!-- doxytag: member="RegistroArbol::setLink" ref="a588ad88c34e726828e0da190829a8dad" args="(long link)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setLink</b> (long link)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a485eb5ef04fddf7f5bbc9cf00fd87216"></a><!-- doxytag: member="RegistroArbol::getLink" ref="a485eb5ef04fddf7f5bbc9cf00fd87216" args="()" -->
-long&#160;</td><td class="memItemRight" valign="bottom"><b>getLink</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf">RegistroArbol</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a8dc9d1aa507a37f4d4f71972d4074936">RegistroArbol</a> (string clave, long offset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#acd2be47013708bca1acd2fc3ae311af9">RegistroArbol</a> (<a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;registro)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#aa934af00417f34fc13c00ffb4505b080">~RegistroArbol</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a0b2d531b844c949a0c8fd3b970e828f1">getClave</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a29d6f4b1555abac950e746c1374d225e">getOffset</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a0ddde1de6fbd1a1d11fed47ebf4de827">setClave</a> (string offset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a201413683783d974c885d7d258b2672a">setOffset</a> (long offset)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a43a9bf8a4c6aa8bb4777924b94d5e187">getTamanioEnDisco</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a4285a31f82e5eae9262807f8e3b1d52b">Guardar</a> (fstream &amp;archivo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a6ad25a3080c5fc9c0bc259a53877701a">Imprimir</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a588ad88c34e726828e0da190829a8dad">setLink</a> (long link)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a485eb5ef04fddf7f5bbc9cf00fd87216">getLink</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36877a843ea19eb90f59ed6943509103"></a><!-- doxytag: member="RegistroArbol::Leer" ref="a36877a843ea19eb90f59ed6943509103" args="(fstream &amp;archivo)" -->
-static <a class="el" href="classRegistroArbol.html">RegistroArbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Leer</b> (fstream &amp;archivo)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classRegistroArbol.html">RegistroArbol</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a36877a843ea19eb90f59ed6943509103">Leer</a> (fstream &amp;archivo)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#abe8bf9af065d64cd395ec01e4c4f9531">_clave</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a1041e3d9aedbfa959851664e631ea397">_offset</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#ad5d2e420c0a5e11eb48e2ab6fea01622">_link</a></td></tr>
 <tr><td colspan="2"><h2><a name="friends"></a>
 Friends</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2dd3979cb6f385c8857b195285fb0a1c"></a><!-- doxytag: member="RegistroArbol::ArbolBMas" ref="a2dd3979cb6f385c8857b195285fb0a1c" args="" -->
-class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a2dd3979cb6f385c8857b195285fb0a1c">ArbolBMas</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ac41ef3497f74ea0fe5910df9202d8a"></a><!-- doxytag: member="RegistroArbol::Nodo" ref="a9ac41ef3497f74ea0fe5910df9202d8a" args="" -->
-class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a9ac41ef3497f74ea0fe5910df9202d8a">Nodo</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a2dd3979cb6f385c8857b195285fb0a1c">ArbolBMas</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRegistroArbol.html#a9ac41ef3497f74ea0fe5910df9202d8a">Nodo</a></td></tr>
 </table>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a4ed2c8147f85981b50c9efef41a63ddf"></a><!-- doxytag: member="RegistroArbol::RegistroArbol" ref="a4ed2c8147f85981b50c9efef41a63ddf" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RegistroArbol::RegistroArbol </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8dc9d1aa507a37f4d4f71972d4074936"></a><!-- doxytag: member="RegistroArbol::RegistroArbol" ref="a8dc9d1aa507a37f4d4f71972d4074936" args="(string clave, long offset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RegistroArbol::RegistroArbol </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>clave</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acd2be47013708bca1acd2fc3ae311af9"></a><!-- doxytag: member="RegistroArbol::RegistroArbol" ref="acd2be47013708bca1acd2fc3ae311af9" args="(RegistroArbol &amp;registro)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RegistroArbol::RegistroArbol </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRegistroArbol.html">RegistroArbol</a> &amp;&#160;</td>
+          <td class="paramname"><em>registro</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa934af00417f34fc13c00ffb4505b080"></a><!-- doxytag: member="RegistroArbol::~RegistroArbol" ref="aa934af00417f34fc13c00ffb4505b080" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RegistroArbol::~RegistroArbol </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a0b2d531b844c949a0c8fd3b970e828f1"></a><!-- doxytag: member="RegistroArbol::getClave" ref="a0b2d531b844c949a0c8fd3b970e828f1" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string RegistroArbol::getClave </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a485eb5ef04fddf7f5bbc9cf00fd87216"></a><!-- doxytag: member="RegistroArbol::getLink" ref="a485eb5ef04fddf7f5bbc9cf00fd87216" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long RegistroArbol::getLink </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a29d6f4b1555abac950e746c1374d225e"></a><!-- doxytag: member="RegistroArbol::getOffset" ref="a29d6f4b1555abac950e746c1374d225e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long RegistroArbol::getOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a43a9bf8a4c6aa8bb4777924b94d5e187"></a><!-- doxytag: member="RegistroArbol::getTamanioEnDisco" ref="a43a9bf8a4c6aa8bb4777924b94d5e187" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long RegistroArbol::getTamanioEnDisco </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4285a31f82e5eae9262807f8e3b1d52b"></a><!-- doxytag: member="RegistroArbol::Guardar" ref="a4285a31f82e5eae9262807f8e3b1d52b" args="(fstream &amp;archivo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RegistroArbol::Guardar </td>
+          <td>(</td>
+          <td class="paramtype">fstream &amp;&#160;</td>
+          <td class="paramname"><em>archivo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRegistroArbol_a4285a31f82e5eae9262807f8e3b1d52b_cgraph.png" border="0" usemap="#classRegistroArbol_a4285a31f82e5eae9262807f8e3b1d52b_cgraph" alt=""/></div>
+<map name="classRegistroArbol_a4285a31f82e5eae9262807f8e3b1d52b_cgraph" id="classRegistroArbol_a4285a31f82e5eae9262807f8e3b1d52b_cgraph">
+<area shape="rect" id="node3" href="classUtilidades.html#a4a6652d81a68f15c84608cd5c40984bd" title="Utilidades::stringToFile" alt="" coords="209,5,364,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ad25a3080c5fc9c0bc259a53877701a"></a><!-- doxytag: member="RegistroArbol::Imprimir" ref="a6ad25a3080c5fc9c0bc259a53877701a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RegistroArbol::Imprimir </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRegistroArbol_a6ad25a3080c5fc9c0bc259a53877701a_cgraph.png" border="0" usemap="#classRegistroArbol_a6ad25a3080c5fc9c0bc259a53877701a_cgraph" alt=""/></div>
+<map name="classRegistroArbol_a6ad25a3080c5fc9c0bc259a53877701a_cgraph" id="classRegistroArbol_a6ad25a3080c5fc9c0bc259a53877701a_cgraph">
+<area shape="rect" id="node3" href="classRegistroArbol.html#a43a9bf8a4c6aa8bb4777924b94d5e187" title="RegistroArbol::getTamanioEnDisco" alt="" coords="211,5,437,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a36877a843ea19eb90f59ed6943509103"></a><!-- doxytag: member="RegistroArbol::Leer" ref="a36877a843ea19eb90f59ed6943509103" args="(fstream &amp;archivo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRegistroArbol.html">RegistroArbol</a> * RegistroArbol::Leer </td>
+          <td>(</td>
+          <td class="paramtype">fstream &amp;&#160;</td>
+          <td class="paramname"><em>archivo</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRegistroArbol_a36877a843ea19eb90f59ed6943509103_cgraph.png" border="0" usemap="#classRegistroArbol_a36877a843ea19eb90f59ed6943509103_cgraph" alt=""/></div>
+<map name="classRegistroArbol_a36877a843ea19eb90f59ed6943509103_cgraph" id="classRegistroArbol_a36877a843ea19eb90f59ed6943509103_cgraph">
+<area shape="rect" id="node3" href="classRegistroArbol.html#a4ed2c8147f85981b50c9efef41a63ddf" title="RegistroArbol::RegistroArbol" alt="" coords="191,5,377,35"/><area shape="rect" id="node5" href="classUtilidades.html#a6424b9e806373ab1199f8296cc663b4c" title="Utilidades::stringFromFile" alt="" coords="199,59,369,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a0ddde1de6fbd1a1d11fed47ebf4de827"></a><!-- doxytag: member="RegistroArbol::setClave" ref="a0ddde1de6fbd1a1d11fed47ebf4de827" args="(string offset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RegistroArbol::setClave </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a588ad88c34e726828e0da190829a8dad"></a><!-- doxytag: member="RegistroArbol::setLink" ref="a588ad88c34e726828e0da190829a8dad" args="(long link)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RegistroArbol::setLink </td>
+          <td>(</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>link</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a201413683783d974c885d7d258b2672a"></a><!-- doxytag: member="RegistroArbol::setOffset" ref="a201413683783d974c885d7d258b2672a" args="(long offset)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RegistroArbol::setOffset </td>
+          <td>(</td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Friends And Related Function Documentation</h2>
+<a class="anchor" id="a2dd3979cb6f385c8857b195285fb0a1c"></a><!-- doxytag: member="RegistroArbol::ArbolBMas" ref="a2dd3979cb6f385c8857b195285fb0a1c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classArbolBMas.html">ArbolBMas</a><code> [friend]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9ac41ef3497f74ea0fe5910df9202d8a"></a><!-- doxytag: member="RegistroArbol::Nodo" ref="a9ac41ef3497f74ea0fe5910df9202d8a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classNodo.html">Nodo</a><code> [friend]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="abe8bf9af065d64cd395ec01e4c4f9531"></a><!-- doxytag: member="RegistroArbol::_clave" ref="abe8bf9af065d64cd395ec01e4c4f9531" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="classRegistroArbol.html#abe8bf9af065d64cd395ec01e4c4f9531">RegistroArbol::_clave</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad5d2e420c0a5e11eb48e2ab6fea01622"></a><!-- doxytag: member="RegistroArbol::_link" ref="ad5d2e420c0a5e11eb48e2ab6fea01622" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long <a class="el" href="classRegistroArbol.html#ad5d2e420c0a5e11eb48e2ab6fea01622">RegistroArbol::_link</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1041e3d9aedbfa959851664e631ea397"></a><!-- doxytag: member="RegistroArbol::_offset" ref="a1041e3d9aedbfa959851664e631ea397" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long <a class="el" href="classRegistroArbol.html#a1041e3d9aedbfa959851664e631ea397">RegistroArbol::_offset</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="RegistroArbol_8h_source.html">RegistroArbol.h</a></li>
-<li>RegistroArbol.cpp</li>
+<li><a class="el" href="RegistroArbol_8cpp.html">RegistroArbol.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -114,7 +447,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -123,7 +456,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

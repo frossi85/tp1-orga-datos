@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -58,7 +59,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>VotoElectronicoExcepcion.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a href="VotoElectronicoExcepcion_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * VotoElectronicoExcepcion.h</span>
 <a name="l00003"></a>00003 <span class="comment"> *</span>
 <a name="l00004"></a>00004 <span class="comment"> *  Created on: 19/09/2011</span>
@@ -75,12 +76,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00015"></a>00015 
 <a name="l00016"></a><a class="code" href="classVotoElectronicoExcepcion.html">00016</a> <span class="keyword">class </span><a class="code" href="classVotoElectronicoExcepcion.html">VotoElectronicoExcepcion</a> : <span class="keyword">public</span> exception{
 <a name="l00017"></a>00017 <span class="keyword">private</span>:
-<a name="l00018"></a>00018         <span class="keywordtype">string</span> mensajePersonalizado;
+<a name="l00018"></a><a class="code" href="classVotoElectronicoExcepcion.html#a349fd784004e87e00d20429e231bd41f">00018</a>         <span class="keywordtype">string</span> <a class="code" href="classVotoElectronicoExcepcion.html#a349fd784004e87e00d20429e231bd41f">mensajePersonalizado</a>;
 <a name="l00019"></a>00019 <span class="keyword">public</span>:
 <a name="l00020"></a>00020         <a class="code" href="classVotoElectronicoExcepcion.html">VotoElectronicoExcepcion</a>(<span class="keywordtype">string</span> mensaje) <span class="keywordflow">throw</span>();
-<a name="l00021"></a>00021         <span class="keyword">virtual</span> ~<a class="code" href="classVotoElectronicoExcepcion.html">VotoElectronicoExcepcion</a>() <span class="keywordflow">throw</span>();
+<a name="l00021"></a>00021         <span class="keyword">virtual</span> ~<a class="code" href="classVotoElectronicoExcepcion.html">VotoElectronicoExcepcion</a>() throw();
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023         <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* what() <span class="keyword">const</span> <span class="keywordflow">throw</span>()
+<a name="l00023"></a><a class="code" href="classVotoElectronicoExcepcion.html#a0286d0f1f04342b8c7cb77589799a685">00023</a>         virtual const <span class="keywordtype">char</span>* what() const throw()
 <a name="l00024"></a>00024         {
 <a name="l00025"></a>00025                 <span class="keywordtype">string</span> mensaje(<span class="stringliteral">&quot;VotoElectronicoExcepcion: &quot;</span>);
 <a name="l00026"></a>00026                 mensaje+= this-&gt;mensajePersonalizado;
@@ -97,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +107,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

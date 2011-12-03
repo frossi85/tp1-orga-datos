@@ -65,16 +65,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="Grabable" --><!-- doxytag: inherits="Logueable" -->
-<p>Interfaz para la persistencia de las entidades.  
-<a href="#_details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="Grabable_8h_source.html">Grabable.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Grabable:</div>
 <div class="dyncontent">
 <div class="center"><img src="classGrabable__inherit__graph.png" border="0" usemap="#Grabable_inherit__map" alt="Inheritance graph"/></div>
 <map name="Grabable_inherit__map" id="Grabable_inherit__map">
-<area shape="rect" id="node5" href="classCandidato.html" title="Candidato" alt="" coords="5,160,85,189"/><area shape="rect" id="node7" href="classCargo.html" title="Cargo" alt="" coords="109,160,165,189"/><area shape="rect" id="node9" href="classConteo.html" title="Conteo" alt="" coords="189,160,253,189"/><area shape="rect" id="node11" href="classDistrito.html" title="Distrito" alt="" coords="277,160,341,189"/><area shape="rect" id="node13" href="classEleccion.html" title="Eleccion" alt="" coords="365,160,437,189"/><area shape="rect" id="node15" href="classLista.html" title="Lista" alt="" coords="461,160,512,189"/><area shape="rect" id="node17" href="classVotante.html" title="Votante" alt="" coords="536,160,603,189"/><area shape="rect" id="node2" href="classLogueable.html" title="Logueable" alt="" coords="269,5,349,35"/></map>
+<area shape="rect" id="node5" href="classAdministrador.html" title="Administrador" alt="" coords="5,160,107,189"/><area shape="rect" id="node7" href="classCandidato.html" title="Candidato" alt="" coords="131,160,211,189"/><area shape="rect" id="node9" href="classCargo.html" title="Cargo" alt="" coords="235,160,291,189"/><area shape="rect" id="node11" href="classConteo.html" title="Conteo" alt="" coords="315,160,379,189"/><area shape="rect" id="node13" href="classDistrito.html" title="Distrito" alt="" coords="403,160,467,189"/><area shape="rect" id="node15" href="classEleccion.html" title="Eleccion" alt="" coords="491,160,563,189"/><area shape="rect" id="node17" href="classLista.html" title="Lista" alt="" coords="587,160,637,189"/><area shape="rect" id="node19" href="classVotante.html" title="Votante" alt="" coords="661,160,728,189"/><area shape="rect" id="node2" href="classLogueable.html" title="Logueable" alt="" coords="351,5,431,35"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for Grabable:</div>
@@ -88,20 +85,118 @@ Collaboration diagram for Grabable:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7c4d0d592ec15dc4690e12d3436090c6"></a><!-- doxytag: member="Grabable::Guardar" ref="a7c4d0d592ec15dc4690e12d3436090c6" args="(ofstream &amp;ofs)=0" -->
-virtual unsigned long int&#160;</td><td class="memItemRight" valign="bottom"><b>Guardar</b> (ofstream &amp;ofs)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa9b872d9910ca58551b0871d8840a3e"></a><!-- doxytag: member="Grabable::Leer" ref="afa9b872d9910ca58551b0871d8840a3e" args="(ifstream &amp;ifs, unsigned long int offset)=0" -->
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>Leer</b> (ifstream &amp;ifs, unsigned long int offset)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae17e19deffd01de0ef119e60185b68bb"></a><!-- doxytag: member="Grabable::getTamanioEnDisco" ref="ae17e19deffd01de0ef119e60185b68bb" args="()=0" -->
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getTamanioEnDisco</b> ()=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7411a3f3cb17186cef187e272940c6cf"></a><!-- doxytag: member="Grabable::getURLArchivoDatos" ref="a7411a3f3cb17186cef187e272940c6cf" args="()=0" -->
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getURLArchivoDatos</b> ()=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb81f16055e8fc8c584c591c37aebedb"></a><!-- doxytag: member="Grabable::getClassName" ref="aeb81f16055e8fc8c584c591c37aebedb" args="()=0" -->
-virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getClassName</b> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual unsigned long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrabable.html#a7c4d0d592ec15dc4690e12d3436090c6">Guardar</a> (ofstream &amp;ofs)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrabable.html#afa9b872d9910ca58551b0871d8840a3e">Leer</a> (ifstream &amp;ifs, unsigned long int offset)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrabable.html#ae17e19deffd01de0ef119e60185b68bb">getTamanioEnDisco</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrabable.html#a7411a3f3cb17186cef187e272940c6cf">getURLArchivoDatos</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGrabable.html#aeb81f16055e8fc8c584c591c37aebedb">getClassName</a> ()=0</td></tr>
 </table>
-<hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Interfaz para la persistencia de las entidades. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="aeb81f16055e8fc8c584c591c37aebedb"></a><!-- doxytag: member="Grabable::getClassName" ref="aeb81f16055e8fc8c584c591c37aebedb" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string Grabable::getClassName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="classLogueable.html#af6d91242c18e468c77d3bab83e07b9e8">Logueable</a>.</p>
+
+<p>Implemented in <a class="el" href="classAdministrador.html#a5590a334c717c42767925fe828ca2618">Administrador</a>, <a class="el" href="classCandidato.html#a52d94aa45b645377aa53971e589af77f">Candidato</a>, <a class="el" href="classCargo.html#a1942793431ea871ab8913377d787e230">Cargo</a>, <a class="el" href="classConteo.html#a89d57da05b6bf940a4f484e538b2f431">Conteo</a>, <a class="el" href="classDistrito.html#a0815d2f77c6fbe724b53dce6a5263a17">Distrito</a>, <a class="el" href="classEleccion.html#a48f64738a4185e5f19d30851bc93dd68">Eleccion</a>, <a class="el" href="classLista.html#a6f7d2d974a2121408704909e19e0dd5e">Lista</a>, and <a class="el" href="classVotante.html#a25f7bd4dafceddca641a952358efe922">Votante</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae17e19deffd01de0ef119e60185b68bb"></a><!-- doxytag: member="Grabable::getTamanioEnDisco" ref="ae17e19deffd01de0ef119e60185b68bb" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int Grabable::getTamanioEnDisco </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classAdministrador.html#a72a5b93f9ba2d35088526e93c97f74c0">Administrador</a>, <a class="el" href="classCandidato.html#aa1bdfc7f7f50150a446cc75a295b5f23">Candidato</a>, <a class="el" href="classCargo.html#a1bb098ef72279861bc691fbe9bedaf8a">Cargo</a>, <a class="el" href="classConteo.html#ad490c76ab4873e6e70502489f5fa0021">Conteo</a>, <a class="el" href="classDistrito.html#aea0c13db352c8303f17adaac2f9b5810">Distrito</a>, <a class="el" href="classEleccion.html#a8267777cbfdcecd6ad4017309102f99e">Eleccion</a>, <a class="el" href="classLista.html#aa7f07aeb7858cdeea8ed757e9cb1f23b">Lista</a>, and <a class="el" href="classVotante.html#ab6e3000445744119e087ed8476436bcb">Votante</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7411a3f3cb17186cef187e272940c6cf"></a><!-- doxytag: member="Grabable::getURLArchivoDatos" ref="a7411a3f3cb17186cef187e272940c6cf" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual string Grabable::getURLArchivoDatos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classAdministrador.html#a2588fe4230c5d01c9ac386630fe55507">Administrador</a>, <a class="el" href="classCandidato.html#a2f96e258e7d8a60b77f098f05121aed9">Candidato</a>, <a class="el" href="classCargo.html#a4191b6d129161307b596dc3469f5e314">Cargo</a>, <a class="el" href="classConteo.html#a41b8795e0963c53851a893bbdcd29bb1">Conteo</a>, <a class="el" href="classDistrito.html#a46708be8cb048fd82db9970d36fbbb28">Distrito</a>, <a class="el" href="classEleccion.html#ac5f271690c7e888b65c35f72efc6e663">Eleccion</a>, <a class="el" href="classLista.html#a993299dfe254332f37f2af97029eb32b">Lista</a>, and <a class="el" href="classVotante.html#ab4b8c93345c4ef690031085b49f4491b">Votante</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7c4d0d592ec15dc4690e12d3436090c6"></a><!-- doxytag: member="Grabable::Guardar" ref="a7c4d0d592ec15dc4690e12d3436090c6" args="(ofstream &amp;ofs)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual unsigned long int Grabable::Guardar </td>
+          <td>(</td>
+          <td class="paramtype">ofstream &amp;&#160;</td>
+          <td class="paramname"><em>ofs</em></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classAdministrador.html#a2e7afe734299a131fb190875aa4545a1">Administrador</a>, <a class="el" href="classCandidato.html#ae96bae8e2546021226142177e0f1dfdc">Candidato</a>, <a class="el" href="classCargo.html#a4d4d9c788328f2d4fc7386e7b9e32e7f">Cargo</a>, <a class="el" href="classConteo.html#a6e93d57601af3a4c1076d9632ca80892">Conteo</a>, <a class="el" href="classDistrito.html#afb71d3dc2bb24febd9d2ff9afa410edd">Distrito</a>, <a class="el" href="classEleccion.html#adbc6a0c290c6d91506db01d90e7cc3d2">Eleccion</a>, <a class="el" href="classLista.html#aec6cdb19de23e128de202997c132ac58">Lista</a>, and <a class="el" href="classVotante.html#a6d96451ebf6aeef3389745f7f6f0f944">Votante</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afa9b872d9910ca58551b0871d8840a3e"></a><!-- doxytag: member="Grabable::Leer" ref="afa9b872d9910ca58551b0871d8840a3e" args="(ifstream &amp;ifs, unsigned long int offset)=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Grabable::Leer </td>
+          <td>(</td>
+          <td class="paramtype">ifstream &amp;&#160;</td>
+          <td class="paramname"><em>ifs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long int&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implemented in <a class="el" href="classAdministrador.html#a1e216e1dd26cb08d3db20afdc8947559">Administrador</a>, <a class="el" href="classCandidato.html#a592d464da57cdce53dd46851b6f9208e">Candidato</a>, <a class="el" href="classCargo.html#ac2c167b6c3b037521ae3f9cc0189528f">Cargo</a>, <a class="el" href="classConteo.html#a8eb5fd99176e4f8ca8599eae360289f6">Conteo</a>, <a class="el" href="classDistrito.html#a9eb072607d51224af2fffe6b3fb54e3b">Distrito</a>, <a class="el" href="classEleccion.html#ae4c70a9136c923752810c2abe48cfcf4">Eleccion</a>, <a class="el" href="classLista.html#a9d3e7f0ae6a8440293db86b9fca735f9">Lista</a>, and <a class="el" href="classVotante.html#a71e192b343ed3baca82ccfc75705b98b">Votante</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="Grabable_8h_source.html">Grabable.h</a></li>
 </ul>
 </div>
@@ -110,7 +205,7 @@ virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getClassNam
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -119,7 +214,7 @@ virtual string&#160;</td><td class="memItemRight" valign="bottom"><b>getClassNam
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

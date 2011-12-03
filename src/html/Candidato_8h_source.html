@@ -51,6 +51,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
+      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <div class="header">
@@ -58,7 +59,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h1>Candidato.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a href="Candidato_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * Candidato.h</span>
 <a name="l00003"></a>00003 <span class="comment"> *</span>
 <a name="l00004"></a>00004 <span class="comment"> *  Created on: 19/09/2011</span>
@@ -68,20 +69,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00008"></a>00008 <span class="preprocessor">#ifndef CANDIDATO_H_</span>
 <a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define CANDIDATO_H_</span>
 <a name="l00010"></a>00010 <span class="preprocessor"></span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;Grabable.h&quot;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;Logueable.h&quot;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;Votante.h&quot;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;Cargo.h&quot;</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;DataAccess.h&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="Grabable_8h.html">Grabable.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="Logueable_8h.html">Logueable.h</a>&quot;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="Votante_8h.html">Votante.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="Cargo_8h.html">Cargo.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="DataAccess_8h.html">DataAccess.h</a>&quot;</span>
 <a name="l00016"></a>00016 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00017"></a>00017 
 <a name="l00018"></a>00018 <span class="keyword">using namespace </span>std;
 <a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="classCandidato.html">00020</a> <span class="keyword">class </span><a class="code" href="classCandidato.html">Candidato</a> : <span class="keyword">public</span> <a class="code" href="classGrabable.html" title="Interfaz para la persistencia de las entidades.">Grabable</a> {
+<a name="l00020"></a><a class="code" href="classCandidato.html">00020</a> <span class="keyword">class </span><a class="code" href="classCandidato.html">Candidato</a> : <span class="keyword">public</span> <a class="code" href="classGrabable.html">Grabable</a> {
 <a name="l00021"></a>00021 <span class="keyword">private</span>:
-<a name="l00022"></a>00022         <span class="keywordtype">long</span> _id;
-<a name="l00023"></a>00023         <a class="code" href="classLista.html">Lista</a> * _listaPropia;
-<a name="l00024"></a>00024         <a class="code" href="classVotante.html">Votante</a> * _votante;
+<a name="l00022"></a><a class="code" href="classCandidato.html#abc51d97613456722f76de8bdeafb758d">00022</a>         <span class="keywordtype">long</span> <a class="code" href="classCandidato.html#abc51d97613456722f76de8bdeafb758d">_id</a>;
+<a name="l00023"></a><a class="code" href="classCandidato.html#a2be33a7fab33cba3fed9f7a48e0d8f76">00023</a>         <a class="code" href="classLista.html">Lista</a> * <a class="code" href="classCandidato.html#a2be33a7fab33cba3fed9f7a48e0d8f76">_listaPropia</a>;
+<a name="l00024"></a><a class="code" href="classCandidato.html#a8ba5f897030dce3b8f6bc0875033ff87">00024</a>         <a class="code" href="classVotante.html">Votante</a> * <a class="code" href="classCandidato.html#a8ba5f897030dce3b8f6bc0875033ff87">_votante</a>;
 <a name="l00025"></a>00025 <span class="keyword">public</span>:
 <a name="l00026"></a>00026         <a class="code" href="classCandidato.html">Candidato</a>();
 <a name="l00027"></a>00027         <a class="code" href="classCandidato.html">Candidato</a>(<a class="code" href="classVotante.html">Votante</a> votante, <a class="code" href="classLista.html">Lista</a> lista);
@@ -94,12 +95,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00034"></a>00034         <a class="code" href="classCargo.html">Cargo</a>&amp; getCargo();
 <a name="l00035"></a>00035         <span class="keywordtype">int</span> getDNI();
 <a name="l00036"></a>00036         <span class="keywordtype">string</span> getNombreYApellido();
-<a name="l00037"></a>00037         <a class="code" href="classVotante.html">Votante</a> getVotante(){<span class="keywordflow">return</span> *this-&gt;_votante; }
+<a name="l00037"></a><a class="code" href="classCandidato.html#a68769c9ebccc309b92c4a2a044eca272">00037</a>         <a class="code" href="classVotante.html">Votante</a> <a class="code" href="classCandidato.html#a68769c9ebccc309b92c4a2a044eca272">getVotante</a>(){<span class="keywordflow">return</span> *this-&gt;_votante; }
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039         <span class="comment">//TODO: los setters deberian ser por la entidad entera o pasarles el id y despues ir a buscarlos</span>
 <a name="l00040"></a>00040         <span class="comment">//a la BD y asignarselos a el atributo privado q lo contiene</span>
 <a name="l00041"></a>00041         <span class="comment">//Setters</span>
-<a name="l00042"></a>00042         <span class="keywordtype">void</span> setId(<span class="keywordtype">long</span> <span class="keywordtype">id</span>) {this-&gt;_id=id;}
+<a name="l00042"></a><a class="code" href="classCandidato.html#adb6a2cadd40e32e53b82ef08c05370bb">00042</a>         <span class="keywordtype">void</span> <a class="code" href="classCandidato.html#adb6a2cadd40e32e53b82ef08c05370bb">setId</a>(<span class="keywordtype">long</span> <span class="keywordtype">id</span>) {this-&gt;_id=id;}
 <a name="l00043"></a>00043         <span class="keywordtype">void</span> setLista(<a class="code" href="classLista.html">Lista</a> lista);
 <a name="l00044"></a>00044         <span class="keywordtype">void</span> setCargo(<a class="code" href="classCargo.html">Cargo</a> cargo);
 <a name="l00045"></a>00045 
@@ -123,7 +124,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Defines</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -132,7 +133,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Oct 22 2011 00:00:48 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Dec 2 2011 22:17:11 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
