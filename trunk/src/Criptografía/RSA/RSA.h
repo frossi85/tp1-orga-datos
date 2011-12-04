@@ -128,6 +128,10 @@ public:
 
 
 	//Devuelve el exponente d de la calve privada
+
+    /*
+	 * Metodo que a partir de la clave publica (e,n) la romper y devuelve el exponente d de la calve privada
+	 */
     static EnteroLargo romper(EnteroLargo e, EnteroLargo n);
 
     virtual ~RSA();
