@@ -246,6 +246,8 @@
 *
 * Para esta entrega se agregó funcionalidad al trabajo práctico para realizar la encriptación de la información de votantes
 * y administradores usando RSA, y la encriptación de los reportes mediante el algoritmo de Vigenere.\n
+* El algoritmo RSA genera las claves pública y privada siguiendo el procedimiento de multiplicación de números primos visto
+* en clase.\n
 * También se agregaron opciones para romper dichos criptogramas usando factorización de números primos y el
 * algoritmo de Kasiski, respectivamente.\n
 * A excepción de la utilización de RSA, que es transparente al usuario, el resto de la funcionalidad se agregó en forma de nuevas
@@ -269,7 +271,9 @@
 *
 * ./VotoElectronico --romperRSA \n\n
 *
-* Por pantalla se mostrarán los pasos seguidos por el algoritmo y sus resultados.
+* Por pantalla se mostrarán los pasos seguidos por el algoritmo y sus resultados. Para romper la encriptación de RSA se utiliza
+* factorización de números primos (ver clase Factorizacion), aplicando divisiones sucesivas y el método de Fermat. El método
+* encargado de esta tarea es RSA::romper.
 *
 * @section encriptar Encriptación/rotura de reportes con Vigenère y Kasiski:
 *

@@ -283,6 +283,7 @@ Bugs conocidos</h2>
  <h2><a class="anchor" id="segunda"></a>
 Segunda Entrega</h2>
 <p>Para esta entrega se agregó funcionalidad al trabajo práctico para realizar la encriptación de la información de votantes y administradores usando <a class="el" href="classRSA.html">RSA</a>, y la encriptación de los reportes mediante el algoritmo de <a class="el" href="classVigenere.html">Vigenere</a>.<br/>
+ El algoritmo <a class="el" href="classRSA.html">RSA</a> genera las claves pública y privada siguiendo el procedimiento de multiplicación de números primos visto en clase.<br/>
  También se agregaron opciones para romper dichos criptogramas usando factorización de números primos y el algoritmo de <a class="el" href="classKasiski.html">Kasiski</a>, respectivamente.<br/>
  A excepción de la utilización de <a class="el" href="classRSA.html">RSA</a>, que es transparente al usuario, el resto de la funcionalidad se agregó en forma de nuevas opciones en el menú del administrador, o que se acceden mediante ciertos argumentos por línea de comandos. Su uso se explica a continuación.</p>
 <h2><a class="anchor" id="uso"></a>
@@ -304,7 +305,7 @@ Romper RSA:</h2>
 <p>./VotoElectronico --romperRSA <br/>
 <br/>
 </p>
-<p>Por pantalla se mostrarán los pasos seguidos por el algoritmo y sus resultados.</p>
+<p>Por pantalla se mostrarán los pasos seguidos por el algoritmo y sus resultados. Para romper la encriptación de <a class="el" href="classRSA.html">RSA</a> se utiliza factorización de números primos (ver clase <a class="el" href="classFactorizacion.html">Factorizacion</a>), aplicando divisiones sucesivas y el método de Fermat. El método encargado de esta tarea es <a class="el" href="classRSA.html#a840cff81e5df8b0763b36dd92616b881">RSA::romper</a>.</p>
 <h2><a class="anchor" id="encriptar"></a>
 Encriptación/rotura de reportes con Vigenère y Kasiski:</h2>
 <p>Antes de empezar a trabajar con los reportes, estos deben ser generados. Para hacerlo, hay que ingresar como administrador (recordar que por defecto se puede usar la cuenta con usuario y contraseña "tp"), en el menú seleccionar la opción "R" (Informes de resultados), y en el submenú que aparece, elegir alguno de los 3 tipos de reportes para ver. El reporte elegido se mostrará por pantalla, y además se guardará en un archivo de texto en la carpeta src/Reportes.</p>
@@ -335,7 +336,7 @@ Encriptación/rotura de reportes con Vigenère y Kasiski:</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:11:12 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:20:51 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
