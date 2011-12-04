@@ -12,6 +12,7 @@
 #include "Logueable.h"
 #include "Utilidades.h"
 #include "Configuracion.h"
+#include "Criptografía/RSA/RSA.h"
 #include <string>
 
 using namespace std;

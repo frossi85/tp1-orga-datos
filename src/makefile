@@ -61,7 +61,7 @@ Logueable.o: Logueable.cpp Logueable.h
 Votante.o: Votante.cpp Votante.h ManejoIDs.h
 	$(CC) $(CFLAGS) Votante.cpp
 
-Votante.h: Grabable.h Logueable.h Distrito.h Eleccion.h Lista.h
+Votante.h: Grabable.h Logueable.h Distrito.h Eleccion.h Lista.h DataAccess.h Criptografía/RSA/RSA.h
 
 Conteo.o: Conteo.cpp Conteo.h
 	$(CC) $(CFLAGS) Conteo.cpp
@@ -228,7 +228,7 @@ Criptografía/TestFactorizacion.h: Criptografía/Factorizacion.h Criptografía/R
 Administrador.o: Administrador.cpp Administrador.h
 	$(CC) $(CFLAGS) Administrador.cpp
 
-Administrador.h: Grabable.h Logueable.h Utilidades.h Configuracion.h
+Administrador.h: Grabable.h Logueable.h Utilidades.h Configuracion.h Criptografía/RSA/RSA.h
 
 TestRomperRSA.o: Criptografía/RSA/TestRomperRSA.cpp Criptografía/RSA/TestRomperRSA.h Criptografía/RSA/RSA.h
 	$(CC) $(CFLAGS) Criptografía/RSA/TestRomperRSA.cpp
