@@ -141,44 +141,42 @@ unsigned long int Votante::Guardar(ofstream & ofs)
 	RSA rsa(privada, publica);
 
 	//Comienzo escritura de atributos
-	//ofs.write(reinterpret_cast<char *>(&_id), sizeof(_id));
-	//ofs.write(reinterpret_cast<char *>(&_dni), sizeof(_dni));
-
-	//Utilidades::stringToFile(_nombreYApellido, ofs);
-	//Utilidades::stringToFile(_clave, ofs);
-	//Utilidades::stringToFile(_domicilio, ofs);
-
-	//Se escribe la referencia al Distrito guardando su id
-	//long idDistrito = (*(_distrito)).getId();
-	//ofs.write(reinterpret_cast<char *>(&idDistrito), sizeof(idDistrito));
+//	long _id;
+//	int _dni;
+//	string _nombreYApellido;
+//	string _clave;
+//	string _domicilio;
+//
+//	Distrito* _distrito;
+//	vector<Eleccion *> _elecciones;
 
 	//Para encriptar
 	string id = rsa.encriptar(Utilidades::toString(_id));
 	string dni = rsa.encriptar(Utilidades::toString(_dni));
+	string nombre = rsa.encriptar(_nombreYApellido);
+	string clave = rsa.encriptar(_clave);
+	string domicilio = rsa.encriptar(_domicilio);
 
 	Utilidades::stringToFile(id, ofs);
 	Utilidades::stringToFile(dni, ofs);
-
-	string nombre = rsa.encriptar(_nombreYApellido);
 	Utilidades::stringToFile(nombre, ofs);
-	string clave = rsa.encriptar(_clave);
 	Utilidades::stringToFile(clave, ofs);
-	string domicilio = rsa.encriptar(_domicilio);
 	Utilidades::stringToFile(domicilio, ofs);
 
 	string idDistritoStr = rsa.encriptar(Utilidades::toString(_distrito->getId()));
 	Utilidades::stringToFile(idDistritoStr, ofs);
 
 	string cantidadEleccionesStr = rsa.encriptar(Utilidades::toString(this->_elecciones.size()));
-
 	Utilidades::stringToFile(cantidadEleccionesStr, ofs);
 
 
 	//Grabo los IDs de las elecciones
 	long idEleccion = 0;
+	string idEleccionStr;
 	for(string::size_type i = 0; i <  this->_elecciones.size(); i++){
 
-		string idEleccionStr = rsa.encriptar(Utilidades::toString(idEleccion));
+		idEleccion = this->_elecciones[i]->getId();
+		idEleccionStr = rsa.encriptar(Utilidades::toString(idEleccion));
 		Utilidades::stringToFile(idEleccionStr, ofs);
 	}
 
