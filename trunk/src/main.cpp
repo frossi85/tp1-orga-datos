@@ -20,6 +20,10 @@ int main(int argc, char *argv[]){
 
 	//TestFactorizacion::ejecutar();
 
+	TestRomperRSA test;
+
+	test.iniciar();
+
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){
 			// Numero incorrecto de parametros
