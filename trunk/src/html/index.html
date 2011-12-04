@@ -249,19 +249,6 @@ Bugs conocidos</h2>
 <br/>
 </li>
 </ul>
-<p>Bajas: <br/>
-<br/>
-</p>
-<ul>
-<li>Cuando se hacen bajas de <a class="el" href="classDistrito.html">Distrito</a>, <a class="el" href="classEleccion.html">Eleccion</a> y/o <a class="el" href="classLista.html">Lista</a>, solo se modifican los indices en sus arboles de reporte respectivos (ej: la baja de un distrito produce la baja de los indices con ese distrito en el arbol de Reporte por <a class="el" href="classDistrito.html">Distrito</a>, pero no en los de reporte por <a class="el" href="classLista.html">Lista</a> y <a class="el" href="classEleccion.html">Eleccion</a>). Solucion posible: hacer un parseo de claves en los arboles cuyos indices no se eliminan. Como la solucion presentaba una dificultad elevada, a falta de tiempo, se tuvo que dejar como estaba. <br/>
-<br/>
-</li>
-</ul>
-<ul>
-<li>Por falta de tiempo, no se pudo evaluar a fondo las bajas de las entidades, especialmente las que son referenciadas por otras entidades, ya que esta ultima quedaria con una referencia erronea. Se trato de implementar manejo de excepciones para este caso, pero no se llego a analizar correctamente. Conclusion: puede haber lanzamiento de excepciones, referencias invalidas o referencias sin eliminar en las bajas de las entidades.<br/>
-<br/>
-</li>
-</ul>
 <p>Votación: <br/>
 <br/>
 </p>
@@ -336,7 +323,7 @@ Encriptación/rotura de reportes con Vigenère y Kasiski:</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:20:51 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:42:55 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
