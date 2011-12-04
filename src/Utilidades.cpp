@@ -171,6 +171,20 @@ string Utilidades::obtenerClaveCandidato(const string &fecha, const string &carg
 }
 
 
+string Utilidades::toString(int a)
+{
+	stringstream ss;
+	ss << a;
+	return ss.str();
+}
+
+string Utilidades::toString(string::size_type a)
+{
+	stringstream ss;
+	ss << a;
+	return ss.str();
+}
+
 string Utilidades::obtenerClaveAdministrador(const string &usuario) {
 	string clave = usuario;
 	Utilidades::formatearClave(clave);

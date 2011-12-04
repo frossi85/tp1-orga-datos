@@ -26,6 +26,8 @@ public:
 	virtual ~Utilidades();
 	static string getFechaYHora();
 	static string toString(long int a);
+	static string toString(int a);
+	static string toString(string::size_type a);
 	static string indexarFecha(string fecha);
 	static void formatearClave(string &clave);
 
