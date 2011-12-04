@@ -22,27 +22,56 @@ int main(int argc, char *argv[]){
 
     ConsultaEntidades consulta;
     ABMentidades abm;
+	string dni = "31533482";
+	string clave;
+	string fecha = "10/02/2011";
+	string cargoPrincipal = "CargoPrincipal";
+	string nombreDistrito = "Capital";
+	string nombreLista = "Lista1";
 
-	Distrito distrito1("Capital");
-	abm.altaDistrito(distrito1);
+	Distrito distrito1(nombreDistrito);
+	clave= nombreDistrito;
+	Utilidades::formatearClave(clave);
+	if(!(consulta.ObtenerRegistro(clave, distrito1)))
+	{
+		abm.altaDistrito(distrito1);
+	}
 
-	Cargo cargo("CargoPrincipal");
-	abm.altaCargo(cargo);
+	Cargo cargo(cargoPrincipal);
+	clave= cargoPrincipal;
+	Utilidades::formatearClave(clave);
+	if(!(consulta.ObtenerRegistro(clave, cargo)))
+	{
+		abm.altaCargo(cargo);
+	}
 
-	Eleccion eleccion("10/02/2011", cargo, distrito1);
-	abm.altaEleccion(eleccion);
+	Eleccion eleccion(fecha, cargo, distrito1);
+	clave= Utilidades::indexarFecha(fecha) + "$" + cargoPrincipal;
+	Utilidades::formatearClave(clave);
+	if(!(consulta.ObtenerRegistro(clave, eleccion)))
+	{
+		abm.altaEleccion(eleccion);
+	}
 
-	Lista lista("Lista1", eleccion);
-	abm.altaLista(lista);
+	Lista lista(nombreLista, eleccion);
+	clave= Utilidades::indexarFecha(fecha) + "$" + cargoPrincipal + "$" + nombreLista;
+	Utilidades::formatearClave(clave);
+	if(!(consulta.ObtenerRegistro(clave, lista)))
+	{
+		abm.altaLista(lista);
+	}
 
 	Votante votante1(31533482, "Facundo Rossi", "hackersout", "Saraza", distrito1);
-
-	abm.altaVotante(votante1);
+	clave= dni;
+	Utilidades::formatearClave(dni);
+	if(!(consulta.ObtenerRegistro(clave, votante1)))
+	{
+		abm.altaVotante(votante1);
+	}
 
 	abm.agregarVoto(votante1, lista, distrito1);
 
 	Votante votante2;
-	string dni = "31533482";
 
 	if(!(consulta.ObtenerRegistro(dni, votante2)))
 	{
@@ -54,6 +83,7 @@ int main(int argc, char *argv[]){
 	cout<<votante2.getClave()<<endl;
 	cout<<votante2.getDomicilio()<<endl;
 	votante2.getDistrito().Imprimir();
+	cout<<"Cantidad de elecciones: "<<votante2.getElecciones().size()<<endl;
 	votante2.getElecciones()[0]->Imprimir();
 
 	cout<<endl<<endl;
