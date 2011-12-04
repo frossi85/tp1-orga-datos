@@ -63,6 +63,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <hr/>
 </li>
 </ul>
+<h2><a class="anchor" id="primera"></a>
+Primera Entrega</h2>
 <h2><a class="anchor" id="imple"></a>
 Implementación</h2>
 <p>Debido a que la problemática que presentan las distintas entidades del dominio son diferentes, se utilizaran distintos tipo de organizaciones y estructuras de datos de acuerdo a la entidad. <br/>
@@ -243,7 +245,7 @@ Bugs conocidos</h2>
 <br/>
 </p>
 <ul>
-<li>Quedan algunas pérdidas de memoria sin resolver. Según las pruebas hechas, insertar 1 millón de registros de una vez consume 3 Gb de RAM. Sin embargo, para inserciones de menos de 300.000 elementos, la pérdida de memoria es mucho menor, y se pueden realizar sin problemas en una computadora con 2 o más Gb de RAM. Independientemente de la memoria del sistema, se puede guardar cualquier cantidad de registros, siempre y cuando no se los guarde a todos en una sola corrida (es decir, guardando algunos, cerrando el programa y guardando los que faltan). <br/>
+<li>Quedaron algunas pérdidas de memoria sin resolver. Según las pruebas hechas, insertar 1 millón de registros de una vez consume 3 Gb de RAM. Sin embargo, para inserciones de menos de 300.000 elementos, la pérdida de memoria es mucho menor, y se pueden realizar sin problemas en una computadora con 2 o más Gb de RAM. Independientemente de la memoria del sistema, se puede guardar cualquier cantidad de registros, siempre y cuando no se los guarde a todos en una sola corrida (es decir, guardando algunos, cerrando el programa y guardando los que faltan). <br/>
 <br/>
 </li>
 </ul>
@@ -264,22 +266,17 @@ Bugs conocidos</h2>
 <br/>
 </p>
 <ul>
-<li>El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha. Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar.<br/>
+<li>El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha. Puede deberse a una inconsistencia de datos de la carga inicial, no se llegó a corroborar.<br/>
 <br/>
 </li>
 </ul>
-<p>Otros: <br/>
-<br/>
-</p>
-<ul>
-<li>(Esto mas que un bug es algo que falto) No se hizo el ABM de administrador. El único administrador que puede ingresar es el de user "tp", pass "tp". Solucion: implementar la clase <a class="el" href="classAdministrador.html">Administrador</a>. <br/>
+<p><br/>
 <br/>
 <br/>
  <hr/>
  Aclaración importante:<br/>
 <br/>
-</li>
-</ul>
+</p>
 <p>No es posible cambiar la fecha ni el cargo principal de una elección, ni agregarle cargos secundarios. Si se quieren agregar, debe hacerse desde el modificar de <a class="el" href="classCargo.html">Cargo</a>. Es decir, la opción de agregar cargos secundarios no debería estar en el modificar de Elección, sino sólo en el de <a class="el" href="classCargo.html">Cargo</a>, pero por cuestiones de tiempo no llegamos a eliminar dicha opción del menu.<br/>
  Por otra parte, el modificar de Elección sí permite agregar o quitar distritos.</p>
 <hr/>
@@ -338,7 +335,7 @@ Encriptación/rotura de reportes con Vigenère y Kasiski:</h2>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 16:42:29 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:11:12 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

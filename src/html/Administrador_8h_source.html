@@ -73,33 +73,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="Logueable_8h.html">Logueable.h</a>&quot;</span>
 <a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="Utilidades_8h.html">Utilidades.h</a>&quot;</span>
 <a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="Configuracion_8h.html">Configuracion.h</a>&quot;</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="keyword">using namespace </span>std;
-<a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classAdministrador.html">00019</a> <span class="keyword">class </span><a class="code" href="classAdministrador.html">Administrador</a> : <span class="keyword">public</span> <a class="code" href="classGrabable.html">Grabable</a>  {
-<a name="l00020"></a>00020 <span class="keyword">public</span>:
-<a name="l00021"></a>00021         <a class="code" href="classAdministrador.html">Administrador</a>();
-<a name="l00022"></a>00022         <a class="code" href="classAdministrador.html">Administrador</a>(<span class="keywordtype">string</span> usuario, <span class="keywordtype">string</span> clave);
-<a name="l00023"></a>00023         <span class="keyword">virtual</span> ~<a class="code" href="classAdministrador.html">Administrador</a>();
-<a name="l00024"></a>00024         <a class="code" href="classAdministrador.html">Administrador</a>(<span class="keyword">const</span> <a class="code" href="classAdministrador.html">Administrador</a> &amp;admin);
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> Guardar(ofstream &amp; ofs);
-<a name="l00027"></a>00027         <span class="keywordtype">bool</span> Leer(ifstream &amp; ifs, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> offset);
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029         <span class="keywordtype">string</span> getUsuario();
-<a name="l00030"></a>00030         <span class="keywordtype">string</span> getClave();
-<a name="l00031"></a>00031         <span class="keywordtype">void</span> Imprimir();
-<a name="l00032"></a>00032         <span class="keywordtype">int</span> getTamanioEnDisco();
-<a name="l00033"></a>00033         <span class="keywordtype">string</span> getClassName();
-<a name="l00034"></a>00034         <span class="keyword">inline</span> <span class="keywordtype">string</span> getURLArchivoDatos();
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="keyword">private</span>:
-<a name="l00037"></a><a class="code" href="classAdministrador.html#aaddb0326b3f550afdcb098723d13113d">00037</a>         <span class="keywordtype">string</span> <a class="code" href="classAdministrador.html#aaddb0326b3f550afdcb098723d13113d">usuario</a>;
-<a name="l00038"></a><a class="code" href="classAdministrador.html#aed8b128afa5177976dff780001c8c635">00038</a>         <span class="keywordtype">string</span> <a class="code" href="classAdministrador.html#aed8b128afa5177976dff780001c8c635">clave</a>;
-<a name="l00039"></a>00039 };
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041 <span class="preprocessor">#endif </span><span class="comment">/* ADMINISTRADOR_H_ */</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="RSA_8h.html">Criptografía/RSA/RSA.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">using namespace </span>std;
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="classAdministrador.html">00020</a> <span class="keyword">class </span><a class="code" href="classAdministrador.html">Administrador</a> : <span class="keyword">public</span> <a class="code" href="classGrabable.html">Grabable</a>  {
+<a name="l00021"></a>00021 <span class="keyword">public</span>:
+<a name="l00022"></a>00022         <a class="code" href="classAdministrador.html">Administrador</a>();
+<a name="l00023"></a>00023         <a class="code" href="classAdministrador.html">Administrador</a>(<span class="keywordtype">string</span> usuario, <span class="keywordtype">string</span> clave);
+<a name="l00024"></a>00024         <span class="keyword">virtual</span> ~<a class="code" href="classAdministrador.html">Administrador</a>();
+<a name="l00025"></a>00025         <a class="code" href="classAdministrador.html">Administrador</a>(<span class="keyword">const</span> <a class="code" href="classAdministrador.html">Administrador</a> &amp;admin);
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> Guardar(ofstream &amp; ofs);
+<a name="l00028"></a>00028         <span class="keywordtype">bool</span> Leer(ifstream &amp; ifs, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> offset);
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030         <span class="keywordtype">string</span> getUsuario();
+<a name="l00031"></a>00031         <span class="keywordtype">string</span> getClave();
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> Imprimir();
+<a name="l00033"></a>00033         <span class="keywordtype">int</span> getTamanioEnDisco();
+<a name="l00034"></a>00034         <span class="keywordtype">string</span> getClassName();
+<a name="l00035"></a>00035         <span class="keyword">inline</span> <span class="keywordtype">string</span> getURLArchivoDatos();
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037 <span class="keyword">private</span>:
+<a name="l00038"></a><a class="code" href="classAdministrador.html#aaddb0326b3f550afdcb098723d13113d">00038</a>         <span class="keywordtype">string</span> <a class="code" href="classAdministrador.html#aaddb0326b3f550afdcb098723d13113d">usuario</a>;
+<a name="l00039"></a><a class="code" href="classAdministrador.html#aed8b128afa5177976dff780001c8c635">00039</a>         <span class="keywordtype">string</span> <a class="code" href="classAdministrador.html#aed8b128afa5177976dff780001c8c635">clave</a>;
+<a name="l00040"></a>00040 };
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 <span class="preprocessor">#endif </span><span class="comment">/* ADMINISTRADOR_H_ */</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -116,7 +117,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 16:42:29 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:11:12 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
