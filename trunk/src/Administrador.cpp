@@ -62,8 +62,17 @@ bool Administrador::Leer(ifstream & ifs, unsigned long int offset) {
 	ifs.seekg(offset,ios::beg);
 
 	//Comienzo lectura de atributos
-	usuario = Utilidades::stringFromFile(ifs);
-	clave = Utilidades::stringFromFile(ifs);
+	//usuario = Utilidades::stringFromFile(ifs);
+	//clave = Utilidades::stringFromFile(ifs);
+
+        Clave publica = Clave(34333445, 100160063);
+	Clave privada = Clave(10013, 100160063);
+
+        RSA rsa(privada, publica);
+
+        //lectura de los atributos
+        usuario = rsa.desencriptar(Utilidades::stringFromFile(ifs));
+        clave = rsa.desencriptar(Utilidades::stringFromFile(ifs));
 
 	return true;
 }
@@ -73,9 +82,22 @@ unsigned long int Administrador::Guardar(ofstream & ofs) {
 
 	unsigned long int offset = ofs.tellp();
 
+        Clave publica = Clave(34333445, 100160063);
+	Clave privada = Clave(10013, 100160063);
+
+	RSA rsa(privada, publica);
+
 	// Comienzo escritura de atributos
+	//Utilidades::stringToFile(usuario, ofs);
+	//Utilidades::stringToFile(clave, ofs);
+
+        //Para encriptar
+	string usuario = rsa.encriptar(this->usuario);
+	string clave = rsa.encriptar(this->clave);
+
 	Utilidades::stringToFile(usuario, ofs);
 	Utilidades::stringToFile(clave, ofs);
+
 
 	return offset;
 }
