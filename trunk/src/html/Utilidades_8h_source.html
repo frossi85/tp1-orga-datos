@@ -87,39 +87,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00026"></a>00026         <span class="keyword">virtual</span> ~<a class="code" href="classUtilidades.html">Utilidades</a>();
 <a name="l00027"></a>00027         <span class="keyword">static</span> <span class="keywordtype">string</span> getFechaYHora();
 <a name="l00028"></a>00028         <span class="keyword">static</span> <span class="keywordtype">string</span> toString(<span class="keywordtype">long</span> <span class="keywordtype">int</span> a);
-<a name="l00029"></a>00029         <span class="keyword">static</span> <span class="keywordtype">string</span> indexarFecha(<span class="keywordtype">string</span> fecha);
-<a name="l00030"></a>00030         <span class="keyword">static</span> <span class="keywordtype">void</span> formatearClave(<span class="keywordtype">string</span> &amp;clave);
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032         <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getDNIaleatorio(<span class="keywordtype">int</span> semilla);
+<a name="l00029"></a>00029         <span class="keyword">static</span> <span class="keywordtype">string</span> toString(<span class="keywordtype">int</span> a);
+<a name="l00030"></a>00030         <span class="keyword">static</span> <span class="keywordtype">string</span> toString(string::size_type a);
+<a name="l00031"></a>00031         <span class="keyword">static</span> <span class="keywordtype">string</span> indexarFecha(<span class="keywordtype">string</span> fecha);
+<a name="l00032"></a>00032         <span class="keyword">static</span> <span class="keywordtype">void</span> formatearClave(<span class="keywordtype">string</span> &amp;clave);
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034         <span class="comment">//La idea es que guarde en un archivo modo binario</span>
-<a name="l00035"></a>00035         <span class="comment">//primero la longitud de la cadena como int y luego</span>
-<a name="l00036"></a>00036         <span class="comment">//la cadena misma como char *</span>
-<a name="l00037"></a>00037         <span class="keyword">static</span> <span class="keywordtype">void</span> stringToFile(std::string &amp; str, std::ofstream &amp; ofs);
-<a name="l00038"></a>00038 
-<a name="l00039"></a>00039         <span class="comment">//La idea es que lea de un archivo modo binario</span>
-<a name="l00040"></a>00040         <span class="comment">//primero la longitud de la cadena como un int</span>
-<a name="l00041"></a>00041         <span class="comment">//y luego lea la cadena misma teniendo en cuenta el largo</span>
-<a name="l00042"></a>00042         <span class="comment">//guardado en el int leido primero</span>
-<a name="l00043"></a>00043         <span class="keyword">static</span> <span class="keywordtype">string</span> stringFromFile(std::ifstream &amp; ifs);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045         <span class="keyword">static</span> <span class="keywordtype">void</span> stringToFile(std::string &amp; str, std::fstream &amp; ofs);
+<a name="l00034"></a>00034         <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getDNIaleatorio(<span class="keywordtype">int</span> semilla);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036         <span class="comment">//La idea es que guarde en un archivo modo binario</span>
+<a name="l00037"></a>00037         <span class="comment">//primero la longitud de la cadena como int y luego</span>
+<a name="l00038"></a>00038         <span class="comment">//la cadena misma como char *</span>
+<a name="l00039"></a>00039         <span class="keyword">static</span> <span class="keywordtype">void</span> stringToFile(std::string &amp; str, std::ofstream &amp; ofs);
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041         <span class="comment">//La idea es que lea de un archivo modo binario</span>
+<a name="l00042"></a>00042         <span class="comment">//primero la longitud de la cadena como un int</span>
+<a name="l00043"></a>00043         <span class="comment">//y luego lea la cadena misma teniendo en cuenta el largo</span>
+<a name="l00044"></a>00044         <span class="comment">//guardado en el int leido primero</span>
+<a name="l00045"></a>00045         <span class="keyword">static</span> <span class="keywordtype">string</span> stringFromFile(std::ifstream &amp; ifs);
 <a name="l00046"></a>00046 
-<a name="l00047"></a>00047         <span class="keyword">static</span> <span class="keywordtype">string</span> stringFromFile(std::fstream &amp; ifs);
+<a name="l00047"></a>00047         <span class="keyword">static</span> <span class="keywordtype">void</span> stringToFile(std::string &amp; str, std::fstream &amp; ofs);
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049         <span class="keyword">static</span> <span class="keywordtype">void</span> sleep(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mseconds);
+<a name="l00049"></a>00049         <span class="keyword">static</span> <span class="keywordtype">string</span> stringFromFile(std::fstream &amp; ifs);
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveDistrito(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreDistrito);
-<a name="l00052"></a>00052         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveCargo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal);
-<a name="l00053"></a>00053         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveEleccion(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;fecha, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal);
-<a name="l00054"></a>00054         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveLista(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;fecha, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreLista);
-<a name="l00055"></a>00055         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveVotante(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;DNI);
-<a name="l00056"></a>00056         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveCandidato(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;fecha, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreLista, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;DNI);
-<a name="l00057"></a>00057         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveAdministrador(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario);
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059 };
+<a name="l00051"></a>00051         <span class="keyword">static</span> <span class="keywordtype">void</span> sleep(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mseconds);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveDistrito(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreDistrito);
+<a name="l00054"></a>00054         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveCargo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal);
+<a name="l00055"></a>00055         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveEleccion(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;fecha, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal);
+<a name="l00056"></a>00056         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveLista(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;fecha, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreLista);
+<a name="l00057"></a>00057         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveVotante(<span class="keyword">const</span> <span class="keywordtype">int</span> &amp;DNI);
+<a name="l00058"></a>00058         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveCandidato(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;fecha, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;cargoPrincipal, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreLista, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;DNI);
+<a name="l00059"></a>00059         <span class="keyword">static</span> <span class="keywordtype">string</span> obtenerClaveAdministrador(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario);
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="preprocessor">#endif </span><span class="comment">/* UTILIDADES_H_ */</span>
+<a name="l00061"></a>00061 };
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 <span class="preprocessor">#endif </span><span class="comment">/* UTILIDADES_H_ */</span>
 </pre></div></div>
 </div>
 <!--- window showing the filter options -->
@@ -136,7 +138,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 16:42:29 for VotoElectronico by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sat Dec 3 2011 22:11:12 for VotoElectronico by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>

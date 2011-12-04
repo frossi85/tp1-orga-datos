@@ -7,6 +7,9 @@
 * - Miguel Torres (padrón 91.396 - mat1204@hotmail.com)\n
 * <hr>
 *
+* @section primera Primera Entrega
+*
+*
 * @section imple Implementación
 *
 * Debido a que la problemática que presentan las distintas entidades del dominio son diferentes, se utilizaran distintos tipo de organizaciones
@@ -204,7 +207,7 @@
 *
 * Hash: \n\n
 *
-* - Quedan algunas pérdidas de memoria sin resolver. Según las pruebas hechas, insertar 1 millón de registros de una vez consume 3 Gb de RAM.
+* - Quedaron algunas pérdidas de memoria sin resolver. Según las pruebas hechas, insertar 1 millón de registros de una vez consume 3 Gb de RAM.
 * Sin embargo, para inserciones de menos de 300.000 elementos, la pérdida de memoria es mucho menor, y se pueden realizar sin problemas en una
 * computadora con 2 o más Gb de RAM. Independientemente de la memoria del sistema, se puede guardar cualquier cantidad de registros, siempre
 * y cuando no se los guarde a todos en una sola corrida (es decir, guardando algunos, cerrando el programa y guardando los que faltan).
@@ -225,12 +228,8 @@
 * Votación: \n\n
 *
 * - El método getListaPorEleccion() está devolviendo las listas de la elección que recibe por parámetro y de la siguiente elección en fecha.
-* Puede deberse a una inconsistencia de datos de la carga inicial, no se llego a corroborar.\n\n
+* Puede deberse a una inconsistencia de datos de la carga inicial, no se llegó a corroborar.\n\n
 *
-* Otros: \n\n
-*
-*  - (Esto mas que un bug es algo que falto) No se hizo el ABM de administrador. El único administrador que puede ingresar
-*  es el de user "tp", pass "tp". Solucion: implementar la clase Administrador.
 * \n\n\n
 * <hr>
 * Aclaración importante:\n\n
