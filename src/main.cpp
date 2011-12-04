@@ -20,9 +20,43 @@ int main(int argc, char *argv[]){
 
 	//TestFactorizacion::ejecutar();
 
-	TestRomperRSA test;
+    ConsultaEntidades consulta;
+    ABMentidades abm;
 
-	test.iniciar();
+	Distrito distrito1("Capital");
+	abm.altaDistrito(distrito1);
+
+	Cargo cargo("CargoPrincipal");
+	abm.altaCargo(cargo);
+
+	Eleccion eleccion("10/02/2011", cargo, distrito1);
+	abm.altaEleccion(eleccion);
+
+	Lista lista("Lista1", eleccion);
+	abm.altaLista(lista);
+
+	Votante votante1(31533482, "Facundo Rossi", "hackersout", "Saraza", distrito1);
+
+	abm.altaVotante(votante1);
+
+	abm.agregarVoto(votante1, lista, distrito1);
+
+	Votante votante2;
+	string dni = "31533482";
+
+	if(!(consulta.ObtenerRegistro(dni, votante2)))
+	{
+		cout<<"El votante no existe"<<endl;
+	}
+
+	cout<<endl<<votante2.getDNI()<<endl;
+	cout<<votante2.getNombreYApellido()<<endl;
+	cout<<votante2.getClave()<<endl;
+	cout<<votante2.getDomicilio()<<endl;
+	votante2.getDistrito().Imprimir();
+	votante2.getElecciones()[0]->Imprimir();
+
+	cout<<endl<<endl;
 
 	Menu *menu = Menu::getMenu();
 	if (argc != 2){

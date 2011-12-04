@@ -185,6 +185,22 @@ string Utilidades::toString(string::size_type a)
 	return ss.str();
 }
 
+long Utilidades::toLong(string a)
+{
+	stringstream ss(a);
+	long n;
+	ss >> n;
+	return n;
+}
+
+int Utilidades::toInt(string a)
+{
+	stringstream ss(a);
+	int n;
+	ss >> n;
+	return n;
+}
+
 string Utilidades::obtenerClaveAdministrador(const string &usuario) {
 	string clave = usuario;
 	Utilidades::formatearClave(clave);

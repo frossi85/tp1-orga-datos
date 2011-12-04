@@ -1430,3 +1430,16 @@
 [3:16:21 - 21-10-2011]: Votante - El votante de dni 33000000  voto
 [3:39:10 - 21-10-2011]: Votante - El votante de dni 33000000  voto
 [3:45:19 - 21-10-2011]: Votante - El votante de dni 33000000  voto
+[23:36:42 - 3-12-2011]: Votante - Alta
+[23:58:21 - 3-12-2011]: Distrito - Alta
+[23:60:16 - 3-12-2011]: Distrito - Alta
+[23:60:16 - 3-12-2011]: Votante - Alta
+[24:9:55 - 3-12-2011]: Cargo - Alta
+[24:9:55 - 3-12-2011]: Eleccion - Alta
+[24:9:55 - 3-12-2011]: Lista - Alta
+[24:10:30 - 3-12-2011]: Distrito - Alta
+[24:10:30 - 3-12-2011]: Cargo - Alta
+[24:10:30 - 3-12-2011]: Eleccion - Alta
+[24:10:30 - 3-12-2011]: Lista - Alta
+[24:10:30 - 3-12-2011]: Votante - Alta
+[24:10:30 - 3-12-2011]: Votante - Modificación

@@ -196,31 +196,28 @@ bool Votante::Leer(ifstream & ifs, unsigned long int offset)
 	// Me posiciono en el archivo
 	ifs.seekg(offset,ios::beg);
 
-	//Comienzo lectura de atributos
-//	ifs.read(reinterpret_cast<char *>(&_id), sizeof(_id));
-//	ifs.read(reinterpret_cast<char *>(&_dni), sizeof(_dni));
-//	_nombreYApellido = Utilidades::stringFromFile(ifs);
-//	_clave = Utilidades::stringFromFile(ifs);
-//	_domicilio = Utilidades::stringFromFile(ifs);
 	Clave publica = Clave(34333445, 100160063);
 	Clave privada = Clave(10013, 100160063);
 
 
 	RSA rsa(privada, publica);
 
+	//cout<<endl<<endl<<"CHECKPOINT"<<endl<<endl;
+
+	//Comienzo lectura de atributos
 	string id = rsa.desencriptar(Utilidades::stringFromFile(ifs));
-	//convertir a long
+	_id = Utilidades::toLong(id);
 	string dni = rsa.desencriptar(Utilidades::stringFromFile(ifs));
-	//convertir a int
+	_dni = Utilidades::toInt(dni);
 	_nombreYApellido = rsa.desencriptar(Utilidades::stringFromFile(ifs));
 	_clave = rsa.desencriptar(Utilidades::stringFromFile(ifs));
 	_domicilio = rsa.desencriptar(Utilidades::stringFromFile(ifs));
 
+
 	//Se lee el id del Distrito
 	long idDistrito = 0;
-	ifs.read(reinterpret_cast<char *>(&idDistrito), sizeof(idDistrito));
-	//Leo estring encriptado perteneciente al distrito
-	//convierto el id distrito a long
+	string idDistritoStr = rsa.desencriptar(Utilidades::stringFromFile(ifs));
+	idDistrito = Utilidades::toLong(idDistritoStr);
 
 	// Busco en el hash id_distrito/offset el offset de ese idDistrito
 	string idDist = Utilidades::toString(idDistrito);
@@ -248,14 +245,19 @@ bool Votante::Leer(ifstream & ifs, unsigned long int offset)
 
 	// Leo la cantidad de elecciones
 	string::size_type cantidadElecciones = 0;
-	ifs.read(reinterpret_cast<char *>(&cantidadElecciones), sizeof(cantidadElecciones));
-	//Leo string q corresponde a cantidad de elecciones encriptada
-	//Convierto la cantidad de elecciones a string::size_type
+	string cantElecciones = rsa.desencriptar(Utilidades::stringFromFile(ifs));
+	cantidadElecciones = Utilidades::toLong(cantElecciones);
 
 	// Levanto todos los ids de las elecciones
 	long idVector[cantidadElecciones];
-	ifs.read(reinterpret_cast<char *>(idVector),cantidadElecciones * sizeof(this->_id));
-	//Aca tengo q ir haciendo un for leyendo los id (strings encriptadas) y cargandolas al vector como long
+	string idEleccionStr;
+	long idElecc;
+
+	for(string::size_type i = 0; i <  cantidadElecciones; i++){
+		idEleccionStr = rsa.desencriptar(Utilidades::stringFromFile(ifs));
+		idElecc = Utilidades::toLong(idEleccionStr);
+		idVector[i] = idElecc;
+	}
 
 	// Busco en el hash id_eleccion/offset el offset los id Elecciones
 	Eleccion eleccion;

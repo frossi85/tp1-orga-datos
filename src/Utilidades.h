@@ -28,6 +28,8 @@ public:
 	static string toString(long int a);
 	static string toString(int a);
 	static string toString(string::size_type a);
+	static long toLong(string a);
+	static int toInt(string a);
 	static string indexarFecha(string fecha);
 	static void formatearClave(string &clave);
 
